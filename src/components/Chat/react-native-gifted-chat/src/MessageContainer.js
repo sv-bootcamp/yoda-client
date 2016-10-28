@@ -88,7 +88,6 @@ export default class MessageContainer extends React.Component {
   }
 
   renderLoadEarlier() {
-
     if (this.props.loadEarlier === true) {
       const loadEarlierProps = {
         ...this.props,
@@ -100,12 +99,8 @@ export default class MessageContainer extends React.Component {
         <LoadEarlier {...loadEarlierProps}/>
       );
     }
-
     return null;
   }
-
-
-
   scrollTo(options) {
     this._invertibleScrollViewRef.scrollTo(options);
   }
@@ -118,7 +113,6 @@ export default class MessageContainer extends React.Component {
       console.warn('GiftedChat: `user` is missing for message', JSON.stringify(message));
       message.user = {};
     }
-
     const messageProps = {
       ...this.props,
       key: message._id,
@@ -127,7 +121,6 @@ export default class MessageContainer extends React.Component {
       nextMessage: message.nextMessage,
       position: message.user._id === this.props.user._id ? 'right' : 'left',
     };
-
     if (this.props.renderMessage) {
       return this.props.renderMessage(messageProps);
     }
@@ -144,10 +137,6 @@ export default class MessageContainer extends React.Component {
       />
     );
   }
-  refreshRemainSpace() {
-    //console.log("remainSpace",this.messageContainerHeight - this.messageContentHeight);
-    this.setState({remainSpace: this.messageContainerHeight - this.messageContentHeight});
-  }
 
   onMessageContentSizeChange(contentWidth, contentHeight){
     this.messageContentHeight = contentHeight;
@@ -158,12 +147,22 @@ export default class MessageContainer extends React.Component {
     this.messageContainerHeight = event.nativeEvent.layout.height;
     this.refreshRemainSpace();
   }
+
+  onChangeVisibleRows(visibleRows, changedRows){
+    console.log("ddd")
+  }
+
+  refreshRemainSpace() {
+    this.setState({remainSpace: this.messageContainerHeight - this.messageContentHeight});
+  }
+
   renderIfRemainSpaceisBiggerThanHeaderSize(){
     if (this.state.remainSpace > 110 ){
       return this.renderHeader()
     }
     return null
   }
+
   renderIfRemainSpaceisSmallerThanHeaderSize(){
     if (this.state.remainSpace <= 110 ){
       return this.renderHeader()
@@ -172,7 +171,6 @@ export default class MessageContainer extends React.Component {
   }
 
   renderHeader(){
-
     return (
       <View style={styles.headerContainer}>
         <View style={styles.headerRow}>
@@ -185,7 +183,8 @@ export default class MessageContainer extends React.Component {
               <Text style={styles.work}>
                 {this.state.opponent ?
                   this.state.opponent.work.length != 0 ?
-                    `${this.state.opponent.work[0].position.name} at ${this.state.opponent.work[0].employer.name}` :
+                    `${this.state.opponent.work[0].position.name} at ` +
+                    `${this.state.opponent.work[0].employer.name}` :
                     '' :
                   ''
                 }
@@ -200,7 +199,9 @@ export default class MessageContainer extends React.Component {
   }
 
   render() {
+
     return (
+
       <View ref='container'
             style={{flex:1}}
             onLayout={this.onMessageContainerOnLayout.bind(this)}
@@ -208,7 +209,7 @@ export default class MessageContainer extends React.Component {
         {this.renderIfRemainSpaceisBiggerThanHeaderSize()}
         <ListView
           enableEmptySections={true}
-          //keyboardShouldPersistTaps={true}
+          keyboardShouldPersistTaps={true}
           automaticallyAdjustContentInsets={false}
           initialListSize={20}
           pageSize={20}
@@ -218,9 +219,8 @@ export default class MessageContainer extends React.Component {
           renderFooter={this.renderIfRemainSpaceisSmallerThanHeaderSize.bind(this)}
           renderScrollComponent={this.renderScrollComponent}
           onContentSizeChange={this.onMessageContentSizeChange.bind(this)}
-        >
-
-        </ListView>
+          onChangeVisibleRows = {this.onChangeVisibleRows.bind(this)}
+        />
       </View>
     );
   }
@@ -272,11 +272,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     paddingTop : 8,
     color: '#a6aeae',
-  },
-  connectMessage: {
-    lineHeight:12,
-    fontSize: 12,
-    paddingTop : 5,
   },
 });
 

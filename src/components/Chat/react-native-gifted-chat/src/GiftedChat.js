@@ -1,15 +1,18 @@
 import React from 'react';
 import {
+  ActivityIndicator,
   Animated,
   InteractionManager,
   Platform,
   StyleSheet,
   View,
+  Text,
 } from 'react-native';
 
 import ActionSheet from '@exponent/react-native-action-sheet';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
 import moment from 'moment/min/moment-with-locales.min';
+
 
 import Actions from './Actions';
 import Avatar from './Avatar';
@@ -396,11 +399,18 @@ class GiftedChat extends React.Component {
     return null;
   }
 
-  renderLoading() {
-    if (this.props.renderLoading) {
-      return this.props.renderLoading();
-    }
-    return null;
+  renderLoadingView() {
+    return (
+      <View style={styles.header}>
+        <Text style={styles.headerText}>Loading...</Text>
+        <ActivityIndicator
+          animating={!this.state.loaded}
+          style={styles.activityIndicator}
+          size="large"
+          color="gray"
+        />
+      </View>
+    );
   }
 
   render() {
@@ -432,6 +442,7 @@ class GiftedChat extends React.Component {
       );
     }
     return (
+
       <View
         style={styles.container}
         onLayout={(e) => {
@@ -447,7 +458,7 @@ class GiftedChat extends React.Component {
           });
         }}
       >
-        {this.renderLoading()}
+        {this.renderLoadingView()}
       </View>
     );
   }
@@ -464,6 +475,21 @@ const styles = StyleSheet.create({
         marginTop: 54,
       },
     }),
+  },
+  activityIndicator: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  header: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    marginTop: 250,
+  },
+  headerText: {
+    fontSize: 20,
+    color: '#0e417a',
   },
 });
 
