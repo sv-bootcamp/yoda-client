@@ -1,21 +1,26 @@
 import React, { Component } from 'react';
 import {
- Alert,
- Image,
- StyleSheet,
- TouchableWithoutFeedback,
- TouchableHighlight,
- View,
+  Alert,
+  AsyncStorage,
+  Image,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  TouchableHighlight,
+  View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import ErrorMeta from '../utils/ErrorMeta';
 import LoginUtil from '../utils/LoginUtil';
+import ServerUtil from '../utils/ServerUtil';
 
 class Login extends Component {
 
   constructor(props) {
     super(props);
     LoginUtil.initCallback(this.onLoginSuccess, this.onLoginFail);
+    ServerUtil.initCallback(
+      (result) => this.onServerSuccess(result),
+      (error) => this.onServerFail(error));
   }
 
   componentWillMount() {
@@ -56,20 +61,15 @@ class Login extends Component {
     }
   }
 
-  // Token already exists on the server
-  onServerSuccess(result) {
-    if (result === undefined) {
-      Actions.login();
-    } else {
-      Actions.main();
-    }
+  onServerSuccess(myProflile) {
+    AsyncStorage.setItem('userInfo', JSON.stringify(myProflile));
+    Actions.main();
   }
 
   onServerFail(error) {
     if (error.code !== ErrorMeta.ERR_NONE) {
       alert(JSON.stringify(error.msg));
     }
-
     Actions.login();
   }
 }

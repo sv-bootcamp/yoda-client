@@ -3,6 +3,8 @@ import { Platform } from 'react-native';
 import SplashPage from './SplashPage';
 import Login from './Login';
 import Main from './Main';
+import ChannelList from './Chat/ChannelList'
+import ChatPage from './Chat/ChatPage'
 import UserList from './UserList/UserList';
 import UserProfile from './userProfile/UserProfile';
 import Activity from './Activity/Activity';
@@ -26,6 +28,13 @@ const reducerCreate = params=> {
 
       return defaultReducer(state, action);
     };
+};
+
+const refreshOnBack = () => {
+  Actions.pop();
+  setTimeout(() => {
+    Actions.refresh();
+  }, 10);
 };
 
 class App extends Component {
@@ -71,6 +80,10 @@ class App extends Component {
               borderBottomColor: 'transparent', }}/>
 
           <Scene key="activity" component={Activity} />
+
+          <Scene key="chatPage" onBack={refreshOnBack} component={ChatPage} />
+
+          <Scene key="channelList" component={ChannelList} />
 
           <Scene key="evalPageMain" component={EvalPage} hideBackImage={true} panHandlers={null}
             onBack={() => false} title="Survey" hideNavBar={false} />
