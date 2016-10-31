@@ -20,24 +20,25 @@ import SendBird from 'sendbird';
 class ChannelList extends Component {
   constructor(props) {
     super(props);
-    this.ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
+    this.ds = new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2 });
     this.state = {
-      me : props.me,
+      me: props.me,
       dataSource: this.ds.cloneWithRows([]),
       loaded: false,
-      channelList: []
+      channelList: [],
     };
     this.sb = SendBird();
     this.ChannelHandler = new this.sb.ChannelHandler();
     this.ChannelHandler.onMessageReceived = (channel, userMessage) => {
 
-      ///Todo : using channe & userMessage params, update list seperately.
+      ///Todo : using channel & userMessage params, update list seperately.
       this.initChannelList();
     };
+
     this.sb.addChannelHandler('ChannelList', this.ChannelHandler);
   }
 
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
     this.initChannelList();
   }
 
@@ -50,31 +51,32 @@ class ChannelList extends Component {
     if (state === 'active') {
       SendBird().connect(this.state.me._id, function (user, error) {
         if (error) {
-          throw new Error(error)
+          throw new Error(error);
         }
+
         this.initChannelList();
       }.bind(this));
     }
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     AppState.removeEventListener('change');
     this.sb.removeChannelHandler('ChannelList');
   }
 
-  initChannelList(){
+  initChannelList() {
     const channelListQuery = SendBird().GroupChannel.createMyGroupChannelListQuery();
     channelListQuery.includeEmpty = true;
 
     if (channelListQuery.hasNext) {
-      channelListQuery.next(function(channelList, error){
+      channelListQuery.next(function (channelList, error) {
         if (error) {
           throw new Error();
-        }else{
+        } else {
           this.setState({
-            channelList : channelList,
+            channelList: channelList,
             dataSource: this.ds.cloneWithRows(channelList),
-            loaded : true,
+            loaded: true,
           });
         }
       }.bind(this));
@@ -87,27 +89,27 @@ class ChannelList extends Component {
       _id = {this.state.me._id}
       dataSource={rowData}
     />
-    )
+    );
   }
 
-  renderSearchBar(){
+  renderSearchBar() {
 
     ///Todo : Complete Search bar and sort list.
     return (
       <View style={styles.searchBarContainer}>
         <TextInput
-           ref="input"
-           autoCapitalize="none"
+           ref='input'
+           autoCapitalize='none'
            autoCorrect={false}
            autoFocus={false}
            onChange={this.onSearchChange}
-           placeholder="Search people"
-           placeholderTextColor="#c6cbcc"
+           placeholder='Search people'
+           placeholderTextColor='#c6cbcc'
            style={styles.searchBarInput}
-           underlineColorAndroid="transparent"
+           underlineColorAndroid='transparent'
          />
       </View>
-    )
+    );
   }
 
   renderLoadingView() {
@@ -117,17 +119,19 @@ class ChannelList extends Component {
         <ActivityIndicator
           animating={true}
           style={[styles.loadingViewActivityIndicator]}
-          size="large"
+          size='large'
         />
       </View>
     );
   }
 
-
   renderOnboardingView() {
     return (
       <View style={styles.onboardingView}>
-        <Image style={styles.onboardingImage} source={require('../../resources/chat_onboarding.png')} />
+        <Image
+          style={styles.onboardingImage}
+          source={require('../../resources/chat_onboarding.png')}
+        />
         <Text style={styles.onboardingText1} >Make a chat!</Text>
         <Text style={styles.onboardingText2}>You did not chat with anyone yet.</Text>
       </View>
@@ -149,10 +153,11 @@ class ChannelList extends Component {
   render() {
     if (!this.state.loaded) {
       return this.renderLoadingView();
-    }else{
-      if(this.state.channelList.length == 0) {
+    } else {
+      if (this.state.channelList.length == 0) {
         return this.renderOnboardingView();
       }
+
       return this.renderListView();
     }
   }
@@ -169,8 +174,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#0e417a',
   },
-  loadingViewActivityIndicator:{
-    marginTop:30,
+  loadingViewActivityIndicator: {
+    marginTop: 30,
   },
   container: {
     marginTop: 50,
@@ -187,23 +192,23 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  searchBarContainer:{
-    height:50,
-    padding:10,
-    alignItems:'center',
-    justifyContent : 'center',
-    backgroundColor:'#efeff2',
-    flexDirection:'row',
+  searchBarContainer: {
+    height: 50,
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#efeff2',
+    flexDirection: 'row',
   },
-  searchBarInput:{
-    flex:1,
-    paddingLeft:10,
-    paddingRight:10,
-    paddingBottom :0,
-    paddingTop :0,
-    fontSize:12,
+  searchBarInput: {
+    flex: 1,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 0,
+    paddingTop: 0,
+    fontSize: 12,
     borderRadius: 5,
-    backgroundColor:'#ffffff',
+    backgroundColor: '#ffffff',
     textDecorationLine: 'none',
   },
   header: {
@@ -224,7 +229,7 @@ const styles = StyleSheet.create({
     marginTop: 200,
   },
 
-  onboardingView:{
+  onboardingView: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',

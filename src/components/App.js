@@ -3,8 +3,8 @@ import { Platform } from 'react-native';
 import SplashPage from './SplashPage';
 import Login from './Login';
 import Main from './Main';
-import ChannelList from './Chat/ChannelList'
-import ChatPage from './Chat/ChatPage'
+import ChannelList from './Chat/ChannelList';
+import ChatPage from './Chat/ChatPage';
 import UserList from './UserList/UserList';
 import UserProfile from './userProfile/UserProfile';
 import Activity from './Activity/Activity';
@@ -30,8 +30,10 @@ const reducerCreate = params=> {
     };
 };
 
-const refreshOnBack = () => {
+const refreshPreviousSceneOnBack = () => {
   Actions.pop();
+
+  //Delay 10ms to refresh previous scene when current scene is completely popped.
   setTimeout(() => {
     Actions.refresh();
   }, 10);
@@ -80,7 +82,7 @@ class App extends Component {
 
           <Scene key="activity" component={Activity} />
 
-          <Scene key="chatPage" onBack={refreshOnBack} component={ChatPage} />
+          <Scene key="chatPage" onBack={refreshPreviousSceneOnBack} component={ChatPage} />
 
           <Scene key="channelList" component={ChannelList} />
 

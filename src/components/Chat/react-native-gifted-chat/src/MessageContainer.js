@@ -24,9 +24,7 @@ export default class MessageContainer extends React.Component {
     this.renderScrollComponent = this.renderScrollComponent.bind(this);
 
     const dataSource = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => {
-        return r1.hash !== r2.hash;
-      }
+      rowHasChanged: (r1, r2) => (r1.hash !== r2.hash),
     });
 
     const messagesData = this.prepareMessages(props.messages);
@@ -43,16 +41,17 @@ export default class MessageContainer extends React.Component {
       blob: messages.reduce((o, m, i) => {
         const previousMessage = messages[i + 1] || {};
         const nextMessage = messages[i - 1] || {};
+
         // add next and previous messages to hash to ensure updates
         const toHash = JSON.stringify(m) + previousMessage._id + nextMessage._id;
         o[m._id] = {
           ...m,
           previousMessage,
           nextMessage,
-          hash: md5(toHash)
+          hash: md5(toHash),
         };
         return o;
-      }, {})
+      }, {}),
     };
   }
 
@@ -60,9 +59,11 @@ export default class MessageContainer extends React.Component {
     if (!shallowequal(this.props, nextProps)) {
       return true;
     }
+
     if (!shallowequal(this.state, nextState)) {
       return true;
     }
+
     return false;
   }
 
@@ -70,6 +71,7 @@ export default class MessageContainer extends React.Component {
     if (this.props.messages === nextProps.messages) {
       return;
     }
+
     const messagesData = this.prepareMessages(nextProps.messages);
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(messagesData.blob, messagesData.keys),
@@ -84,6 +86,7 @@ export default class MessageContainer extends React.Component {
       };
       return this.props.renderFooter(footerProps);
     }
+
     return null;
   }
 
@@ -95,12 +98,15 @@ export default class MessageContainer extends React.Component {
       if (this.props.renderLoadEarlier) {
         return this.props.renderLoadEarlier(loadEarlierProps);
       }
+
       return (
         <LoadEarlier {...loadEarlierProps}/>
       );
     }
+
     return null;
   }
+
   scrollTo(options) {
     this._invertibleScrollViewRef.scrollTo(options);
   }
@@ -109,10 +115,12 @@ export default class MessageContainer extends React.Component {
     if (!message._id && message._id !== 0) {
       console.warn('GiftedChat: `_id` is missing for message', JSON.stringify(message));
     }
+
     if (!message.user) {
       console.warn('GiftedChat: `user` is missing for message', JSON.stringify(message));
       message.user = {};
     }
+
     const messageProps = {
       ...this.props,
       key: message._id,
@@ -124,6 +132,7 @@ export default class MessageContainer extends React.Component {
     if (this.props.renderMessage) {
       return this.props.renderMessage(messageProps);
     }
+
     return <Message {...messageProps}/>;
   }
 
@@ -138,43 +147,45 @@ export default class MessageContainer extends React.Component {
     );
   }
 
-  onMessageContentSizeChange(contentWidth, contentHeight){
+  onMessageContentSizeChange(contentWidth, contentHeight) {
     this.messageContentHeight = contentHeight;
     this.refreshRemainSpace();
   }
 
-  onMessageContainerOnLayout(event){
+  onMessageContainerOnLayout(event) {
     this.messageContainerHeight = event.nativeEvent.layout.height;
     this.refreshRemainSpace();
   }
 
   refreshRemainSpace() {
-    this.setState({remainSpace: this.messageContainerHeight - this.messageContentHeight});
+    this.setState({ remainSpace: this.messageContainerHeight - this.messageContentHeight });
   }
 
-  renderIfRemainSpaceisBiggerThanHeaderSize(){
-    if (this.state.remainSpace > 110 ){
-      return this.renderHeader()
+  renderIfRemainSpaceisBiggerThanHeaderSize() {
+    if (this.state.remainSpace > 110) {
+      return this.renderHeader();
     }
-    return null
+
+    return null;
   }
 
-  renderIfRemainSpaceisSmallerThanHeaderSize(){
-    if (this.state.remainSpace <= 110 ){
-      return this.renderHeader()
+  renderIfRemainSpaceisSmallerThanHeaderSize() {
+    if (this.state.remainSpace <= 110) {
+      return this.renderHeader();
     }
-    return null
+
+    return null;
   }
 
-  renderHeader(){
+  renderHeader() {
     return (
       <View style={styles.headerContainer}>
         <View style={styles.headerRow}>
           <Image style={styles.photo}
-                 source={{ uri: this.state.opponent? this.state.opponent.profile_picture : '' }}/>
+                 source={{ uri: this.state.opponent ? this.state.opponent.profile_picture : '' }}/>
           <View style={styles.userInformation}>
               <Text style={styles.name}>
-                {this.state.opponent? this.state.opponent.name : ''}
+                {this.state.opponent ? this.state.opponent.name : ''}
               </Text>
               <Text style={styles.work}>
                 {this.state.opponent ?
@@ -197,7 +208,7 @@ export default class MessageContainer extends React.Component {
   render() {
     return (
       <View ref='container'
-            style={{flex:1}}
+            style={{ flex: 1 }}
             onLayout={this.onMessageContainerOnLayout.bind(this)}
       >
         {this.renderIfRemainSpaceisBiggerThanHeaderSize()}
@@ -229,13 +240,13 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#aaa',
   },
-  headerContainer:{
-    height:110,
+  headerContainer: {
+    height: 110,
   },
-  headerRow:{
-    height:100,
+  headerRow: {
+    height: 100,
     flexDirection: 'row',
-    borderBottomWidth :1,
+    borderBottomWidth: 1,
     borderColor: '#efeff2',
   },
   photo: {
@@ -254,16 +265,16 @@ const styles = StyleSheet.create({
   },
 
   name: {
-    lineHeight:15,
+    lineHeight: 15,
     fontSize: 14,
     fontWeight: 'bold',
-    paddingTop : 24,
+    paddingTop: 24,
 
   },
   work: {
-    lineHeight:12,
+    lineHeight: 12,
     fontSize: 12,
-    paddingTop : 8,
+    paddingTop: 8,
     color: '#a6aeae',
   },
 });

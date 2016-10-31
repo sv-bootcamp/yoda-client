@@ -15,12 +15,14 @@ export default class Composer extends React.Component {
         onChange={(e) => {
           this.props.onChange(e);
         }}
+
         style={[styles.textInput, this.props.textInputStyle, {
           height: this.props.composerHeight,
-        }]}
+        },
+        ]}
         value={this.props.text}
         enablesReturnKeyAutomatically={true}
-        underlineColorAndroid="transparent"
+        underlineColorAndroid='transparent'
         {...this.props.textInputProps}
       />
     );
@@ -46,6 +48,7 @@ const styles = StyleSheet.create({
 
 Composer.defaultProps = {
   onChange: () => {},
+
   composerHeight: Platform.select({
     ios: 33,
     android: 41,
