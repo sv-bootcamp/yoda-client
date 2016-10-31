@@ -16,9 +16,13 @@ import EduForm from './EduForm';
 import ErrorMeta from '../../utils/ErrorMeta';
 import LinearGradient from 'react-native-linear-gradient';
 import MyPic from './MyPic';
-import Progress from './Progress';
+import Progress from '../Commons/Progress';
 import ServerUtil from '../../utils/ServerUtil';
 import WorkForm from './WorkForm';
+import {
+  Actions,
+  Scene,
+} from 'react-native-router-flux';
 
 class GeneralInfo extends Component {
 
@@ -44,7 +48,7 @@ class GeneralInfo extends Component {
     let workDS = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
     this.state = {
-      resetFlag: false,
+      refreshFlag: false,
       mypic: '',
       name: '',
       email: '',
@@ -86,11 +90,6 @@ class GeneralInfo extends Component {
 
   // Render progress bar, profile image and form.
   render() {
-    let resetForm = () => {
-      if (this.state.resetFlag) {
-        this.setState({ resetFlag: false });
-      }
-    };
     let readyUploadImage = (imageResource) => {
       this.state.imageResource = imageResource;
     };
@@ -121,18 +120,12 @@ class GeneralInfo extends Component {
   // Regist general user info.
   regist() {
     if (this.state.name === '') {
-      Alert.alert(
-        'Sign In',
-        'Please input your name.',
-      );
+      Alert.alert('Sign In', 'Please input your name.');
       return;
     }
 
     if (this.state.email === '') {
-      Alert.alert(
-        'Sign In',
-        'Please input your email.',
-      );
+      Alert.alert('Sign In', 'Please input your email.');
       return;
     }
 
@@ -159,7 +152,9 @@ class GeneralInfo extends Component {
   }
 
   onUploadSuccess(result) {
-    alert(JSON.stringify(result));
+    //alert(JSON.stringify(result));
+    //this.setState({ refreshFlag: !this.state.refreshFlag });
+    this.refresh();
   }
 
   onUploadError(error) {
