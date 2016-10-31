@@ -11,7 +11,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 import moment from 'moment/min/moment.min';
 
-class Row extends Component {
+export class Row extends Component {
   constructor(props) {
     super(props);
 
@@ -190,5 +190,3 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
 });
-
-module.exports = Row;
