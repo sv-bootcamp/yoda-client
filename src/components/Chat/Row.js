@@ -53,8 +53,11 @@ class Row extends Component {
   }
 
   goToChat(){
-    const channelUser = { title: this.state.opponent.nickname, me:this.state.me, opponent:this.state.opponent};
-    Actions.chatPage(channelUser);
+    Actions.chatPage({
+      title: this.state.opponent.nickname,
+      me:this.state.me,
+      opponent:this.state.opponent
+    });
   }
 
   renderUnreadCount(){
@@ -84,14 +87,14 @@ class Row extends Component {
               <Text style={styles.lastMessage}>
                 {this.state.lastMessageInfo ? this.state.lastMessageInfo.message : ''}
               </Text>
-
             </View>
             <View style={styles.rightSection} >
               <View style={styles.rightTopSection}>
                 <Text style={styles.lastTimestamp}>
                   {
                     this.state.lastMessageInfo ?
-                      (moment(Date.now()).startOf('day').isSame(moment(this.state.lastMessageInfo.createdAt).startOf('day')) ?
+                      (moment(Date.now()).startOf('day')
+                        .isSame(moment(this.state.lastMessageInfo.createdAt).startOf('day')) ?
                         moment(this.state.lastMessageInfo.createdAt)
                           .format('LT')
                         :
@@ -101,12 +104,14 @@ class Row extends Component {
                       ''
                   }
                 </Text>
-                <Image style={styles.onboardingImage} source={require('../../resources/indicator_right.png')} />
+                <Image
+                  style={styles.onboardingImage}
+                  source={require('../../resources/indicator_right.png')}
+                />
               </View>
               {this.renderUnreadCount()}
             </View>
           </View>
-
         </View>
       </TouchableHighlight>
     );

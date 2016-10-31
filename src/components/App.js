@@ -45,7 +45,6 @@ class App extends Component {
   }
 
   render() {
-
     // Platform verification
     let isAndroid = (Platform.OS === 'android');
 

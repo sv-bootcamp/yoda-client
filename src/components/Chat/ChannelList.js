@@ -13,21 +13,18 @@ import {
   Vibration,
   View,
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import Row from './Row';
 import SendBird from 'sendbird';
 
 ///Todo : Implement Sort by Alphabet & Latest Action in iOS native.
-
 class ChannelList extends Component {
   constructor(props) {
     super(props);
     this.ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
     this.state = {
-      _id : undefined,
+      me : props.me,
       dataSource: this.ds.cloneWithRows([]),
       loaded: false,
-      isRefreshing: false,
       channelList: []
     };
     this.sb = SendBird();
@@ -45,21 +42,13 @@ class ChannelList extends Component {
   }
 
   componentDidMount() {
-    Actions.refresh({title: 'Chat'})
-    AsyncStorage.getItem('userInfo', (err, result) => {
-      const userInfo = JSON.parse(result);
-      this.setState({
-        _id : userInfo._id,
-      });
-    });
     this.initChannelList();
-
     AppState.addEventListener('change', this.onAppStateChange.bind(this));
   }
 
   onAppStateChange(state) {
     if (state === 'active') {
-      SendBird().connect(this.state._id, function (user, error) {
+      SendBird().connect(this.state.me._id, function (user, error) {
         if (error) {
           throw new Error(error)
         }
@@ -74,7 +63,6 @@ class ChannelList extends Component {
   }
 
   initChannelList(){
-
     const channelListQuery = SendBird().GroupChannel.createMyGroupChannelListQuery();
     channelListQuery.includeEmpty = true;
 
@@ -96,7 +84,7 @@ class ChannelList extends Component {
   renderRow(rowData) {
     return (
       <Row
-      _id = {this.state._id}
+      _id = {this.state.me._id}
       dataSource={rowData}
     />
     )
@@ -105,22 +93,21 @@ class ChannelList extends Component {
   renderSearchBar(){
 
     ///Todo : Complete Search bar and sort list.
-    return null;
-    //return (
-    //  <View style={styles.searchBarContainer}>
-    //    <TextInput
-    //       ref="input"
-    //       autoCapitalize="none"
-    //       autoCorrect={false}
-    //       autoFocus={false}
-    //       onChange={this.onSearchChange}
-    //       placeholder="Search people"
-    //       placeholderTextColor="#c6cbcc"
-    //       style={styles.searchBarInput}
-    //       underlineColorAndroid="transparent"
-    //     />
-    //  </View>
-    //)
+    return (
+      <View style={styles.searchBarContainer}>
+        <TextInput
+           ref="input"
+           autoCapitalize="none"
+           autoCorrect={false}
+           autoFocus={false}
+           onChange={this.onSearchChange}
+           placeholder="Search people"
+           placeholderTextColor="#c6cbcc"
+           style={styles.searchBarInput}
+           underlineColorAndroid="transparent"
+         />
+      </View>
+    )
   }
 
   renderLoadingView() {
@@ -153,7 +140,7 @@ class ChannelList extends Component {
         style={styles.listView}
         dataSource = {this.state.dataSource}
         renderRow  = {this.renderRow.bind(this)}
-        renderHeader = {this.renderSearchBar}
+        renderHeader = {null}
         enableEmptySections={true}
       />
     );

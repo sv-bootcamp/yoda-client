@@ -21,6 +21,10 @@ class Login extends Component {
     ServerUtil.initCallback(
       (result) => this.onServerSuccess(result),
       (error) => this.onServerFail(error));
+
+  }
+  componentDidMount(){
+
   }
 
   componentWillMount() {
@@ -31,27 +35,26 @@ class Login extends Component {
 
   render() {
     return (
-
-          //  Render the screen on View.
-           <View style={styles.container}>
-             <View style={styles.welcomeContain}>
-                <Image source={require('../resources/splash_icon_1x.png')} />
-             </View>
-
-             {/* Render facebook login button */}
-             <TouchableWithoutFeedback onPress={LoginUtil.signInWithFacebook}>
-               <Image style={styles.facebookLoginButton}
-               source={require('../resources/facebook_2x.png')} />
-              </TouchableWithoutFeedback>
+      //  Render the screen on View.
+      <View style={styles.container}>
+        <View style={styles.welcomeContain}>
+          <Image source={require('../resources/splash_icon_1x.png')} />
         </View>
-     );
+
+        {/* Render facebook login button */}
+        <TouchableWithoutFeedback onPress={LoginUtil.signInWithFacebook}>
+          <Image style={styles.facebookLoginButton}
+                 source={require('../resources/facebook_2x.png')} />
+        </TouchableWithoutFeedback>
+      </View>
+    );
   }
 
   onLoginSuccess(result) {
     if (result === undefined) {
       Actions.login();
     } else {
-      Actions.main();
+      ServerUtil.getMyProfile();
     }
   }
 
@@ -62,8 +65,7 @@ class Login extends Component {
   }
 
   onServerSuccess(myProflile) {
-    AsyncStorage.setItem('userInfo', JSON.stringify(myProflile));
-    Actions.main();
+    Actions.main({me:myProflile});
   }
 
   onServerFail(error) {

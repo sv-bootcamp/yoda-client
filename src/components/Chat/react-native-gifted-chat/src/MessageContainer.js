@@ -148,10 +148,6 @@ export default class MessageContainer extends React.Component {
     this.refreshRemainSpace();
   }
 
-  onChangeVisibleRows(visibleRows, changedRows){
-    console.log("ddd")
-  }
-
   refreshRemainSpace() {
     this.setState({remainSpace: this.messageContainerHeight - this.messageContentHeight});
   }
@@ -199,9 +195,7 @@ export default class MessageContainer extends React.Component {
   }
 
   render() {
-
     return (
-
       <View ref='container'
             style={{flex:1}}
             onLayout={this.onMessageContainerOnLayout.bind(this)}
@@ -219,7 +213,6 @@ export default class MessageContainer extends React.Component {
           renderFooter={this.renderIfRemainSpaceisSmallerThanHeaderSize.bind(this)}
           renderScrollComponent={this.renderScrollComponent}
           onContentSizeChange={this.onMessageContentSizeChange.bind(this)}
-          onChangeVisibleRows = {this.onChangeVisibleRows.bind(this)}
         />
       </View>
     );
