@@ -11,7 +11,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 import moment from 'moment/min/moment.min';
 
-export class Row extends Component {
+export default class Row extends Component {
   constructor(props) {
     super(props);
 
