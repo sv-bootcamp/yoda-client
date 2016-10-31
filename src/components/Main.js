@@ -20,7 +20,6 @@ import UserProfile from './userProfile/UserProfile';
 const APP_ID = 'D1A48349-CBE6-41FF-9FF8-BCAA2A068B05';
 
 class Main extends Component {
-
   constructor(props) {
     super(props);
     new SendBird({
