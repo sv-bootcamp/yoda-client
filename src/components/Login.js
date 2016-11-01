@@ -52,15 +52,15 @@ class Login extends Component {
           <TextInput style={styles.input}
                      placeholder="Email"
                      placeholderTextColor="#d8d8d8"
-                     underlineColorAndroid="#F5FCFF" />
+                     underlineColorAndroid="#efeff2" />
           <TextInput style={styles.input}
                      placeholder="Password"
                      placeholderTextColor="#d8d8d8"
-                     underlineColorAndroid="#F5FCFF" />
+                     underlineColorAndroid="#efeff2" />
         </View>
 
 
-        <TouchableWithoutFeedback onPress={() => this.regist()}>
+        <TouchableWithoutFeedback onPress={() => alert('Login')}>
           <LinearGradient
             colors={['#44acff', '#07e4dd']}
             start={[0.0, 0.0]} end={[1.0, 1.0]}
@@ -69,7 +69,11 @@ class Login extends Component {
           </LinearGradient>
         </TouchableWithoutFeedback>
 
-        <Text style={styles.subText}>Forgot password?</Text>
+        <TouchableWithoutFeedback onPress={() => alert('Find password')}>
+          <View style={styles.subTextContainer}>
+            <Text style={styles.subText}>Forgot password?</Text>
+          </View>
+        </TouchableWithoutFeedback>
       </View>
     );
   }
@@ -119,7 +123,7 @@ const styles = StyleSheet.create({
   },
   facebookLoginButton: {
     marginTop: 67,
-    width: 240,
+    width: 200,
   },
   hrContainer: {
     flexDirection: 'row',
@@ -150,8 +154,6 @@ const styles = StyleSheet.create({
     paddingLeft: 14,
     paddingRight: 14,
     fontSize: 14,
-    borderWidth: 1,
-    borderColor: '#efeff2',
   },
   loginBtn: {
     width: 240,
@@ -167,8 +169,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-  subText: {
+  subTextContainer: {
     marginTop: 10,
+  },
+  subText: {
     fontSize: 12,
     color: '#44acff',
   },
