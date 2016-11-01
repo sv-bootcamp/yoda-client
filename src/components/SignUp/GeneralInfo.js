@@ -154,7 +154,8 @@ class GeneralInfo extends Component {
   onUploadSuccess(result) {
     //alert(JSON.stringify(result));
     //this.setState({ refreshFlag: !this.state.refreshFlag });
-    this.refresh();
+    Actions.main();
+    //this.refresh();
   }
 
   onUploadError(error) {
