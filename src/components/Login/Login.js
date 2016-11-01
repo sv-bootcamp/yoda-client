@@ -10,9 +10,9 @@ import {
  View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import ErrorMeta from '../utils/ErrorMeta';
+import ErrorMeta from '../../utils/ErrorMeta';
 import LinearGradient from 'react-native-linear-gradient';
-import LoginUtil from '../utils/LoginUtil';
+import LoginUtil from '../../utils/LoginUtil';
 
 class Login extends Component {
 
@@ -33,13 +33,13 @@ class Login extends Component {
       //  Render the screen on View.
       <View style={styles.container}>
         <View style={styles.mainLogo}>
-          <Image source={require('../resources/splash_icon_1x.png')} />
+          <Image source={require('../../resources/splash_icon_1x.png')} />
         </View>
 
         {/* Render facebook login button */}
         <TouchableWithoutFeedback onPress={LoginUtil.signInWithFacebook}>
           <Image style={styles.facebookLoginButton}
-                 source={require('../resources/login-fb.png')} />
+                 source={require('../../resources/login-fb.png')} />
         </TouchableWithoutFeedback>
 
         <View style={styles.hrContainer}>
@@ -69,7 +69,7 @@ class Login extends Component {
           </LinearGradient>
         </TouchableWithoutFeedback>
 
-        <TouchableWithoutFeedback onPress={() => alert('Find password')}>
+        <TouchableWithoutFeedback onPress={() => Actions.findPassStep1()}>
           <View style={styles.subTextContainer}>
             <Text style={styles.subText}>Forgot password?</Text>
           </View>
