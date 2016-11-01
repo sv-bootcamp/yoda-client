@@ -14,7 +14,6 @@ import LoginUtil from '../utils/LoginUtil';
 import ServerUtil from '../utils/ServerUtil';
 
 class Login extends Component {
-
   constructor(props) {
     super(props);
     LoginUtil.initCallback(this.onLoginSuccess, this.onLoginFail);

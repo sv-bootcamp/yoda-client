@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform } from 'react-native';
+import { Platform, Alert } from 'react-native';
 import SplashPage from './SplashPage';
 import Login from './Login';
 import Main from './Main';
@@ -40,7 +40,6 @@ const refreshPreviousSceneOnBack = () => {
 };
 
 class App extends Component {
-
   constructor(props) {
     super(props);
     this.scene = null;
@@ -68,14 +67,20 @@ class App extends Component {
           <Scene key="login" component={Login}
             initial={!isAndroid} hideNavBar={true} type={ActionConst.RESET}/>
 
-          <Scene key="main" component={Main} title="Bridgeme"
+          {/* The right button(filter) function will be added later */}
+          <Scene key="main" component={Main} title="Bridgeme" rightTitle="right"
+            rightButtonTextStyle={{ color: 'transparent' }}
+            rightButtonIconStyle={{ marginBottom: 13, marginRight: 6 }}
+            onRight={()=>Alert.alert('Filtering service will come soon')
+            }
+            rightButtonImage={require('../resources/filter.png')}
             hideNavBar={false} type={ActionConst.RESET}/>
 
           <Scene key="userList" component={UserList} />
 
           <Scene key='myPage' component={MyPage}/>
 
-          <Scene key="userProfile" component={UserProfile} hideBackImage={false}
+            <Scene key="userProfile" component={UserProfile} hideBackImage={false}
             backButtonImage={require('../resources/icon-arrow-left-white.png')}
             navigationBarStyle={{ backgroundColor: 'transparent',
               borderBottomColor: 'transparent', }}/>
