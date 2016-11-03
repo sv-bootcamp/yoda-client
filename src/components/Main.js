@@ -16,6 +16,7 @@ import ScrollableTabView  from 'react-native-scrollable-tab-view';
 import TabBar from './Shared/TabBar';
 import UserList from './UserList/UserList';
 import UserProfile from './userProfile/UserProfile';
+import NetState from 'react-native-net-state';
 
 const APP_ID = 'D1A48349-CBE6-41FF-9FF8-BCAA2A068B05';
 
@@ -23,27 +24,31 @@ class Main extends Component {
   constructor(props) {
     super(props);
     new SendBird({
-      appId: APP_ID
+      appId: APP_ID,
     });
   }
 
-  componentDidMount(){
-    AsyncStorage.getItem('userInfo', (err, result) => {
-      if(err){
-        throw new Error(err)
+  componentDidMount() {
+    this.connectSendBird();
+  }
+
+  connectSendBird() {
+    SendBird().connect(this.props.me._id, function (user, error) {
+      if (error) {
+        alert(error);
+        throw new Error(error);
       }
-      this.userInfo = JSON.parse(result);
-      SendBird().connect(`${this.userInfo._id}`, function (user, error) {
-        if(error){
-          throw new Error(error)
-        }
-        SendBird().updateCurrentUserInfo(this.userInfo.name, this.userInfo.profile_picture, function (response, error) {
-          if(error){
-            throw new Error(error)
+
+      SendBird().updateCurrentUserInfo(
+        this.props.me.name,
+        this.props.me.profile_picture,
+        function (response, error) {
+          if (error) {
+            alert(error);
+            throw new Error(error);
           }
         }.bind(this));
-      }.bind(this));
-    });
+    }.bind(this));
   }
 
   render() {
