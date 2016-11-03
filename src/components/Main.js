@@ -14,8 +14,6 @@ import SendBird from 'sendbird';
 import ScrollableTabView  from 'react-native-scrollable-tab-view';
 import TabBar from './Shared/TabBar';
 import UserList from './UserList/UserList';
-import UserProfile from './userProfile/UserProfile';
-import NetState from 'react-native-net-state';
 
 const APP_ID = 'D1A48349-CBE6-41FF-9FF8-BCAA2A068B05';
 
