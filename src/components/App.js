@@ -44,9 +44,10 @@ class App extends Component {
     let isAndroid = (Platform.OS === 'android');
 
     let backAndroidHandler = () => {
-      if (App.scene.sceneKey === 'evalPageMain' || App.scene.sceneKey == 'main') {
+      let scene = App.scene.sceneKey;
+      if (scene === 'evalPageMain' || scene == 'main') {
         return true;
-      } else if (App.scene.sceneKey === 'generalInfo') {
+      } else if (scene === 'generalInfo' || scene == 'login') {
         return true;
       } else {
         Actions.pop();
