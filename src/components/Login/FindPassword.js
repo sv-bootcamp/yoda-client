@@ -15,6 +15,10 @@ class FindPassStep1 extends Component {
   }
 
   render() {
+    let onChangeText = (text) => {
+      this.props.onChangeText(text);
+    };
+
     return (
 
       //  Render the screen on View.
@@ -25,6 +29,7 @@ class FindPassStep1 extends Component {
         <View style={styles.inputContainer}>
           <TextInput style={styles.input}
                      placeholder={this.props.inputHint}
+                     onChangeText={onChangeText}
                      placeholderTextColor="#d8d8d8"
                      underlineColorAndroid="#efeff2" />
         </View>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Platform, StyleSheet } from 'react-native';
 import SplashPage from './SplashPage';
 import Login from './Login/Login';
+import SignUp from './Login/SignUp';
 import FindPassStep1 from './Login/FindPassStep1';
 import FindPassStep2 from './Login/FindPassStep2';
 import FindPassStep3 from './Login/FindPassStep3';
@@ -64,6 +65,9 @@ class App extends Component {
             initial={isAndroid} hideNavBar={true} type={ActionConst.RESET} />
 
           <Scene key="login" component={Login}
+            initial={!isAndroid} hideNavBar={true} type={ActionConst.RESET} />
+
+          <Scene key="signUp" component={SignUp}
             initial={!isAndroid} hideNavBar={true} type={ActionConst.RESET} />
 
           <Scene key="findPassStep1" component={FindPassStep1} title="Forgot Password"

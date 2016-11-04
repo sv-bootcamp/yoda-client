@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
  Alert,
- AsyncStorage,
  Image,
  StyleSheet,
  Text,
@@ -23,7 +22,8 @@ class Login extends Component {
 
     this.state = {
       email: '',
-      password: '',
+      password1: '',
+      password2: '',
     };
 
     LoginUtil.initCallback(this.onLoginSuccess, this.onServerFail);
@@ -51,7 +51,9 @@ class Login extends Component {
 
   render() {
     let onChangeEmail = (text) => { this.state.email = text; };
-    let onChangePassword = (text) => { this.state.password = text; };
+    let onChangePassword1 = (text) => { this.state.password1 = text; };
+    let onChangePassword2 = (text) => { this.state.password2 = text; };
+    let createAccount = () => this.createAccount();
 
     return (
 
@@ -89,31 +91,35 @@ class Login extends Component {
                      ref="2"
                      placeholder="Password"
                      secureTextEntry={true}
+                     returnKeyType="next"
                      placeholderTextColor="#d8d8d8"
-                     onChangeText={onChangePassword}
-                     underlineColorAndroid="#efeff2" />
+                     underlineColorAndroid="#efeff2"
+                     onChangeText={onChangePassword1}
+                     onSubmitEditing={() => this.focusNextField('3')} />
+          <TextInput style={styles.input}
+                     ref="3"
+                     placeholder="Confirm password"
+                     secureTextEntry={true}
+                     placeholderTextColor="#d8d8d8"
+                     underlineColorAndroid="#efeff2"
+                     onChangeText={onChangePassword2} />
         </View>
 
-        <TouchableWithoutFeedback onPress={() => this.signIn()}>
+
+        <TouchableWithoutFeedback onPress={createAccount}>
           <LinearGradient
             colors={['#44acff', '#07e4dd']}
             start={[0.0, 0.0]} end={[1.0, 1.0]}
             style={styles.loginBtn}>
-            <Text style={styles.loginBtnText}>LOG IN</Text>
+            <Text style={styles.loginBtnText}>CREATE ACCOUNT</Text>
           </LinearGradient>
         </TouchableWithoutFeedback>
 
-        <TouchableWithoutFeedback onPress={() => Actions.findPassStep1()}>
-          <View style={styles.subTextContainer}>
-            <Text style={styles.subText}>Forgot password?</Text>
-          </View>
-        </TouchableWithoutFeedback>
-
         <View style={styles.bottomContainer}>
-          <Text style={styles.bottomTextLeft}>Don't you have an account? </Text>
-          <TouchableWithoutFeedback onPress={() => Actions.signUp()}>
+          <Text style={styles.bottomTextLeft}>Do you have an account? </Text>
+          <TouchableWithoutFeedback onPress={() => Actions.login()}>
             <View>
-              <Text style={styles.bottomTextRight}>Sign up</Text>
+              <Text style={styles.bottomTextRight}>Log in</Text>
             </View>
           </TouchableWithoutFeedback>
         </View>
@@ -121,31 +127,43 @@ class Login extends Component {
     );
   }
 
-  signIn() {
+  createAccount() {
     let emailFilter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (emailFilter.test(this.state.email) === false) {
       this.alert('Please input your correct email.');
       return;
     }
 
-    if (this.state.password === '') {
+    if (this.state.password1 === '') {
       this.alert('Please input your password.');
       return;
     }
 
+    if (this.state.password2 === '') {
+      this.alert('Please input your password for comparison.');
+      return;
+    }
+
+    if (this.state.password1 != this.state.password2) {
+      this.alert('Please input your password correctly');
+      return;
+    }
+
     ServerUtil.initCallback(this.onServerSuccess, this.onServerFail);
-    ServerUtil.signIn(this.state.email, this.state.password);
+    ServerUtil.createAccount(this.state.email, this.state.password1);
   }
 
   onServerSuccess(result) {
-    AsyncStorage.setItem('token', result.user.password);
-    Actions.generalInfo();
+    alert(JSON.stringify(result));
   }
 
   focusNextField(refNo) {
     this.refs[refNo].focus();
   }
 
+  alert(msg) {
+    Alert.alert('Sign In', msg);
+  }
 }
 
 const styles = StyleSheet.create({

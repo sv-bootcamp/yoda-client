@@ -66,41 +66,65 @@ class ServerUtil {
     this.requestToServer('POST', UrlMeta.API_EDIT_GENERAL, '', fieldSet);
   }
 
+  createAccount(email, password) {
+    let paramList = [email, password];
+    this.requestToServer('POST', UrlMeta.API_LOCAL_SIGNUP, '', paramList);
+  }
+
+  signIn(email, password) {
+    let paramList = [email, password];
+    this.requestToServer('POST', UrlMeta.API_LOCAL_SIGNIN, '', paramList);
+  }
+
+  // Send an email to get secret code
+  reqeustSecretCode(email) {
+    this.requestToServer('POST', UrlMeta.API_SECRET_CODE, '', email);
+  }
+
   // Request to server
   requestToServer(method, apiType, urlEtc, paramList) {
     AsyncStorage.multiGet(['loginType', 'token'], (err, stores) => {
-      let type = stores[0][1];
-      let token = stores[1][1];
+      //let type = stores[0][1];
+      //let token = stores[1][1];
 
-      if (token === null || token === undefined || token === '') {
-        this.onError(ErrorMeta.ERR_NO_LOGIN_TYPE);
-        return;
+      // if (token === null || token === undefined || token === '') {
+      //   this.onError(ErrorMeta.ERR_NO_LOGIN_TYPE);
+      //   return;
+      // }
+
+      // if (type == LoginMeta.LOGIN_TYPE_FB) {
+      //   let url = UrlMeta.host + apiType + urlEtc;
+      //   let formBody;
+      //   if (method === 'GET') {
+      //     formBody = this.makeGetFormBody(method, token, apiType, paramList);
+      //   } else if (method === 'POST') {
+      //     formBody = this.makePostFormBody(method, token, apiType, paramList);
+      //   }
+      //
+      //   this.fetchData(url, method, formBody);
+      // } else {
+      //   this.onError(ErrorMeta.ERR_NO_LOGIN_TYPE);
+      // }
+
+      let url = UrlMeta.host + apiType + urlEtc;
+      let formBody;
+      if (method === 'GET') {
+        formBody = this.makeGetFormBody(method, apiType, paramList);
+      } else if (method === 'POST') {
+        formBody = this.makePostFormBody(method, apiType, paramList);
       }
 
-      if (type == LoginMeta.LOGIN_TYPE_FB || type == LoginMeta.LOGIN_TYPE_LI) {
-        let url = UrlMeta.host + apiType + urlEtc;
-        let formBody;
-        if (method === 'GET') {
-          formBody = this.makeGetFormBody(method, token, apiType, paramList);
-        } else if (method === 'POST') {
-          formBody = this.makePostFormBody(method, token, apiType, paramList);
-        }
-
-        this.fetchData(url, method, formBody);
-      } else {
-        this.onError(ErrorMeta.ERR_NO_LOGIN_TYPE);
-      }
+      this.fetchData(url, method, formBody);
     });
   }
 
-  makeGetFormBody(httpMethod, token, apiType, paramList) {
-    let formBody = 'access_token=' + token;
-
+  makeGetFormBody(httpMethod, apiType, paramList) {
+    let formBody = '';
     if (apiType === UrlMeta.API_MENTOR_REQ) {
-      formBody += '&mentor_id=' + paramList[0];
+      formBody += 'mentor_id=' + paramList[0];
       formBody += '&content=' + paramList[1];
     } else if (apiType === UrlMeta.API_MENTOR_RESP) {
-      formBody += '&mentor_id=' + paramList[0];
+      formBody += 'mentor_id=' + paramList[0];
       formBody += '&option=' + paramList[1];
     }
 
@@ -111,7 +135,7 @@ class ServerUtil {
     }
   }
 
-  makePostFormBody(httpMethod, token, apiType, paramList) {
+  makePostFormBody(httpMethod, apiType, paramList) {
     let body = {};
 
     if (apiType === UrlMeta.API_MENTOR_REQ) {
@@ -122,6 +146,11 @@ class ServerUtil {
       body.option = paramList[1];
     } else if (apiType === UrlMeta.API_EDIT_GENERAL) {
       return JSON.stringify(paramList);
+    } else if (apiType === UrlMeta.API_LOCAL_SIGNUP || apiType === UrlMeta.API_LOCAL_SIGNIN) {
+      body.email = paramList[0];
+      body.password = paramList[1];
+    } else if (apiType === UrlMeta.API_SECRET_CODE) {
+      body.email = paramList;
     }
 
     return JSON.stringify(body);
@@ -176,6 +205,7 @@ class ServerUtil {
   }
 
   getException(error) {
+    console.log(JSON.stringify(error));
     serverUtil.onError(ErrorMeta.ERR_SERVER_FAIL);
   }
 }

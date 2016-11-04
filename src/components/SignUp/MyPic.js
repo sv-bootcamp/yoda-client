@@ -38,7 +38,10 @@ class MyPic extends Component {
 
   render() {
     let showPicker = () => this.showPicker();
-    let source = this.state.isDefault ? this.state.source : { uri: this.state.uri };
+    let source = this.state.source;
+    if (!this.state.isDefault && this.state.uri !== undefined) {
+      source = { uri: this.state.uri };
+    }
 
     return (
       <View style={styles.profileImageView}>
