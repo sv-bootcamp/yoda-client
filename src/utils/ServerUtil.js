@@ -66,19 +66,27 @@ class ServerUtil {
     this.requestToServer('POST', UrlMeta.API_EDIT_GENERAL, '', fieldSet);
   }
 
+  // Local SignUp
   createAccount(email, password) {
     let paramList = [email, password];
     this.requestToServer('POST', UrlMeta.API_LOCAL_SIGNUP, '', paramList);
   }
 
+  // Local SignIn
   signIn(email, password) {
     let paramList = [email, password];
     this.requestToServer('POST', UrlMeta.API_LOCAL_SIGNIN, '', paramList);
   }
 
-  // Send an email to get secret code
+  // Send an email address to get secret code
   reqeustSecretCode(email) {
     this.requestToServer('POST', UrlMeta.API_SECRET_CODE, '', email);
+  }
+
+  // Reset password
+  resetPassword(email, password) {
+    let paramList = [email, password];
+    this.requestToServer('POST', UrlMeta.API_RESET_PASS, '', paramList);
   }
 
   // Request to server
@@ -146,7 +154,9 @@ class ServerUtil {
       body.option = paramList[1];
     } else if (apiType === UrlMeta.API_EDIT_GENERAL) {
       return JSON.stringify(paramList);
-    } else if (apiType === UrlMeta.API_LOCAL_SIGNUP || apiType === UrlMeta.API_LOCAL_SIGNIN) {
+    } else if (apiType === UrlMeta.API_LOCAL_SIGNUP ||
+               apiType === UrlMeta.API_LOCAL_SIGNIN ||
+               apiType === UrlMeta.API_RESET_PASS) {
       body.email = paramList[0];
       body.password = paramList[1];
     } else if (apiType === UrlMeta.API_SECRET_CODE) {
@@ -196,7 +206,7 @@ class ServerUtil {
     if (response.status === 200 || response.status === 201) {
       return response.json();
     } else {
-      throw new Error(response.status);
+      //throw new Error(response.status);
     }
   }
 

@@ -68,7 +68,7 @@ class App extends Component {
             initial={!isAndroid} hideNavBar={true} type={ActionConst.RESET} />
 
           <Scene key="signUp" component={SignUp}
-            initial={!isAndroid} hideNavBar={true} type={ActionConst.RESET} />
+            hideNavBar={true} />
 
           <Scene key="findPassStep1" component={FindPassStep1} title="Forgot Password"
             hideNavBar={false} />
@@ -77,8 +77,7 @@ class App extends Component {
             hideNavBar={false} />
 
           <Scene key="findPassStep3" component={FindPassStep3} title="Forgot Password"
-            hideNavBar={false}
-            rightTitle="Save" onRight={() => alert('Save')} />
+            hideNavBar={false} />
 
           <Scene key="generalInfo" component={GeneralInfo} title="General Info"
             hideNavBar={false} type={ActionConst.RESET} />

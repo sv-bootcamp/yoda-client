@@ -8,7 +8,7 @@ import {
  View,
 } from 'react-native';
 
-class FindPassStep1 extends Component {
+class FindPassStep extends Component {
 
   constructor(props) {
     super(props);
@@ -28,10 +28,14 @@ class FindPassStep1 extends Component {
         </View>
         <View style={styles.inputContainer}>
           <TextInput style={styles.input}
+                     ref="1"
+                     returnKeyType={this.props.isFinal ? 'next' : 'done'}
+                     secureTextEntry={this.props.isFinal}
                      placeholder={this.props.inputHint}
                      onChangeText={onChangeText}
                      placeholderTextColor="#d8d8d8"
-                     underlineColorAndroid="#efeff2" />
+                     underlineColorAndroid="#efeff2"
+                     onSubmitEditing={() => this.focusNextField('2')} />
         </View>
         {this.props.isFinal ? this.renderInput() : this.renderButton()}
       </View>
@@ -51,25 +55,38 @@ class FindPassStep1 extends Component {
   }
 
   renderInput() {
+    let onChangeText = (text) => {
+      this.props.onChangeText2(text);
+    };
+
     return (
       <View style={styles.inputContainer2}>
         <TextInput style={styles.input}
+                   ref="2"
+                   secureTextEntry={this.props.isFinal}
                    placeholder={this.props.inputHint2}
+                   onChangeText={onChangeText}
                    placeholderTextColor="#d8d8d8"
                    underlineColorAndroid="#efeff2" />
       </View>
     );
+  }
+
+  focusNextField(refNo) {
+    if (!this.props.isFinal) return;
+    this.refs[refNo].focus();
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   titleContainer: {
-    marginTop: 101,
+    //marginTop: 101,
   },
   title: {
     color: '#2e3031',
@@ -104,4 +121,4 @@ const styles = StyleSheet.create({
   },
 });
 
-module.exports = FindPassStep1;
+module.exports = FindPassStep;

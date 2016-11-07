@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Alert,
-} from 'react-native';
+import { Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import ErrorMeta from '../../utils/ErrorMeta';
 import FindPassword from './FindPassword';
@@ -11,7 +9,9 @@ class FindPassStep1 extends Component {
   constructor(props) {
     super(props);
 
-    ServerUtil.initCallback(this.onSuccess, this.onError);
+    let onSuccess = (result) => this.onSuccess(result);
+    let onError = (error) => this.onError(error);
+    ServerUtil.initCallback(onSuccess, onError);
 
     this.state = {
       email: '',
@@ -29,7 +29,7 @@ class FindPassStep1 extends Component {
         ServerUtil.reqeustSecretCode(this.state.email);
       } else {
         Alert.alert(
-          'Sign In',
+          'Forgot password',
           'Please input your correct email.',
         );
       }
@@ -46,8 +46,10 @@ class FindPassStep1 extends Component {
   }
 
   onSuccess(result) {
-    alert(result);
-    //Actions.findPassStep2();
+    Actions.findPassStep2({
+      secretCode: result.secretCode,
+      email: this.state.email,
+    });
   }
 
   onError(error) {

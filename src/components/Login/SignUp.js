@@ -117,7 +117,7 @@ class Login extends Component {
 
         <View style={styles.bottomContainer}>
           <Text style={styles.bottomTextLeft}>Do you have an account? </Text>
-          <TouchableWithoutFeedback onPress={() => Actions.login()}>
+          <TouchableWithoutFeedback onPress={() => Actions.pop()}>
             <View>
               <Text style={styles.bottomTextRight}>Log in</Text>
             </View>
@@ -154,7 +154,12 @@ class Login extends Component {
   }
 
   onServerSuccess(result) {
-    alert(JSON.stringify(result));
+    if (result.msg && result.msg.indexOf('already in use') > -1) {
+      alert(result.msg);
+    } else {
+      alert('Your account is created successfuly!');
+      Actions.pop();
+    }
   }
 
   focusNextField(refNo) {
