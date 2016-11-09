@@ -1,7 +1,7 @@
 package com.yoda;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.content.Intent;
 import com.facebook.react.ReactActivity;
 
 public class MainActivity extends ReactActivity {

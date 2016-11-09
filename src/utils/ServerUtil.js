@@ -60,8 +60,6 @@ class ServerUtil {
     this.requestToServer('POST', UrlMeta.API_MENTOR_RESP, '', paramList);
   }
 
-<<<<<<< HEAD
-  // Edit general infomation
   editGeneral(fieldSet) {
     this.requestToServer('POST', UrlMeta.API_EDIT_GENERAL, '', fieldSet);
   }
@@ -222,7 +220,6 @@ class ServerUtil {
   }
 
   getException(error) {
-    console.log(JSON.stringify(error));
     serverUtil.onError(ErrorMeta.ERR_SERVER_FAIL);
   }
 }

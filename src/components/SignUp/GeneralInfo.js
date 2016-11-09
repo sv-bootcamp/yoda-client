@@ -16,7 +16,7 @@ import EduForm from './EduForm';
 import ErrorMeta from '../../utils/ErrorMeta';
 import LinearGradient from 'react-native-linear-gradient';
 import MyPic from './MyPic';
-import Progress from '../Commons/Progress';
+import Progress from '../Shared/Progress';
 import ServerUtil from '../../utils/ServerUtil';
 import WorkForm from './WorkForm';
 import {
@@ -30,7 +30,7 @@ class GeneralInfo extends Component {
   titles = [
     { name: 'Name', isArray: false, },
     { name: 'Email', isArray: false, },
-    { name: 'Language', isArray: false, },
+    { name: 'Languages', isArray: false, },
     { name: 'Location', isArray: false, },
     { name: 'About', isArray: false, },
     { name: 'Education', isArray: true, },
@@ -52,7 +52,7 @@ class GeneralInfo extends Component {
       mypic: '',
       name: '',
       email: '',
-      language: '',
+      languages: '',
       location: '',
       about: '',
       education: [],
@@ -75,6 +75,9 @@ class GeneralInfo extends Component {
       name: result.name,
       gender: result.gender,
       email: result.email,
+      languages: result.languages,
+      location: result.location,
+      about: result.about,
       education: result.education,
       experience: result.work,
       eduDataSource: this.state.eduDataSource.cloneWithRows(result.education),
@@ -124,8 +127,9 @@ class GeneralInfo extends Component {
       return;
     }
 
-    if (this.state.email === '') {
-      Alert.alert('Sign In', 'Please input your email.');
+    let emailFilter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (emailFilter.test(this.state.email) === false) {
+      Alert.alert('Sign In', 'Please input your correct email.');
       return;
     }
 
@@ -137,7 +141,7 @@ class GeneralInfo extends Component {
     let fieldSet = {
       name: this.state.name,
       email: this.state.email,
-      languages: this.state.language,
+      languages: this.state.languages,
       location: this.state.location,
       about: this.state.about,
       education: this.state.education,
@@ -152,17 +156,14 @@ class GeneralInfo extends Component {
   }
 
   onUploadSuccess(result) {
-    //alert(JSON.stringify(result));
-    //this.setState({ refreshFlag: !this.state.refreshFlag });
-    Actions.main();
-    //this.refresh();
+    Actions.main({ me: this.props.me });
   }
 
   onUploadError(error) {
     alert(JSON.stringify(error));
   }
 
-  // Get Forms(name, email, language, location, about, education, experience)
+  // Get Forms(name, email, languages, location, about, education, experience)
   // Each form includes title and input
   getForms() {
     let Forms = this.titles.map(
@@ -265,7 +266,9 @@ class GeneralInfo extends Component {
 
   getDefaultEdu(edu, sectionID, rowID) {
     let eduName = edu.school === undefined ? '' : edu.school.name;
-    let eduYear = edu.year === undefined ? '' : edu.year.name;
+    let startYear = edu.startYear === undefined ? '' : edu.startYear.name;
+    let endYear = edu.year === undefined ? '' : edu.year.name;
+    if (edu.endYear !== undefined) endYear = edu.endYear.name;
     let eduSubject = '';
     if (edu.concentration !== undefined && edu.concentration.length > 0) {
       eduSubject = edu.concentration[0].name;
@@ -277,7 +280,8 @@ class GeneralInfo extends Component {
     return (
       <EduForm
         name={eduName}
-        year={eduYear}
+        startYear={startYear}
+        endYear={endYear}
         subject={eduSubject}
         id={rowID}
         onDelete={onDelete}
@@ -293,6 +297,9 @@ class GeneralInfo extends Component {
       return;
     }
 
+    if (this.state.education[idx][propName1] === undefined) {
+      this.state.education[idx][propName1] = {};
+    }
     this.state.education[idx][propName1][propName2] = text;
   }
 
@@ -384,7 +391,7 @@ const styles = StyleSheet.create({
     color: '#2e3031',
     fontSize: 12,
     fontWeight: 'bold',
-    marginRight: 10,
+    marginRight: 30,
   },
   nextView: {
     alignItems: 'center',

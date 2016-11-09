@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { Alert, Platform, StyleSheet } from 'react-native';
+import {
+  Alert,
+  Platform,
+  StyleSheet
+} from 'react-native';
 import SplashPage from './SplashPage';
 import Login from './Login/Login';
 import SignUp from './Login/SignUp';
@@ -73,7 +77,7 @@ class App extends Component {
                titleStyle={styles.title} rightButtonTextStyle={styles.leftBtn}
                navigationBarStyle={styles.bar}>
           <Scene key="login" component={Login}
-            initial={!isAndroid} hideNavBar={true} type={ActionConst.RESET} />
+            initial={true} hideNavBar={true} type={ActionConst.RESET} />
 
           <Scene key="signUp" component={SignUp}
             hideNavBar={true} />
