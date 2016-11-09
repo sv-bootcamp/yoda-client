@@ -16,7 +16,6 @@ import {
 } from 'react-native';
 import Row from './Row';
 import SendBird from 'sendbird';
-import StatusBarAlert from 'react-native-statusbar-alert';
 
 ///Todo : Implement Sort by Alphabet & Latest Action in iOS native.
 class ChannelList extends Component {
@@ -28,9 +27,8 @@ class ChannelList extends Component {
       dataSource: this.ds.cloneWithRows([]),
       loaded: false,
       channelList: [],
-      isSendBirdConnected: false,
     };
-    this.isSendBirdConnected = false;
+    this.isConnected = false;
     this.sb = SendBird();
     this.ChannelHandler = new this.sb.ChannelHandler();
     this.ChannelHandler.onMessageReceived = (channel, userMessage) => {
@@ -51,29 +49,31 @@ class ChannelList extends Component {
   }
 
   onConnectionStateChange(isConnected) {
-    if (isConnected) {
+    this.isConnected = isConnected;
+    if (this.isConnected) {
       this.connectSendBird();
     } else {
-      this.setState({ isSendBirdConnected: false });
       SendBird().disconnect();
     }
   }
 
   onAppStateChange(state) {
-    if (state === 'active' && this.state.isSendBirdConnected) {
-      this.connectSendBird();
+    if (state === 'active') {
+      if (this.isConnected) {
+        this.connectSendBird();
+      }
+    } else {
+      SendBird().disconnect();
     }
   }
 
   connectSendBird() {
     SendBird().connect(this.state.me._id, function (user, error) {
       if (error) {
-        alert(error);
-        this.setState({ isSendBirdConnected: false });
+        alert('Fail to connect SendBird.');
         throw new Error(error);
       }
 
-      this.setState({ isSendBirdConnected: true });
       this.initChannelList();
     }.bind(this));
   }
@@ -84,8 +84,7 @@ class ChannelList extends Component {
   }
 
   initChannelList() {
-    //if (this.state.isSendBirdConnected) {
-
+    if (SendBird().getConnectionState() === 'OPEN') {
       const channelListQuery = SendBird().GroupChannel.createMyGroupChannelListQuery();
       channelListQuery.includeEmpty = true;
 
@@ -110,7 +109,6 @@ class ChannelList extends Component {
     return (
       <Row
         _id={this.state.me._id}
-        isSendBirdConnected = {this.state.isSendBirdConnected}
         dataSource={rowData}
       />
     );
@@ -139,7 +137,6 @@ class ChannelList extends Component {
   renderLoadingView() {
     return (
       <View style={styles.ViewContainer}>
-        { this.renderNetStatusBar() }
         <View style={styles.loadingViewheader}>
           <Text style={styles.loadingViewheaderText}>Loading...</Text>
           <ActivityIndicator
@@ -155,7 +152,6 @@ class ChannelList extends Component {
   renderOnboardingView() {
     return (
       <View style={styles.ViewContainer}>
-        { this.renderNetStatusBar() }
         <View style={styles.onboardingView}>
 
           <Image
@@ -169,22 +165,9 @@ class ChannelList extends Component {
     );
   }
 
-  renderNetStatusBar() {
-    return (
-      <StatusBarAlert
-        visible={!this.state.isSendBirdConnected}
-        message={this.state.isSendBirdConnected ? 'Connected' : 'Offline'}
-        backgroundColor='red'
-        color='white'
-        //onPress={() => this.navigator.push({ id: 'SilentAlert' })}
-      />
-    );
-  }
-
   renderListView() {
     return (
       <View style={styles.ViewContainer}>
-        { this.renderNetStatusBar() }
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderRow.bind(this)}
@@ -226,10 +209,10 @@ const styles = StyleSheet.create({
     flex: 1,
     ...Platform.select({
       ios: {
-        marginTop: 44,
+        marginTop: 64,
       },
       android: {
-        marginTop: 34,
+        marginTop: 54,
       },
     }),
   },
