@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet } from 'react-native';
+import { Alert, Platform, StyleSheet } from 'react-native';
 import SplashPage from './SplashPage';
 import Login from './Login/Login';
 import SignUp from './Login/SignUp';
@@ -8,10 +8,15 @@ import FindPassStep2 from './Login/FindPassStep2';
 import FindPassStep3 from './Login/FindPassStep3';
 import GeneralInfo from './SignUp/GeneralInfo';
 import Main from './Main';
+import ChannelList from './Chat/ChannelList';
+import ChatPage from './Chat/ChatPage';
 import UserList from './UserList/UserList';
 import UserProfile from './userProfile/UserProfile';
 import Activity from './Activity/Activity';
 import EvalPage from './Eval/EvalPage';
+import MyPage from './MyPage';
+import RequestPage from './userProfile/RequestPage';
+import RequestSent from './userProfile/RequestSent';
 import {
   ActionConst,
   Actions,
@@ -32,28 +37,34 @@ const reducerCreate = params=> {
     };
 };
 
-class App extends Component {
+const refreshPreviousSceneOnBack = () => {
+  Actions.pop();
 
+  //Delay 10ms to refresh previous scene when current scene is completely popped.
+  setTimeout(() => {
+    Actions.refresh();
+  }, 10);
+};
+
+class App extends Component {
   constructor(props) {
     super(props);
     this.scene = null;
   }
 
   render() {
-
-    // Platform verification
-    let isAndroid = (Platform.OS === 'android');
-
     let backAndroidHandler = () => {
       let scene = App.scene.sceneKey;
-      if (scene === 'evalPageMain' || scene == 'main') {
-        return true;
-      } else if (scene === 'generalInfo' || scene == 'login') {
-        return true;
-      } else {
-        Actions.pop();
+      if (scene === 'evalPageMain' ||
+          scene === 'main' ||
+          scene === 'generalInfo' ||
+          scene === 'login'
+        ) {
         return true;
       }
+
+      Actions.pop();
+      return true;
     };
 
     return (
@@ -61,9 +72,6 @@ class App extends Component {
         <Scene key="root"
                titleStyle={styles.title} rightButtonTextStyle={styles.leftBtn}
                navigationBarStyle={styles.bar}>
-          <Scene key="splashPage" component={SplashPage}
-            initial={isAndroid} hideNavBar={true} type={ActionConst.RESET} />
-
           <Scene key="login" component={Login}
             initial={!isAndroid} hideNavBar={true} type={ActionConst.RESET} />
 
@@ -82,19 +90,29 @@ class App extends Component {
           <Scene key="generalInfo" component={GeneralInfo} title="General Info"
             hideNavBar={false} type={ActionConst.RESET} />
 
-          <Scene key="main" component={Main} title="All Lists"
-            hideNavBar={false} type={ActionConst.RESET} />
-
+          {/* The right button(filter) function will be added later */}
+          <Scene key="main" component={Main} title="Bridgeme" rightTitle="right"
+            rightButtonTextStyle={{ color: 'transparent' }}
+            rightButtonIconStyle={{ marginBottom: 13, marginRight: 6 }}
+            onRight={()=>Alert.alert('Filtering service will come soon')
+            }
+            rightButtonImage={require('../resources/filter.png')}
+            hideNavBar={false} type={ActionConst.RESET}/>
           <Scene key="userList" component={UserList} />
-
-          <Scene key="userProfile" component={UserProfile}
-            title="User Profile" />
-
+          <Scene key='myPage' component={MyPage}/>
+          <Scene key="userProfile" component={UserProfile} hideBackImage={false}
+            backButtonImage={require('../resources/icon-arrow-left-white.png')}
+            navigationBarStyle={{ backgroundColor: 'transparent',
+              borderBottomColor: 'transparent', }}/>
+          <Scene key="requestPage" component={RequestPage} title='Request Connection'
+            backButtonImage={require('../resources/icon-cancel.png')}/>
+          <Scene key="requestSent" component={RequestSent} title='Request Sent'
+          hideBackImage={true} type={ActionConst.REPLACE}/>
           <Scene key="activity" component={Activity} />
-
+          <Scene key="chatPage" onBack={refreshPreviousSceneOnBack} component={ChatPage} />
+          <Scene key="channelList" component={ChannelList} />
           <Scene key="evalPageMain" component={EvalPage} hideBackImage={true} panHandlers={null}
             onBack={() => false} title="Survey" hideNavBar={false} />
-
           <Scene key="evalPage" component={EvalPage}
             title="Survey" hideNavBar={false} />
         </Scene>

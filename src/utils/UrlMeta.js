@@ -16,6 +16,7 @@ class UrlMeta {
   static API_LOCAL_SIGNIN = 'users/localSignIn/'
   static API_SECRET_CODE = 'users/secretCode/';
   static API_RESET_PASS = 'users/resetPassword/';
+  static API_EDIT_PERSONALITY = 'users/editPersonality/';
 }
 
 module.exports = UrlMeta;
