@@ -57,7 +57,6 @@ class ChatPage extends Component {
 
   componentWillUnmount() {
     this.sb.removeChannelHandler(this.state.channel.url);
-    Actions.refresh({ title: 'Chat' });
   }
 
   onMessageReceived(channel, userMessage) {
