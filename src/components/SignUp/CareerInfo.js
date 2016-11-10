@@ -33,8 +33,8 @@ class CareerInfo extends Component {
         'Years of work experience',
         'Last Educational Background?',
       ],
-      selected: ['', '', '', ''],
-      option: ['', '', '', ''],
+      selected: [],
+      option: [],
       selectOP: '',
       clearFlag: false,
     };

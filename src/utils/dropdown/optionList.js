@@ -31,7 +31,7 @@ class OptionList extends Component {
     };
   }
 
-  _currentPosition(pageX, pageY) {
+  currentPosition(pageX, pageY) {
     this.setState({
       ...this.state,
       pageX,
@@ -39,7 +39,7 @@ class OptionList extends Component {
     });
   }
 
-  _show(items, selected, positionX, positionY, width, height, onSelect) {
+  show(items, selected, positionX, positionY, width, height, onSelect) {
     let h = (items.length > 3) ? height * 3 + height / 4 : height * (items.length + 1);
 
     positionX = positionX - this.state.pageX;

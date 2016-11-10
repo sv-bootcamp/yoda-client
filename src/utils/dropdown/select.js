@@ -51,12 +51,12 @@ class Select extends Component {
     this.setState({ value: defaultValue });
   }
 
-  _currentPosition(pageX, pageY) {
+  currentPosition(pageX, pageY) {
     this.pageX = pageX;
     this.pageY = pageY + this.props.height;
   }
 
-  _onPress() {
+  onPress() {
     const {
       index,
       optionListRef,
@@ -109,7 +109,7 @@ class Select extends Component {
     if (clear) this.state.value = '';
 
     return (
-      <TouchableWithoutFeedback disabled={!activate} onPress={this._onPress.bind(this)}>
+      <TouchableWithoutFeedback disabled={!activate} onPress={this.onPress.bind(this)}>
         <View ref={SELECT}
               style={[styles.container, style, dimensions, { backgroundColor: bgColor }]}>
           <Option style={ styleOption } styleText={ styleText }
