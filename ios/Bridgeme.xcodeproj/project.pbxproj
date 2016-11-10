@@ -874,8 +874,8 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
-					"$(SRCROOT)..\node_modules\neact-native-linear-gradientBVLinearGradient",
-					"$(SRCROOT)..\node_modules\neact-native-image-pickerios/**",
+					"$(SRCROOT)..\node_modules\react-native-linear-gradientBVLinearGradient",
+					"$(SRCROOT)..\node_modules\react-native-image-pickerios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 				);
@@ -910,8 +910,8 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
-					"$(SRCROOT)..\node_modules\neact-native-linear-gradientBVLinearGradient",
-					"$(SRCROOT)..\node_modules\neact-native-image-pickerios/**",
+					"$(SRCROOT)..\node_modules\react-native-linear-gradientBVLinearGradient",
+					"$(SRCROOT)..\node_modules\react-native-image-pickerios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 				);
@@ -968,8 +968,8 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
-					"$(SRCROOT)..\node_modules\neact-native-linear-gradientBVLinearGradient",
-					"$(SRCROOT)..\node_modules\neact-native-image-pickerios/**",
+					"$(SRCROOT)..\node_modules\react-native-linear-gradientBVLinearGradient",
+					"$(SRCROOT)..\node_modules\react-native-image-pickerios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 				);
@@ -1014,8 +1014,8 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
-					"$(SRCROOT)..\node_modules\neact-native-linear-gradientBVLinearGradient",
-					"$(SRCROOT)..\node_modules\neact-native-image-pickerios/**",
+					"$(SRCROOT)..\node_modules\react-native-linear-gradientBVLinearGradient",
+					"$(SRCROOT)..\node_modules\react-native-image-pickerios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 				);
