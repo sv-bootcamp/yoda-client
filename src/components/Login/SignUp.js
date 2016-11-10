@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
  Alert,
  Image,
- StyleSheet,
  Text,
  TextInput,
  TouchableWithoutFeedback,
@@ -14,6 +13,7 @@ import ErrorMeta from '../../utils/ErrorMeta';
 import LinearGradient from 'react-native-linear-gradient';
 import LoginUtil from '../../utils/LoginUtil';
 import ServerUtil from '../../utils/ServerUtil';
+import styles from './Styles';
 
 class Login extends Component {
 
@@ -65,14 +65,14 @@ class Login extends Component {
 
         {/* Render facebook login button */}
         <TouchableWithoutFeedback onPress={LoginUtil.signInWithFacebook}>
-          <View style={styles.facebookLoginContainer}>
+          <View style={[styles.facebookLoginContainer, { marginTop: 43 }]}>
             <Image style={styles.facebookLoginButton}
                    source={require('../../resources/fb.png')} />
             <Text style={styles.facebookLoginText}>Login with Facebook</Text>
           </View>
         </TouchableWithoutFeedback>
 
-        <View style={styles.hrContainer}>
+        <View style={[styles.hrContainer, { marginTop: 10 }]}>
           <View style={styles.hr}></View>
           <View><Text style={styles.hrText}>or</Text></View>
           <View style={styles.hr}></View>
@@ -115,7 +115,7 @@ class Login extends Component {
           </LinearGradient>
         </TouchableWithoutFeedback>
 
-        <View style={styles.bottomContainer}>
+        <View style={[styles.bottomContainer, { marginTop: 80 }]}>
           <Text style={styles.bottomTextLeft}>Do you have an account? </Text>
           <TouchableWithoutFeedback onPress={() => Actions.pop()}>
             <View>
@@ -170,99 +170,5 @@ class Login extends Component {
     Alert.alert('Sign In', msg);
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  mainLogo: {
-    marginTop: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  facebookLoginContainer: {
-    flexDirection: 'row',
-    marginTop: 67,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  facebookLoginButton: {
-    width: 15,
-    height: 15,
-  },
-  facebookLoginText: {
-    marginLeft: 20,
-    fontSize: 15,
-    color: '#4460a0',
-  },
-  hrContainer: {
-    flexDirection: 'row',
-    width: 175,
-    marginTop: 13,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  hr: {
-    flex: 1,
-    width: 106,
-    height: 1,
-    backgroundColor: '#efeff2',
-  },
-  hrText: {
-    marginLeft: 14,
-    marginRight: 14,
-    color: '#d8d8d8',
-    fontSize: 15,
-  },
-  inputContainer: {
-    flexDirection: 'column',
-    marginTop: 20,
-  },
-  input: {
-    width: 251,
-    height: 45,
-    paddingLeft: 14,
-    paddingRight: 14,
-    fontSize: 14,
-  },
-  loginBtn: {
-    width: 240,
-    height: 45,
-    borderRadius: 100,
-    marginTop: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  loginBtnText: {
-    backgroundColor: 'transparent',
-    color: '#ffffff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  subTextContainer: {
-    marginTop: 10,
-  },
-  subText: {
-    fontSize: 12,
-    color: '#44acff',
-  },
-  bottomContainer: {
-    flexDirection: 'row',
-    marginTop: 56,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  bottomTextLeft: {
-    fontSize: 12,
-    color: '#a6aeae',
-  },
-  bottomTextRight: {
-    fontSize: 12,
-    color: '#44acff',
-  },
-});
 
 module.exports = Login;

@@ -74,22 +74,21 @@ class App extends Component {
     return (
       <Router createReducer={reducerCreate} backAndroidHandler={backAndroidHandler}>
         <Scene key="root"
-               titleStyle={styles.title} rightButtonTextStyle={styles.leftBtn}
-               navigationBarStyle={styles.bar}>
-          <Scene key="login" component={Login}
-            initial={true} hideNavBar={true} type={ActionConst.RESET} />
+               navigationBarStyle={styles.bar} titleStyle={styles.title}
+               rightButtonTextStyle={styles.leftBtn}>
+          <Scene key="login" component={Login} initial={true}
+                 hideNavBar={true} type={ActionConst.RESET} />
 
-          <Scene key="signUp" component={SignUp}
-            hideNavBar={true} />
+          <Scene key="signUp" component={SignUp} />
 
-          <Scene key="findPassStep1" component={FindPassStep1} title="Forgot Password"
-            hideNavBar={false} />
+          <Scene key="findPassStep1" component={FindPassStep1}
+                 hideNavBar={false} title="Forgot Password" />
 
-          <Scene key="findPassStep2" component={FindPassStep2} title="Forgot Password"
-            hideNavBar={false} />
+          <Scene key="findPassStep2" component={FindPassStep2}
+                 title="Forgot Password" />
 
           <Scene key="findPassStep3" component={FindPassStep3} title="Forgot Password"
-            hideNavBar={false} />
+             />
 
           <Scene key="generalInfo" component={GeneralInfo} title="General Info"
             hideNavBar={false} type={ActionConst.RESET} />

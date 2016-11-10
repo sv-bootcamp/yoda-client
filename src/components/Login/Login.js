@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {
+ ActivityIndicator,
  Alert,
  AsyncStorage,
  Image,
- StyleSheet,
  Text,
  TextInput,
  TouchableWithoutFeedback,
@@ -15,6 +15,7 @@ import ErrorMeta from '../../utils/ErrorMeta';
 import LinearGradient from 'react-native-linear-gradient';
 import LoginUtil from '../../utils/LoginUtil';
 import ServerUtil from '../../utils/ServerUtil';
+import styles from './Styles';
 
 class Login extends Component {
 
@@ -24,32 +25,15 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
+      loaded: false,
     };
-
-    LoginUtil.initCallback(this.onLoginSuccess, this.onServerFail);
-  }
-
-  componentWillMount() {
-    if (this.props.session === undefined) {
-      LoginUtil.hasToken();
-    }
-  }
-
-  onLoginSuccess(result) {
-    if (result === undefined) {
-      Actions.login();
-    } else {
-      Actions.generalInfo();
-    }
-  }
-
-  onServerFail(error) {
-    if (error.code !== ErrorMeta.ERR_NONE) {
-      alert(error.msg);
-    }
   }
 
   render() {
+    if (this.state.loaded === false) {
+      return this.renderLoadingView();
+    }
+
     let onChangeEmail = (text) => { this.state.email = text; };
     let onChangePassword = (text) => { this.state.password = text; };
 
@@ -62,7 +46,7 @@ class Login extends Component {
         </View>
 
         {/* Render facebook login button */}
-        <TouchableWithoutFeedback onPress={LoginUtil.signInWithFacebook}>
+        <TouchableWithoutFeedback onPress={() => this.signInFB()}>
           <View style={styles.facebookLoginContainer}>
             <Image style={styles.facebookLoginButton}
                    source={require('../../resources/fb.png')} />
@@ -94,7 +78,7 @@ class Login extends Component {
                      underlineColorAndroid="#efeff2" />
         </View>
 
-        <TouchableWithoutFeedback onPress={() => this.signIn()}>
+        <TouchableWithoutFeedback onPress={() => this.signInLocal()}>
           <LinearGradient
             colors={['#44acff', '#07e4dd']}
             start={[0.0, 0.0]} end={[1.0, 1.0]}
@@ -121,25 +105,102 @@ class Login extends Component {
     );
   }
 
-  signIn() {
+  renderLoadingView() {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator
+          animating={!this.state.loaded}
+          style={[styles.activityIndicator]}
+          size="large"
+          />
+        <Text style={styles.headerText}>Loading...</Text>
+      </View>
+    );
+  }
+
+  componentDidMount() {
+    let onGetTokenSuccess = (result) => this.onGetTokenSuccess(result);
+    let onGetTokenFail = (error) => this.onGetTokenFail(error);
+
+    LoginUtil.initCallback(onGetTokenSuccess, onGetTokenFail);
+    LoginUtil.hasToken();
+  }
+
+  onGetTokenSuccess(token) {
+    this.onSignInSuccess(token);
+  }
+
+  onGetTokenFail(error) {
+    this.setState({ loaded: !this.state.loaded });
+  }
+
+  signInFB() {
+    let onSignInSuccess = (result) => this.onSignInSuccess(result);
+    let onSignInFail = (error) => this.onSignInFail(error);
+
+    LoginUtil.initCallback(onSignInSuccess, onSignInFail);
+    LoginUtil.signInWithFacebook();
+  }
+
+  onSignInSuccess(result) {
+    if (result) {
+      let onGetProfileSuccess = (result) => this.onGetProfileSuccess(result);
+      let onGetProfileFail = (error) => this.onGetProfileFail(error);
+
+      ServerUtil.initCallback(onGetProfileSuccess, onGetProfileFail);
+      ServerUtil.getMyProfile();
+      return;
+    }
+
+    this.setState({ loaded: !this.state.loaded });
+  }
+
+  onSignInFail(error) {
+    Alert.alert(
+      'SignIn',
+      'Sever error! Please contact to developer',
+    );
+  }
+
+  onGetProfileSuccess(profile) {
+    Actions.generalInfo({ me: profile });
+  }
+
+  onGetProfileFail(error) {
+    Alert.alert(
+      'SignIn',
+      'Sever error! Please contact to developer',
+    );
+  }
+
+  signInLocal() {
     let emailFilter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (emailFilter.test(this.state.email) === false) {
-      this.alert('Please input your correct email.');
+      Alert.alert(
+        'SignIn',
+        'Please input your correct email.',
+      );
       return;
     }
 
     if (this.state.password === '') {
-      this.alert('Please input your password.');
+      Alert.alert(
+        'SignIn',
+        'Please input your password.',
+      );
       return;
     }
 
-    ServerUtil.initCallback(this.onServerSuccess, this.onServerFail);
+    let onLocalLoginSuccess = (result) => this.onLocalLoginSuccess(result);
+    let onLocalLoginFail = (error) => this.onSignInFail(error);
+
+    ServerUtil.initCallback(onLocalLoginSuccess, onLocalLoginFail);
     ServerUtil.signIn(this.state.email, this.state.password);
   }
 
-  onServerSuccess(result) {
-    AsyncStorage.setItem('token', result.user.password);
-    Actions.generalInfo();
+  onLocalLoginSuccess(result) {
+    alert(result);
+    //this.onSignInSuccess(result);
   }
 
   focusNextField(refNo) {
@@ -147,99 +208,5 @@ class Login extends Component {
   }
 
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  mainLogo: {
-    marginTop: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  facebookLoginContainer: {
-    flexDirection: 'row',
-    marginTop: 67,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  facebookLoginButton: {
-    width: 15,
-    height: 15,
-  },
-  facebookLoginText: {
-    marginLeft: 20,
-    fontSize: 15,
-    color: '#4460a0',
-  },
-  hrContainer: {
-    flexDirection: 'row',
-    width: 175,
-    marginTop: 13,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  hr: {
-    flex: 1,
-    width: 106,
-    height: 1,
-    backgroundColor: '#efeff2',
-  },
-  hrText: {
-    marginLeft: 14,
-    marginRight: 14,
-    color: '#d8d8d8',
-    fontSize: 15,
-  },
-  inputContainer: {
-    flexDirection: 'column',
-    marginTop: 20,
-  },
-  input: {
-    width: 251,
-    height: 45,
-    paddingLeft: 14,
-    paddingRight: 14,
-    fontSize: 14,
-  },
-  loginBtn: {
-    width: 240,
-    height: 45,
-    borderRadius: 100,
-    marginTop: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  loginBtnText: {
-    backgroundColor: 'transparent',
-    color: '#ffffff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  subTextContainer: {
-    marginTop: 10,
-  },
-  subText: {
-    fontSize: 12,
-    color: '#44acff',
-  },
-  bottomContainer: {
-    flexDirection: 'row',
-    marginTop: 56,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  bottomTextLeft: {
-    fontSize: 12,
-    color: '#a6aeae',
-  },
-  bottomTextRight: {
-    fontSize: 12,
-    color: '#44acff',
-  },
-});
 
 module.exports = Login;

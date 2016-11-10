@@ -18,18 +18,17 @@ class FindPassStep3 extends Component {
   }
 
   render() {
-    let onChangeText1 = (text) => { this.state.password1 = text; };
-    let onChangeText2 = (text) => { this.state.password2 = text; };
+    let onChangePassword1 = (text) => this.onChangePassword1(text);
+    let onChangePassword2 = (text) => this.onChangePassword2(text);
     let resetPassword = () => this.resetPassword();
 
-    console.log(Actions);
     return (
       <FindPassword title="Reset your password"
                     inputHint="New password"
                     inputHint2="Confirm password"
                     isFinal={true}
-                    onChangeText={onChangeText1}
-                    onChangeText2={onChangeText2}
+                    onChangeText={onChangePassword1}
+                    onChangeText2={onChangePassword2}
                     onPress={resetPassword} />
     );
   }
@@ -41,30 +40,50 @@ class FindPassStep3 extends Component {
     });
   }
 
+  onChangePassword1(text) {
+    this.state.password1 = text;
+  }
+
+  onChangePassword2(text) {
+    this.state.password2 = text;
+  }
+
   resetPassword() {
     if (this.state.password1 === '') {
-      this.alert('Please input your password.');
+      Alert.alert(
+        'Forgot password',
+        'Please input your password.',
+      );
     } else if (this.state.password2 === '') {
-      this.alert('Please input your password for comparison.');
+      Alert.alert(
+        'Forgot password',
+        'Please input your password for comparison.',
+      );
     } else if (this.state.password1 != this.state.password2) {
-      this.alert('Please input your password correctly');
+      Alert.alert(
+        'Forgot password',
+        'Please input your password correctly',
+      );
     } else {
-      ServerUtil.resetPassword(this.props.email, this.state.password1);
+      ServerUtil.resetPassword(this.props.email,
+                               this.state.password1,
+                               this.props.code);
     }
   }
 
   onServerSuccess(result) {
-    alert(JSON.stringify(result));
+    Alert.alert(
+      'Forgot password',
+      'Change password successfully!',
+    );
+    Actions.login();
   }
 
   onServerFail(error) {
-    if (error.code !== ErrorMeta.ERR_NONE) {
-      alert(error.msg);
-    }
-  }
-
-  alert(msg) {
-    Alert.alert('Forgot password', msg);
+    Alert.alert(
+      'Forgot password',
+      error.msg,
+    );
   }
 }
 

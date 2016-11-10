@@ -14,23 +14,8 @@ class FindPassStep2 extends Component {
   }
 
   render() {
-    let onChangeText = (text) => {
-      this.state.code = text;
-    };
-
-    let checkSecretCode = () => {
-      if (this.state.code == this.props.secretCode) {
-        Actions.findPassStep3({
-          email: this.props.email,
-        });
-        return;
-      }
-
-      Alert.alert(
-        'Forgot password',
-        'Please input code you received from your email.',
-      );
-    };
+    let onChangeText = (text) => this.onChangeText(text);
+    let checkSecretCode = () => this.checkSecretCode();
 
     return (
       <FindPassword title="Please input your code"
@@ -39,6 +24,25 @@ class FindPassStep2 extends Component {
                     isFinal={false}
                     onChangeText={onChangeText}
                     onPress={checkSecretCode} />
+    );
+  }
+
+  onChangeText(text) {
+    this.state.code = text;
+  }
+
+  checkSecretCode() {
+    if (this.state.code == this.props.secretCode) {
+      Actions.findPassStep3({
+        code: this.state.code,
+        email: this.props.email,
+      });
+      return;
+    }
+
+    Alert.alert(
+      'Forgot password',
+      'Please input code you received from your email.',
     );
   }
 }

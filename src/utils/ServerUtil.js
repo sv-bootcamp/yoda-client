@@ -82,8 +82,8 @@ class ServerUtil {
   }
 
   // Reset password
-  resetPassword(email, password) {
-    let paramList = [email, password];
+  resetPassword(email, password, code) {
+    let paramList = [email, password, code];
     this.requestToServer('POST', UrlMeta.API_RESET_PASS, '', paramList);
   }
 
@@ -158,10 +158,13 @@ class ServerUtil {
     } else if (apiType === UrlMeta.API_EDIT_GENERAL) {
       return JSON.stringify(paramList);
     } else if (apiType === UrlMeta.API_LOCAL_SIGNUP ||
-               apiType === UrlMeta.API_LOCAL_SIGNIN ||
-               apiType === UrlMeta.API_RESET_PASS) {
+               apiType === UrlMeta.API_LOCAL_SIGNIN) {
       body.email = paramList[0];
       body.password = paramList[1];
+    } else if (apiType === UrlMeta.API_RESET_PASS) {
+      body.email = paramList[0];
+      body.password = paramList[1];
+      body.secretCode = paramList[2];
     } else if (apiType === UrlMeta.API_SECRET_CODE) {
       body.email = paramList;
     } else if (apiType === UrlMeta.API_EDIT_PERSONALITY) {
