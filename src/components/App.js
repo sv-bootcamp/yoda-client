@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Platform, StyleSheet, Alert } from 'react-native';
 import Login from './Login';
 import GeneralInfo from './SignUp/GeneralInfo';
+import CareerInfo from './SignUp/CareerInfo';
+import ExpertInfo from './SignUp/ExpertInfo';
+import Personality from './SignUp/Personality';
 import Main from './Main';
 import ChannelList from './Chat/ChannelList';
 import ChatPage from './Chat/ChatPage';
@@ -62,13 +65,22 @@ class App extends Component {
     return (
       <Router createReducer={reducerCreate} backAndroidHandler={backAndroidHandler}>
         <Scene key="root"
-               titleStyle={styles.title} rightButtonTextStyle={styles.leftBtn}
-               navigationBarStyle={styles.bar}>
+          titleStyle={styles.title} rightButtonTextStyle={styles.leftBtn}
+          navigationBarStyle={styles.bar}>
           <Scene key="login" component={Login}
             initial={true} hideNavBar={true} type={ActionConst.RESET} />
 
           <Scene key="generalInfo" component={GeneralInfo} title="General Info"
             hideNavBar={false} type={ActionConst.RESET} />
+
+          <Scene key="careerInfo" component={CareerInfo} title="Career Info"
+            hideNavBar={false} type={ActionConst.RESET} hideBackImage={false}/>
+
+          <Scene key="expertInfo" component={ExpertInfo} title="I am expertised in"
+            hideNavBar={false} type={ActionConst.RESET} hideBackImage={false}/>
+
+          <Scene key="personality" component={Personality} title="Personality"
+            hideNavBar={false} type={ActionConst.RESET} hideBackImage={false}/>
 
           {/* The right button(filter) function will be added later */}
           <Scene key="main" component={Main} title="Bridgeme" rightTitle="right"
@@ -83,7 +95,7 @@ class App extends Component {
           <Scene key="userProfile" component={UserProfile} hideBackImage={false}
             backButtonImage={require('../resources/icon-arrow-left-white.png')}
             navigationBarStyle={{ backgroundColor: 'transparent',
-              borderBottomColor: 'transparent', }}/>
+            borderBottomColor: 'transparent', }}/>
           <Scene key="requestPage" component={RequestPage} title='Request Connection'
             backButtonImage={require('../resources/icon-cancel.png')}/>
           <Scene key="requestSent" component={RequestSent} title='Request Sent'

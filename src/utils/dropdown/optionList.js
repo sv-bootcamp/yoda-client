@@ -1,0 +1,128 @@
+import React, { Component } from 'react';
+import {
+  Dimensions,
+  StyleSheet,
+  View,
+} from 'react-native';
+import Overlay from './overlay';
+import Items from './items';
+
+const window = Dimensions.get('window');
+
+class OptionList extends Component {
+  constructor(props) {
+    super(props);
+    console.log(props);
+    this.state = {
+      show: false,
+
+      width: 0,
+      height: 0,
+
+      pageX: 0,
+      pageY: 0,
+
+      positionX: 0,
+      positionY: 0,
+
+      items: [],
+      seleted: null,
+      onSelect: () => { },
+    };
+  }
+
+  _currentPosition(pageX, pageY) {
+    this.setState({
+      ...this.state,
+      pageX,
+      pageY,
+    });
+  }
+
+  _show(items, selected, positionX, positionY, width, height, onSelect) {
+    let h = (items.length > 3) ? height * 3 + height / 4 : height * (items.length + 1);
+
+    positionX = positionX - this.state.pageX;
+    positionY = (positionY + h < window.height)
+    ? positionY - this.state.pageY : positionY - this.state.pageY - h;
+
+    this.setState({
+      ...this.state,
+      positionX,
+      positionY,
+      width,
+      height,
+      items,
+      onSelect,
+      show: true,
+      selected: selected,
+    });
+  }
+
+  _onOverlayPress() {
+    const { onSelect } = this.state;
+    onSelect(null, null);
+
+    this.setState({
+      ...this.state,
+      show: false,
+    });
+  }
+
+  _onItemPress(item, value) {
+    const { onSelect } = this.state;
+    onSelect(item, value);
+    this.setState({
+      ...this.state,
+      show: false,
+    });
+  }
+
+  _getShowState() {
+    console.log(this.state.show);
+
+    return this.state.show;
+  }
+
+  render() {
+    const {
+      items,
+      pageX,
+      pageY,
+      positionX,
+      positionY,
+      width,
+      height,
+      show,
+      selected,
+    } = this.state;
+    return (
+      <View>
+        <Overlay
+          pageX={pageX}
+          pageY={pageY}
+          show={show}
+          onPress={ this._onOverlayPress.bind(this) }/>
+        <Items
+          items={items}
+          positionX={positionX}
+          positionY={positionY}
+          width={width}
+          height={height}
+          show={show}
+          selected={selected}
+          onPress={ this._onItemPress.bind(this) }/>
+      </View>
+    );
+  }
+}
+
+OptionList.propTypes = {
+
+};
+
+OptionList.defaultProps = {
+
+};
+
+module.exports = OptionList;

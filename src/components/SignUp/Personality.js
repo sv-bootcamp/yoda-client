@@ -12,8 +12,10 @@ import {
   View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import ServerUtil from '../utils/ServerUtil';
-import ErrorMeta from '../utils/ErrorMeta';
+import ServerUtil from '../../utils/ServerUtil';
+import ErrorMeta from '../../utils/ErrorMeta';
+import Progress from '../Shared/Progress';
+import { Actions, Scene, }  from 'react-native-router-flux';
 
 class Personality extends Component {
   constructor(props) {
@@ -37,6 +39,11 @@ class Personality extends Component {
       (result) => this.onRequestSuccess(result),
       (error) => this.onRequestFail(error)
     );
+  }
+
+  onRequestSuccess(result) {
+    console.log(result);
+    Actions.main({ me: this.props.me });
   }
 
   componentDidMount() {
@@ -93,32 +100,34 @@ class Personality extends Component {
       )
     );
     return (
-      <ScrollView style={styles.scroll}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>Let’s figure out your personality !</Text>
-          <Text style={{ color: '#2e3031' }}>Drag each point to express youself.</Text>
-        </View>
-        {slidersWithTitle}
-        <TouchableOpacity style={{ alignSelf: 'stretch' }} onPress={this.sendRequest.bind(this)}>
-          <LinearGradient
-            start={[0.9, 0.5]} end={[0.0, 0.5]}
-            locations={[0, 0.75]}
-            colors={['#07e4dd', '#44acff']}
-            style={styles.linearGradient}>
-            <Text style={styles.buttonText}>
-              DONE
-            </Text>
-          </LinearGradient>
-        </TouchableOpacity>
-      </ScrollView>
+      <View style={styles.container}>
+        <Progress level={4} step={4} />
+        <ScrollView style={styles.scroll}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>{'Let’s figure out your\npersonality !'}</Text>
+            <Text style={{ color: '#2e3031', fontSize: 12, }}>Drag each point to express youself.</Text>
+          </View>
+          {slidersWithTitle}
+          <TouchableOpacity style={{ alignSelf: 'stretch' }} onPress={this.sendRequest.bind(this)}>
+            <LinearGradient
+              start={[0.9, 0.5]} end={[0.0, 0.5]}
+              locations={[0, 0.75]}
+              colors={['#07e4dd', '#44acff']}
+              style={styles.linearGradient}>
+              <Text style={styles.buttonText}>
+                DONE
+              </Text>
+            </LinearGradient>
+          </TouchableOpacity>
+        </ScrollView>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  scroll: {
+  container: {
     flex: 1,
-    flexDirection: 'column',
     ...Platform.select({
       ios: {
         marginTop: 64,
@@ -127,6 +136,10 @@ const styles = StyleSheet.create({
         marginTop: 54,
       },
     }),
+  },
+  scroll: {
+    flex: 1,
+    flexDirection: 'column',
   },
   slider: {
     flex: 1,
@@ -152,8 +165,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonText: {
-    fontSize: 18,
-    fontFamily: 'Gill Sans',
+    fontSize: 16,
+    fontFamily: 'SFUIText-Bold',
     textAlign: 'center',
     justifyContent: 'center',
     margin: 10,
@@ -173,7 +186,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#2e3031',
-    fontSize: 25,
+    fontSize: 18,
     textAlign: 'center',
     marginBottom: 10,
   },

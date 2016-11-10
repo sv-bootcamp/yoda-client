@@ -42,7 +42,7 @@ class Login extends Component {
           animating={!this.state.loaded}
           style={[styles.activityIndicator]}
           size="large"
-          />
+        />
         <Text style={styles.headerText}>Loading...</Text>
       </View>
     );
@@ -71,6 +71,7 @@ class Login extends Component {
   }
 
   onLoginSuccess(result) {
+
     if (result) {
       ServerUtil.getMyProfile();
       return;
