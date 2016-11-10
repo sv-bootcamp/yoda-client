@@ -12,7 +12,7 @@ const window = Dimensions.get('window');
 class OptionList extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
+
     this.state = {
       show: false,
 
@@ -79,8 +79,6 @@ class OptionList extends Component {
   }
 
   _getShowState() {
-    console.log(this.state.show);
-
     return this.state.show;
   }
 
