@@ -1,8 +1,6 @@
-import { AsyncStorage } from 'react-native';
 import ErrorMeta from './ErrorMeta';
 import ErrorUtil from './ErrorUtil';
 import UrlMeta from './UrlMeta';
-import LoginMeta from './LoginMeta';
 
 class ServerUtil {
   constructor() {
@@ -94,39 +92,15 @@ class ServerUtil {
 
   // Request to server
   requestToServer(method, apiType, urlEtc, paramList) {
-    AsyncStorage.multiGet(['loginType', 'token'], (err, stores) => {
-      //let type = stores[0][1];
-      //let token = stores[1][1];
+    let url = UrlMeta.host + apiType + urlEtc;
+    let formBody;
+    if (method === 'GET') {
+      formBody = this.makeGetFormBody(method, apiType, paramList);
+    } else if (method === 'POST') {
+      formBody = this.makePostFormBody(method, apiType, paramList);
+    }
 
-      // if (token === null || token === undefined || token === '') {
-      //   this.onError(ErrorMeta.ERR_NO_LOGIN_TYPE);
-      //   return;
-      // }
-
-      // if (type == LoginMeta.LOGIN_TYPE_FB) {
-      //   let url = UrlMeta.host + apiType + urlEtc;
-      //   let formBody;
-      //   if (method === 'GET') {
-      //     formBody = this.makeGetFormBody(method, token, apiType, paramList);
-      //   } else if (method === 'POST') {
-      //     formBody = this.makePostFormBody(method, token, apiType, paramList);
-      //   }
-      //
-      //   this.fetchData(url, method, formBody);
-      // } else {
-      //   this.onError(ErrorMeta.ERR_NO_LOGIN_TYPE);
-      // }
-
-      let url = UrlMeta.host + apiType + urlEtc;
-      let formBody;
-      if (method === 'GET') {
-        formBody = this.makeGetFormBody(method, apiType, paramList);
-      } else if (method === 'POST') {
-        formBody = this.makePostFormBody(method, apiType, paramList);
-      }
-
-      this.fetchData(url, method, formBody);
-    });
+    this.fetchData(url, method, formBody);
   }
 
   makeGetFormBody(httpMethod, apiType, paramList) {
@@ -214,7 +188,7 @@ class ServerUtil {
     if (response.status === 200 || response.status === 201) {
       return response.json();
     } else {
-      //throw new Error(response.status);
+      throw new Error(response.status);
     }
   }
 

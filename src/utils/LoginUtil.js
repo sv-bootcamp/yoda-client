@@ -1,5 +1,4 @@
 import {
- DeviceEventEmitter,
  AsyncStorage,
 } from 'react-native';
 import {
