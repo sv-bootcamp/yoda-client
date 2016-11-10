@@ -59,7 +59,7 @@ class OptionList extends Component {
     });
   }
 
-  _onOverlayPress() {
+  onOverlayPress() {
     const { onSelect } = this.state;
     onSelect(null, null);
 
@@ -69,7 +69,7 @@ class OptionList extends Component {
     });
   }
 
-  _onItemPress(item, value) {
+  onItemPress(item, value) {
     const { onSelect } = this.state;
     onSelect(item, value);
     this.setState({
@@ -78,7 +78,7 @@ class OptionList extends Component {
     });
   }
 
-  _getShowState() {
+  getShowState() {
     return this.state.show;
   }
 
@@ -100,7 +100,7 @@ class OptionList extends Component {
           pageX={pageX}
           pageY={pageY}
           show={show}
-          onPress={ this._onOverlayPress.bind(this) }/>
+          onPress={ this.onOverlayPress.bind(this) }/>
         <Items
           items={items}
           positionX={positionX}
@@ -109,7 +109,7 @@ class OptionList extends Component {
           height={height}
           show={show}
           selected={selected}
-          onPress={ this._onItemPress.bind(this) }/>
+          onPress={ this.onItemPress.bind(this) }/>
       </View>
     );
   }

@@ -69,7 +69,7 @@ class Select extends Component {
       return false;
     }
 
-    let show = optionListRef(index)._getShowState();
+    let show = optionListRef(index).getShowState();
 
     if (this.state.show !== show) {
       this.setState({
@@ -77,7 +77,7 @@ class Select extends Component {
       });
     }
 
-    optionListRef(index)._show(children, this.state.value, this.pageX, this.pageY, width, height,
+    optionListRef(index).show(children, this.state.value, this.pageX, this.pageY, width, height,
       (item, value=item) => {
       if (item) {
         onSelect(value, index);
@@ -85,7 +85,7 @@ class Select extends Component {
       }
 
       this.setState({
-        show: optionListRef(index)._getShowState(),
+        show: optionListRef(index).getShowState(),
       });
     });
   }

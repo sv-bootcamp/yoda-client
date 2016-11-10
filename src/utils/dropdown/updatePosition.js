@@ -14,7 +14,7 @@ module.exports = function (ref, debug) {
         console.log(x, y, width, height, pageX, pageY);
       }
 
-      ref._currentPosition(pageX, pageY);
+      ref.currentPosition(pageX, pageY);
     });
   }, 0);
 };

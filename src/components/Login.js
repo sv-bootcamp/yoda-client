@@ -71,7 +71,6 @@ class Login extends Component {
   }
 
   onLoginSuccess(result) {
-
     if (result) {
       ServerUtil.getMyProfile();
       return;

@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import {
+  Dimensions,
   Image,
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
   Platform,
   ScrollView,
-  Dimensions,
+  StyleSheet,
+  Text,
+  TextInput,
   TouchableWithoutFeedback,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import {
   Select,
@@ -24,7 +24,6 @@ import { Actions, Scene, }  from 'react-native-router-flux';
 import data from './CareerMETA';
 
 class CareerInfo extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -44,7 +43,6 @@ class CareerInfo extends Component {
     this.state.option[1] = [];
     this.state.option[2] = data.years;
     this.state.option[3] = data.education_background;
-
   }
 
   componentDidMount() {
@@ -54,16 +52,15 @@ class CareerInfo extends Component {
         updatePosition(this.refs['OPTION' + idx]);
       }
     }
-
   }
 
-  _getOptionList(index) {
+  getOptionList(index) {
     this.state.selectOP = index;
     this.forceUpdate();
     return this.refs['OPTION' + String(index)];
   }
 
-  _onSelect(province, idx) {
+  onSelect(province, idx) {
     this.state.selectOP = idx;
     this.state.selected[idx] = province;
 
@@ -80,15 +77,13 @@ class CareerInfo extends Component {
     this.forceUpdate();
   }
 
-  _getOptionSet(index) {
+  getOptionSet(index) {
     return this.state.option[index].map(
       (area, idx) => <Option key={idx}>{area}</Option>
     );
-
   }
 
-  _getQuestionSet() {
-
+  getQuestionSet() {
     return this.state.questions.map(
         (question, idx) => {
           let clear = false;
@@ -108,29 +103,27 @@ class CareerInfo extends Component {
                     style={{ height: 40, width: Dimensions.get('window').width - 60 }}
                     values={this.state.option[idx]}
                     onChange={(data) => {
-                      this._onSelect(data.value, idx);
+                      this.onSelect(data.value, idx);
                     }}/>
 
-                  </View>
+                </View>
               </View>
-
               );
           } else {
-
             return (
               <View key={idx} style={[styles.questionContainer, { zIndex: zIdx }]}>
                 <Text style={styles.questionText}>{this.state.questions[idx]}</Text>
                 <View style={[styles.dropdownContainer]}>
-                    <Select
-                      ref={'SELECT' + idx}
-                      clear={clear}
-                      activate={activate}
-                      index={idx}
-                      width={Dimensions.get('window').width - 60}
-                      defaultValue={' '}
-                      optionListRef={this._getOptionList.bind(this)}
-                      onSelect={this._onSelect.bind(this)}>
-                      {this._getOptionSet(idx)}
+                  <Select
+                    ref={'SELECT' + idx}
+                    clear={clear}
+                    activate={activate}
+                    index={idx}
+                    width={Dimensions.get('window').width - 60}
+                    defaultValue={' '}
+                    optionListRef={this.getOptionList.bind(this)}
+                    onSelect={this.onSelect.bind(this)}>
+                    {this.getOptionSet(idx)}
                     </Select>
                     <OptionList ref={'OPTION' + idx} index={idx}/>
                 </View>
@@ -146,7 +139,6 @@ class CareerInfo extends Component {
   }
 
   render() {
-
     return (
       <View style ={styles.container}>
         <Progress level={4} step={2} />
@@ -156,7 +148,7 @@ class CareerInfo extends Component {
             <Text style={styles.subTitleText}>Let us know your career background.</Text>
           </View>
           <View style={styles.body}>
-            {this._getQuestionSet()}
+            {this.getQuestionSet()}
           </View>
           <View style={styles.btnContainer}>
             <TouchableOpacity onPress = {this.onUploadCallback.bind(this)}>
@@ -171,7 +163,6 @@ class CareerInfo extends Component {
       </View>
     );
   }
-
 }
 
 const styles = StyleSheet.create({
