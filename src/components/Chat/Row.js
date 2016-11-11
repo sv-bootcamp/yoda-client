@@ -56,7 +56,6 @@ export default class Row extends Component {
       title: this.state.opponent.nickname,
       me: this.state.me,
       opponent: this.state.opponent,
-      channel: this.state.channel,
     });
   }
 
