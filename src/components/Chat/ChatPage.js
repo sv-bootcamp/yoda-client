@@ -31,7 +31,7 @@ class ChatPage extends Component {
 
     this.state = {
       messages: [],
-      channel: null,
+      channel: props.channel,
       isTyping: false,
     };
   }
@@ -161,7 +161,6 @@ class ChatPage extends Component {
                       messages: nMessageList,
                     });
                     this.state.channel.markAsRead();
-
                   });
                 }
               }.bind(this));
