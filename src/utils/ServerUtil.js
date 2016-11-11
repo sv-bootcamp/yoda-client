@@ -40,6 +40,14 @@ class ServerUtil {
     this.requestToServer('GET', UrlMeta.API_ACTIVITY, '');
   }
 
+  getRequestSetting() {
+    this.requestToServer('GET', UrlMeta.API_GET_REQUEST_SETTING, '');
+  }
+
+  signOut() {
+    this.requestToServer('GET', UrlMeta.API_SIGN_OUT, '');
+  }
+
   // Request to mentor
   sendMentoringRequest(mentorId, content) {
     let paramList = [mentorId, content];
@@ -88,6 +96,11 @@ class ServerUtil {
   editPersonality(object) {
     let paramList = [object];
     this.requestToServer('POST', UrlMeta.API_EDIT_PERSONALITY, '', paramList);
+  }
+
+  setRequestSetting(bool) {
+    let paramList = [bool ? 'true' : 'false'];
+    this.requestToServer('POST', UrlMeta.API_SET_REQUEST_SETTING, '', paramList);
   }
 
   // Request to server
@@ -143,6 +156,8 @@ class ServerUtil {
       body.email = paramList;
     } else if (apiType === UrlMeta.API_EDIT_PERSONALITY) {
       body.personality = paramList[0];
+    } else if (apiType === UrlMeta.API_SET_REQUEST_SETTING) {
+      body.mentorMode = paramList[0];
     }
 
     return JSON.stringify(body);

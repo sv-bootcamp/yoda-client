@@ -18,6 +18,9 @@ class UrlMeta {
   static API_SECRET_CODE = 'users/secretCode/';
   static API_RESET_PASS = 'users/resetPassword/';
   static API_EDIT_PERSONALITY = 'users/editPersonality/';
+  static API_GET_REQUEST_SETTING = 'users/mentorMode/';
+  static API_SET_REQUEST_SETTING = 'users/editMentorMode/';
+  static API_SIGN_OUT = 'users/signOut/';
 }
 
 module.exports = UrlMeta;
