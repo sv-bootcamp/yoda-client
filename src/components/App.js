@@ -4,23 +4,23 @@ import {
   Platform,
   StyleSheet
 } from 'react-native';
-import SplashPage from './SplashPage';
-import Login from './Login/Login';
-import SignUp from './Login/SignUp';
+import Activity from './Activity/Activity';
+import ChannelList from './Chat/ChannelList';
+import ChatPage from './Chat/ChatPage';
+import EvalPage from './Eval/EvalPage';
 import FindPassStep1 from './Login/FindPassStep1';
 import FindPassStep2 from './Login/FindPassStep2';
 import FindPassStep3 from './Login/FindPassStep3';
 import GeneralInfo from './SignUp/GeneralInfo';
+import Login from './Login/Login';
 import Main from './Main';
-import ChannelList from './Chat/ChannelList';
-import ChatPage from './Chat/ChatPage';
+import MyPage from './MyPage';
 import UserList from './UserList/UserList';
 import UserProfile from './userProfile/UserProfile';
-import Activity from './Activity/Activity';
-import EvalPage from './Eval/EvalPage';
-import MyPage from './MyPage';
 import RequestPage from './userProfile/RequestPage';
 import RequestSent from './userProfile/RequestSent';
+import SignUp from './Login/SignUp';
+import SplashPage from './SplashPage';
 import {
   ActionConst,
   Actions,

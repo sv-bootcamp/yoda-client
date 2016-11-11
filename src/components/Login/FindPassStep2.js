@@ -18,12 +18,13 @@ class FindPassStep2 extends Component {
     let checkSecretCode = () => this.checkSecretCode();
 
     return (
-      <FindPassword title="Please input your code"
-                    inputHint="Code"
-                    buttonText="Find password"
-                    isFinal={false}
-                    onChangeText={onChangeText}
-                    onPress={checkSecretCode} />
+      <FindPassword
+        title="Please input your code"
+        inputHint="Code"
+        buttonText="Find password"
+        isFinal={false}
+        onChangeText={onChangeText}
+        onPress={checkSecretCode} />
     );
   }
 

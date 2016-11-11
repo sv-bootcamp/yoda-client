@@ -19,7 +19,6 @@ import ServerUtil from '../../utils/ServerUtil';
 import styles from './Styles';
 
 class Login extends Component {
-
   constructor(props) {
     super(props);
 
@@ -62,21 +61,23 @@ class Login extends Component {
         </View>
 
         <View style={styles.inputContainer}>
-          <TextInput style={styles.input}
-                     ref="1"
-                     returnKeyType="next"
-                     placeholder="Email"
-                     placeholderTextColor="#d8d8d8"
-                     underlineColorAndroid="#efeff2"
-                     onChangeText={onChangeEmail}
-                     onSubmitEditing={() => this.focusNextField('2')} />
-          <TextInput style={styles.input}
-                     ref="2"
-                     placeholder="Password"
-                     secureTextEntry={true}
-                     placeholderTextColor="#d8d8d8"
-                     onChangeText={onChangePassword}
-                     underlineColorAndroid="#efeff2" />
+          <TextInput
+            style={styles.input}
+            ref="1"
+            returnKeyType="next"
+            placeholder="Email"
+            placeholderTextColor="#d8d8d8"
+            underlineColorAndroid="#efeff2"
+            onChangeText={onChangeEmail}
+            onSubmitEditing={() => this.focusNextField('2')} />
+          <TextInput
+            style={styles.input}
+            ref="2"
+            placeholder="Password"
+            secureTextEntry={true}
+            placeholderTextColor="#d8d8d8"
+            onChangeText={onChangePassword}
+            underlineColorAndroid="#efeff2" />
         </View>
 
         <TouchableWithoutFeedback onPress={() => this.signInLocal()}>
@@ -95,7 +96,7 @@ class Login extends Component {
         </TouchableWithoutFeedback>
 
         <View style={styles.bottomContainer}>
-          <Text style={styles.bottomTextLeft}>Don't you have an account? </Text>
+          <Text style={styles.bottomTextLeft}>{'Don\'t you have an account? '}</Text>
           <TouchableWithoutFeedback onPress={() => Actions.signUp()}>
             <View>
               <Text style={styles.bottomTextRight}>Sign up</Text>
@@ -211,7 +212,6 @@ class Login extends Component {
   focusNextField(refNo) {
     this.refs[refNo].focus();
   }
-
 }
 
 module.exports = Login;

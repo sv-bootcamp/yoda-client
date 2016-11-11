@@ -23,12 +23,13 @@ class FindPassStep1 extends Component {
     let requestSecretCode = () => this.requestSecretCode();
 
     return (
-      <FindPassword title="Please input your email address"
-                    inputHint="Email"
-                    buttonText="Send Code"
-                    isFinal={false}
-                    onChangeText={onChangeText}
-                    onPress={requestSecretCode} />
+      <FindPassword
+        title="Please input your email address"
+        inputHint="Email"
+        buttonText="Send Code"
+        isFinal={false}
+        onChangeText={onChangeText}
+        onPress={requestSecretCode} />
     );
   }
 

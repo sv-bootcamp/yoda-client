@@ -16,7 +16,6 @@ import ServerUtil from '../../utils/ServerUtil';
 import styles from './Styles';
 
 class Login extends Component {
-
   constructor(props) {
     super(props);
 
@@ -65,41 +64,40 @@ class Login extends Component {
             <Text style={styles.facebookLoginText}>Login with Facebook</Text>
           </View>
         </TouchableWithoutFeedback>
-
         <View style={[styles.hrContainer, { marginTop: 10 }]}>
           <View style={styles.hr}></View>
           <View><Text style={styles.hrText}>or</Text></View>
           <View style={styles.hr}></View>
         </View>
-
         <View style={styles.inputContainer}>
-          <TextInput style={styles.input}
-                     ref="1"
-                     returnKeyType="next"
-                     placeholder="Email"
-                     placeholderTextColor="#d8d8d8"
-                     underlineColorAndroid="#efeff2"
-                     onChangeText={onChangeEmail}
-                     onSubmitEditing={() => this.focusNextField('2')} />
-          <TextInput style={styles.input}
-                     ref="2"
-                     placeholder="Password"
-                     secureTextEntry={true}
-                     returnKeyType="next"
-                     placeholderTextColor="#d8d8d8"
-                     underlineColorAndroid="#efeff2"
-                     onChangeText={onChangePassword1}
-                     onSubmitEditing={() => this.focusNextField('3')} />
-          <TextInput style={styles.input}
-                     ref="3"
-                     placeholder="Confirm password"
-                     secureTextEntry={true}
-                     placeholderTextColor="#d8d8d8"
-                     underlineColorAndroid="#efeff2"
-                     onChangeText={onChangePassword2} />
+          <TextInput
+            style={styles.input}
+            ref="1"
+            returnKeyType="next"
+            placeholder="Email"
+            placeholderTextColor="#d8d8d8"
+            underlineColorAndroid="#efeff2"
+            onChangeText={onChangeEmail}
+            onSubmitEditing={() => this.focusNextField('2')} />
+          <TextInput
+            style={styles.input}
+            ref="2"
+            placeholder="Password"
+            secureTextEntry={true}
+            returnKeyType="next"
+            placeholderTextColor="#d8d8d8"
+            underlineColorAndroid="#efeff2"
+            onChangeText={onChangePassword1}
+            onSubmitEditing={() => this.focusNextField('3')} />
+          <TextInput
+            style={styles.input}
+            ref="3"
+            placeholder="Confirm password"
+            secureTextEntry={true}
+            placeholderTextColor="#d8d8d8"
+            underlineColorAndroid="#efeff2"
+            onChangeText={onChangePassword2} />
         </View>
-
-
         <TouchableWithoutFeedback onPress={createAccount}>
           <LinearGradient
             colors={['#44acff', '#07e4dd']}
@@ -108,7 +106,6 @@ class Login extends Component {
             <Text style={styles.loginBtnText}>CREATE ACCOUNT</Text>
           </LinearGradient>
         </TouchableWithoutFeedback>
-
         <View style={[styles.bottomContainer, { marginTop: 80 }]}>
           <Text style={styles.bottomTextLeft}>Do you have an account? </Text>
           <TouchableWithoutFeedback onPress={() => Actions.pop()}>

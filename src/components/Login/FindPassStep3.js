@@ -12,8 +12,8 @@ class FindPassStep3 extends Component {
     ServerUtil.initCallback(this.onServerSuccess, this.onServerFail);
 
     this.state = {
-      password1: '',
-      password2: '',
+      password1,
+      password2,
     };
   }
 
@@ -23,13 +23,14 @@ class FindPassStep3 extends Component {
     let resetPassword = () => this.resetPassword();
 
     return (
-      <FindPassword title="Reset your password"
-                    inputHint="New password"
-                    inputHint2="Confirm password"
-                    isFinal={true}
-                    onChangeText={onChangePassword1}
-                    onChangeText2={onChangePassword2}
-                    onPress={resetPassword} />
+      <FindPassword
+        title="Reset your password"
+        inputHint="New password"
+        inputHint2="Confirm password"
+        isFinal={true}
+        onChangeText={onChangePassword1}
+        onChangeText2={onChangePassword2}
+        onPress={resetPassword} />
     );
   }
 
@@ -49,12 +50,12 @@ class FindPassStep3 extends Component {
   }
 
   resetPassword() {
-    if (this.state.password1 === '') {
+    if (this.state.password1 === undefined) {
       Alert.alert(
         'Forgot password',
         'Please input your password.',
       );
-    } else if (this.state.password2 === '') {
+    } else if (this.state.password2 === undefined) {
       Alert.alert(
         'Forgot password',
         'Please input your password for comparison.',

@@ -11,7 +11,6 @@ const deviceWidth = Dimensions.get('window').width;
 // This is a progress line.
 // This component receives 'level' and 'step' to define line length
 class Progress extends Component {
-
   render() {
     let width = (deviceWidth / this.props.level) * this.props.step;
 

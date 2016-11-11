@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 
 class FindPassStep extends Component {
-
   constructor(props) {
     super(props);
   }
@@ -27,15 +26,16 @@ class FindPassStep extends Component {
           <Text style={styles.title}>{this.props.title}</Text>
         </View>
         <View style={styles.inputContainer}>
-          <TextInput style={styles.input}
-                     ref="1"
-                     returnKeyType={this.props.isFinal ? 'next' : 'done'}
-                     secureTextEntry={this.props.isFinal}
-                     placeholder={this.props.inputHint}
-                     onChangeText={onChangeText}
-                     placeholderTextColor="#d8d8d8"
-                     underlineColorAndroid="#efeff2"
-                     onSubmitEditing={() => this.focusNextField('2')} />
+          <TextInput
+            style={styles.input}
+            ref="1"
+            returnKeyType={this.props.isFinal ? 'next' : 'done'}
+            secureTextEntry={this.props.isFinal}
+            placeholder={this.props.inputHint}
+            onChangeText={onChangeText}
+            placeholderTextColor="#d8d8d8"
+            underlineColorAndroid="#efeff2"
+            onSubmitEditing={() => this.focusNextField('2')} />
         </View>
         {this.props.isFinal ? this.renderInput() : this.renderButton()}
       </View>
@@ -61,13 +61,14 @@ class FindPassStep extends Component {
 
     return (
       <View style={styles.inputContainer2}>
-        <TextInput style={styles.input}
-                   ref="2"
-                   secureTextEntry={this.props.isFinal}
-                   placeholder={this.props.inputHint2}
-                   onChangeText={onChangeText}
-                   placeholderTextColor="#d8d8d8"
-                   underlineColorAndroid="#efeff2" />
+        <TextInput
+          style={styles.input}
+          ref="2"
+          secureTextEntry={this.props.isFinal}
+          placeholder={this.props.inputHint2}
+          onChangeText={onChangeText}
+          placeholderTextColor="#d8d8d8"
+          underlineColorAndroid="#efeff2" />
       </View>
     );
   }
