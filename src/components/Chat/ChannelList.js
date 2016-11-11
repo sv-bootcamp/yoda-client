@@ -5,6 +5,7 @@ import {
   AsyncStorage,
   Image,
   ListView,
+  NetInfo,
   Platform,
   RefreshControl,
   StyleSheet,
@@ -12,7 +13,6 @@ import {
   TextInput,
   Vibration,
   View,
-  NetInfo,
 } from 'react-native';
 import Row from './Row';
 import SendBird from 'sendbird';
@@ -108,7 +108,7 @@ class ChannelList extends Component {
   renderRow(rowData) {
     return (
       <Row
-        _id={this.state.me._id}
+        myId={this.state.me._id}
         dataSource={rowData}
       />
     );
