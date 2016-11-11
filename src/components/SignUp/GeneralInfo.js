@@ -49,7 +49,7 @@ class GeneralInfo extends Component {
     let workDS = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
     this.state = {
-      resetFlag: false,
+      refreshFlag: false,
       mypic: '',
       name: '',
       email: '',
@@ -94,11 +94,6 @@ class GeneralInfo extends Component {
 
   // Render progress bar, profile image and form.
   render() {
-    let resetForm = () => {
-      if (this.state.resetFlag) {
-        this.setState({ resetFlag: false });
-      }
-    };
     let readyUploadImage = (imageResource) => {
       this.state.imageResource = imageResource;
     };
@@ -130,19 +125,13 @@ class GeneralInfo extends Component {
   // Regist general user info.
   regist() {
     if (this.state.name === '') {
-      Alert.alert(
-        'Sign In',
-        'Please input your name.',
-      );
+      Alert.alert('Sign In', 'Please input your name.');
       return;
     }
 
     let emailFilter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (emailFilter.test(this.state.email) === false) {
-      Alert.alert(
-        'Sign In',
-        'Please input your correct email.',
-      );
+      Alert.alert('Sign In', 'Please input your correct email.');
       return;
     }
 

@@ -1,21 +1,31 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Alert } from 'react-native';
-import Login from './Login';
-import GeneralInfo from './SignUp/GeneralInfo';
+import {
+  Alert,
+  Platform,
+  StyleSheet
+} from 'react-native';
+import Activity from './Activity/Activity';
 import CareerInfo from './SignUp/CareerInfo';
-import ExpertInfo from './SignUp/ExpertInfo';
-import Personality from './SignUp/Personality';
-import Completed from './SignUp/Completed';
-import Main from './Main';
 import ChannelList from './Chat/ChannelList';
 import ChatPage from './Chat/ChatPage';
+import Completed from './SignUp/Completed';
+import EvalPage from './Eval/EvalPage';
+import ExpertInfo from './SignUp/ExpertInfo';
+import OnBoarding from './OnBoarding/OnBoardingPage';
+import FindPassStep1 from './Login/FindPassStep1';
+import FindPassStep2 from './Login/FindPassStep2';
+import FindPassStep3 from './Login/FindPassStep3';
+import GeneralInfo from './SignUp/GeneralInfo';
+import Login from './Login/Login';
+import Main from './Main';
+import MyPage from './MyPage';
+import Personality from './SignUp/Personality';
 import UserList from './UserList/UserList';
 import UserProfile from './userProfile/UserProfile';
-import Activity from './Activity/Activity';
-import EvalPage from './Eval/EvalPage';
-import MyPage from './MyPage';
 import RequestPage from './userProfile/RequestPage';
 import RequestSent from './userProfile/RequestSent';
+import SignUp from './Login/SignUp';
+import SplashPage from './SplashPage';
 import {
   ActionConst,
   Actions,
@@ -28,12 +38,12 @@ import {
 const reducerCreate = params=> {
   const defaultReducer = Reducer(params);
   return (state, action)=> {
-      if (action.scene) {
-        App.scene = action.scene;
-      }
+    if (action.scene) {
+      App.scene = action.scene;
+    }
 
-      return defaultReducer(state, action);
-    };
+    return defaultReducer(state, action);
+  };
 };
 
 const refreshPreviousSceneOnBack = () => {
@@ -53,43 +63,47 @@ class App extends Component {
 
   render() {
     let backAndroidHandler = () => {
-      if (App.scene.sceneKey === 'evalPageMain' ||
-          App.scene.sceneKey === 'main' ||
-          App.scene.sceneKey === 'generalInfo') {
-        return true;
-      } else {
-        Actions.pop();
+      let scene = App.scene.sceneKey;
+      if (scene === 'evalPageMain' ||
+        scene === 'main' ||
+        scene === 'generalInfo' ||
+        scene === 'login'
+      ) {
         return true;
       }
+
+      Actions.pop();
+      return true;
     };
 
     return (
       <Router createReducer={reducerCreate} backAndroidHandler={backAndroidHandler}>
-        <Scene key="root"
-          titleStyle={styles.title} rightButtonTextStyle={styles.rightBtn}
+        <Scene key="root" titleStyle={styles.title} rightButtonTextStyle={styles.rightBtn}
           navigationBarStyle={styles.bar} leftButtonIconStyle = {styles.leftBtn}>
+          <Scene key="onBoarding" component={OnBoarding}
+            initial={true} hideNavBar={true} type={ActionConst.RESET}/>
           <Scene key="login" component={Login} initial={true}
-            hideNavBar={true} type={ActionConst.RESET} />
-
+            hideNavBar={true} type={ActionConst.RESET}/>
+          <Scene key="signUp" component={SignUp}/>
+          <Scene key="findPassStep1" component={FindPassStep1}
+            hideNavBar={false} title="Forgot Password"/>
+          <Scene key="findPassStep2" component={FindPassStep2}
+            title="Forgot Password"/>
+          <Scene key="findPassStep3" component={FindPassStep3} title="Forgot Password"/>
           <Scene key="generalInfo" component={GeneralInfo} title="General Info"
-            hideNavBar={false} type={ActionConst.RESET} />
-
+            hideNavBar={false} type={ActionConst.RESET}/>
           <Scene key="careerInfo" component={CareerInfo} title="Career Info"
             hideNavBar={false} type={ActionConst.RESET}
             backButtonImage={require('../resources/icon-arrow-left-grey.png')}/>
-
           <Scene key="expertInfo" component={ExpertInfo} title="I am expertised in"
             hideNavBar={false} hideBackImage={false}
             backButtonImage={require('../resources/icon-arrow-left-grey.png')}/>
-
           <Scene key="personality" component={Personality} title="Personality"
             hideNavBar={false} hideBackImage={false}
             backButtonImage={require('../resources/icon-arrow-left-grey.png')}/>
-
           <Scene key="completed" component={Completed} title="Congrats!"
             hideNavBar={false} type={ActionConst.RESET}
             backButtonImage={require('../resources/icon-arrow-left-grey.png')}/>
-
           {/* The right button(filter) function will be added later */}
           <Scene key="main" component={Main} title="Bridgeme" rightTitle="right"
             rightButtonTextStyle={{ color: 'transparent' }}
@@ -111,12 +125,12 @@ class App extends Component {
           <Scene key="chatPage" onBack={refreshPreviousSceneOnBack} component={ChatPage} />
           <Scene key="channelList" component={ChannelList} />
           <Scene key="evalPageMain" component={EvalPage} hideBackImage={true} panHandlers={null}
-            onBack={() => false} title="Survey" hideNavBar={false} />
+            onBack={() => false} title="Survey" hideNavBar={false}/>
           <Scene key="evalPage" component={EvalPage}
-            title="Survey" hideNavBar={false} />
+            title="Survey" hideNavBar={false}/>
         </Scene>
       </Router>
-   );
+      );
   }
 }
 
