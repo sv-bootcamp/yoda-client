@@ -4,6 +4,7 @@
 
 # Xcode
 #
+ios/Yoda/Info.plist
 build/
 *.pbxuser
 !default.pbxuser
