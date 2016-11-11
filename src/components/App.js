@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Alert } from 'react-native';
+import {
+  Alert,
+  Platform,
+  StyleSheet
+} from 'react-native';
 import Activity from './Activity/Activity';
 import ChannelList from './Chat/ChannelList';
 import ChatPage from './Chat/ChatPage';
 import EvalPage from './Eval/EvalPage';
+
+import OnBoarding from './OnBoarding/OnBoardingPage';
+import FindPassStep1 from './Login/FindPassStep1';
+import FindPassStep2 from './Login/FindPassStep2';
+import FindPassStep3 from './Login/FindPassStep3';
 import GeneralInfo from './SignUp/GeneralInfo';
-import Login from './Login';
+import Login from './Login/Login';
 import Main from './Main';
 import MyPage from './MyPage';
-import OnBoarding from './OnBoarding/OnBoardingPage';
 import UserList from './UserList/UserList';
 import UserProfile from './userProfile/UserProfile';
 import RequestPage from './userProfile/RequestPage';
 import RequestSent from './userProfile/RequestSent';
+import SignUp from './Login/SignUp';
+import SplashPage from './SplashPage';
 import {
   ActionConst,
   Actions,
@@ -50,25 +60,39 @@ class App extends Component {
 
   render() {
     let backAndroidHandler = () => {
-      if (App.scene.sceneKey === 'evalPageMain' ||
-        App.scene.sceneKey === 'main' ||
-        App.scene.sceneKey === 'generalInfo') {
-        return true;
-      } else {
-        Actions.pop();
+      let scene = App.scene.sceneKey;
+      if (scene === 'evalPageMain' ||
+        scene === 'main' ||
+        scene === 'generalInfo' ||
+        scene === 'login'
+      ) {
         return true;
       }
+
+      Actions.pop();
+      return true;
     };
 
     return (
       <Router createReducer={reducerCreate} backAndroidHandler={backAndroidHandler}>
-        <Scene key="root"
-               titleStyle={styles.title} rightButtonTextStyle={styles.leftBtn}
+        <Scene key="root" titleStyle={styles.title} rightButtonTextStyle={styles.leftBtn}
                navigationBarStyle={styles.bar}>
           <Scene key="onBoarding" component={OnBoarding}
                  initial={true} hideNavBar={true} type={ActionConst.RESET}/>
 
-          <Scene key="login" component={Login} hideNavBar={true} type={ActionConst.RESET}/>
+          <Scene key="login" component={Login} initial={true}
+                 hideNavBar={true} type={ActionConst.RESET}/>
+
+          <Scene key="signUp" component={SignUp}/>
+
+          <Scene key="findPassStep1" component={FindPassStep1}
+                 hideNavBar={false} title="Forgot Password"/>
+
+          <Scene key="findPassStep2" component={FindPassStep2}
+                 title="Forgot Password"/>
+
+          <Scene key="findPassStep3" component={FindPassStep3} title="Forgot Password"
+          />
 
           <Scene key="generalInfo" component={GeneralInfo} title="General Info"
                  hideNavBar={false} type={ActionConst.RESET}/>
