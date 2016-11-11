@@ -29,12 +29,6 @@ class Login extends Component {
     LoginUtil.initCallback(this.onLoginSuccess, this.onServerFail);
   }
 
-  componentWillMount() {
-    if (this.props.session === undefined) {
-      LoginUtil.hasToken();
-    }
-  }
-
   onLoginSuccess(result) {
     if (result === undefined) {
       Actions.login();

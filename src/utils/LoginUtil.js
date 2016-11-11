@@ -59,7 +59,6 @@ class LoginUtil {
     } else {
       AccessToken.getCurrentAccessToken()
       .then((data) => {
-        AsyncStorage.setItem('loginType', LoginMeta.LOGIN_TYPE_FB);
         loginUtil.fetchData(LoginMeta.LOGIN_TYPE_FB, data.accessToken.toString());
       })
       .catch((error) => {
@@ -75,7 +74,7 @@ class LoginUtil {
   fetchData(type, token) {
     AsyncStorage.multiSet(
     [['token', token], ['loginType', type]],
-      function () {
+      () => {
         let reqSet = loginUtil.getReqSet(type, token);
         fetch(UrlMeta.host + UrlMeta.API_LOGIN, reqSet)
         .then(loginUtil.getResponse)

@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import ErrorMeta from '../../utils/ErrorMeta';
+import LoginMeta from '../../utils/LoginMeta';
 import LinearGradient from 'react-native-linear-gradient';
 import LoginUtil from '../../utils/LoginUtil';
 import ServerUtil from '../../utils/ServerUtil';
@@ -144,7 +145,7 @@ class Login extends Component {
 
   onSignInSuccess(result) {
     if (result) {
-      let onGetProfileSuccess = (result) => this.onGetProfileSuccess(result);
+      let onGetProfileSuccess = (res) => this.onGetProfileSuccess(res);
       let onGetProfileFail = (error) => this.onGetProfileFail(error);
 
       ServerUtil.initCallback(onGetProfileSuccess, onGetProfileFail);
@@ -158,7 +159,7 @@ class Login extends Component {
   onSignInFail(error) {
     Alert.alert(
       'SignIn',
-      'Sever error! Please contact to developer',
+      'Sever error(Sign in)! Please contact to developer',
     );
   }
 
@@ -169,8 +170,9 @@ class Login extends Component {
   onGetProfileFail(error) {
     Alert.alert(
       'SignIn',
-      'Sever error! Please contact to developer',
+      'Sever error(Profile)! Please try to sign in again.',
     );
+    this.onGetTokenFail();
   }
 
   signInLocal() {
@@ -199,8 +201,11 @@ class Login extends Component {
   }
 
   onLocalLoginSuccess(result) {
-    alert(result);
-    //this.onSignInSuccess(result);
+    let onSignInSuccess = (res) => this.onSignInSuccess(res);
+    AsyncStorage.multiSet(
+       [['token', result.user.password], ['loginType', LoginMeta.LOGIN_TYPE_LOCAL]],
+       () => onSignInSuccess(result)
+    );
   }
 
   focusNextField(refNo) {
