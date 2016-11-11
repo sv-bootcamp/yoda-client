@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Alert,
   Dimensions,
   Image,
   Platform,
@@ -12,37 +13,38 @@ import {
   View,
 } from 'react-native';
 import {
-  Select,
   Option,
   OptionList,
+  Select,
   updatePosition
 } from '../../utils/dropdown/index';
 import Dropdown from 'react-native-dropdown-android';
 import LinearGradient from 'react-native-linear-gradient';
 import Progress from '../Shared/Progress';
 import { Actions, Scene, }  from 'react-native-router-flux';
-import data from './CareerMETA';
+import { CareerData } from './SignUpMETA';
 
 class CareerInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      questions: [
-        'What area do you work in?',
-        'What roles do you work in?',
-        'Years of work experience',
-        'Last Educational Background?',
-      ],
+      questions: CareerData.questions,
+      checked: [],
       selected: [],
       option: [],
       selectOP: '',
       clearFlag: false,
     };
 
-    this.state.option[0] = data.area;
+    this.state.option[0] = CareerData.area;
     this.state.option[1] = [];
-    this.state.option[2] = data.years;
-    this.state.option[3] = data.education_background;
+    this.state.option[2] = CareerData.years;
+    this.state.option[3] = CareerData.education_background;
+
+    for (i = 0; i < this.state.option.length; i++) {
+      this.state.checked.push(false);
+      this.state.selected.push('');
+    }
   }
 
   componentDidMount() {
@@ -61,13 +63,17 @@ class CareerInfo extends Component {
   }
 
   onSelect(province, idx) {
+    if (idx === 0 && province !== this.state.selected[idx])
+      this.state.checked[1] = false;
+
     this.state.selectOP = idx;
     this.state.selected[idx] = province;
+    this.state.checked[idx] = true;
 
     if (idx === 0) {
-      for (i = 0; i < data.role.length; i++) {
-        if (data.role[i].area === this.state.selected[0]) {
-          this.state.option[1] = data.role[i].list;
+      for (i = 0; i < CareerData.role.length; i++) {
+        if (CareerData.role[i].area === this.state.selected[0]) {
+          this.state.option[1] = CareerData.role[i].list;
           this.state.clearFlag = true;
           break;
         }
@@ -102,8 +108,8 @@ class CareerInfo extends Component {
                   <Dropdown
                     style={{ height: 40, width: Dimensions.get('window').width - 60 }}
                     values={this.state.option[idx]}
-                    onChange={(data) => {
-                      this.onSelect(data.value, idx);
+                    onChange={(CareerData) => {
+                      this.onSelect(CareerData.value, idx);
                     }}/>
 
                 </View>
@@ -135,7 +141,49 @@ class CareerInfo extends Component {
   }
 
   onUploadCallback() {
+    this.onNextBtnPressed();
+  }
+
+  onNextBtnPressed() {
+    let job = [
+    {
+      area: this.state.selected[0],
+      role: this.state.selected[1],
+      years: this.state.selected[2],
+      education_background: this.state.selected[3],
+    },
+    ];
+
+    let body = { job };
+    console.log(JSON.stringify(body));
+
     Actions.expertInfo({ me: this.props.me });
+  }
+
+  renderNextBtn() {
+    let opacity = 1;
+    let disabled  = false;
+    for (i = 0; i < this.state.checked.length; i++) {
+      if (!this.state.checked[i]) {
+        opacity = 0.5;
+        disabled  = true;
+      }
+    }
+
+    return (
+        <TouchableOpacity disabled ={disabled}
+          onPress = {this.onUploadCallback.bind(this)}>
+          <LinearGradient style={styles.btnStyle}
+            start={[0.9, 0.5]} end={[0.0, 0.5]} locations={[0, 0.75]}
+            colors={['#07e4dd', '#44acff']}>
+            <View  opacity={opacity}>
+              <Text style={styles.buttonText}>
+                NEXT
+              </Text>
+            </View>
+          </LinearGradient>
+        </TouchableOpacity>
+    );
   }
 
   render() {
@@ -151,13 +199,7 @@ class CareerInfo extends Component {
             {this.getQuestionSet()}
           </View>
           <View style={styles.btnContainer}>
-            <TouchableOpacity onPress = {this.onUploadCallback.bind(this)}>
-              <LinearGradient style={styles.btnStyle}
-                start={[0.9, 0.5]} end={[0.0, 0.5]} locations={[0, 0.75]}
-                colors={['#07e4dd', '#44acff']}>
-                <Text style={styles.buttonText}>NEXT</Text>
-              </LinearGradient>
-            </TouchableOpacity>
+            {this.renderNextBtn()}
           </View>
         </ScrollView>
       </View>
@@ -219,21 +261,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   titleText: {
-    fontFamily: 'opensans',
+    fontFamily: 'SFUIText-regular',
     fontSize: 18,
     color: '#2e3031',
   },
   subTitleText: {
-    fontFamily: 'opensans',
+    fontFamily: 'SFUIText-regular',
     fontSize: 12,
     color: '#2e3031',
     marginTop: 10,
   },
   questionText: {
-    fontFamily: 'opensans',
+    fontFamily: 'SFUIText-Bold',
     fontSize: 12,
     color: '#a6aeae',
-    fontWeight: 'bold',
   },
   buttonText: {
     fontFamily: 'SFUIText-Bold',

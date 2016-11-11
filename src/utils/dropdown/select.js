@@ -13,7 +13,6 @@ const SELECT = 'SELECT';
 
 const styles = StyleSheet.create({
   container: {
-
     borderColor: '#efeff2',
     borderStyle: 'solid',
     borderWidth: 1,
@@ -111,7 +110,7 @@ class Select extends Component {
     return (
       <TouchableWithoutFeedback disabled={!activate} onPress={this.onPress.bind(this)}>
         <View ref={SELECT}
-              style={[styles.container, style, dimensions, { backgroundColor: bgColor }]}>
+          style={[styles.container, style, dimensions, { backgroundColor: bgColor }]}>
           <Option style={ styleOption } styleText={ styleText }
             value={this.state.value} show={this.state.show} defaultValue={defaultValue}>
             {this.state.value}

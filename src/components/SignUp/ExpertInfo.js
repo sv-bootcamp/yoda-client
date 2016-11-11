@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
-  View,
-  Text,
+  Dimensions,
   Platform,
   ScrollView,
-  Dimensions,
+  StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import CheckBox from '../../utils/CheckBox';
 import LinearGradient from 'react-native-linear-gradient';
 import Progress from '../Shared/Progress';
 import { Actions, Scene, }  from 'react-native-router-flux';
-import data from './CareerMETA';
+import { Options } from './SignUpMETA';
 
 const window = Dimensions.get('window');
 
@@ -21,23 +21,12 @@ class ExpertInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      options: [
-        'Study abroad',
-        'Get a new job (e.g., Interview, job search..) ',
-        'Portfolio & Resume',
-        'Start up',
-        'Career change',
-        'Networking',
-        'Soft skills (e.g., Communication..)',
-      ],
+      options: Options,
       checked: [],
     };
-
     for (i = 0; i < this.state.options.length; i++) {
       this.state.checked.push(false);
     }
-
-    console.log(this.state.checked);
   }
 
   // Update checkbox state
@@ -46,7 +35,7 @@ class ExpertInfo extends Component {
     this.forceUpdate();
   }
 
-  _getOptionSet() {
+  getOptionSet() {
     return this.state.options.map(
         (option, idx) => (
             <CheckBox key={idx}
@@ -56,17 +45,33 @@ class ExpertInfo extends Component {
               label={this.state.options[idx]}
               optionIdx={idx}
               onUpdate={this.updateCheckBox.bind(this)}
-              />
+            />
         )
     );
   }
 
   onUploadCallback() {
+    this.onNextBtnPressed();
+  }
+
+  onNextBtnPressed() {
+    let help = [];
+    for (i = 0; i < this.state.checked.length; i++) {
+      if (this.state.checked[i]) {
+        help.push({
+          select: this.state.options[i],
+          index: i,
+        });
+      }
+    }
+
+    let body = { help };
+    console.log(JSON.stringify(body));
+
     Actions.personality({ me: this.props.me });
   }
 
   render() {
-
     return (
       <View style={styles.container}>
         <Progress level={4} step={3} />
@@ -80,7 +85,7 @@ class ExpertInfo extends Component {
         </View>
         <View style ={styles.body}>
           <ScrollView>
-            {this._getOptionSet()}
+            {this.getOptionSet()}
           </ScrollView>
         </View>
         <View style={styles.btnContainer}>
@@ -93,7 +98,7 @@ class ExpertInfo extends Component {
           </TouchableOpacity>
         </View>
 
-    </View>
+      </View>
     );
   }
 
@@ -141,13 +146,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   titleText: {
-    fontFamily: 'opensans',
+    fontFamily: 'SFUIText-regular',
     fontSize: 18,
     textAlign: 'center',
     color: '#2e3031',
   },
   subTitleText: {
-    fontFamily: 'opensans',
+    fontFamily: 'SFUIText-regular',
     fontSize: 12,
     textAlign: 'center',
     color: '#2e3031',

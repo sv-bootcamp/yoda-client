@@ -176,7 +176,7 @@ class GeneralInfo extends Component {
   }
 
   onUploadSuccess(result) {
-    Actions.careerInfo({ me: this.props.me });//Actions.main({ me: this.props.me });
+    Actions.careerInfo({ me: this.props.me });
   }
 
   onUploadError(error) {

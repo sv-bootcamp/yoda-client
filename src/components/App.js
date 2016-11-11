@@ -5,6 +5,7 @@ import GeneralInfo from './SignUp/GeneralInfo';
 import CareerInfo from './SignUp/CareerInfo';
 import ExpertInfo from './SignUp/ExpertInfo';
 import Personality from './SignUp/Personality';
+import Completed from './SignUp/Completed';
 import Main from './Main';
 import ChannelList from './Chat/ChannelList';
 import ChatPage from './Chat/ChatPage';
@@ -65,29 +66,35 @@ class App extends Component {
     return (
       <Router createReducer={reducerCreate} backAndroidHandler={backAndroidHandler}>
         <Scene key="root"
-          titleStyle={styles.title} rightButtonTextStyle={styles.leftBtn}
-          navigationBarStyle={styles.bar}>
-          <Scene key="login" component={Login}
-            initial={true} hideNavBar={true} type={ActionConst.RESET} />
+          titleStyle={styles.title} rightButtonTextStyle={styles.rightBtn}
+          navigationBarStyle={styles.bar} leftButtonIconStyle = {styles.leftBtn}>
+          <Scene key="login" component={Login} initial={true}
+            hideNavBar={true} type={ActionConst.RESET} />
 
           <Scene key="generalInfo" component={GeneralInfo} title="General Info"
             hideNavBar={false} type={ActionConst.RESET} />
 
           <Scene key="careerInfo" component={CareerInfo} title="Career Info"
-            hideNavBar={false} type={ActionConst.RESET} hideBackImage={false}/>
+            hideNavBar={false} type={ActionConst.RESET}
+            backButtonImage={require('../resources/icon-arrow-left-grey.png')}/>
 
           <Scene key="expertInfo" component={ExpertInfo} title="I am expertised in"
-            hideNavBar={false} type={ActionConst.RESET} hideBackImage={false}/>
+            hideNavBar={false} hideBackImage={false}
+            backButtonImage={require('../resources/icon-arrow-left-grey.png')}/>
 
           <Scene key="personality" component={Personality} title="Personality"
-            hideNavBar={false} type={ActionConst.RESET} hideBackImage={false}/>
+            hideNavBar={false} hideBackImage={false}
+            backButtonImage={require('../resources/icon-arrow-left-grey.png')}/>
+
+          <Scene key="completed" component={Completed} title="Congrats!"
+            hideNavBar={false} type={ActionConst.RESET}
+            backButtonImage={require('../resources/icon-arrow-left-grey.png')}/>
 
           {/* The right button(filter) function will be added later */}
           <Scene key="main" component={Main} title="Bridgeme" rightTitle="right"
             rightButtonTextStyle={{ color: 'transparent' }}
             rightButtonIconStyle={{ marginBottom: 13, marginRight: 6 }}
-            onRight={()=>Alert.alert('Filtering service will come soon')
-            }
+            onRight={()=>Alert.alert('Filtering service will come soon')}
             rightButtonImage={require('../resources/filter.png')}
             hideNavBar={false} type={ActionConst.RESET}/>
           <Scene key="userList" component={UserList} />
@@ -99,7 +106,7 @@ class App extends Component {
           <Scene key="requestPage" component={RequestPage} title='Request Connection'
             backButtonImage={require('../resources/icon-cancel.png')}/>
           <Scene key="requestSent" component={RequestSent} title='Request Sent'
-          hideBackImage={true} type={ActionConst.REPLACE}/>
+            hideBackImage={true} type={ActionConst.REPLACE}/>
           <Scene key="activity" component={Activity} />
           <Scene key="chatPage" onBack={refreshPreviousSceneOnBack} component={ChatPage} />
           <Scene key="channelList" component={ChannelList} />
@@ -122,9 +129,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#2e3031',
   },
-  leftBtn: {
+  rightBtn: {
     fontSize: 16,
     color: '#557bfc',
+  },
+  leftBtn: {
+    width: 25,
+    height: 20,
   },
 });
 

@@ -15,16 +15,12 @@ class OptionList extends Component {
 
     this.state = {
       show: false,
-
       width: 0,
       height: 0,
-
       pageX: 0,
       pageY: 0,
-
       positionX: 0,
       positionY: 0,
-
       items: [],
       seleted: null,
       onSelect: () => { },

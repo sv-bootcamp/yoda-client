@@ -55,7 +55,7 @@ class Items extends Component {
         </TouchableWithoutFeedback>
     );
 
-    let h = (items.length > 3) ? height * 2 + height / 4 : height * items.length;
+    let h = (items.length > 3) ? height * 3 + height / 4 : height * items.length;
     return (
       <View style={[styles.container, { width: width, top: positionY, left: positionX }]}>
         <ScrollView

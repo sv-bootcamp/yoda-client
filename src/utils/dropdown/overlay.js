@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     width: window.width,
     height: window.height,
-    elevation: 1,
   },
 });
 
@@ -40,7 +39,7 @@ class Overlay extends Component {
 
     return (
       <TouchableWithoutFeedback style={styles.container} onPress={onPress}>
-        <View elevation={1000} style={[styles.overlay, { top: -pageY, left: -pageX }]}/>
+        <View style={[styles.overlay, { top: -pageY, left: -pageX }]}/>
       </TouchableWithoutFeedback>
     );
   }

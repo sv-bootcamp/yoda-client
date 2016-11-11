@@ -1,4 +1,10 @@
-export default {
+export const CareerData = {
+  questions: [
+    'What area do you work in?',
+    'What roles do you work in?',
+    'Years of work experience',
+    'Last Educational Background?',
+  ],
   area: [
     'Software Engineering',
     'Design',
@@ -122,3 +128,23 @@ export default {
     'Other',
   ],
 };
+export const Options = [
+    'Study abroad',
+    'Get a new job (e.g., Interview, job search..) ',
+    'Portfolio & Resume',
+    'Start up',
+    'Career change',
+    'Networking',
+    'Soft skills (e.g., Communication..)',
+];
+
+export const Personalitys = [
+    ['Extroverts', 'Introverts'],
+    ['Sensors', 'Intuitives'],
+    ['Feelers', 'Thinkers'],
+    ['Judgers', 'Percievers'],
+    ['Speaker', 'Listener'],
+    ['Energetic', 'Quite'],
+    ['Unexacting', 'Perfectionist'],
+    ['Traditional', 'Free Thinking'],
+];
