@@ -3,14 +3,9 @@ package com.yoda;
 import android.os.Bundle;
 import android.content.Intent;
 import com.facebook.react.ReactActivity;
-<<<<<<< HEAD
-import com.oblador.vectoricons.VectorIconsPackage;
-import com.BV.LinearGradient.LinearGradientPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
-=======
->>>>>>> 8722772ee98f291ef3c8940ecf9f42af60d0639a
 
 public class MainActivity extends ReactActivity {
 
