@@ -65,9 +65,9 @@ class App extends Component {
     let backAndroidHandler = () => {
       let scene = App.scene.sceneKey;
       if (scene === 'evalPageMain' ||
-        scene === 'main' ||
-        scene === 'generalInfo' ||
-        scene === 'login'
+          scene === 'main' ||
+          scene === 'generalInfo' ||
+          scene === 'login'
       ) {
         return true;
       }
