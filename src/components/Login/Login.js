@@ -38,16 +38,15 @@ class Login extends Component {
       return this.renderLoadingView();
     }
 
-    let onChangeEmail = (text) => { this.state.email = text; };
-
-    let onChangePassword = (text) => { this.state.password = text; };
+    let onChangeEmail = (text) => this.state.email = text;
+    let onChangePassword = (text) => this.state.password = text;
 
     return (
 
       //  Render the screen on View.
       <View style={styles.container}>
         <View style={styles.mainLogo}>
-          <Image source={require('../../resources/splash_icon_1x.png')} />
+          <Image source={require('../../resources/page-1-copy-2.png')} />
         </View>
 
         {/* Render facebook login button */}
@@ -94,7 +93,7 @@ class Login extends Component {
           </LinearGradient>
         </TouchableOpacity>
 
-        <TouchableWithoutFeedback onPress={() => Actions.findPassStep1()}>
+        <TouchableWithoutFeedback onPress={() => Actions.inputEmailAddr()}>
           <View style={styles.subTextContainer}>
             <Text style={styles.subText}>Forgot password?</Text>
           </View>
@@ -117,10 +116,9 @@ class Login extends Component {
       <View style={styles.container}>
         <ActivityIndicator
           animating={!this.state.loaded}
-          style={[styles.activityIndicator]}
           size="large"
           />
-        <Text style={styles.headerText}>Loading...</Text>
+        <Text>Loading...</Text>
       </View>
     );
   }
@@ -147,7 +145,7 @@ class Login extends Component {
       return;
     }
 
-    UserUtil.localSignUp(this.onLoginCallback.bind(this), this.state.email, this.state.password);
+    UserUtil.localSignIn(this.onLoginCallback.bind(this), this.state.email, this.state.password);
   }
 
   onLoginCallback(result, error) {

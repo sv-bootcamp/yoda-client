@@ -43,8 +43,9 @@ class ApiUtil {
 
   requestPostWithToken(callback, api, body, contentType = ServerMeta.CONTENT_TYPE_JSON)  {
     AsyncStorage.getItem('token', (err, result) => {
-      if (err) return;
-      if (result)
+      alert(1);
+      //if (err) return;
+      //if (result)
        this.request(callback, api, 'POST', body, contentType, result);
     });
   }
@@ -84,6 +85,7 @@ class ApiUtil {
   }
 
   getResponse(response) {
+    console.log(response);
     if (response.status === 200 || response.status === 201) {
       return response.json();
     } else {

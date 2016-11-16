@@ -38,7 +38,13 @@ class UserUtil {
     );
   }
 
-  // Get user lists except me
+  localSignIn(callback, email, password) {
+    let body = {};
+    body.email = email;
+    body.password = password;
+    apiUtil.requestPostWithToken(callback, 'API_LOCAL_SIGNIN', body);
+  }
+
   localSignUp(callback, email, password) {
     let body = {};
     body.email = email;

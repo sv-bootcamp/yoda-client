@@ -25,27 +25,27 @@ class SignUp extends Component {
     };
   }
 
+  onSignUpWithFBCallback(result, error) {
+    if (error) {
+      alert(JSON.stringify(error));
+    } else if (result) {
+      AsyncStorage.setItem('token', result.access_token, () => Actions.generalInfo());
+    }
+  }
+
   onSignUpCallback(result, error) {
     if (error) {
       alert(JSON.stringify(error));
     } else if (result) {
-      if (result === undefined) {
-        Actions.login();
-      } else {
-        AsyncStorage.setItem('token', result.access_token, () => Actions.generalInfo());
-      }
+      Actions.login();
     }
   }
 
   render() {
-    let onChangeEmail = (text) => { this.state.email = text; };
-
-    let onChangePassword1 = (text) => { this.state.password1 = text; };
-
-    let onChangePassword2 = (text) => { this.state.password2 = text; };
-
-    let signInWithFacebook = () => UserUtil.signInWithFacebook(this.onSignUpCallback.bind(this));
-
+    let onChangeEmail = (text) => this.state.email = text;
+    let onChangePassword1 = (text) => this.state.password1 = text;
+    let onChangePassword2 = (text) => this.state.password2 = text;
+    let signInWithFacebook = () => UserUtil.onSignUpWithFBCallback(this.onSignUpCallback.bind(this));
     let createAccount = () => this.createAccount();
 
     return (
