@@ -34,12 +34,12 @@ public class MainApplication extends Application implements ReactApplication {
         @Override
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
-                    new MainReactPackage(),
-            new VectorIconsPackage(),
-            new LinearGradientPackage(),
-            new ImagePickerPackage(),
-            new FBSDKPackage(mCallbackManager),
-            new DropdownPackage()
+                new MainReactPackage(),
+                new VectorIconsPackage(),
+                new LinearGradientPackage(),
+                new ImagePickerPackage(),
+                new FBSDKPackage(mCallbackManager),
+                new DropdownPackage()
             );
         }
     };

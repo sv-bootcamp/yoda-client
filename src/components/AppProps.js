@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
 });
 
 const leftButtonGrey = require('../resources/icon-arrow-left-grey.png');
+const backButton = require('../resources/icon-arrow-left-white.png');
 
 const AppProps = {
   rootProp: {
@@ -135,14 +136,14 @@ const AppProps = {
     {
       key: 'main',
       component: Main,
+      hideNavBar: false,
       title: 'Bridgeme',
+      type: ActionConst.RESET,
       rightTitle: 'right',
       rightButtonTextStyle: { color: 'transparent' },
       rightButtonIconStyle: { marginBottom: 13, marginRight: 6 },
-      onRight: ()=>Alert.alert('Filtering service will come soon'),
       rightButtonImage: require('../resources/filter.png'),
-      hideNavBar: false,
-      type: ActionConst.RESET,
+      onRight: () => Alert.alert('Filtering service will come soon'),
     },
     {
       key: 'userList',
@@ -166,14 +167,14 @@ const AppProps = {
       key: 'requestPage',
       component: RequestPage,
       title: 'Request Connection',
-      backButtonImage: require('../resources/icon-cancel.png'),
+      backButtonImage: backButton,
     },
     {
       key: 'requestSent',
       component: RequestSent,
       title: 'Request Sent',
       hideBackImage: true,
-      backButtonImage: require('../resources/icon-cancel.png'),
+      backButtonImage: backButton,
       type: ActionConst.REPLACE,
     },
     {

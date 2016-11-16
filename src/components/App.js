@@ -22,28 +22,12 @@ const reducerCreate = params=> {
 class App extends Component {
   constructor(props) {
     super(props);
-    this.scene = null;
   }
 
   render() {
-    let backAndroidHandler = () => {
-      let scene = App.scene.sceneKey;
-      if (scene === 'onBoarding' ||
-          scene === 'evalPageMain' ||
-          scene === 'main' ||
-          scene === 'generalInfo' ||
-          scene === 'login'
-      ) {
-        return true;
-      }
-
-      Actions.pop();
-      return true;
-    };
-
     let routerProp = {
       createReducer: reducerCreate,
-      backAndroidHandler: backAndroidHandler,
+      backAndroidHandler: () => this.backAndroidHandler(),
     };
 
     let Scenes = AppProps.sceneProps.map((props, key) => <Scene {...props} />);
@@ -55,6 +39,21 @@ class App extends Component {
         </Scene>
       </Router>
     );
+  }
+
+  backAndroidHandler() {
+    let scene = App.scene.sceneKey;
+    if (scene === 'onBoarding' ||
+        scene === 'evalPageMain' ||
+        scene === 'main' ||
+        scene === 'generalInfo' ||
+        scene === 'login'
+    ) {
+      return true;
+    }
+
+    Actions.pop();
+    return true;
   }
 }
 
