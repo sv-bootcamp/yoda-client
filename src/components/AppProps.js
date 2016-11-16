@@ -26,7 +26,6 @@ import UserProfile from './userProfile/UserProfile';
 import RequestPage from './userProfile/RequestPage';
 import RequestSent from './userProfile/RequestSent';
 import SignUp from './Login/SignUp';
-import SplashPage from './SplashPage';
 
 const styles = StyleSheet.create({
   bar: {
