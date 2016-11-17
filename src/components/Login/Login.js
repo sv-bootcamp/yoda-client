@@ -30,10 +30,10 @@ class Login extends Component {
 
   hasToken() {
     AsyncStorage.getItem('token', (err, result) => {
-      if (result) {
-        UserUtil.getMyProfile(this.onTokenValidCheck.bind(this));
-      } else {
+      if (err) {
         this.setState({ loaded: true });
+      } else if (err) {
+        UserUtil.getMyProfile(this.onTokenValidCheck.bind(this));
       }
     });
   }
