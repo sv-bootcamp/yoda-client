@@ -35,18 +35,13 @@ class ApiUtil {
   requestGetWithTokenUrl(callback, api, etcUrl, body = null,
     contentType = ServerMeta.CONTENT_TYPE_URL) {
     AsyncStorage.getItem('token', (err, result) => {
-      if (err) return;
-      if (result)
-       this.request(callback, api, 'GET', body, contentType, result, etcUrl);
+      this.request(callback, api, 'GET', body, contentType, result, etcUrl);
     });
   }
 
   requestPostWithToken(callback, api, body, contentType = ServerMeta.CONTENT_TYPE_JSON)  {
     AsyncStorage.getItem('token', (err, result) => {
-      alert(1);
-      //if (err) return;
-      //if (result)
-       this.request(callback, api, 'POST', body, contentType, result);
+      this.request(callback, api, 'POST', body, contentType, result);
     });
   }
 
@@ -85,7 +80,6 @@ class ApiUtil {
   }
 
   getResponse(response) {
-    console.log(response);
     if (response.status === 200 || response.status === 201) {
       return response.json();
     } else {

@@ -13,9 +13,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  mainLogoText: {
+    fontFamily: 'ProductSans-Bold',
+    color: '#003d6e',
+    fontSize: 18,
+    marginTop: 16,
+  },
   facebookLoginContainer: {
     flexDirection: 'row',
-    marginTop: 87,
+    marginTop: 65,
     justifyContent: 'center',
     alignItems: 'center',
   },
