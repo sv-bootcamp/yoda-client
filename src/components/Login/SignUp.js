@@ -26,9 +26,9 @@ class SignUp extends Component {
   }
 
   render() {
-    let onChangeEmail = (text) => this.state.email = text;
-    let onChangePassword1 = (text) => this.state.password1 = text;
-    let onChangePassword2 = (text) => this.state.password2 = text;
+    let onInputEmail = (text) => this.state.email = text;
+    let onInputPassword1 = (text) => this.state.password1 = text;
+    let onInputPassword2 = (text) => this.state.password2 = text;
     let focusNextField = (refNo) => this.refs[refNo].focus();
     let createAccount = () => this.createAccount();
 
