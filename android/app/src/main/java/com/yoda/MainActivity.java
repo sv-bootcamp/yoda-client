@@ -3,9 +3,6 @@ package com.yoda;
 import android.os.Bundle;
 import android.content.Intent;
 import com.facebook.react.ReactActivity;
-import com.evollu.react.fcm.FIRMessagingPackage;
-import com.chymtt.reactnativedropdown.DropdownPackage;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 public class MainActivity extends ReactActivity {
 
