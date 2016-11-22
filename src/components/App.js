@@ -43,12 +43,6 @@ class App extends Component {
     );
   }
 
-  componentWillAmount() {
-    // prevent leaking
-    //this.refreshUnsubscribe();
-    //this.notificationUnsubscribe();
-  }
-
   componentDidMount() {
     if (Platform.os === 'ios') {
       FCM.requestPermissions();
@@ -56,16 +50,6 @@ class App extends Component {
 
     FCM.getInitialNotification().then(notif => {
       console.log(notif)
-    });
-
-    FCM.on('notification', (notif) => {
-      // there are two parts of notif. notif.notification contains the notification payload, notif.data contains data payload
-      if(notif.local_notification){
-        console.log(noti);
-      }
-      if(notif.opened_from_tray){
-        console.log(noti);
-      }
     });
   }
 
