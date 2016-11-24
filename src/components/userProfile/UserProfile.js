@@ -121,14 +121,15 @@ class UserProfile extends Component {
     } else {
       UserUtil.getOthersProfile(this.onReqestCallback.bind(this), this.props._id);
     }
+
   }
 
   // Receive props befofe completly changed
   componentWillReceiveProps(props) {
     if (this.props.myProfile) {
-      //UserUtil.getMyProfile(this.onReqestCallback.bind(this));
+      UserUtil.getMyProfile(this.onReqestCallback.bind(this));
     } else {
-      //UserUtil.getOthersProfile(this.onReqestCallback.bind(this), this.props._id);
+      UserUtil.getOthersProfile(this.onReqestCallback.bind(this), this.props._id);
     }
   }
 
@@ -150,7 +151,7 @@ class UserProfile extends Component {
   // Render User profile
   renderUserProfile() {
     const connect = () => this.sendRequest();
-    let connectButton = null;
+    let connectButton;
     const ConnectStatus = {
       DISCONNECTED: 0,
       PENDING: 1,
