@@ -26,6 +26,11 @@ class UserOverview extends Component {
       personality: [],
       score: [],
       loaded: false,
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2,
+        sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
+      }),
+      dataBlob: {},
     };
   }
 
@@ -34,14 +39,6 @@ class UserOverview extends Component {
       alert(JSON.stringify(error));
     } else if (result) {
       let sectionIDs = ['About', 'I am expertised in', 'Personality'];
-
-      this.setState({
-        dataSource: new ListView.DataSource({
-          rowHasChanged: (r1, r2) => r1 !== r2,
-          sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
-        }),
-        dataBlob: {},
-      });
 
       // TODO: change with real data
       this.state.dataBlob[sectionIDs[0]] = '1';
@@ -62,7 +59,7 @@ class UserOverview extends Component {
 
   // Receive props befofe completely changed
   componentWillReceiveProps(props) {
-    UserUtil.getOthersProfile(this.onRequestCallback.bind(this), this.props.id);
+    //UserUtil.getOthersProfile(this.onRequestCallback.bind(this), this.props.id);
   }
 
   // Render loading page while fetching user profiles

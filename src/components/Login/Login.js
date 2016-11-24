@@ -24,6 +24,9 @@ class Login extends Component {
       loaded: false,
       tokenValid: false,
     };
+  }
+
+  componentDidMount() {
     this.hasToken();
   }
 
@@ -48,6 +51,8 @@ class Login extends Component {
       } else {
         Actions.generalInfo({ me: profile });
       }
+    } else {
+      this.setState({ loaded: true });
     }
   }
 

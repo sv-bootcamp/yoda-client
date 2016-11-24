@@ -132,19 +132,21 @@ const styles = StyleSheet.create({
     height: CARD_HEIGHT,
     justifyContent: 'center',
     borderRadius: 4,
-    shadowColor: '#000000',
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    shadowOffset: {
-      height: 1,
-      width: 0.3,
-    },
     ...Platform.select({
       ios: {
         marginTop: 100,
+        shadowColor: '#000000',
+        shadowOpacity: 0.3,
+        shadowRadius: 8,
+        shadowOffset: {
+          height: 1,
+          width: 0.3,
+        },
       },
       android: {
         marginTop: 90,
+        borderWidth: 1,
+        borderColor: 'rgba(0, 0, 0, .1)',
       },
     }),
   },
