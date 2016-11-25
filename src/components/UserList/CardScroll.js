@@ -160,11 +160,6 @@ export default class CardScroll extends Component {
   }
 }
 
-const CARD_PREVIEW_WIDTH = 10;
-const CARD_MARGIN = 25;
-const CARD_WIDTH = Dimensions.get('window').width - (CARD_MARGIN + CARD_PREVIEW_WIDTH) * 2;
-const CARD_HEIGHT = Dimensions.get('window').height - 200;
-const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
@@ -174,6 +169,15 @@ const styles = StyleSheet.create({
   },
   listView: {
     flex: 1,
+    paddingLeft: 36,
+    ...Platform.select({
+      ios: {
+        marginTop: 94,
+      },
+      android: {
+        marginTop: 84,
+      },
+    }),
   },
   previewListView: {
     marginTop: 2,

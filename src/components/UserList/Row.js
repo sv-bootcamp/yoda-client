@@ -118,23 +118,21 @@ class Row extends Component {
 }
 
 const CARD_PREVIEW_WIDTH = 10;
-const CARD_MARGIN = 10;
-const CARD_WIDTH = Dimensions.get('window').width - (CARD_MARGIN + 10 + CARD_PREVIEW_WIDTH) * 2;
-const CARD_HEIGHT = Dimensions.get('window').height - 180;
+const CARD_MARGIN = 15;
+const CARD_WIDTH = Dimensions.get('window').width - 72;
+const CARD_HEIGHT = Dimensions.get('window').height - 182;
 const HEIGHT = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   rowView: {
     flex: 1,
     backgroundColor: '#ffffff',
     width: CARD_WIDTH,
-    margin: CARD_MARGIN,
-    marginTop: 100,
-    height: CARD_HEIGHT,
+    marginRight: CARD_MARGIN,
     justifyContent: 'center',
     borderRadius: 4,
     ...Platform.select({
       ios: {
-        marginTop: 100,
+        height: CARD_HEIGHT - 10,
         shadowColor: '#000000',
         shadowOpacity: 0.3,
         shadowRadius: 8,
@@ -144,7 +142,7 @@ const styles = StyleSheet.create({
         },
       },
       android: {
-        marginTop: 90,
+        height: CARD_HEIGHT,
         borderWidth: 1,
         borderColor: 'rgba(0, 0, 0, .1)',
       },

@@ -56,7 +56,8 @@ class UserList extends Component {
     UserUtil.getMentorList(this.onServerCallback.bind(this));
   }
 
-  renderRow(rowData) {
+  renderRow(rowData, sectionID, rowID) {
+    rowData['rowID'] = rowID;
     return <Row dataSource={rowData}/>;
   }
 
