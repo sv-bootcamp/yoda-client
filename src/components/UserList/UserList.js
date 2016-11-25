@@ -44,6 +44,7 @@ class UserList extends Component {
         }),
       });
 
+      result[result.length - 1].last = true;
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(result.slice()),
         loaded: true,

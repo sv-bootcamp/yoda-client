@@ -184,7 +184,11 @@ class Login extends Component {
     if (error) {
       this.alert('Sever error(Profile)! Please sign in again.');
     } else if (profile) {
-      Actions.generalInfo({ me: profile });
+      if (profile.status === 200) {
+        Actions.main({ me: profile });
+      } else if (profile.status === 201) {
+        Actions.generalInfo({ me: profile });
+      }
     }
   }
 

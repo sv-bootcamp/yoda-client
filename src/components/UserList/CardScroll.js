@@ -79,27 +79,38 @@ export default class CardScroll extends Component {
   // Control preview page and next page
   controlScroll(e) {
     const event = e.nativeEvent;
+    const interval = Dimensions.get('window').width - 57;
 
-    if (this.props.showPreview === true && Platform.OS === 'ios') {
-      const newShowPreview = event.zoomScale <= 1;
-      if (this.state.showPreview !== newShowPreview) {
-        this.setState({ showPreview: newShowPreview });
-      }
-
-      if (!newShowPreview) {
-        return;
-      }
+    let offsetX = Math.ceil(event.contentOffset.x.toFixed(0));
+    let leftover = offsetX % interval;
+    if (leftover > 0 && leftover < 100) {
+      //this.resetListView.scrollTo({x: offsetX - leftover + interval});
+    } else if (leftover > (interval - 100)) {
+      //this.resetListView.scrollTo({x: offsetX - leftover});
     }
 
-    if (this.resetPrevListView !== null) {
-      const layoutWidth = event.layoutMeasurement.width;
-      const currentIndex = Math.floor((event.contentOffset.x + (0.5 * layoutWidth)) / layoutWidth);
-      const newPreviewOffset = ((currentIndex - 2) * this.props.previewImageSize) + this._bias;
-      if (this.previewOffset !== newPreviewOffset) {
-        this.resetPrevListView.scrollTo({ x: newPreviewOffset });
-        this.previewOffset = newPreviewOffset;
-      }
-    }
+    //console.log(offsetX % (Dimensions.get('window').width - 57));
+
+    // if (this.props.showPreview === true && Platform.OS === 'ios') {
+    //   const newShowPreview = event.zoomScale <= 1;
+    //   if (this.state.showPreview !== newShowPreview) {
+    //     this.setState({ showPreview: newShowPreview });
+    //   }
+    //
+    //   if (!newShowPreview) {
+    //     return;
+    //   }
+    // }
+    //
+    // if (this.resetPrevListView !== null) {
+    //   const layoutWidth = event.layoutMeasurement.width;
+    //   const currentIndex = Math.floor((event.contentOffset.x + (0.5 * layoutWidth)) / layoutWidth);
+    //   const newPreviewOffset = ((currentIndex - 2) * this.props.previewImageSize) + this._bias;
+    //   if (this.previewOffset !== newPreviewOffset) {
+    //     this.resetPrevListView.scrollTo({ x: newPreviewOffset });
+    //     this.previewOffset = newPreviewOffset;
+    //   }
+    // }
   }
 
   renderView(row) {
@@ -136,17 +147,19 @@ export default class CardScroll extends Component {
         directionalLockEnabled: true,
         showsVerticalScrollIndicator: false,
         showsHorizontalScrollIndicator: false,
-        automaticallyAdjustContentInsets: true,
+        automaticallyAdjustContentInsets: false,
         ...props,
       });
   }
 
   render() {
+    let _scrollView = this.renderScrollComponent;
+
     return (
       <ListView
-        renderScrollComponent={this.renderScrollComponent}
+        renderScrollComponent={_scrollView}
         initialListSize={5}
-        onScroll={this.controlScroll}
+        onScroll={this.controlScroll.bind()}
         dataSource={this.props.dataSource}
         style={styles.listView}
         renderRow={this.props.renderRow.bind(this)}
