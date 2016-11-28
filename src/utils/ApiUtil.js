@@ -2,12 +2,9 @@ import {
   AsyncStorage,
   Alert,
  } from 'react-native';
-import ErrorUtil from './ErrorUtil';
 import {
   UrlMeta,
   ServerMeta,
-  LoginMeta,
-  ErrorMeta,
 } from './ApiMeta';
 
 class ApiUtil {
@@ -25,27 +22,21 @@ class ApiUtil {
   }
 
   requestGetWithToken(callback, api, body = null, contentType = ServerMeta.CONTENT_TYPE_URL)  {
-    AsyncStorage.getItem('token', (err, result) => {
-      if (err) return;
-      if (result)
-       this.request(callback, api, 'GET', body, contentType, result);
-    });
+    this.requestWithToken(callback, api, 'GET', body, contentType);
   }
 
   requestGetWithTokenUrl(callback, api, etcUrl, body = null,
     contentType = ServerMeta.CONTENT_TYPE_URL) {
-    AsyncStorage.getItem('token', (err, result) => {
-      if (err) return;
-      if (result)
-       this.request(callback, api, 'GET', body, contentType, result, etcUrl);
-    });
+    this.requestWithToken(callback, api, 'GET', body, contentType, etcUrl);
   }
 
   requestPostWithToken(callback, api, body, contentType = ServerMeta.CONTENT_TYPE_JSON)  {
+    this.requestWithToken(callback, api, 'POST', body, contentType);
+  }
+
+  requestWithToken(callback, api, method, body, contentType, etcUrl) {
     AsyncStorage.getItem('token', (err, result) => {
-      if (err) return;
-      if (result)
-       this.request(callback, api, 'POST', body, contentType, result);
+      this.request(callback, api, method, body, contentType, result, etcUrl);
     });
   }
 
@@ -78,14 +69,17 @@ class ApiUtil {
     }
 
     fetch(url, reqSet)
-    .then(this.getResponse)
-    .then((res) => callback(res, null))
+    .then((response) => this.getResponse(response, callback))
     .catch((error) => callback(null, error));
   }
 
-  getResponse(response) {
+  getResponse(response, callback) {
     if (response.status === 200 || response.status === 201) {
-      return response.json();
+      return response.json()
+        .then((res) => {
+          res.status = response.status;
+          callback(res, null);
+        });
     } else {
       throw new Error(response.status);
     }

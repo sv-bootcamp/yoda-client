@@ -7,6 +7,7 @@ import {
   ErrorMeta,
 } from './ApiMeta';
 import apiUtil from './ApiUtil';
+import FCM from 'react-native-fcm';
 
 class UserUtil {
 
@@ -19,15 +20,18 @@ class UserUtil {
           if (result.isCancelled) {
             alert(ErrorMeta.ERR_FB_LOGIN_CANCELLED);
           } else {
-            AccessToken.getCurrentAccessToken()
-            .then((data) => {
-              let body = {};
-              body.platform_type = LoginMeta.LOGIN_TYPE_FB;
-              body.access_token = data.accessToken.toString();
-              apiUtil.requestPost(callback, 'API_LOGIN', body);
-            })
-            .catch((error) => {
-              alert(ErrorMeta.ERR_FB_LOGIN);
+            FCM.getFCMToken().then(token => {
+              AccessToken.getCurrentAccessToken()
+                .then((data) => {
+                  const body = {};
+                  body.platform_type = LoginMeta.LOGIN_TYPE_FB;
+                  body.access_token = data.accessToken.toString();
+                  body.deviceToken = token;
+                  apiUtil.requestPost(callback, 'API_LOGIN', body);
+                })
+                .catch((error) => {
+                  alert(ErrorMeta.ERR_FB_LOGIN);
+                });
             });
           }
         },
@@ -38,12 +42,24 @@ class UserUtil {
     );
   }
 
-  // Get user lists except me
+  localSignIn(callback, email, password) {
+    FCM.getFCMToken().then(token => {
+      const body = {};
+      body.email = email;
+      body.password = password;
+      body.deviceToken = token;
+      apiUtil.requestPost(callback, 'API_LOCAL_SIGNIN', body);
+    });
+  }
+
   localSignUp(callback, email, password) {
-    let body = {};
-    body.email = email;
-    body.password = password;
-    apiUtil.requestPostWithToken(callback, 'API_LOCAL_SIGNUP', body);
+    FCM.getFCMToken().then(token => {
+      const body = {};
+      body.email = email;
+      body.password = password;
+      body.deviceToken = token;
+      apiUtil.requestPost(callback, 'API_LOCAL_SIGNUP', body);
+    });
   }
 
   // Get user lists except me
@@ -75,7 +91,7 @@ class UserUtil {
   reqeustSecretCode(callback, email) {
     let body = {};
     body.email = email;
-    apiUtil.requestPostWithToken(callback, 'API_SECRET_CODE', body);
+    apiUtil.requestPost(callback, 'API_SECRET_CODE', body);
   }
 
   // Reset password
@@ -84,7 +100,7 @@ class UserUtil {
     body.email = email;
     body.password = password;
     body.secretCode = secretCode;
-    apiUtil.requestPostWithToken(callback, 'API_RESET_PASS', body);
+    apiUtil.requestPost(callback, 'API_RESET_PASS', body);
   }
 
   editGeneral(callback, general) {

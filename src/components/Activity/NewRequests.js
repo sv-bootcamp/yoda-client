@@ -28,6 +28,10 @@ class NewRequests extends Component {
     MatchUtil.getActivityList(this.onRequestCallback.bind(this));
   }
 
+  componentWillReceiveProps(props) {
+    MatchUtil.getActivityList(this.onRequestCallback.bind(this));
+  }
+
   onRequestCallback(result, error) {
     if (error) {
       alert(JSON.stringify(error));
@@ -52,7 +56,7 @@ class NewRequests extends Component {
 
   renderRow(rowData, sectionID, rowID) {
     return <NewRequestsRow dataSource={rowData}
-      onSelect={this.onRequestSuccess.bind(this)} id={rowID}/>;
+      onSelect={this.onRequestCallback.bind(this)} id={rowID}/>;
   }
 
   renderSeparator(sectionID, rowID) {
@@ -99,7 +103,14 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    paddingTop: 50,
+    ...Platform.select({
+      ios: {
+        marginTop: 64,
+      },
+      android: {
+        marginTop: 54,
+      },
+    }),
   },
   titleContainer: {
     alignItems: 'center',

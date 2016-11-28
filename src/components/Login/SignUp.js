@@ -9,7 +9,6 @@ import {
  View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import ErrorMeta from '../../utils/ErrorMeta';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './Styles';
 import UserUtil from '../../utils/UserUtil';
@@ -25,27 +24,11 @@ class SignUp extends Component {
     };
   }
 
-  onSignUpCallback(result, error) {
-    if (error) {
-      alert(JSON.stringify(error));
-    } else if (result) {
-      if (result === undefined) {
-        Actions.login();
-      } else {
-        AsyncStorage.setItem('token', result.access_token, () => Actions.generalInfo());
-      }
-    }
-  }
-
   render() {
-    let onChangeEmail = (text) => { this.state.email = text; };
-
-    let onChangePassword1 = (text) => { this.state.password1 = text; };
-
-    let onChangePassword2 = (text) => { this.state.password2 = text; };
-
-    let signInWithFacebook = () => UserUtil.signInWithFacebook(this.onSignUpCallback.bind(this));
-
+    let onInputEmail = (text) => this.state.email = text;
+    let onInputPassword1 = (text) => this.state.password1 = text;
+    let onInputPassword2 = (text) => this.state.password2 = text;
+    let focusNextField = (refNo) => this.refs[refNo].focus();
     let createAccount = () => this.createAccount();
 
     return (
@@ -53,12 +36,13 @@ class SignUp extends Component {
       //  Render the screen on View.
       <View style={styles.container}>
         <View style={styles.mainLogo}>
-          <Image source={require('../../resources/splash_icon_1x.png')} />
+          <Image source={require('../../resources/page-1-copy-2.png')} />
+          <Text style={styles.mainLogoText}>Bridge Me</Text>
         </View>
 
         {/* Render facebook login button */}
         <TouchableWithoutFeedback
-          onPress={signInWithFacebook}>
+          onPress={() => this.signInFB()}>
           <View style={[styles.facebookLoginContainer, { marginTop: 43 }]}>
             <Image style={styles.facebookLoginButton}
               source={require('../../resources/fb.png')} />
@@ -78,8 +62,8 @@ class SignUp extends Component {
             placeholder="Email"
             placeholderTextColor="#d8d8d8"
             underlineColorAndroid="#efeff2"
-            onChangeText={onChangeEmail}
-            onSubmitEditing={() => this.focusNextField('2')} />
+            onChangeText={onInputEmail}
+            onSubmitEditing={() => focusNextField('2')} />
           <TextInput
             style={styles.input}
             ref="2"
@@ -88,8 +72,8 @@ class SignUp extends Component {
             returnKeyType="next"
             placeholderTextColor="#d8d8d8"
             underlineColorAndroid="#efeff2"
-            onChangeText={onChangePassword1}
-            onSubmitEditing={() => this.focusNextField('3')} />
+            onChangeText={onInputPassword1}
+            onSubmitEditing={() => focusNextField('3')} />
           <TextInput
             style={styles.input}
             ref="3"
@@ -97,7 +81,7 @@ class SignUp extends Component {
             secureTextEntry={true}
             placeholderTextColor="#d8d8d8"
             underlineColorAndroid="#efeff2"
-            onChangeText={onChangePassword2} />
+            onChangeText={onInputPassword2} />
         </View>
         <TouchableOpacity onPress={createAccount}>
           <LinearGradient
@@ -117,6 +101,18 @@ class SignUp extends Component {
         </View>
       </View>
     );
+  }
+
+  signInFB() {
+    UserUtil.signInWithFacebook(this.onLoginCallback.bind(this));
+  }
+
+  onLoginCallback(result, error) {
+    if (error) {
+      this.alert('Sever error(Profile)! Please sign in again.');
+    } else if (result) {
+      AsyncStorage.setItem('token', result.access_token, () => Actions.generalInfo());
+    }
   }
 
   createAccount() {
@@ -141,11 +137,19 @@ class SignUp extends Component {
       return;
     }
 
-    UserUtil.localSignUp(this.onSignUpCallback.bind(this), this.state.email, this.state.password1);
+    UserUtil.localSignUp(
+      this.onSignUpCallback.bind(this),
+      this.state.email,
+      this.state.password1
+    );
   }
 
-  focusNextField(refNo) {
-    this.refs[refNo].focus();
+  onSignUpCallback(result, error) {
+    if (error) {
+      this.alert('Sever error(Profile)! Please sign up again.');
+    } else if (result) {
+      Actions.login();
+    }
   }
 
   alert(msg) {

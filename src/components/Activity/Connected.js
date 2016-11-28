@@ -33,7 +33,7 @@ class Connected extends Component {
     if (error) {
       alert(JSON.stringify(error));
     } else if (result) {
-      this.nRequestSuccess(result);
+      this.onRequestSuccess(result);
     }
   }
 
@@ -54,7 +54,7 @@ class Connected extends Component {
        (value) => value.status === REQUESTED_ACCEPT);
     connectByMentor = connectByMentor.map((value) => value.detail[0]);
 
-    connected.concat(connectByMentor);
+    connected = connected.concat(connectByMentor);
 
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(connected),
@@ -155,7 +155,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    paddingTop: 50,
     ...Platform.select({
       ios: {
         marginTop: 64,
