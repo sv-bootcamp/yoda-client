@@ -189,12 +189,6 @@ const AppProps = {
     {
       key: 'chatPage',
       component: ChatPage,
-      onBack: () => {
-        Actions.pop();
-
-        //Delay 10ms to refresh previous scene when current scene is completely popped.
-        setTimeout(() => Actions.refresh(), 10);
-      },
     },
     {
       key: 'channelList',
@@ -205,7 +199,7 @@ const AppProps = {
       component: EditProfile,
       title: 'Edit profile',
       backButtonImage: leftButtonGrey,
-    }
+    },
   ],
 };
 
