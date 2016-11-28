@@ -3,7 +3,6 @@ package com.yoda;
 import android.os.Bundle;
 import android.content.Intent;
 import com.facebook.react.ReactActivity;
-import com.chymtt.reactnativedropdown.DropdownPackage;
 
 public class MainActivity extends ReactActivity {
 
