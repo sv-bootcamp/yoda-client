@@ -44,7 +44,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    if (Platform.os === 'ios') {
+    if (Platform.OS === 'ios') {
+      console.log('Request Permissions');
       FCM.requestPermissions();
     }
 

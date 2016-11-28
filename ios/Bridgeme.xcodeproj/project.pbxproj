@@ -208,6 +208,7 @@
 		42FC2727DC9941AF86EF1AFE /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		5D0252401DE91B1500AC87B2 /* Pods_Bridgeme.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_Bridgeme.framework; path = "Pods/../build/Debug-iphoneos/Pods_Bridgeme.framework"; sourceTree = "<group>"; };
 		5D0252421DE91B7C00AC87B2 /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleToolboxForMac.framework; path = "Pods/../build/Release-iphoneos/GoogleToolboxForMac/GoogleToolboxForMac.framework"; sourceTree = "<group>"; };
+		5D8089A61DEBE77C00F112EE /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleToolboxForMac.framework; path = "../../../../Library/Developer/Xcode/DerivedData/Bridgeme-fmndwppcwhgyykcnpvvuucjdipbo/Build/Products/Debug-iphoneos/GoogleToolboxForMac/GoogleToolboxForMac.framework"; sourceTree = "<group>"; };
 		5DD54E371DE3E6F0008DB293 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5DD54E3D1DE3E8AB008DB293 /* yoda.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = yoda.entitlements; sourceTree = "<group>"; };
 		62711B2CE8C9F6920D30F36A /* Pods-Bridgeme.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bridgeme.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bridgeme/Pods-Bridgeme.release.xcconfig"; sourceTree = "<group>"; };
@@ -466,6 +467,7 @@
 		AA49EE0F1D6FFBB10083C256 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5D8089A61DEBE77C00F112EE /* GoogleToolboxForMac.framework */,
 				5D0252421DE91B7C00AC87B2 /* GoogleToolboxForMac.framework */,
 				5D0252401DE91B1500AC87B2 /* Pods_Bridgeme.framework */,
 				AA49EE161D6FFEB90083C256 /* Bolts.framework */,
