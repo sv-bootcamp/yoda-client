@@ -48,10 +48,6 @@ class App extends Component {
       console.log('Request Permissions');
       FCM.requestPermissions();
     }
-
-    FCM.getInitialNotification().then(notif => {
-      console.log(notif)
-    });
   }
 
   backAndroidHandler() {
