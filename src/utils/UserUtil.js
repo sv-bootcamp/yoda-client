@@ -63,6 +63,14 @@ class UserUtil {
     });
   }
 
+  signOut(callback) {
+    FCM.getFCMToken().then(token => {
+      const body = {};
+      body.deviceToken = token;
+      apiUtil.requestPost(callback, 'API_SIGN_OUT', body);
+    });
+  }
+
   // Get user lists except me
   tokenCheck(callback) {
     apiUtil.requestGetWithToken(callback, 'API_TOKEN');
