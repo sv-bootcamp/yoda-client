@@ -20,9 +20,10 @@ class UserUtil {
           if (result.isCancelled) {
             alert(ErrorMeta.ERR_FB_LOGIN_CANCELLED);
           } else {
-            FCM.getFCMToken().then(token => {
+            FCM.getFCMToken().then((token) => {
               AccessToken.getCurrentAccessToken()
                 .then((data) => {
+                  console.log(token);
                   const body = {};
                   body.platform_type = LoginMeta.LOGIN_TYPE_FB;
                   body.access_token = data.accessToken.toString();
@@ -107,12 +108,12 @@ class UserUtil {
     apiUtil.requestPostWithToken(callback, 'API_EDIT_GENERAL', general);
   }
 
-  editJob(callback, job) {
-    apiUtil.requestPostWithToken(callback, 'API_EDIT_JOB', job);
+  editCareer(callback, career) {
+    apiUtil.requestPostWithToken(callback, 'API_EDIT_CAREER', career);
   }
 
-  editHelp(callback, help) {
-    apiUtil.requestPostWithToken(callback, 'API_EDIT_HELP', help);
+  editExpertise(callback, expertise) {
+    apiUtil.requestPostWithToken(callback, 'API_EDIT_EXPERTISE', expertise);
   }
 
   editPersonality(callback, personality) {
