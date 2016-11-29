@@ -67,7 +67,7 @@ class UserUtil {
     FCM.getFCMToken().then(token => {
       const body = {};
       body.deviceToken = token;
-      apiUtil.requestPost(callback, 'API_SIGN_OUT', body);
+      apiUtil.requestPostWithToken(callback, 'API_SIGN_OUT', body);
     });
   }
 
