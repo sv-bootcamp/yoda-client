@@ -12,7 +12,6 @@ import {
   View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import ChatPage from '../Chat/ChatPage';
 
 class ConnectedRow extends Component {
   constructor(props) {

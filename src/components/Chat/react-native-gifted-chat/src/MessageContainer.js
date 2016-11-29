@@ -82,7 +82,7 @@ export default class MessageContainer extends React.Component {
   getExperienceInfo(user) {
     let experienceInfo = '';
     if (user) {
-      if (this.state.opponentInfo.experience.length != 0) {
+      if (this.state.opponentInfo.experience.length > 0) {
         if (this.state.opponentInfo.experience[0].position && this.state.opponentInfo.experience[0].employer) {
           experienceInfo = `${this.state.opponentInfo.experience[0].position.name} at ` +
             `${this.state.opponentInfo.experience[0].employer.name}`;
@@ -182,7 +182,7 @@ export default class MessageContainer extends React.Component {
   }
 
   renderIfRemainSpaceisBiggerThanHeaderSize() {
-    if (this.state.remainSpace > 110) {
+    if (this.state.remainSpace > 0) {
       return this.renderHeader();
     }
 
@@ -190,7 +190,7 @@ export default class MessageContainer extends React.Component {
   }
 
   renderIfRemainSpaceisSmallerThanHeaderSize() {
-    if (this.state.remainSpace <= 110) {
+    if (this.state.remainSpace < 0) {
       return this.renderHeader();
     }
 
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
     color: '#aaa',
   },
   headerContainer: {
-    height: 110,
+    height: 100,
   },
   headerRow: {
     height: 100,
