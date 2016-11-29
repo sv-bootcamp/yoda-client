@@ -34,16 +34,16 @@ public class SplashActivity extends AppCompatActivity {
         webView.loadUrl("file:///android_asset/splash_gif_1128.gif");
         webView.setVerticalScrollBarEnabled(false);
         webView.setHorizontalScrollBarEnabled(false);
+        webView.setInitialScale(this.getScale());
 
+        handler.postDelayed(runnable, delayTime);
+    }
 
+    private int getScale() {
         Display display = this.getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-
-        webView.setInitialScale((size.x * 100) / 782);
-
-
-        handler.postDelayed(runnable, delayTime);
+        return (size.x * 100) / 782;
     }
 
     @Override
