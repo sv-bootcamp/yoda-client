@@ -82,15 +82,15 @@ export default class MessageContainer extends React.Component {
   getWorkInfo(user) {
     let workInfo = '';
     if (user) {
-      if (this.state.opponentInfo.work.length != 0) {
-        if (this.state.opponentInfo.work[0].position && this.state.opponentInfo.work[0].employer) {
-          workInfo = `${this.state.opponentInfo.work[0].position.name} at ` +
-            `${this.state.opponentInfo.work[0].employer.name}`;
+      if (this.state.opponentInfo.experience.length != 0) {
+        if (this.state.opponentInfo.experience[0].position && this.state.opponentInfo.experience[0].employer) {
+          workInfo = `${this.state.opponentInfo.experience[0].position.name} at ` +
+            `${this.state.opponentInfo.experience[0].employer.name}`;
         } else {
-          if (this.state.opponentInfo.work[0].position) {
-            workInfo = this.state.opponentInfo.work[0].position.name;
-          } else if (this.state.opponentInfo.work[0].employer) {
-            workInfo = this.state.opponentInfo.work[0].employer.name;
+          if (this.state.opponentInfo.experience[0].position) {
+            workInfo = this.state.opponentInfo.experience[0].position.name;
+          } else if (this.state.opponentInfo.experience[0].employer) {
+            workInfo = this.state.opponentInfo.experience[0].employer.name;
           }
         }
       }
