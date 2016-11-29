@@ -85,8 +85,6 @@ class MyPage extends Component {
   signOut = async () => {
     try {
       UserUtil.signOut((result, error) => {
-        console.log(result);
-        console.log(error);
         AsyncStorage.removeItem('token', () => { Actions.login(); });
       });
     } catch (error) {
