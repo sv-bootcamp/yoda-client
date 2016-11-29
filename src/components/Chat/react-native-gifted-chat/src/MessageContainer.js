@@ -79,24 +79,24 @@ export default class MessageContainer extends React.Component {
     });
   }
 
-  getWorkInfo(user) {
-    let workInfo = '';
+  getExperienceInfo(user) {
+    let experienceInfo = '';
     if (user) {
       if (this.state.opponentInfo.experience.length != 0) {
         if (this.state.opponentInfo.experience[0].position && this.state.opponentInfo.experience[0].employer) {
-          workInfo = `${this.state.opponentInfo.experience[0].position.name} at ` +
+          experienceInfo = `${this.state.opponentInfo.experience[0].position.name} at ` +
             `${this.state.opponentInfo.experience[0].employer.name}`;
         } else {
           if (this.state.opponentInfo.experience[0].position) {
-            workInfo = this.state.opponentInfo.experience[0].position.name;
+            experienceInfo = this.state.opponentInfo.experience[0].position.name;
           } else if (this.state.opponentInfo.experience[0].employer) {
-            workInfo = this.state.opponentInfo.experience[0].employer.name;
+            experienceInfo = this.state.opponentInfo.experience[0].employer.name;
           }
         }
       }
     }
 
-    return workInfo;
+    return experienceInfo;
   }
 
   renderFooter() {
@@ -210,8 +210,8 @@ export default class MessageContainer extends React.Component {
             <Text style={styles.name}>
               {this.state.opponentInfo ? this.state.opponentInfo.name : ''}
             </Text>
-            <Text style={styles.work}>
-              {this.getWorkInfo(this.state.opponentInfo)}
+            <Text style={styles.experience}>
+              {this.getExperienceInfo(this.state.opponentInfo)}
             </Text>
             <Text style={styles.connectMessage}>
               You are connected now.
@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
     paddingTop: 24,
 
   },
-  work: {
+  experience: {
     lineHeight: 12,
     fontSize: 12,
     paddingTop: 8,
