@@ -30,7 +30,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         webView = (WebView) findViewById(R.id.webview);
-        webView.loadUrl("file:///android_asset/splash_gif_1128.gif");
+        webView.loadUrl("file:///android_asset/splash_anim.gif");
         webView.setVerticalScrollBarEnabled(false);
         webView.setHorizontalScrollBarEnabled(false);
         webView.setInitialScale(this.getScale());
