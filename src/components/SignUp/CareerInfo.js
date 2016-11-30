@@ -35,6 +35,7 @@ class CareerInfo extends Component {
       option: [],
       selectOP: '',
       clearFlag: false,
+      needRefresh: true,
     };
 
     this.state.option[0] = CareerData.area;
@@ -73,7 +74,20 @@ class CareerInfo extends Component {
     }
 
     if (this.props.fromEdit)
-      Actions.refresh({ rightTitle: 'SAVE', onRight: this.onNextBtnPressed.bind(this) });
+      Actions.refresh({ onRight: this.onNextBtnPressed.bind(this) });
+  }
+
+  componentWillReceiveProps(props) {
+    if (props.fromEdit && this.state.needRefresh) {
+      Actions.refresh({
+        onRight: this.onNextBtnPressed.bind(this),
+        onBack: () => {
+          this.setState({ needRefresh: true });
+          Actions.pop();
+        },
+      });
+      this.setState({ needRefresh: false });
+    }
   }
 
   getOptionList(index) {
@@ -185,10 +199,8 @@ class CareerInfo extends Component {
       this.state.selected[2] = result[0].years;
       this.state.selected[3] = result[0].education_background;
 
-      this.state.checked[0] = true;
-      this.state.checked[1] = true;
-      this.state.checked[2] = true;
-      this.state.checked[3] = true;
+      for (i = 0; i < 4; i++)
+        this.state.checked[i] = true;
 
       this.forceUpdate();
     }
