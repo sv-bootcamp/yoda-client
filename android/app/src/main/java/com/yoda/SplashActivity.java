@@ -9,7 +9,7 @@ import android.graphics.Point;
 import android.webkit.WebView;
 
 public class SplashActivity extends AppCompatActivity {
-    private final int delayTime = 1890;
+    private final int delayTime = 1885;
     private Handler handler = new Handler();
     private Runnable runnable = new Runnable() {
         @Override
