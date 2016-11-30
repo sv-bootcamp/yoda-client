@@ -58,6 +58,7 @@ class ConnectedRow extends Component {
   getCurrentStatus() {
     let position = this.state.position;
     let company = this.state.company;
+
     const experience = this.props.dataSource.experience;
     if (experience.length > 0) {
       company = experience[0].employer.name;
