@@ -63,8 +63,6 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
-	<key>NSMainNibFile</key>
-	<string>LaunchScreen</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>ProductSans-Bold.ttf</string>
@@ -98,5 +96,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string></string>
+	<key>NSCameraUsageDescription</key>
+	<string></string>
 </dict>
 </plist>
