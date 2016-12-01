@@ -47,7 +47,7 @@ class Row extends Component {
     let job = this.state.job;
     let position = this.state.position;
 
-    if (this.props.dataSource.experience && this.props.dataSource.experience.length > 0) {
+    if (this.props.dataSource.experience.length > 0) {
       job = this.props.dataSource.experience[0].employer.name;
       if (this.props.dataSource.experience[0].position) {
         position = this.props.dataSource.experience[0].position.name;
@@ -93,7 +93,7 @@ class Row extends Component {
       {
         marginRight: this.props.dataSource.last ? 36 : 15,
       },
-    ]
+    ];
 
     return (
       <TouchableWithoutFeedback onPress={goToUserProfile}>

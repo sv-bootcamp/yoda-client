@@ -34,7 +34,7 @@ class MyPage extends Component {
 
   onRequestCallback(result, error) {
     if (error) {
-      alert(JSON.stringify(error));
+      alert(error);
     } else if (result) {
       if (result.msg) {
         // When setting mentor mode is done
@@ -49,12 +49,12 @@ class MyPage extends Component {
         let currentStatus = this.state.currentStatus;
         let currentPosition = this.state.currentPosition;
 
-        if (result.experience && result.experience.length > 0) {
+        if (result.experience.length > 0) {
           const experience = result.experience[0];
 
           if (experience.employer) currentStatus = experience.employer.name;
           if (experience.position) currentPosition = experience.position.name;
-        } else if (result.education && result.education.length > 0) {
+        } else if (result.education.length > 0) {
           const education = result.education[result.education.length - 1];
 
           if (education.school) currentStatus = education.school.name;
