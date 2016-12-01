@@ -26,14 +26,14 @@ class Main extends Component {
   }
 
   initSendBird() {
-    UserUtil.getSendBirdAppId((result, err) => {
-      if (err) {
+    UserUtil.getSendBirdAppId((appId, error) => {
+      if (error) {
         AsyncStorage.getItem('sendBirdAppId', (err, result) => {
           this.connectSendBird(result);
         });
       } else {
-        AsyncStorage.setItem('sendBirdAppId', result.key, () => {
-          this.connectSendBird(result.key);
+        AsyncStorage.setItem('sendBirdAppId', appId.key, () => {
+          this.connectSendBird(appId.key);
         });
       }
     });
