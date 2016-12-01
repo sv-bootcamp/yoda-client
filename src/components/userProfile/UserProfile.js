@@ -41,7 +41,7 @@ class UserProfile extends Component {
 
   onReqestCallback(result, error) {
     if (error) {
-      alert(JSON.stringify(error));
+      alert(error);
     } else if (result) {
       this.onRequestSuccess(result);
     }
@@ -55,19 +55,19 @@ class UserProfile extends Component {
       let currentPosition = this.state.currentPosition;
       let currentLocation = this.state.currentLocation;
 
-      if (result.work.length > 0) {
-        let work = result.work[0];
+      if (result.experience.length > 0) {
+        let experience = result.experience[0];
 
-        if (work.employer) {
-          currentStatus = 'at ' + work.employer.name;
+        if (experience.employer) {
+          currentStatus = 'at ' + experience.employer.name;
         }
 
-        if (work.position) {
-          currentPosition = work.position.name;
+        if (experience.position) {
+          currentPosition = experience.position.name;
         }
 
-        if (work.location) {
-          currentLocation = work.location.name;
+        if (experience.location) {
+          currentLocation = experience.location.name;
         }
       } else if (result.education.length > 0) {
         let lastIndex = result.education.length - 1;
@@ -194,6 +194,11 @@ class UserProfile extends Component {
     }
 
     return (
+      <View style={{
+        justifyContent: 'space-between',
+        flexDirection: 'column',
+        flex: 1,
+      }}>
         <ScrollView>
           <StatusBar
             backgroundColor = "transparent"
@@ -226,10 +231,11 @@ class UserProfile extends Component {
             <UserOverview tabLabel='OVERVIEW' id={this.state.id}/>
             <UserCareer tabLabel='CAREER' id={this.state.id}/>
           </ScrollableTabView>
-          <View style={styles.btn}>
-            {connectButton}
-          </View>
         </ScrollView>
+        <View style={styles.btn}>
+          {connectButton}
+        </View>
+      </View>
     );
   }
 
