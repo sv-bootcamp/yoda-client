@@ -87,9 +87,8 @@ class ApiUtil extends Component {
     .then(this.getResponse.bind(this))
     .then((res) => callback(res, null))
     .catch((error) => {
-      if (JSON.stringify(error) !== '{}') alert(JSON.stringify(error));
-      else alert(error);
-      callback(null, error);
+      if (JSON.stringify(error) !== '{}') callback(null, JSON.stringify(error));
+      else callback(null, error);
     });
   }
 
