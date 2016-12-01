@@ -86,7 +86,12 @@ class ApiUtil extends Component {
     fetch(this.url, this.reqSet)
     .then(this.getResponse.bind(this))
     .then((res) => this.callback(res, null))
-    .catch((error) => this.callback(null, error));
+    .catch((error) => {
+      if (JSON.stringify(error) !== '{}') alert(JSON.stringify(error));
+      else alert(error);
+      this.callback(null, error);
+    }
+    );
   }
 
   getResponse(response) {
