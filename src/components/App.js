@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Platform } from 'react-native';
+import {
+  Platform,
+  AsyncStorage,
+} from 'react-native';
 import ErrorUtils from 'ErrorUtils';
 import {
   Actions,
