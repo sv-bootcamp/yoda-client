@@ -20,6 +20,7 @@ import Menu, {
   MenuOption,
   MenuTrigger
 } from 'react-native-menu';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import LinearGradient from 'react-native-linear-gradient';
 import MatchUtil from '../../utils/MatchUtil';
 
@@ -53,13 +54,12 @@ class RequestPage extends Component {
       <ActivityIndicator
         animating={!this.state.loaded}
         style={[styles.activityIndicator]}
-        size='large'
+        size='small'
       />
     );
   }
 
   sendMessage() {
-    // TODO: This will be changed with request to server
     MatchUtil.sendMentoringRequest(this.onRequestCallback.bind(this),
       this.props.id, this.state.selection, this.state.message);
   }
@@ -76,10 +76,12 @@ class RequestPage extends Component {
     const send = () => this.sendMessage();
 
     return (
-      <ScrollView contentContainerStyle={styles.content}>
+      <KeyboardAwareScrollView
+        extraHeight={HEIGHT / 4}
+        contentContainerStyle={styles.content}>
         <Text style={styles.title}>What would you like to ask first?</Text>
         <Text style={styles.subTitle}>Subjects</Text>
-        <View style={{ zIndex: 500 }}>
+        <View style={{ zIndex: 101 }}>
           <MenuContext ref="MenuContext">
             <View style={styles.dropdownContent}>
               <Menu style={styles.dropdown}
@@ -125,6 +127,8 @@ class RequestPage extends Component {
           style={styles.multiline}
           placeholder='Enter message'
           maxLength={140}
+          underlineColorAndroid='transparent'
+          textAlignVertical='top'
           onChangeText={this.onChangeMessage.bind(this)}/>
         <LinearGradient style={styles.sendButton} start={[0.9, 0.5]} end={[0.0, 0.5]}
           locations={[0, 0.75]}
@@ -140,7 +144,7 @@ class RequestPage extends Component {
          barStyle = 'default'
          networkActivityIndicatorVisible={false}
         />
-      </ScrollView>
+      </KeyboardAwareScrollView>
     );
   }
 
@@ -200,7 +204,7 @@ const styles = StyleSheet.create({
   multiline: {
     alignSelf: 'center',
     width: WIDTH - (WIDTH / 6),
-    height: HEIGHT / 2.5,
+    height: HEIGHT / 5,
     borderColor: '#efeff2',
     borderRadius: 2,
     borderWidth: 2,
@@ -219,7 +223,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   buttonText: {
-    fontFamily: 'opensans',
+    fontFamily: 'SFUIText-Bold',
     fontSize: 16,
     fontWeight: 'bold',
     color: '#ffffff',
@@ -234,10 +238,12 @@ const styles = StyleSheet.create({
   dropdown: {
     width: WIDTH - (WIDTH / 6),
     height: 40,
+    justifyContent: 'center',
     borderColor: '#efeff2',
     borderRadius: 2,
     borderWidth: 1,
     padding: 5,
+    paddingTop: 10,
   },
   dropdownOptions: {
     borderColor: '#efeff2',
