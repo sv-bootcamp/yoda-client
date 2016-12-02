@@ -12,7 +12,7 @@ import {
   View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import ExperienceRow from './ExperienceRow';
+import CareerRow from './CareerRow';
 import UserUtil from '../../utils/UserUtil';
 
 class UserCareer extends Component {
@@ -33,7 +33,7 @@ class UserCareer extends Component {
 
   onRequestCallback(result, error) {
     if (error) {
-      alert(JSON.stringify(error));
+      alert(error);
     } else if (result) {
       let sectionIDs = ['Education', 'Experience'];
 
@@ -71,7 +71,7 @@ class UserCareer extends Component {
       <ActivityIndicator
         animating={!this.state.loaded}
         style={[styles.activityIndicator]}
-        size="large"
+        size='small'
       />
     );
   }
@@ -85,7 +85,7 @@ class UserCareer extends Component {
   }
 
   renderRow(rowData) {
-    return <ExperienceRow dataSource={rowData}/>;
+    return <CareerRow dataSource={rowData}/>;
   }
 
   // Render User profile
