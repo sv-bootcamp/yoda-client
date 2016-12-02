@@ -14,7 +14,6 @@ const options = {
     skipBackup: true,
     path: 'images',
   },
-  maxWidth: Dimensions.get('window').width,
 };
 
 // Profile image Component

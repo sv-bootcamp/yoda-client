@@ -169,6 +169,7 @@ class Login extends Component {
   onGetProfileCallback(profile, error) {
     if (error) {
       this.alert('Sever error(Profile)! Please sign in again.');
+      this.setState({ loaded: true });
     } else if (profile) {
       if (profile.status === 201) {
         Actions.generalInfo({ me: profile });
