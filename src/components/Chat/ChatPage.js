@@ -31,8 +31,10 @@ class ChatPage extends Component {
 
     this.state = {
       messages: [],
+      channel: null,
       isTyping: false,
     };
+    console.log("in chat page");
   }
 
   componentDidMount() {
@@ -46,6 +48,7 @@ class ChatPage extends Component {
 
     this.setState({
       messages: [],
+      channel: null,
       isTyping: false,
     });
     this.initChatPage(nextProps.me, nextProps.opponent);
@@ -124,53 +127,62 @@ class ChatPage extends Component {
   }
 
   initChatPage(me, opponent) {
-    if (SendBird().getConnectionState() === 'OPEN') {
-      if (this.state.channel) {
-        this.sb.removeChannelHandler(this.state.channel.url);
-      }
-
-      this.setState({
-        messages: [],
-        channel: null,
-      });
-
-      UserUtil.getOthersProfile(this.onOpponentInfoRequest.bind(this), opponent.userId);
-      const userIds = [me.userId, opponent.userId];
-
-      this.sb.GroupChannel.createChannelWithUserIds(
-        userIds, true, '', '', '', function (channel, error) {
-          if (error) {
-            throw new Error();
-          } else {
-            this.setState({
-              channel: channel,
-            });
-            this.sb.addChannelHandler(this.state.channel.url, this.ChannelHandler);
-            this.state.channel.createPreviousMessageListQuery()
-              .load(200, false, function (messageList, error) {
-                if (error) {
-                  throw new Error(error);
-                } else {
-                  this.convertSendBirdListToGiftedChatList(messageList, (nMessageList) => {
-                    this.setState({
-                      messages: nMessageList,
-                    });
-                    this.state.channel.markAsRead();
-                  });
-                }
-              }.bind(this));
+    console.log(me.userId,opponent.userId);
+    SendBird().connect(me.userId, function (user, error) {
+      console.log(user,error);
+      if (user) {
+        if (SendBird().getConnectionState() === 'OPEN') {
+          if (this.state.channel) {
+            this.sb.removeChannelHandler(this.state.channel.url);
           }
-        }.bind(this));
-    } else {
-      alert('Please check Network status.');
-      Actions.pop();
-    }
+          this.setState({
+            messages: [],
+            channel: null,
+          });
+          UserUtil.getOthersProfile(this.onOpponentInfoRequest.bind(this), opponent.userId);
+          const userIds = [me.userId, opponent.userId];
+          alert(userIds);
+          this.sb.GroupChannel.createChannelWithUserIds(
+            userIds, true, '', '', '', function (channel, error) {
+              if (error) {
+                alert(JSON.stringify(error));
+              } else {
+                this.setState({
+                  channel: channel,
+                });
+                this.sb.addChannelHandler(this.state.channel.url, this.ChannelHandler);
+                this.state.channel.createPreviousMessageListQuery()
+                  .load(200, false, function (messageList, error) {
+                    if (error) {
+                      alert(JSON.stringify(error));
+                    } else {
+                      this.convertSendBirdListToGiftedChatList(messageList, (nMessageList) => {
+                        this.setState({
+                          messages: nMessageList,
+                        });
+                        this.state.channel.markAsRead();
+                      });
+                    }
+                  }.bind(this));
+              }
+            }.bind(this));
+        } else {
+          alert('Please check Network status.');
+          Actions.pop();
+        }
+      } else {
+        alert('Please check Network status.');
+        Actions.pop();
+      }
+    }.bind(this));
+    console.log("after connect");
   }
 
   onOpponentInfoRequest(result, error) {
     if (error) {
-      alert(error);
+      alert(JSON.stringify(error));
     } else if (result) {
+      console.log(result);
       this.setState({
         opponentInfo: result,
       });
@@ -184,7 +196,7 @@ class ChatPage extends Component {
       );
       this.state.channel.sendUserMessage(messages[0].text, '', function (message, error) {
         if (error) {
-          throw new Error();
+          alert(JSON.stringify(error));
         }
       }.bind(this));
     }

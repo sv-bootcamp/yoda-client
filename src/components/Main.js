@@ -9,6 +9,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 import Activity from './Activity/Activity';
 import ChannelList from './Chat/ChannelList';
+import FCM from 'react-native-fcm';
 import MyPage from './MyPage';
 import SendBird from 'sendbird';
 import ScrollableTabView  from 'react-native-scrollable-tab-view';
@@ -23,43 +24,75 @@ class Main extends Component {
 
   componentDidMount() {
     this.initSendBird();
+    this.notificationUnsubscribe = FCM.on('notification', this.onNotificationReceived.bind(this));
+    FCM.getInitialNotification()
+      .then(notif => this.actionFromNotification.bind(this));
   }
 
-  initSendBird() {
+  componentWillUnmount() {
+    this.notificationUnsubscribe();
+  }
+
+  actionFromNotification(notif) {
+    if (notif.notificationType === 'MESSAGE') {
+      console.log(notif);
+      const opponent = JSON.parse(notif.extraData).opponent;
+      //SendBird().connect(this.props.me._id, function (user, err) {
+        console.log("sendbird connected complete");
+
+        //if (user) {
+          Actions.chatPage({
+            title: opponent.name,
+            me: { userId: this.props.me._id },
+            opponent: opponent,
+          });
+        //} else {
+        //  alert(JSON.stringify(err));
+        //}
+      //}.bind(this));
+    }
+  }
+
+  onNotificationReceived(notif) {
+    if (notif.local_notification) {
+      //this is a local notification
+    }
+
+    if (notif.opened_from_tray) {
+      console.log(notif);
+      this.actionFromNotification(notif);
+    }
+  }
+
+  initSendBird(callback) {
     UserUtil.getSendBirdAppId((appId, error) => {
       if (error) {
-        AsyncStorage.getItem('sendBirdAppId', (err, result) => {
-          this.connectSendBird(result);
-        });
-      } else {
-        AsyncStorage.setItem('sendBirdAppId', appId.key, () => {
-          this.connectSendBird(appId.key);
-        });
-      }
-    });
-  }
-
-  connectSendBird(appID) {
-    new SendBird({
-      appId: appID,
-    });
-
-    SendBird().connect(this.props.me._id, function (user, error) {
-      if (error) {
-        alert(error);
-        throw new Error(error);
+        alert(JSON.stringify(error));
+        return;
       }
 
-      SendBird().updateCurrentUserInfo(
-        this.props.me.name,
-        this.props.me.profile_picture,
-        function (response, error) {
-          if (error) {
-            alert(error);
-            throw new Error(error);
-          }
-        }.bind(this));
-    }.bind(this));
+      new SendBird({
+        appId: appId.key,
+      });
+
+      SendBird().connect(this.props.me._id, function (user, err) {
+        if (user) {
+          SendBird().updateCurrentUserInfo(
+            this.props.me.name,
+            this.props.me.profile_picture,
+            function (response, error) {
+              if (error) {
+                alert(JSON.stringify(error));
+              } else {
+
+                if (callback) callback();
+              }
+            }.bind(this));
+        } else {
+          alert(JSON.stringify(err));
+        }
+      }.bind(this));
+    });
   }
 
   render() {
