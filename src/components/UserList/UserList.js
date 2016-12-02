@@ -35,7 +35,7 @@ class UserList extends Component {
 
   onServerCallback(result, error) {
     if (error) {
-      alert(JSON.stringify(error));
+      alert(error);
     } else if (result) {
       // Refresh dataSource
       this.setState({
@@ -62,19 +62,6 @@ class UserList extends Component {
     return <Row dataSource={rowData}/>;
   }
 
-  renderLoadingView() {
-    return (
-        <View style={styles.header}>
-          <ActivityIndicator
-            animating={!this.state.loaded}
-            style={[styles.activityIndicator]}
-            size="large"
-            />
-          <Text style={styles.headerText}>Loading...</Text>
-        </View>
-    );
-  }
-
   renderCardView() {
     return (
       <CardScroll
@@ -95,10 +82,6 @@ class UserList extends Component {
   }
 
   render() {
-    if (!this.state.loaded) {
-      return this.renderLoadingView();
-    }
-
     return this.renderCardView();
   }
 }
