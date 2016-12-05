@@ -24,9 +24,6 @@ class TabBar extends Component {
     this.tabIconsBlue.push(require('../../resources/icon-activity_blue.png'));
     this.tabIconsBlue.push(require('../../resources/icon-chat_blue.png'));
     this.tabIconsBlue.push(require('../../resources/icon-profile_blue.png'));
-
-    for (let i = 0; i < this.tabIconsGray.lenth; i++)
-      this.tabIcon.push(this.tabIconsGray[i]);
   }
 
   render() {
