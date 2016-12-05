@@ -334,7 +334,6 @@ const styles = StyleSheet.create({
   tabBarText: {
     fontSize: 12,
     fontFamily: 'SFUIText-Bold',
-    fontWeight: 'bold',
   },
   tabBarUnderline: {
     backgroundColor: '#44acff',
