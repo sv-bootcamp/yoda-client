@@ -82,13 +82,13 @@ class GeneralInfo extends Component {
     }
 
     if(this.props.fromEdit)
-      Actions.refresh({ rightTitle: 'SAVE', onRight: this.regist.bind(this) });
+      Actions.refresh({ rightTitle: 'Save', onRight: this.regist.bind(this) });
   }
 
   componentWillReceiveProps(props) {
     if(props.fromEdit && this.state.needRefresh) {
       Actions.refresh({
-        rightTitle: 'SAVE',
+        rightTitle: 'Save',
         onRight: this.regist.bind(this),
         onBack: () => {
           this.setState({ needRefresh: true });
@@ -149,7 +149,7 @@ class GeneralInfo extends Component {
 
     return (
       <View style={styles.container}>
-        <Progress level={4} step={1} />
+        {this.props.fromEdit ? null : (<Progress level={4} step={1} />)}
         <ScrollView style={styles.scrollView}>
           <MyPic uri={this.state.mypic} readyUploadImage={readyUploadImage} />
           {Forms}
