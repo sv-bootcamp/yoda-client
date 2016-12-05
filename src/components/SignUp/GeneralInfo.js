@@ -24,17 +24,16 @@ import {
   Scene,
 } from 'react-native-router-flux';
 
+// List data for rendering each section.
+const fieldTitles = [
+  { name: 'Name', isArray: false, },
+  { name: 'Email', isArray: false, },
+  { name: 'About', isArray: false, },
+  { name: 'Education', isArray: true, },
+  { name: 'Experience', isArray: true, },
+];
+
 class GeneralInfo extends Component {
-  // List data for rendering each section.
-  titles = [
-    { name: 'Name', isArray: false, },
-    { name: 'Email', isArray: false, },
-    { name: 'Languages', isArray: false, },
-    { name: 'Location', isArray: false, },
-    { name: 'About', isArray: false, },
-    { name: 'Education', isArray: true, },
-    { name: 'Experience', isArray: true, },
-  ];
 
   constructor(props) {
     super(props);
@@ -44,14 +43,7 @@ class GeneralInfo extends Component {
 
     this.state = {
       refreshFlag: false,
-      mypic: '',
-      name: '',
-      email: '',
-      languages: '',
-      location: '',
-      about: '',
-      education: [],
-      experience: [],
+      profile: {},
       eduDataSource: eduDS.cloneWithRows([]),
       workDataSource: workDS.cloneWithRows([]),
       imageResource: null,
@@ -65,15 +57,7 @@ class GeneralInfo extends Component {
       let result = this.props.me;
       result.education.reverse();
       this.setState({
-        mypic: result.profile_picture,
-        name: result.name,
-        gender: result.gender,
-        email: result.email,
-        languages: result.languages,
-        location: result.location,
-        about: result.about,
-        education: result.education,
-        experience: result.experience,
+        profile: result,
         eduDataSource: this.state.eduDataSource.cloneWithRows(result.education),
         workDataSource: this.state.workDataSource.cloneWithRows(result.experience),
       });
@@ -81,8 +65,9 @@ class GeneralInfo extends Component {
       UserUtil.getMyProfile(this.onGetMyProfileCallback.bind(this));
     }
 
-    if(this.props.fromEdit)
+    if (this.props.fromEdit) {
       Actions.refresh({ rightTitle: 'SAVE', onRight: this.regist.bind(this) });
+    }
   }
 
   componentWillReceiveProps(props) {
@@ -103,15 +88,7 @@ class GeneralInfo extends Component {
     if (result) {
       result.education.reverse();
       this.setState({
-        mypic: result.profile_picture,
-        name: result.name,
-        gender: result.gender,
-        email: result.email,
-        languages: result.languages,
-        location: result.location,
-        about: result.about,
-        education: result.education,
-        experience: result.experience,
+        profile: result,
         eduDataSource: this.state.eduDataSource.cloneWithRows(result.education),
         workDataSource: this.state.workDataSource.cloneWithRows(result.experience),
       });
@@ -151,7 +128,8 @@ class GeneralInfo extends Component {
       <View style={styles.container}>
         <Progress level={4} step={1} />
         <ScrollView style={styles.scrollView}>
-          <MyPic uri={this.state.mypic} readyUploadImage={readyUploadImage} />
+          <MyPic uri={this.state.profile.profile_picture}
+            readyUploadImage={readyUploadImage} />
           {Forms}
           {submitButton}
         </ScrollView>
@@ -161,30 +139,30 @@ class GeneralInfo extends Component {
 
   // Regist general user info.
   regist() {
-    if (this.state.name === '') {
+    const profile = this.state.profile;
+    if (profile.name === '') {
       Alert.alert('Sign In', 'Please input your name.');
       return;
     }
 
     let emailFilter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (emailFilter.test(this.state.email) === false) {
+    if (emailFilter.test(profile.email) === false) {
       Alert.alert('Sign In', 'Please input your correct email.');
       return;
     }
 
     let image = null;
-    if (this.state.imageResource !== null) {
-      image = this.state.imageResource.data;
+
+    if (profile.imageResource) {
+      image = profile.imageResource.data;
     }
 
     let fieldSet = {
-      name: this.state.name,
-      email: this.state.email,
-      languages: this.state.languages,
-      location: this.state.location,
-      about: this.state.about,
-      education: this.state.education,
-      experience: this.state.experience,
+      name: profile.name,
+      email: profile.email,
+      about: profile.about,
+      education: profile.education,
+      experience: profile.experience,
       image: image,
     };
 
@@ -203,10 +181,10 @@ class GeneralInfo extends Component {
     }
   }
 
-  // Get Forms(name, email, languages, location, about, education, experience)
+  // Get Forms(name, email, about, education, experience)
   // Each form includes title and input
   getForms() {
-    let Forms = this.titles.map(
+    let Forms = fieldTitles.map(
       (title, idx) => {
         let Title = this.getTitle(title);
         let Input = this.getInput(title);
@@ -228,12 +206,13 @@ class GeneralInfo extends Component {
       return <Text style={styles.title}>{title.name}</Text>;
     }
 
+    const onPress = () => this.addNewItem(title.name);
     return (
       <View style={styles.flexR}>
         <View style={styles.horiL}>
           <Text style={styles.title}>{title.name}</Text>
         </View>
-        <TouchableWithoutFeedback onPress={() => this.addNewItem(title.name)}>
+        <TouchableWithoutFeedback onPress={onPress}>
           <View style={styles.horiR}>
             <Text style={styles.add}>{'+ Add item'}</Text>
           </View>
@@ -244,8 +223,10 @@ class GeneralInfo extends Component {
 
   // Add new empty input set.
   addNewItem(listName) {
+    const profile = this.state.profile;
     if (listName == 'Education') {
-      this.state.education.unshift({
+      if (!profile.education) profile.education = [];
+      profile.education.unshift({
         school: { name: '' },
         type: '',
         year: { name: '' },
@@ -253,10 +234,11 @@ class GeneralInfo extends Component {
       });
 
       this.setState({
-        eduDataSource: this.state.eduDataSource.cloneWithRows(this.state.education),
+        eduDataSource: this.state.eduDataSource.cloneWithRows(profile.education),
       });
     } else if (listName == 'Experience') {
-      this.state.experience.unshift({
+      if (!profile.experience) profile.experience = [];
+      profile.experience.unshift({
         start_date: '',
         end_date: '',
         employer: { name: '' },
@@ -265,39 +247,31 @@ class GeneralInfo extends Component {
       });
 
       this.setState({
-        workDataSource: this.state.workDataSource.cloneWithRows(this.state.experience),
+        workDataSource: this.state.workDataSource.cloneWithRows(profile.experience),
       });
     }
   }
 
   getInput(title) {
+    const profile = this.state.profile;
     let Input = null;
-    let propName = title.name.toLowerCase();
+
     if (title.isArray) {
-      let list = this.state[propName];
-      if (title.name == 'Education') {
-        let renderRow = (edu, sectionID, rowID) =>
-                          this.getDefaultEdu(edu, sectionID, rowID);
-        Input = (
-          <ListView
-            key={this.state.education}
-            enableEmptySections={true}
-            dataSource={this.state.eduDataSource}
-            renderRow={renderRow}/>
-        );
-      } else if (title.name == 'Experience') {
-        let renderRow = (edu, sectionID, rowID) =>
-                          this.getDefaultWork(edu, sectionID, rowID);
-        Input = (
-          <ListView
-            key={this.state.experience}
-            enableEmptySections={true}
-            dataSource={this.state.workDataSource}
-            renderRow={renderRow}/>
-        );
-      }
+      const isEdu = title.name === 'Education';
+      const props = {
+        key: isEdu ? profile.education : profile.experience,
+        enableEmptySections: true,
+        dataSource: isEdu ? this.state.eduDataSource : this.state.workDataSource,
+        renderRow: (data, sectionID, rowID) => {
+          if (isEdu) return this.getDefaultEdu(data, sectionID, rowID);
+          else return this.getDefaultWork(data, sectionID, rowID);
+        },
+      };
+
+      Input = <ListView {...props} />;
     } else {
-      let defaultValue = this.state[propName];
+      let propName = title.name.toLowerCase();
+      let defaultValue = profile[propName];
       Input = this.getTextInput(propName, defaultValue);
     }
 
@@ -305,12 +279,8 @@ class GeneralInfo extends Component {
   }
 
   getDefaultEdu(edu, sectionID, rowID) {
-    let eduName = edu.school === undefined ? '' : edu.school.name;
-    let startYear = edu.startYear === undefined ? '' : edu.startYear.name;
-    let endYear = edu.year === undefined ? '' : edu.year.name;
-    if (edu.endYear !== undefined) endYear = edu.endYear.name;
     let eduSubject = '';
-    if (edu.concentration !== undefined && edu.concentration.length > 0) {
+    if (!edu.concentration && edu.concentration.length > 0) {
       eduSubject = edu.concentration[0].name;
     }
     let onDelete = (rowID) => this.onDeleteEdu(rowID);
@@ -319,9 +289,9 @@ class GeneralInfo extends Component {
 
     return (
       <EduForm
-        name={eduName}
-        startYear={startYear}
-        endYear={endYear}
+        name={edu.school ? edu.school.name : ''}
+        startYear={edu.startYear ? edu.startYear.name : '1980'}
+        endYear={edu.year ? edu.year.name : '1980'}
         subject={eduSubject}
         id={rowID}
         onDelete={onDelete}
@@ -330,23 +300,25 @@ class GeneralInfo extends Component {
   }
 
   onChangeEduInfo(propName1, propName2, idx, text) {
-    if (propName1 == 'concentration') {
-      this.state.education[idx][propName1] = [];
-      this.state.education[idx][propName1][0] = {};
-      this.state.education[idx][propName1][0][propName2] = text;
+    const profile = this.state.profile;
+    if (propName1 === 'concentration') {
+      profile.education[idx][propName1] = [];
+      profile.education[idx][propName1][0] = {};
+      profile.education[idx][propName1][0][propName2] = text;
       return;
     }
 
-    if (this.state.education[idx][propName1] === undefined) {
-      this.state.education[idx][propName1] = {};
+    if (profile.education[idx][propName1] === undefined) {
+      profile.education[idx][propName1] = {};
     }
-    this.state.education[idx][propName1][propName2] = text;
+    profile.education[idx][propName1][propName2] = text;
   }
 
   onDeleteEdu(rowID) {
-    this.state.education.splice(rowID, 1);
+    const profile = this.state.profile;
+    profile.education.splice(rowID, 1);
     this.setState({
-      eduDataSource: this.state.eduDataSource.cloneWithRows(this.state.education),
+      eduDataSource: this.state.eduDataSource.cloneWithRows(profile.education),
     });
   }
 
@@ -376,16 +348,17 @@ class GeneralInfo extends Component {
 
   onChangeExpInfo(propName1, propName2, idx, text) {
     if (propName2 == null) {
-      this.state.experience[idx][propName1] = text;
+      this.state.profile.experience[idx][propName1] = text;
     } else {
-      this.state.experience[idx][propName1][propName2] = text;
+      this.state.profile.experience[idx][propName1][propName2] = text;
     }
   }
 
   onDeleteWork(rowID) {
-    this.state.experience.splice(rowID, 1);
+    const profile = this.state.profile;
+    profile.experience.splice(rowID, 1);
     this.setState({
-      workDataSource: this.state.workDataSource.cloneWithRows(this.state.experience),
+      workDataSource: this.state.workDataSource.cloneWithRows(profile.experience),
     });
   }
 

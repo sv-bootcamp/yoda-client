@@ -6,9 +6,11 @@ import {
   TextInput,
   Text,
   TouchableWithoutFeedback,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import DatePicker from 'react-native-datepicker';
+import ModalPicker from 'react-native-modal-picker'
 import styles from './Styles';
 
 const Item = Picker.Item;
@@ -38,8 +40,8 @@ class EduForm extends Component {
     let PickerItems = this.getPickerItems();
     let onChangeName = (text) => this.onChangeName(text);
     let onChangeSubject = (text) => this.onChangeSubject(text);
-    let onChangeStartYear = (year) => this.onChangeStartYear(year);
-    let onChangeEndYear = (year) => this.onChangeEndYear(year);
+    let onChangeStartYear = (option) => this.onChangeStartYear(option.label);
+    let onChangeEndYear = (option) => this.onChangeEndYear(option.label);
     let toggleEdit = () => this.toggleEdit();
 
     return (
@@ -61,19 +63,17 @@ class EduForm extends Component {
                      onChangeText={onChangeSubject} />
         </View>
         <View style={styles.flexR}>
-          <Picker
-            style={styles.formEditYear}
-            selectedValue={this.state.startYear}
-            onValueChange={onChangeStartYear}>
-            {PickerItems}
-          </Picker>
-          <View style={{ marginRight: 10 }}><Text>{'- '}</Text></View>
-          <Picker
-            style={styles.formEditYear}
-            selectedValue={this.state.endYear}
-            onValueChange={onChangeEndYear}>
-            {PickerItems}
-          </Picker>
+          <ModalPicker
+            data={PickerItems}
+            initValue={this.state.startYear}
+            onChange={onChangeStartYear} />
+          <View>
+            <Text style={styles.formDate}>{' - '}</Text>
+          </View>
+          <ModalPicker
+            data={PickerItems}
+            initValue={this.state.endYear}
+            onChange={onChangeEndYear} />
           <TouchableWithoutFeedback onPress={toggleEdit}>
             <View style={{ flex: 1 }}>
             </View>
@@ -88,13 +88,10 @@ class EduForm extends Component {
     let yearList = [];
     let now = new Date();
     for (let i = 1980; i <= now.getFullYear(); i++) {
-      yearList.push(i + '');
+      yearList.push({ key: i, label: i + '' });
     }
 
-    yearList.reverse();
-    return yearList.map(
-      (year, idx) => <Item key={idx} label={year} value={year} style={styles.formDate} />
-    );
+    return yearList.reverse();
   }
 
   onChangeName(text) {

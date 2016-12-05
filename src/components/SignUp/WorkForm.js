@@ -56,16 +56,16 @@ class WorkForm extends Component {
         </View>
         <View style={styles.flexR}>
           <DatePicker
-            style={{ width: 75 }}
+            style={{ width: 100 }}
             date={startDate}
             showIcon={false}
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
             customStyles={{ dateInput: styles.formEditDate, }}
             onDateChange={onStartDateChange} />
-          <View style={{ marginTop: 10, marginRight: 4 }}><Text>{' - '}</Text></View>
+          <View style={{ marginTop: 10, marginRight: 25 }}><Text>{' - '}</Text></View>
           <DatePicker
-            style={{ width: 75 }}
+            style={{ width: 100 }}
             date={endDate}
             showIcon={false}
             confirmBtnText="Confirm"

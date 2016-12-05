@@ -24,6 +24,7 @@
     "react-native-image-picker": "^0.22.10",
     "react-native-linear-gradient": "^1.5.13",
     "react-native-menu": "^0.20.2",
+    "react-native-modal-picker": "0.0.16",
     "react-native-router-flux": "^3.35.0",
     "react-native-scrollable-tab-view": "^0.7.0",
     "react-native-swiper": "^1.5.3",
