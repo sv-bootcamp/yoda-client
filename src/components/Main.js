@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   AsyncStorage,
+  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -46,8 +47,7 @@ class Main extends Component {
 
     SendBird().connect(this.props.me._id, function (user, error) {
       if (error) {
-        alert(error);
-        throw new Error(error);
+        alert(JSON.stringify(error));
       }
 
       SendBird().updateCurrentUserInfo(
@@ -55,8 +55,7 @@ class Main extends Component {
         this.props.me.profile_picture,
         function (response, error) {
           if (error) {
-            alert(error);
-            throw new Error(error);
+            alert(JSON.stringify(error));
           }
         }.bind(this));
     }.bind(this));
@@ -91,7 +90,7 @@ class Main extends Component {
           tabBarPosition='bottom'
           locked={true}
           renderTabBar={() => <TabBar />}
-          >
+        >
           <UserList tabLabel="ios-home" style={styles.tabView} />
           <ScrollView tabLabel="md-shuffle" style={styles.tabView}>
             <View style={styles.card}>
@@ -100,7 +99,7 @@ class Main extends Component {
           </ScrollView>
           <Activity tabLabel="ios-people" style={styles.tabView}  me={this.props.me} />
           <ChannelList tabLabel="ios-chatbubbles" style={styles.tabView} me={this.props.me} />
-        <MyPage tabLabel="md-contact" me={this.props.me} />
+          <MyPage tabLabel="md-contact" me={this.props.me} />
       </ScrollableTabView>
     );
   }
