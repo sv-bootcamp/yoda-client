@@ -8,13 +8,13 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   TouchableHighlight,
   View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import LinearGradient from 'react-native-linear-gradient';
 import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view';
+import Text from '../Shared/UniText';
 import UserCareer from './UserCareer';
 import UserOverview from './UserOverview';
 import UserUtil from '../../utils/UserUtil';

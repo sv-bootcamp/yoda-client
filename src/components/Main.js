@@ -3,7 +3,6 @@ import {
   AsyncStorage,
   ScrollView,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
@@ -13,6 +12,7 @@ import MyPage from './MyPage';
 import SendBird from 'sendbird';
 import ScrollableTabView  from 'react-native-scrollable-tab-view';
 import TabBar from './Shared/TabBar';
+import Text from './Shared/UniText';
 import UserList from './UserList/UserList';
 import UserUtil from '../utils/UserUtil';
 
