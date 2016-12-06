@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {
+  AppState,
   AsyncStorage,
   ListView,
+  NetInfo,
   Platform,
   RefreshControl,
   ScrollView,
@@ -9,10 +11,12 @@ import {
   Text,
   TextInput,
   TouchableHighlight,
+  Vibration,
   View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { GiftedChat }  from './react-native-gifted-chat';
+import FCM from 'react-native-fcm';
 import SendBird from 'sendbird';
 import UserUtil from '../../utils/UserUtil';
 
@@ -20,28 +24,34 @@ class ChatPage extends Component {
   constructor(props) {
     super(props);
 
-    this.sb = SendBird();
-    this.lastTyping = null;
-    this.renderFooter = this.renderFooter.bind(this);
-
-    this.ChannelHandler = new this.sb.ChannelHandler();
-    this.ChannelHandler.onMessageReceived = this.onMessageReceived.bind(this);
-    this.ChannelHandler.onTypingStatusUpdated = this.onTypingStatusUpdated.bind(this);
-    this.ChannelHandler.onReadReceiptUpdated = this.onReadReceiptUpdated.bind(this);
-
     this.state = {
       messages: [],
       channel: null,
       isTyping: false,
     };
-    console.log("in chat page");
+
+    this.me = this.props.me;
+    this.opponent = this.props.opponent;
+    this.lastTyping = null;
+    this.renderFooter = this.renderFooter.bind(this);
+    this.sb = SendBird();
+    this.ChannelHandler = new this.sb.ChannelHandler();
+    this.ChannelHandler.onMessageReceived = this.onMessageReceived.bind(this);
+    this.ChannelHandler.onTypingStatusUpdated = this.onTypingStatusUpdated.bind(this);
+    this.ChannelHandler.onReadReceiptUpdated = this.onReadReceiptUpdated.bind(this);
+    console.log('ChatPage: constructor');
   }
 
   componentDidMount() {
-    this.initChatPage(this.props.me, this.props.opponent);
+    console.log('ChatPage: componentDidMount');
+    this.initChatPage(() => {
+      AppState.addEventListener('change', this.onAppStateChange.bind(this));
+      NetInfo.isConnected.addEventListener('change', this.onConnectionStateChange.bind(this));
+    });
   }
 
   componentWillReceiveProps(nextProps = {}) {
+    console.log('ChatPage: componentWillReceiveProps');
     if (this.props.opponent === nextProps.opponent) {
       return;
     }
@@ -49,45 +59,70 @@ class ChatPage extends Component {
     this.setState({
       messages: [],
       channel: null,
+      opponentInfo: undefined,
       isTyping: false,
     });
-    this.initChatPage(nextProps.me, nextProps.opponent);
+    this.me = nextProps.me;
+    this.opponent = nextProps.opponent;
+    this.initChatPage();
   }
 
   componentWillUnmount() {
-    if (this.state.channel) {
-      this.sb.removeChannelHandler(this.state.channel.url);
-    }
+    console.log('ChatPage: componentWillUnmount');
+    this.sb.removeChannelHandler('ChatPage');
   }
 
-  onMessageReceived(channel, userMessage) {
-    if (channel.url == this.state.channel.url) {
-      this.appendSendBirdMessage(userMessage);
-      channel.markAsRead();
-    }
-  }
-
-  onTypingStatusUpdated(channel) {
-    if (channel.url === this.state.channel.url) {
-      if (channel.isTyping() && SendBird().getConnectionState() === 'OPEN') {
-        this.setState({
-          isTyping: true,
-        });
-        this.lastTyping = Date.now();
-        setTimeout(()=> {
-          if (this.lastTyping + 1000 < Date.now()) {
-            this.setState({
-              isTyping: false,
-            });
-          }
-        }, 1500);
+  initChatPage(callback) {
+    UserUtil.getOthersProfile(this.onOpponentInfoRequest.bind(this), this.opponent.userId);
+    this.connectSendBird((user, error) => {
+      if (user) {
+        this.refreshChatPage(callback);
+      } else {
+        alert('Please check Network status.');
+        Actions.pop();
       }
-    }
+    });
   }
 
-  onReadReceiptUpdated(channel) {
-    //Todo : Implement mark as read feature.
-    console.log('ChannelHandler.onReadReceiptUpdated: ', channel);
+  refreshChatPage(callback) {
+    const userIds = [this.me.userId, this.opponent.userId];
+    this.sb.GroupChannel.createChannelWithUserIds(
+      userIds, true, '', '', '', function (channel, error) {
+        if (error) {
+          alert(JSON.stringify(error));
+        } else {
+          this.setState({
+            channel: channel,
+          });
+          this.state.channel.createPreviousMessageListQuery()
+            .load(200, false, function (messageList, error) {
+              if (error) {
+                alert(JSON.stringify(error));
+              } else {
+                this.convertSendBirdListToGiftedChatList(messageList, (nMessageList) => {
+                  this.setState({
+                    messages: nMessageList,
+                  });
+                  this.state.channel.markAsRead();
+                  if (typeof callback === 'function') {
+                    callback();
+                  }
+                });
+              }
+            }.bind(this));
+        }
+      }.bind(this));
+  }
+
+  connectSendBird(callback) {
+    this.sb.connect(this.me.userId, (user, error) => {
+      this.sb.removeChannelHandler('ChatPage');
+      this.sb.addChannelHandler('ChatPage', this.ChannelHandler);
+
+      if (callback) {
+        callback(user, error);
+      }
+    });
   }
 
   appendSendBirdMessage(SendBirdMessage) {
@@ -126,63 +161,67 @@ class ChatPage extends Component {
     });
   }
 
-  initChatPage(me, opponent) {
-    console.log(me.userId,opponent.userId);
-    SendBird().connect(me.userId, function (user, error) {
-      console.log(user,error);
-      if (user) {
-        if (SendBird().getConnectionState() === 'OPEN') {
-          if (this.state.channel) {
-            this.sb.removeChannelHandler(this.state.channel.url);
+  onMessageReceived(channel, userMessage) {
+
+    if (channel.url == this.state.channel.url) {
+      this.appendSendBirdMessage(userMessage);
+      channel.markAsRead();
+    }else {
+      console.log(userMessage);
+      Vibration.vibrate();
+    }
+  }
+
+  onTypingStatusUpdated(channel) {
+    if (channel.url === this.state.channel.url) {
+      if (channel.isTyping() && SendBird().getConnectionState() === 'OPEN') {
+        this.setState({
+          isTyping: true,
+        });
+        this.lastTyping = Date.now();
+        setTimeout(()=> {
+          if (this.lastTyping + 1000 < Date.now()) {
+            this.setState({
+              isTyping: false,
+            });
           }
-          this.setState({
-            messages: [],
-            channel: null,
-          });
-          UserUtil.getOthersProfile(this.onOpponentInfoRequest.bind(this), opponent.userId);
-          const userIds = [me.userId, opponent.userId];
-          alert(userIds);
-          this.sb.GroupChannel.createChannelWithUserIds(
-            userIds, true, '', '', '', function (channel, error) {
-              if (error) {
-                alert(JSON.stringify(error));
-              } else {
-                this.setState({
-                  channel: channel,
-                });
-                this.sb.addChannelHandler(this.state.channel.url, this.ChannelHandler);
-                this.state.channel.createPreviousMessageListQuery()
-                  .load(200, false, function (messageList, error) {
-                    if (error) {
-                      alert(JSON.stringify(error));
-                    } else {
-                      this.convertSendBirdListToGiftedChatList(messageList, (nMessageList) => {
-                        this.setState({
-                          messages: nMessageList,
-                        });
-                        this.state.channel.markAsRead();
-                      });
-                    }
-                  }.bind(this));
-              }
-            }.bind(this));
-        } else {
-          alert('Please check Network status.');
-          Actions.pop();
-        }
-      } else {
-        alert('Please check Network status.');
-        Actions.pop();
+        }, 1500);
       }
-    }.bind(this));
-    console.log("after connect");
+    }
+  }
+
+  onReadReceiptUpdated(channel) {
+
+    //Todo : Implement mark as read feature.
+    console.log('ChannelHandler.onReadReceiptUpdated: ', channel);
+  }
+
+  onAppStateChange(state) {
+    if (state === 'active') {
+      this.initChatPage(() => {
+        console.log('reinit by onAppStateChange');
+      });
+    } else {
+      this.sb.removeChannelHandler('ChatPage');
+      this.sb.disconnect();
+    }
+  }
+
+  onConnectionStateChange(isConnected) {
+    if (isConnected) {
+      this.initChatPage(() => {
+        console.log('reinit by onConnectionStateChange');
+      });
+    } else {
+      this.sb.removeChannelHandler('ChatPage');
+      this.sb.disconnect();
+    }
   }
 
   onOpponentInfoRequest(result, error) {
     if (error) {
       alert(JSON.stringify(error));
     } else if (result) {
-      console.log(result);
       this.setState({
         opponentInfo: result,
       });
@@ -190,7 +229,7 @@ class ChatPage extends Component {
   }
 
   onSend(messages = []) {
-    if (SendBird().getConnectionState() === 'OPEN') {
+    if (this.sb.getConnectionState() === 'OPEN') {
       this.setState((previousState) =>
         ({ messages: GiftedChat.append(previousState.messages, messages) })
       );
@@ -224,7 +263,7 @@ class ChatPage extends Component {
         onSend={this.onSend.bind(this)}
         channel={this.state.channel}
         user={{
-          _id: this.props.me.userId,
+          _id: this.me.userId,
         }}
         opponentInfo={this.state.opponentInfo}
         loadEarlier={true}

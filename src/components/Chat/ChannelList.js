@@ -31,79 +31,88 @@ class ChannelList extends Component {
     this.isConnected = false;
     this.sb = SendBird();
     this.ChannelHandler = new this.sb.ChannelHandler();
-    this.ChannelHandler.onMessageReceived = this.onMessageReceived.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.initChannelList();
+    this.ChannelHandler.onMessageReceived = this.onChanneListMessageReceived.bind(this);
+    console.log('channelList:constructor');
   }
 
   componentDidMount() {
+    console.log('channelList:componentDidMount');
     AppState.addEventListener('change', this.onAppStateChange.bind(this));
     NetInfo.isConnected.addEventListener('change', this.onConnectionStateChange.bind(this));
   }
 
-  connectSendBird() {
-    SendBird().connect(this.state.me._id, function (user, error) {
-      if (error) {
-        alert('Fail to connect SendBird.');
-        throw new Error(error);
-      }
-
-      this.initChannelList();
-    }.bind(this));
-  }
-
-  onAppStateChange(state) {
-    if (state === 'active') {
-      if (this.isConnected) {
-        this.connectSendBird();
-      }
-    } else {
-      this.sb.removeChannelHandler('ChannelList');
-      SendBird().disconnect();
-    }
-  }
-
-  onConnectionStateChange(isConnected) {
-    this.isConnected = isConnected;
-    if (this.isConnected) {
-      this.connectSendBird();
-    } else {
-      this.sb.removeChannelHandler('ChannelList');
-      SendBird().disconnect();
-    }
-  }
-
-  onMessageReceived(channel, userMessage) {
+  componentWillReceiveProps(nextProps) {
+    console.log('channelList:componentWillReceiveProps');
     this.initChannelList();
   }
 
   componentWillUnmount() {
     AppState.removeEventListener('change');
   }
-
-  initChannelList() {
-    if (SendBird().getConnectionState() === 'OPEN') {
-      const channelListQuery = SendBird().GroupChannel.createMyGroupChannelListQuery();
-      channelListQuery.includeEmpty = true;
-      this.sb.addChannelHandler('ChannelList', this.ChannelHandler);
-
-      if (channelListQuery.hasNext) {
-        channelListQuery.next(function (channelList, error) {
-          if (error) {
-            alert(error);
-            throw new Error();
-          } else {
-            this.setState({
-              channelList: channelList,
-              dataSource: this.ds.cloneWithRows(channelList),
-              loaded: true,
-            });
-          }
-        }.bind(this));
+  initChannelList(callback) {
+    this.connectSendBird((user, error) => {
+      if (user) {
+        this.refreshChannelList();
       }
+    });
+  }
+
+  refreshChannelList(callback) {
+    const channelListQuery = this.sb.GroupChannel.createMyGroupChannelListQuery();
+    channelListQuery.includeEmpty = true;
+
+    if (channelListQuery.hasNext) {
+      channelListQuery.next(function (channelList, error) {
+        if (error) {
+          alert(error);
+          throw new Error();
+        } else {
+          this.setState({
+            channelList: channelList,
+            dataSource: this.ds.cloneWithRows(channelList),
+            loaded: true,
+          });
+          if (typeof callback === 'function') {
+            callback();
+          }
+        }
+      }.bind(this));
     }
+  }
+
+  connectSendBird(callback) {
+    this.sb.connect(this.props.me._id, (user, error) => {
+      this.sb.removeChannelHandler('ChannelList');
+      this.sb.addChannelHandler('ChannelList', this.ChannelHandler);
+      console.log('ChannelList: addChannelHandler complete.');
+
+      if (callback) {
+        callback(user, error);
+      }
+    });
+  }
+
+  onAppStateChange(state) {
+    if (state === 'active') {
+      this.initChannelList();
+    } else {
+      this.sb.removeChannelHandler('ChannelList');
+      this.sb.disconnect();
+    }
+  }
+
+  onConnectionStateChange(isConnected) {
+    if (isConnected) {
+      this.initChannelList();
+    } else {
+      this.sb.removeChannelHandler('ChannelList');
+      this.sb.disconnect();
+    }
+  }
+
+  onChanneListMessageReceived(channel, userMessage) {
+    console.log('onChanneListMessageReceived');
+    this.refreshChannelList();
   }
 
   renderRow(rowData) {

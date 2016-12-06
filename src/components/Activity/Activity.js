@@ -26,13 +26,21 @@ class Activity extends Component {
   componentDidMount() {
     this.setState({
       isRefreshing: false,
+      currentActivityPage: this.props.currentActivityPage,
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.state = {
+      currentActivityPage: nextProps.currentActivityPage,
+    };
   }
 
   render() {
     return (
       <ScrollableTabView
         initialPage={0}
+        page={this.state.currentActivityPage}
         style={styles.container}
         tabBarTextStyle={styles.tabBarText}
         tabBarInactiveTextColor={'#a6aeae'}
@@ -87,5 +95,9 @@ const styles = StyleSheet.create({
     marginLeft: WIDTH / 8,
   },
 });
+
+Activity.defaultProps = {
+  initialTab: -1,
+};
 
 module.exports = Activity;

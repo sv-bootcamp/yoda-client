@@ -93,7 +93,7 @@ export default class Row extends Component {
               <Text style={styles.name}>
                 {this.state.opponent.nickname}
               </Text>
-              <Text style={styles.lastMessage}>
+              <Text ellipsizeMode={'tail'} numberOfLines = {1}  style={styles.lastMessage}>
                 {this.state.lastMessageInfo ? this.state.lastMessageInfo.message : ''}
               </Text>
             </View>
@@ -157,7 +157,8 @@ const styles = StyleSheet.create({
     color: '#a6aeae',
   },
   rightSection: {
-    width: 120,
+    backgroundColor:'black',
+    width: 90,
     alignItems: 'flex-end',
     paddingRight: 15,
   },

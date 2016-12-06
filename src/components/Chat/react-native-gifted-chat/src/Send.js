@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -23,7 +24,10 @@ export default class Send extends React.Component {
             }
           }
         >
-          <Text style={[styles.text, this.props.textStyle]}>{this.props.label}</Text>
+          <Image style={[styles.sendButton, this.props.textStyle]}
+                 source={require('../../../../resources/send-active.png')}/>
+          {/*<Text style={[styles.text, this.props.textStyle]}>Send</Text>*/}
+
         </TouchableOpacity>
       );
     }
@@ -45,14 +49,12 @@ const styles = StyleSheet.create({
     height: 44,
     justifyContent: 'flex-end',
   },
-  text: {
-    color: '#0084ff',
-    fontWeight: '600',
-    fontSize: 17,
+  sendButton: {
     backgroundColor: 'transparent',
-    marginBottom: 12,
-    marginLeft: 10,
-    marginRight: 10,
+    width: 30,
+    height: 30,
+    marginRight: 15,
+    marginBottom: 8,
   },
 });
 
