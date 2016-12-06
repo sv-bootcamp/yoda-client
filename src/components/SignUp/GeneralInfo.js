@@ -6,7 +6,6 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
-  Text,
   TextInput,
   TouchableOpacity,
   View,
@@ -17,6 +16,7 @@ import EduForm from './EduForm';
 import EduFormIOS from './EduFormIOS';
 import MyPic from './MyPic';
 import Progress from '../Shared/Progress';
+import Text from '../Shared/UniText';
 import UserUtil from '../../utils/UserUtil';
 import WorkForm from './WorkForm';
 import {

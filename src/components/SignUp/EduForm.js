@@ -5,12 +5,12 @@ import {
   Picker,
   ScrollView,
   TextInput,
-  Text,
   TouchableWithoutFeedback,
   TouchableOpacity,
   View,
 } from 'react-native';
 import styles from './Styles';
+import Text from '../Shared/UniText';
 
 const Item = Picker.Item;
 

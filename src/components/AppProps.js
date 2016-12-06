@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#d6dada',
   },
   title: {
+    fontFamily: 'SFUIText-Regular',
     fontSize: 16,
     color: '#2e3031',
   },
@@ -144,7 +145,7 @@ const AppProps = {
       key: 'main',
       component: Main,
       hideNavBar: false,
-      title: 'Bridgeme',
+      title: 'Bridge Me',
       type: ActionConst.RESET,
       rightTitle: 'right',
       rightButtonTextStyle: { color: 'transparent' },
@@ -164,6 +165,8 @@ const AppProps = {
       key: 'userProfile',
       component: UserProfile,
       hideBackImage: false,
+      direction: 'fade',
+      duration: 500,
       backButtonImage: require('../resources/icon-arrow-left-white.png'),
       navigationBarStyle: {
         backgroundColor: 'transparent',
