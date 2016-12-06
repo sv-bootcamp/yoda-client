@@ -165,6 +165,8 @@ const AppProps = {
       key: 'userProfile',
       component: UserProfile,
       hideBackImage: false,
+      direction: 'fade',
+      duration: 500,
       backButtonImage: require('../resources/icon-arrow-left-white.png'),
       navigationBarStyle: {
         backgroundColor: 'transparent',
