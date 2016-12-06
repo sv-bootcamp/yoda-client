@@ -131,10 +131,10 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-fcm')
     compile project(':react-native-image-picker')
     compile project(':react-native-dropdown-android')
     compile project(':react-native-fbsdk')
-    compile project(':react-native-fcm')
     compile project(':react-native-linear-gradient')
     compile project(':react-native-vector-icons')
     compile fileTree(include: ['*.jar'], dir: 'libs')

@@ -3,11 +3,6 @@ package com.yoda;
 import android.os.Bundle;
 import android.content.Intent;
 import com.facebook.react.ReactActivity;
-import com.oblador.vectoricons.VectorIconsPackage;
-import com.BV.LinearGradient.LinearGradientPackage;
-import com.imagepicker.ImagePickerPackage;
-import com.evollu.react.fcm.FIRMessagingPackage;
-import com.chymtt.reactnativedropdown.DropdownPackage;
 
 public class MainActivity extends ReactActivity {
 
