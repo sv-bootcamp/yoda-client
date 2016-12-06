@@ -145,7 +145,11 @@ const AppProps = {
       key: 'main',
       component: Main,
       hideNavBar: false,
-      title: 'Bridgeme',
+      title: 'Bridge Me',
+      titleStyle: {
+        fontFamily: 'ProductSans-Bold',
+        color: '#2e3031',
+      },
       type: ActionConst.RESET,
       rightTitle: 'right',
       rightButtonTextStyle: { color: 'transparent' },

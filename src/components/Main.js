@@ -75,7 +75,7 @@ class Main extends Component {
           initialPage={0}
           onChangeTab={(obj) => {
             if (obj.i === pageTitle.HOME) {
-              Actions.refresh({ title: 'Bridgeme' });
+              Actions.refresh({ title: 'Bridge Me' });
             } else if (obj.i === pageTitle.TOURNAMENT) {
               Actions.refresh({ title: 'Tournament' });
             } else if (obj.i === pageTitle.MYCONNECTION) {
