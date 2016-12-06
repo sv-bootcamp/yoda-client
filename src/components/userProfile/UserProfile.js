@@ -151,7 +151,7 @@ class UserProfile extends Component {
   renderUserProfile() {
     const connect = () => this.sendRequest();
     let connectButton;
-    let connectBtnText;
+    let connectBtnText = '';
     const ConnectStatus = {
       DISCONNECTED: 0,
       PENDING: 1,
@@ -169,17 +169,19 @@ class UserProfile extends Component {
       connectBtnText = 'CONNECTED';
     }
 
-    connectButton = (
-      <LinearGradient style={styles.connectBtnStyle} start={[0.9, 0.5]} end={[0.0, 0.5]}
-        locations={[0, 0.75]}
-        colors={['#07e4dd', '#44acff']}>
-        <TouchableHighlight>
-          <View>
-            <Text style={styles.buttonText}>{connectBtnText}</Text>
-          </View>
-        </TouchableHighlight>
-      </LinearGradient>
-    );
+    if (connectBtnText !== '') {
+      connectButton = (
+        <LinearGradient style={styles.connectBtnStyle} start={[0.9, 0.5]} end={[0.0, 0.5]}
+          locations={[0, 0.75]}
+          colors={['#07e4dd', '#44acff']}>
+          <TouchableHighlight>
+            <View>
+              <Text style={styles.buttonText}>{connectBtnText}</Text>
+            </View>
+          </TouchableHighlight>
+        </LinearGradient>
+      );
+    }
 
     return (
       <View style={{
