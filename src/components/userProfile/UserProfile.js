@@ -151,6 +151,7 @@ class UserProfile extends Component {
   renderUserProfile() {
     const connect = () => this.sendRequest();
     let connectButton;
+    let connectBtnText;
     const ConnectStatus = {
       DISCONNECTED: 0,
       PENDING: 1,
@@ -159,38 +160,26 @@ class UserProfile extends Component {
 
     if (this.state.statusAsMentee === ConnectStatus.CONNECTED
         || this.state.statusAsMentor === ConnectStatus.CONNECTED) {
-      connectButton = (
-          <LinearGradient style={styles.connectBtnStyle} start={[0.9, 0.5]} end={[0.0, 0.5]}
-              locations={[0, 0.75]}
-              colors={['#07e4dd', '#44acff']}>
-          <TouchableHighlight>
-            <Text style={styles.buttonText}>WAITING...</Text>
-          </TouchableHighlight>
-          </LinearGradient>
-        );
+      connectBtnText = 'WAITING...';
     } else if (this.state.statusAsMentee === ConnectStatus.DISCONNECTED
         && this.state.statusAsMentor === ConnectStatus.DISCONNECTED) {
-      connectButton = (
-          <LinearGradient style={styles.connectBtnStyle} start={[0.9, 0.5]} end={[0.0, 0.5]}
-              locations={[0, 0.75]}
-              colors={['#07e4dd', '#44acff']}>
-          <TouchableHighlight onPress={connect}>
-            <Text style={styles.buttonText}>CONNECT</Text>
-          </TouchableHighlight>
-          </LinearGradient>
-        );
+      connectBtnText = 'CONNECT';
     } else if (this.state.statusAsMentee === ConnectStatus.PENDING
-        || this.state.statusAsMentor === ConnectStatus.PENDING) {
-      connectButton = (
-          <LinearGradient style={styles.connectBtnStyle} start={[0.9, 0.5]} end={[0.0, 0.5]}
-              locations={[0, 0.75]}
-              colors={['#07e4dd', '#44acff']}>
-          <TouchableHighlight>
-            <Text style={styles.buttonText}>CONNECTED</Text>
-          </TouchableHighlight>
-          </LinearGradient>
-        );
+            || this.state.statusAsMentor === ConnectStatus.PENDING) {
+      connectBtnText = 'CONNECTED';
     }
+
+    connectButton = (
+      <LinearGradient style={styles.connectBtnStyle} start={[0.9, 0.5]} end={[0.0, 0.5]}
+        locations={[0, 0.75]}
+        colors={['#07e4dd', '#44acff']}>
+        <TouchableHighlight>
+          <View>
+            <Text style={styles.buttonText}>{connectBtnText}</Text>
+          </View>
+        </TouchableHighlight>
+      </LinearGradient>
+    );
 
     return (
       <View style={{
