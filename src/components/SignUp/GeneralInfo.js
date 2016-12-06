@@ -150,8 +150,7 @@ class GeneralInfo extends Component {
       return;
     }
 
-    let image = null;
-
+    let image = '';
     if (profile.imageResource) {
       image = profile.imageResource.data;
     }
@@ -159,7 +158,7 @@ class GeneralInfo extends Component {
     let fieldSet = {
       name: profile.name,
       email: profile.email,
-      about: profile.about,
+      about: profile.about || '',
       education: profile.education,
       experience: profile.experience,
       image: image,
