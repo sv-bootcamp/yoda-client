@@ -8,14 +8,13 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableWithoutFeedback,
   TouchableOpacity,
   View,
 } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 import EditForm from './EditForm';
 import EduForm from './EduForm';
 import EduFormIOS from './EduFormIOS';
-import LinearGradient from 'react-native-linear-gradient';
 import MyPic from './MyPic';
 import Progress from '../Shared/Progress';
 import UserUtil from '../../utils/UserUtil';
@@ -212,11 +211,11 @@ class GeneralInfo extends Component {
         <View style={styles.horiL}>
           <Text style={styles.title}>{title.name}</Text>
         </View>
-        <TouchableWithoutFeedback onPress={onPress}>
+        <TouchableOpacity onPress={onPress}>
           <View style={styles.horiR}>
             <Text style={styles.add}>{'+ Add item'}</Text>
           </View>
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -380,7 +379,7 @@ class GeneralInfo extends Component {
   }
 
   onChangeText(propName, text) {
-    this.state[propName] = text;
+    this.state.profile[propName] = text;
   }
 
 }

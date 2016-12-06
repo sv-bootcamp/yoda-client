@@ -45,16 +45,20 @@ class EduForm extends Component {
 
     return (
       <View style={styles.formEditView}>
-        <View style={{ borderBottomColor: 'a6aeae', borderBottomWidth: 1, }}>
+        <View style={styles.formEditBottomLine}>
           <TextInput style={[styles.formName, styles.formEditName]}
                      defaultValue={this.state.name}
-                     placeholder="Name" placeholderTextColor="#a6aeae"
+                     underlineColorAndroid="rgba(255, 255, 255, 0)"
+                     placeholder="Name"
+                     placeholderTextColor="#a6aeae"
                      onChangeText={onChangeName} />
         </View>
-        <View style={{ borderBottomColor: 'a6aeae', borderBottomWidth: 1, }}>
+        <View style={styles.formEditBottomLine}>
           <TextInput style={[styles.formName, styles.formEditName]}
                      defaultValue={this.state.subject}
-                     placeholder="Subject" placeholderTextColor="#a6aeae"
+                     underlineColorAndroid="rgba(255, 255, 255, 0)"
+                     placeholder="Subject"
+                     placeholderTextColor="#a6aeae"
                      onChangeText={onChangeSubject} />
         </View>
         <View style={styles.flexR}>

@@ -49,21 +49,19 @@ class EduFormIOS extends Component {
     };
 
     return (
-      <View style={[styles.formEditView, { borderBottomColor: '#a6aeae' }]}>
-        <View>
+      <View style={styles.formEditView}>
+        <View style={styles.formEditBottomLine}>
           <TextInput style={[styles.formName, styles.formEditName]}
                      defaultValue={this.state.name}
-                     underlineColorAndroid="#a6aeae"
-                     placeholder="Name" placeholderTextColor="#a6aeae"
-                     onEndEditing={toggleEdit}
+                     placeholder="Name"
+                     placeholderTextColor="#a6aeae"
                      onChangeText={onChangeName} />
         </View>
-        <View>
+        <View style={styles.formEditBottomLine}>
           <TextInput style={[styles.formName, styles.formEditName]}
                      defaultValue={this.state.subject}
-                     underlineColorAndroid="#a6aeae"
-                     placeholder="Subject" placeholderTextColor="#a6aeae"
-                     onEndEditing={toggleEdit}
+                     placeholder="Subject"
+                     placeholderTextColor="#a6aeae"
                      onChangeText={onChangeSubject} />
         </View>
         <View style={styles.flexR}>
@@ -162,10 +160,10 @@ class EduFormIOS extends Component {
               <Text style={styles.formName}>{this.state.name}</Text>
             </View>
             <View style={styles.editR}>
-              <TouchableWithoutFeedback onPress={() => this.toggleEdit()}>
+              <TouchableOpacity onPress={() => this.toggleEdit()}>
                 <Image style={styles.editBtn}
                        source={require('../../resources/icon-detail-edit.png')} />
-              </TouchableWithoutFeedback>
+              </TouchableOpacity>
             </View>
           </View>
           <View style={styles.formNameContainer}>

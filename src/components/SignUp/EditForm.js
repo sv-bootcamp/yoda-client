@@ -36,7 +36,7 @@ class EditForm extends Component {
         <TextInput
           style={[styles.text, styles.input]}
           defaultValue={this.state.defaultValue}
-          underlineColorAndroid="#a6aeae"
+          underlineColorAndroid="rgba(255, 255, 255, 0)"
           onEndEditing={() => this.reflctInput()}
           onChangeText={
             (text) => {

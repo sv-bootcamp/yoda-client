@@ -10,6 +10,10 @@ const styles = StyleSheet.create({
     borderBottomColor: '#a6aeae',
     paddingBottom: 15,
   },
+  formEditBottomLine: {
+    borderBottomColor: '#a6aeae',
+    borderBottomWidth: 1,
+  },
   formView: {
     width: deviceWidth - 40,
     borderBottomWidth: 1,
@@ -50,7 +54,11 @@ const styles = StyleSheet.create({
   doneWrapper: {
     alignItems: 'flex-end',
     backgroundColor: '#fbfbfb',
-    padding: 15,
+    padding: 10,
+  },
+  doneText: {
+    fontSize: 16,
+    color: '#44acff',
   },
   modalContainer: {
     flexDirection: 'row',
