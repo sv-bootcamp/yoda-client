@@ -4,13 +4,13 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import CheckBox from '../../utils/CheckBox';
 import LinearGradient from 'react-native-linear-gradient';
 import Progress from '../Shared/Progress';
+import Text from '../Shared/UniText';
 import UserUtil from '../../utils/UserUtil';
 import { Actions, Scene, }  from 'react-native-router-flux';
 import { Options } from './SignUpMETA';
@@ -35,7 +35,7 @@ class ExpertInfo extends Component {
 
   componentDidMount() {
     if (this.props.fromEdit)
-      Actions.refresh({ rightTitle: 'SAVE', onRight: this.onNextBtnPressed.bind(this) });
+      Actions.refresh({ rightTitle: 'Save', onRight: this.onNextBtnPressed.bind(this) });
   }
 
   // Update checkbox state
@@ -47,7 +47,7 @@ class ExpertInfo extends Component {
   componentWillReceiveProps(props) {
     if (props.fromEdit && this.state.needRefresh) {
       Actions.refresh({
-        rightTitle: 'SAVE',
+        rightTitle: 'Save',
         onRight: this.onNextBtnPressed.bind(this),
         onBack: () => {
           this.setState({ needRefresh: true });
@@ -131,7 +131,7 @@ class ExpertInfo extends Component {
 
     return (
       <View style={styles.container}>
-        <Progress level={4} step={3} />
+        {this.props.fromEdit ? null : (<Progress level={4} step={3} />)}
         <View style={styles.header}>
           <Text allowFontScaling={false} style={styles.titleText}>
             {'Add all Keywords that\nyou can help others with.'}

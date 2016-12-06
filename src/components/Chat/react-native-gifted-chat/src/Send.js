@@ -2,11 +2,11 @@ import React from 'react';
 import {
   Image,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import SendBird from 'sendbird';
+import Text from '../../../Shared/UniText';
 import MatchUtil from '../../../../utils/MatchUtil';
 
 export default class Send extends React.Component {

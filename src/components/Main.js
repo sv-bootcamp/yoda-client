@@ -17,6 +17,7 @@ import MyPage from './MyPage';
 import SendBird from 'sendbird';
 import ScrollableTabView  from 'react-native-scrollable-tab-view';
 import TabBar from './Shared/TabBar';
+import Text from './Shared/UniText';
 import UserList from './UserList/UserList';
 import UserUtil from '../utils/UserUtil';
 
@@ -145,7 +146,6 @@ class Main extends Component {
 
       //this is a local notification
     }
-
     if (notif.opened_from_tray) {
       this.actionFromNotification(notif);
     }
@@ -194,8 +194,8 @@ class Main extends Component {
           initialPage={0}
           page={this.state.currentMainPage}
           onChangeTab={(obj) => {
-            if (obj.i === mainPageTitle.HOME) {
-              Actions.refresh({ title: 'Bridgeme' });
+            if (obj.i === pageTitle.HOME) {
+              Actions.refresh({ title: 'Bridge Me' });
             } else if (obj.i === mainPageTitle.TOURNAMENT) {
               Actions.refresh({ title: 'Tournament' });
             } else if (obj.i === mainPageTitle.MYCONNECTION) {
@@ -211,7 +211,7 @@ class Main extends Component {
           locked={true}
           scrollWithoutAnimation={true}
           renderTabBar={() => <TabBar />}
-          >
+        >
           <UserList tabLabel="ios-home" style={styles.tabView} />
           <ScrollView tabLabel="md-shuffle" style={styles.tabView}>
             <View style={styles.card}>
@@ -224,7 +224,7 @@ class Main extends Component {
             currentActivityPage={this.state.currentActivityPage}
             me={this.props.me} />
           <ChannelList tabLabel="ios-chatbubbles" style={styles.tabView} me={this.props.me} />
-        <MyPage tabLabel="md-contact" me={this.props.me} />
+          <MyPage tabLabel="md-contact" me={this.props.me} />
       </ScrollableTabView>
     );
   }

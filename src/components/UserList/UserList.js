@@ -5,12 +5,12 @@ import {
   Platform,
   RefreshControl,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import Row from './Row';
 import { Actions } from 'react-native-router-flux';
 import CardScroll from './CardScroll';
+import Text from '../Shared/UniText';
 import UserUtil from '../../utils/UserUtil';
 
 class UserList extends Component {
@@ -68,16 +68,16 @@ class UserList extends Component {
         dataSource={this.state.dataSource}
         renderRow={this.renderRow}
         refreshControl={
-         <RefreshControl
-           refreshing={this.state.isRefreshing}
-           onRefresh={this.onRefresh.bind(this)}
-           tintColor="#1ecfe2"
-           title="Loading..."
-           titleColor="#0e417a"
-           style={{ backgroundColor: 'transparent' }}
-           />
-         }
-       />
+          <RefreshControl
+            refreshing={this.state.isRefreshing}
+            onRefresh={this.onRefresh.bind(this)}
+            tintColor="#1ecfe2"
+            title="Loading..."
+            titleColor="#0e417a"
+            style={{ backgroundColor: 'transparent' }}
+          />
+        }
+      />
    );
   }
 

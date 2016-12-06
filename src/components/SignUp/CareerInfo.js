@@ -6,7 +6,6 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
-  Text,
   TextInput,
   TouchableWithoutFeedback,
   TouchableOpacity,
@@ -21,6 +20,7 @@ import {
 import Dropdown from 'react-native-dropdown-android';
 import LinearGradient from 'react-native-linear-gradient';
 import Progress from '../Shared/Progress';
+import Text from '../Shared/UniText';
 import UserUtil from '../../utils/UserUtil';
 import { Actions, Scene, }  from 'react-native-router-flux';
 import { CareerData } from './SignUpMETA';
@@ -74,13 +74,13 @@ class CareerInfo extends Component {
     }
 
     if (this.props.fromEdit)
-      Actions.refresh({ rightTitle: 'SAVE', onRight: this.onNextBtnPressed.bind(this) });
+      Actions.refresh({ rightTitle: 'Save', onRight: this.onNextBtnPressed.bind(this) });
   }
 
   componentWillReceiveProps(props) {
     if (props.fromEdit && this.state.needRefresh) {
       Actions.refresh({
-        rightTitle: 'SAVE',
+        rightTitle: 'Save',
         onRight: this.onNextBtnPressed.bind(this),
         onBack: () => {
           this.setState({ needRefresh: true });
@@ -208,6 +208,13 @@ class CareerInfo extends Component {
   }
 
   onNextBtnPressed() {
+    for (i = 0; i < this.state.checked.length; i++) {
+      if (!this.state.checked[i]) {
+        Alert.alert('System', 'Please select all');
+        return;
+      }
+    }
+
     let career = [
     {
       area: this.state.selected[0],
@@ -255,7 +262,7 @@ class CareerInfo extends Component {
       submitButton = this.renderNextBtn();
     return (
       <View style ={styles.container}>
-        <Progress level={4} step={2} />
+        {this.props.fromEdit ? null : (<Progress level={4} step={2} />)}
         <ScrollView contentContainerStyle ={styles.scrollViewcontainer}>
           <View style={styles.header}>
             <Text style={styles.titleText}>What do you do?</Text>
