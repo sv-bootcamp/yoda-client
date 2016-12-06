@@ -41,7 +41,7 @@ class WorkForm extends Component {
     let endDate = this.getEndDate(this.state.end);
 
     return (
-      <View style={[styles.formEditView, { borderBottomColor: '#a6aeae' }]}>
+      <View style={styles.formEditView}>
         <View>
           <TextInput style={[styles.formName, styles.formEditName]}
                      defaultValue={this.state.position}

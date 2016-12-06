@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import EditForm from './EditForm';
 import EduForm from './EduForm';
+import EduFormIOS from './EduFormIOS';
 import LinearGradient from 'react-native-linear-gradient';
 import MyPic from './MyPic';
 import Progress from '../Shared/Progress';
@@ -286,16 +287,25 @@ class GeneralInfo extends Component {
     let onChangeText = (propName1, propName2, idx, text) =>
                         this.onChangeEduInfo(propName1, propName2, idx, text);
 
-    return (
-      <EduForm
-        name={edu.school ? edu.school.name : ''}
-        startYear={edu.startYear ? edu.startYear.name : '1980'}
-        endYear={edu.year ? edu.year.name : '1980'}
-        subject={eduSubject}
-        id={rowID}
-        onDelete={onDelete}
-        onChangeText={onChangeText} />
-    );
+    let props = {
+      name: edu.school ? edu.school.name : '',
+      startYear: edu.startYear ? edu.startYear.name : '1980',
+      endYear: edu.year ? edu.year.name : '1980',
+      subject: eduSubject,
+      id: rowID,
+      onDelete: onDelete,
+      onChangeText: onChangeText,
+    };
+
+    if (Platform.OS === 'ios') {
+      return (
+        <EduFormIOS {...props} />
+      );
+    } else {
+      return (
+        <EduForm {...props} />
+      );
+    }
   }
 
   onChangeEduInfo(propName1, propName2, idx, text) {
@@ -385,6 +395,7 @@ const styles = StyleSheet.create({
         marginTop: 54,
       },
     }),
+    marginBottom: 30,
     flex: 1,
     flexDirection: 'column',
   },

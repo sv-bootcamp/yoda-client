@@ -14,12 +14,13 @@ import styles from './Styles';
 
 const Item = Picker.Item;
 
-class EduForm extends Component {
+class EduFormIOS extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       editMode: false,
+      modalVisible: false,
       name: this.props.name,
       startYear: this.props.startYear,
       endYear: this.props.endYear,
@@ -43,41 +44,76 @@ class EduForm extends Component {
     let onChangeEndYear = (year) => this.onChangeEndYear(year);
     let toggleEdit = () => this.toggleEdit();
 
+    let setModalVisible = () => {
+      this.setModalVisible(!this.state.modalVisible);
+    };
+
     return (
-      <View style={styles.formEditView}>
-        <View style={{ borderBottomColor: 'a6aeae', borderBottomWidth: 1, }}>
+      <View style={[styles.formEditView, { borderBottomColor: '#a6aeae' }]}>
+        <View>
           <TextInput style={[styles.formName, styles.formEditName]}
                      defaultValue={this.state.name}
+                     underlineColorAndroid="#a6aeae"
                      placeholder="Name" placeholderTextColor="#a6aeae"
+                     onEndEditing={toggleEdit}
                      onChangeText={onChangeName} />
         </View>
-        <View style={{ borderBottomColor: 'a6aeae', borderBottomWidth: 1, }}>
+        <View>
           <TextInput style={[styles.formName, styles.formEditName]}
                      defaultValue={this.state.subject}
+                     underlineColorAndroid="#a6aeae"
                      placeholder="Subject" placeholderTextColor="#a6aeae"
+                     onEndEditing={toggleEdit}
                      onChangeText={onChangeSubject} />
         </View>
         <View style={styles.flexR}>
-          <Picker
-            style={styles.formEditYear}
-            selectedValue={this.state.startYear}
-            onValueChange={onChangeStartYear}>
-            {PickerItems}
-          </Picker>
-          <View style={{ marginRight: 10 }}><Text>{'- '}</Text></View>
-          <Picker
-            style={styles.formEditYear}
-            selectedValue={this.state.endYear}
-            onValueChange={onChangeEndYear}>
-            {PickerItems}
-          </Picker>
+          <TouchableOpacity onPress={setModalVisible}>
+            <Text style={styles.formDate}>{this.state.startYear}</Text>
+          </TouchableOpacity>
+          <View>
+            <Text style={styles.formDate}>{' - '}</Text>
+          </View>
+          <TouchableOpacity onPress={setModalVisible}>
+            <Text style={styles.formDate}>{this.state.endYear}</Text>
+          </TouchableOpacity>
           <TouchableWithoutFeedback onPress={toggleEdit}>
-            <View style={{ flex: 1 }}>
-            </View>
+            <View style={{ flex: 1 }}></View>
           </TouchableWithoutFeedback>
+          <Modal
+            animationType={"slide"}
+            transparent={true}
+            visible={this.state.modalVisible}
+            onRequestClose={() => {alert("Modal has been closed.")}}
+            >
+            <View style={{ flex: 1, }}></View>
+            <View style={styles.doneWrapper}>
+              <TouchableOpacity onPress={setModalVisible}>
+                <Text style={{ fontSize: 16, color: '#44acff' }}>Done</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.modalContainer}>
+              <Picker
+                style={styles.formEditYear}
+                selectedValue={this.state.startYear}
+                onValueChange={onChangeStartYear}>
+                {PickerItems}
+              </Picker>
+              <View style={{ marginRight: 10 }}><Text>{'-'}</Text></View>
+              <Picker
+                style={styles.formEditYear}
+                selectedValue={this.state.endYear}
+                onValueChange={onChangeEndYear}>
+                {PickerItems}
+              </Picker>
+            </View>
+          </Modal>
         </View>
       </View>
     );
+  }
+
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
   }
 
   // Get picker items(year for education)
@@ -162,4 +198,4 @@ class EduForm extends Component {
 
 }
 
-module.exports = EduForm;
+module.exports = EduFormIOS;
