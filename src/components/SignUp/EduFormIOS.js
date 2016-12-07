@@ -6,8 +6,8 @@ import {
   ScrollView,
   TextInput,
   Text,
-  TouchableWithoutFeedback,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import styles from './Styles';
@@ -52,17 +52,17 @@ class EduFormIOS extends Component {
       <View style={styles.formEditView}>
         <View style={styles.formEditBottomLine}>
           <TextInput style={[styles.formName, styles.formEditName]}
-                     defaultValue={this.state.name}
-                     placeholder="Name"
-                     placeholderTextColor="#a6aeae"
-                     onChangeText={onChangeName} />
+             defaultValue={this.state.name}
+             placeholder="Name"
+             placeholderTextColor="#a6aeae"
+             onChangeText={onChangeName} />
         </View>
         <View style={styles.formEditBottomLine}>
           <TextInput style={[styles.formName, styles.formEditName]}
-                     defaultValue={this.state.subject}
-                     placeholder="Subject"
-                     placeholderTextColor="#a6aeae"
-                     onChangeText={onChangeSubject} />
+             defaultValue={this.state.subject}
+             placeholder="Subject"
+             placeholderTextColor="#a6aeae"
+             onChangeText={onChangeSubject} />
         </View>
         <View style={styles.flexR}>
           <TouchableOpacity onPress={setModalVisible}>

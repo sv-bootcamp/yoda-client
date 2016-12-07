@@ -5,8 +5,8 @@ import {
   Picker,
   ScrollView,
   TextInput,
-  TouchableWithoutFeedback,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import styles from './Styles';
