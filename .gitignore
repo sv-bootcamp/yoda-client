@@ -5,6 +5,7 @@
 # Xcode
 #
 build/
+ios/Bridgeme.xcodeproj/project.pbxproj
 *.pbxuser
 !default.pbxuser
 *.mode1v3
