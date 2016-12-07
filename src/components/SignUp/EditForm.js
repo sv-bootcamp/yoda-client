@@ -42,7 +42,7 @@ class EditForm extends Component {
   }
 
   // When you finish editing, this component is changed into none edit mode.
-  reflctInput() {
+  reflectInput() {
     this.editView.setNativeProps({ style: styles.view });
     this.setState({ editMode: false });
   }
@@ -60,7 +60,7 @@ class EditForm extends Component {
           onFocus={() => {
             this.editView.setNativeProps({ style: styles.editView });
           }}
-          onEndEditing={() => this.reflctInput()}
+          onEndEditing={() => this.reflectInput()}
           onChangeText={
             (text) => {
               this.state.defaultValue = text;
