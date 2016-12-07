@@ -23,6 +23,7 @@ import WorkForm from './WorkForm';
 const fieldTitles = [
   { name: 'Name', isArray: false },
   { name: 'Email', isArray: false },
+  { name: 'Location', isArray: false },
   { name: 'About', isArray: false },
   { name: 'Education', isArray: true },
   { name: 'Experience', isArray: true },
@@ -274,6 +275,7 @@ class GeneralInfo extends Component {
     const fieldSet = {
       name: profile.name,
       email: profile.email,
+      location: profile.location,
       about: profile.about || '',
       education: profile.education,
       experience: profile.experience,
