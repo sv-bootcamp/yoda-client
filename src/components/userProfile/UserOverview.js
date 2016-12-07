@@ -193,8 +193,8 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   sectionName: {
-    fontFamily: 'SFUIText-Bold',
     fontSize: 12,
+    fontWeight: 'bold',
     color: '#a6aeae',
     marginBottom: 10,
   },
@@ -212,7 +212,6 @@ const styles = StyleSheet.create({
   },
   tagText: {
     color: '#2e3031',
-    fontFamily: 'SFUIText-Regular',
     fontSize: 14,
     backgroundColor: 'transparent',
     textAlign: 'center',
