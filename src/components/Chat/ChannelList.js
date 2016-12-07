@@ -32,17 +32,14 @@ class ChannelList extends Component {
     this.sb = SendBird();
     this.ChannelHandler = new this.sb.ChannelHandler();
     this.ChannelHandler.onMessageReceived = this.onChanneListMessageReceived.bind(this);
-    console.log('channelList:constructor');
   }
 
   componentDidMount() {
-    console.log('channelList:componentDidMount');
     AppState.addEventListener('change', this.onAppStateChange.bind(this));
     NetInfo.isConnected.addEventListener('change', this.onConnectionStateChange.bind(this));
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('channelList:componentWillReceiveProps');
     this.initChannelList();
   }
 
@@ -85,7 +82,6 @@ class ChannelList extends Component {
     this.sb.connect(this.props.me._id, (user, error) => {
       this.sb.removeChannelHandler('ChannelList');
       this.sb.addChannelHandler('ChannelList', this.ChannelHandler);
-      console.log('ChannelList: addChannelHandler complete.');
 
       if (callback) {
         callback(user, error);
@@ -115,7 +111,6 @@ class ChannelList extends Component {
   }
 
   onChanneListMessageReceived(channel, userMessage) {
-    console.log('onChanneListMessageReceived');
     this.refreshChannelList();
   }
 

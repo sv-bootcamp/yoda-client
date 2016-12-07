@@ -40,11 +40,9 @@ class ChatPage extends Component {
     this.ChannelHandler.onMessageReceived = this.onMessageReceived.bind(this);
     this.ChannelHandler.onTypingStatusUpdated = this.onTypingStatusUpdated.bind(this);
     this.ChannelHandler.onReadReceiptUpdated = this.onReadReceiptUpdated.bind(this);
-    console.log('ChatPage: constructor');
   }
 
   componentDidMount() {
-    console.log('ChatPage: componentDidMount');
     this.initChatPage(() => {
       AppState.addEventListener('change', this.onAppStateChange.bind(this));
       NetInfo.isConnected.addEventListener('change', this.onConnectionStateChange.bind(this));
@@ -52,7 +50,6 @@ class ChatPage extends Component {
   }
 
   componentWillReceiveProps(nextProps = {}) {
-    console.log('ChatPage: componentWillReceiveProps');
     if (this.props.opponent === nextProps.opponent) {
       return;
     }
@@ -69,7 +66,6 @@ class ChatPage extends Component {
   }
 
   componentWillUnmount() {
-    console.log('ChatPage: componentWillUnmount');
     this.sb.removeChannelHandler('ChatPage');
   }
 
@@ -89,9 +85,7 @@ class ChatPage extends Component {
     const userIds = [this.me.userId, this.opponent.userId];
     this.sb.GroupChannel.createChannelWithUserIds(
       userIds, true, '', '', '', function (channel, error) {
-        if (error) {
-          alert(JSON.stringify(error));
-        } else {
+        if (!error) {
           this.setState({
             channel: channel,
           });
@@ -168,7 +162,6 @@ class ChatPage extends Component {
       this.appendSendBirdMessage(userMessage);
       channel.markAsRead();
     }else {
-      console.log(userMessage);
       Vibration.vibrate();
     }
   }
@@ -200,7 +193,6 @@ class ChatPage extends Component {
     if (state === 'active') {
       if (this.isConnected) {
         this.initChatPage(() => {
-          console.log('reinit by onAppStateChange');
         });
       }
     } else {
@@ -213,7 +205,6 @@ class ChatPage extends Component {
     this.isConnected = isConnected;
     if (this.isConnected) {
       this.initChatPage(() => {
-        console.log('reinit by onConnectionStateChange');
       });
     } else {
       this.sb.removeChannelHandler('ChatPage');

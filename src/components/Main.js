@@ -48,9 +48,16 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    console.log('main: componentDidMount');
-
     this.initSendBird((user, error)=> {
+      if (user.nickname !== this.props.me.name ||
+        user.profileUrl !== this.props.me.profile_picture) {
+
+        //Sendbird has an issue in updateCurrentUserInfo() API right after connect() API.
+        setTimeout(() => {
+          this.sb.updateCurrentUserInfo(this.props.me.name, this.props.me.profile_picture);
+        }, 1000);
+      }
+
       AppState.addEventListener('change', this.onAppStateChange.bind(this));
       NetInfo.isConnected.addEventListener('change', this.onConnectionStateChange.bind(this));
 
@@ -67,7 +74,6 @@ class Main extends Component {
   }
 
   componentWillUnmount() {
-    console.log('componentWillUnmount');
     AppState.removeEventListener('change');
     this.notificationUnsubscribe();
   }
@@ -86,22 +92,14 @@ class Main extends Component {
   }
 
   connectSendBird(callback) {
-    new SendBird({
+    this.sb = new SendBird({
       appId: this.sendBirdAppId,
     });
-    this.sb = SendBird();
     this.sb.connect(this.props.me._id, (user, error) => {
       this.sb.removeChannelHandler('Main');
       this.ChannelHandler = new this.sb.ChannelHandler();
       this.ChannelHandler.onMessageReceived = this.onMainMessageReceived.bind(this);
       this.sb.addChannelHandler('Main', this.ChannelHandler);
-      console.log('main: addChannelHandler complete.');
-      if (user) {
-        if (user.nickname !== this.props.me.name ||
-          user.profileUrl !== this.props.me.profile_picture) {
-          this.sb.updateCurrentUserInfo(this.props.me.name, this.props.me.profile_picture);
-        }
-      }
 
       if (callback) {
         callback(user, error);
@@ -111,12 +109,10 @@ class Main extends Component {
 
   onAppStateChange(state) {
     if (state === 'active') {
-      console.log('onAppStateChange:' + state);
       if (this.isConnected) {
         this.connectSendBird();
       }
     } else {
-      console.log('onAppStateChange:' + state);
       SendBird().removeChannelHandler('Main');
       this.sb.disconnect();
     }
@@ -125,23 +121,18 @@ class Main extends Component {
   onConnectionStateChange(isConnected) {
     this.isConnected = isConnected;
     if (this.isConnected) {
-      console.log('onConnectionStateChange:' + isConnected);
       this.connectSendBird();
     } else {
-      console.log('onConnectionStateChange:' + isConnected);
       SendBird().removeChannelHandler('Main');
       this.sb.disconnect();
     }
   }
 
   onMainMessageReceived(channel, userMessage) {
-    console.log('onMainMessageReceived');
-    //alert('main.onMessageReceived :' + JSON.stringify(userMessage));
     Vibration.vibrate();
   }
 
   onNotificationReceived(notif) {
-    console.log('onNotificationReceived');
     if (notif.local_notification) {
 
       //this is a local notification
