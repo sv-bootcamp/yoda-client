@@ -8,7 +8,6 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   TextInput,
   TouchableWithoutFeedback,
   View,
@@ -24,6 +23,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Dropdown from 'react-native-dropdown-android';
 import LinearGradient from 'react-native-linear-gradient';
 import MatchUtil from '../../utils/MatchUtil';
+import Text from '../Shared/UniText';
 
 class RequestPage extends Component {
   constructor(props) {
