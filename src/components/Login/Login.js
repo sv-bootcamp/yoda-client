@@ -32,6 +32,7 @@ class Login extends Component {
         this.hasToken();
         return;
       }
+
       AsyncStorage.setItem('firstFlag', 'on');
       Actions.onBoarding();
     });

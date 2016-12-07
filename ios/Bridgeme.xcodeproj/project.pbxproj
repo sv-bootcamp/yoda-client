@@ -52,12 +52,7 @@
 		D260393C1DF7D9D0004DC6C9 /* SF-UI-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D26039371DF7D8E0004DC6C9 /* SF-UI-Text-Light.otf */; };
 		D260393D1DF7D9D0004DC6C9 /* SF-UI-Text-Ultrathin.otf in Resources */ = {isa = PBXBuildFile; fileRef = D26039381DF7D8E0004DC6C9 /* SF-UI-Text-Ultrathin.otf */; };
 		D260393E1DF7D9D5004DC6C9 /* opensans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA20BCD31DA4B63F00BFA62C /* opensans.ttf */; };
-		DAB407959AAC40BC9D08F885 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AFAEADFECB4B46DCAF4C4EAC /* Entypo.ttf */; };
-		DAED1D04D05544F98EBCFE9D /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5DB8359243A4142B3E50AFF /* libRCTFBSDK.a */; };
-		E9538CD01DD9A12D0066FB51 /* FirebaseMessaging.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9538CCF1DD9A12D0066FB51 /* FirebaseMessaging.framework */; };
-		EDB91A7E8A604D529D47E280 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B6EC3E37F8A04FAB84EFA14B /* Zocial.ttf */; };
-		F79078921A5D45D38F72BD3E /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 10EBB3803A9F4ED4B9BF0A76 /* FontAwesome.ttf */; };
-
+		DAB407959AAC40BC9D08F885 /* (null) in Resources */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -275,7 +270,6 @@
 		00E356EE1AD99517003FC87E /* yodaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = yodaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* yodaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = yodaTests.m; sourceTree = "<group>"; };
-		12A2208B684F489BBEF21F6D /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* yoda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yoda.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -313,7 +307,6 @@
 		964BFFFBBA5C2D20C255DE54 /* Pods-Bridgeme.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bridgeme.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bridgeme/Pods-Bridgeme.debug.xcconfig"; sourceTree = "<group>"; };
 		9C1364092D824D12ABF9650F /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
 		9DEC81A917A84E8C9AA0CC6C /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
-		A6B96483E7A346B0852B231B /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		A82D3D852DF843F3B10977D9 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		AA20BCD31DA4B63F00BFA62C /* opensans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = opensans.ttf; sourceTree = "<group>"; };
 		AA49EE101D6FFBD20083C256 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
@@ -631,14 +624,6 @@
 			isa = PBXGroup;
 			children = (
 				0AA5BF610B48C52DDC0EDEB7 /* Pods */,
-				AFAEADFECB4B46DCAF4C4EAC /* Entypo.ttf */,
-				04A067182DB14C86A4185454 /* EvilIcons.ttf */,
-				10EBB3803A9F4ED4B9BF0A76 /* FontAwesome.ttf */,
-				39817FD5C2A845CD8964A8D1 /* Foundation.ttf */,
-				9BA01BC26B2C4F9EB7B662A7 /* Ionicons.ttf */,
-				42FC2727DC9941AF86EF1AFE /* MaterialIcons.ttf */,
-				3CC928ABDC22477197316C7F /* Octicons.ttf */,
-				B6EC3E37F8A04FAB84EFA14B /* Zocial.ttf */,
 				D22304871DDEE06A0098E0A8 /* ProductSans-Bold.ttf */,
 				AA20BCD31DA4B63F00BFA62C /* opensans.ttf */,
 				D2BCC21E1DD5E8BF00B27069 /* SF-UI-Text-Bold.otf */,
@@ -1080,14 +1065,11 @@
 				5DAABD521DEEB6A700876278 /* splash_anim.gif in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				D22304981DDEE0AE0098E0A8 /* ProductSans-Bold.ttf in Resources */,
-				DAB407959AAC40BC9D08F885 /* Entypo.ttf in Resources */,
-				558EED2ED95C4E9F9C6CDB9F /* EvilIcons.ttf in Resources */,
+				DAB407959AAC40BC9D08F885 /* (null) in Resources */,
 				5DD54E381DE3E6F0008DB293 /* GoogleService-Info.plist in Resources */,
 				536289CD474847C7AB1910CF /* Entypo.ttf in Resources */,
 				59F5AF063B544543856B1BFB /* EvilIcons.ttf in Resources */,
 				CDD9303A2BC74E789B291EB0 /* FontAwesome.ttf in Resources */,
-				E5FA415ABE064C1493FFC284 /* Foundation.ttf in Resources */,
-				FDD6B2E2AE8C4F569E24A696 /* Ionicons.ttf in Resources */,
 				AECFEB9DCBE146209AFA448D /* MaterialIcons.ttf in Resources */,
 				82118A4896384BFDB51C9626 /* Octicons.ttf in Resources */,
 				0C054E404DC64AB6A42716A0 /* Zocial.ttf in Resources */,

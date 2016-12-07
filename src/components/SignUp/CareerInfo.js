@@ -334,19 +334,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   titleText: {
-    fontFamily: 'SFUIText-regular',
     fontSize: 18,
     color: '#2e3031',
   },
   subTitleText: {
-    fontFamily: 'SFUIText-regular',
     fontSize: 12,
     color: '#2e3031',
     marginTop: 10,
   },
   questionText: {
-    fontFamily: 'SFUIText-Bold',
     fontSize: 12,
+    fontWeight: 'bold',
     color: '#a6aeae',
   },
   buttonText: {

@@ -33,6 +33,9 @@ class UniText extends Component {
       } else {
         this.defaultFont.fontFamily = 'SFUIText-Regular';
       }
+
+      if (Platform.OS === 'ios' && style.fontWeight)
+        this.defaultFont.fontWeight = style.fontWeight;
     }
   }
 
