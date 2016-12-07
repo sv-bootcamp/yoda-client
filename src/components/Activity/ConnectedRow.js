@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
     borderRadius: 2,
     right: WIDTH / 20,
-    backgroundColor: '#557bfc',
+    backgroundColor: '#44acff',
   },
   seperator: {
     alignItems: 'stretch',

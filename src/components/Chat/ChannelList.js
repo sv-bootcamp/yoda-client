@@ -35,7 +35,12 @@ class ChannelList extends Component {
   }
 
   componentDidMount() {
-    AppState.addEventListener('change', this.onAppStateChange.bind(this));
+    NetInfo.isConnected.fetch().then(isConnected => {
+      this.isConnected = isConnected;
+      console.log('First, is ' + (isConnected ? 'online' : 'offline'));
+
+    });
+    //AppState.addEventListener('change', this.onAppStateChange.bind(this));
     NetInfo.isConnected.addEventListener('change', this.onConnectionStateChange.bind(this));
   }
 
@@ -90,17 +95,20 @@ class ChannelList extends Component {
   }
 
   onAppStateChange(state) {
+    console.log(state , this.isConnected);
+
     if (state === 'active') {
       if (this.isConnected) {
         this.initChannelList();
       }
-    } else {
+    } else if (state === 'background') {
       this.sb.removeChannelHandler('ChannelList');
       this.sb.disconnect();
     }
   }
 
   onConnectionStateChange(isConnected) {
+    console.log(isConnected);
     this.isConnected = isConnected;
     if (this.isConnected) {
       this.initChannelList();

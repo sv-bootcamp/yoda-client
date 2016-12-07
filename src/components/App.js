@@ -3,12 +3,14 @@ import { Dimensions, Platform } from 'react-native';
 import ErrorUtils from 'ErrorUtils';
 import {
   Actions,
+  AppState,
   Router,
   Reducer,
   Scene,
 } from 'react-native-router-flux';
 import AppProps from './AppProps';
 import FCM from 'react-native-fcm';
+import SendBird from 'sendbird';
 
 // Define reducer to manage scenes
 const reducerCreate = params=> {
@@ -87,7 +89,18 @@ class App extends Component {
     if (Platform.OS === 'ios') {
       FCM.requestPermissions();
     }
+
+    //AppState.addEventListener('change', this.onAppStateChange.bind(this));
   }
+
+  //onAppStateChange(currentAppState) {
+  //  console.log(currentAppState);
+  //  if (currentAppState === 'active') {
+  //    SendBird().setForegroundState();
+  //  } else if (currentAppState === 'background') {
+  //    SendBird().setBackgroundState();
+  //  }
+  //}
 
   backAndroidHandler() {
     let scene = App.scene.sceneKey;

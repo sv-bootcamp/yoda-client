@@ -15,7 +15,6 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { GiftedChat }  from './react-native-gifted-chat';
-import FCM from 'react-native-fcm';
 import SendBird from 'sendbird';
 import Text from '../Shared/UniText';
 import UserUtil from '../../utils/UserUtil';
@@ -35,7 +34,10 @@ class ChatPage extends Component {
     this.opponent = this.props.opponent;
     this.lastTyping = null;
     this.renderFooter = this.renderFooter.bind(this);
-    this.sb = SendBird();
+
+    this.sb = new SendBird({
+      appId: SendBird().getApplicationId(),
+    });
     this.ChannelHandler = new this.sb.ChannelHandler();
     this.ChannelHandler.onMessageReceived = this.onMessageReceived.bind(this);
     this.ChannelHandler.onTypingStatusUpdated = this.onTypingStatusUpdated.bind(this);
@@ -44,7 +46,12 @@ class ChatPage extends Component {
 
   componentDidMount() {
     this.initChatPage(() => {
-      AppState.addEventListener('change', this.onAppStateChange.bind(this));
+      NetInfo.isConnected.fetch().then(isConnected => {
+        this.isConnected = isConnected;
+        console.log('First, is ' + (isConnected ? 'online' : 'offline'));
+
+      });
+      //AppState.addEventListener('change', this.onAppStateChange.bind(this));
       NetInfo.isConnected.addEventListener('change', this.onConnectionStateChange.bind(this));
     });
   }
@@ -66,6 +73,8 @@ class ChatPage extends Component {
   }
 
   componentWillUnmount() {
+    console.log('componentWillUnmount');
+    //AppState.removeEventListener('change', this.onAppStateChange.bind(this));
     this.sb.removeChannelHandler('ChatPage');
   }
 
@@ -189,20 +198,22 @@ class ChatPage extends Component {
     //Todo : Implement mark as read feature.
   }
 
-  onAppStateChange(state) {
-    if (state === 'active') {
-      if (this.isConnected) {
-        this.initChatPage(() => {
-        });
-      }
-    } else {
-      this.sb.removeChannelHandler('ChatPage');
-      this.sb.disconnect();
-    }
-  }
+  //onAppStateChange(state) {
+  //  console.log(state , this.isConnected);
+  //  if (state === 'active') {
+  //    if (this.isConnected) {
+  //      this.initChatPage(() => {
+  //      });
+  //    }
+  //  } else if (state === 'background') {
+  //    this.sb.removeChannelHandler('ChatPage');
+  //    this.sb.disconnect();
+  //  }
+  //}
 
   onConnectionStateChange(isConnected) {
     this.isConnected = isConnected;
+    console.log(isConnected);
     if (this.isConnected) {
       this.initChatPage(() => {
       });
@@ -262,6 +273,7 @@ class ChatPage extends Component {
         opponentInfo={this.state.opponentInfo}
         loadEarlier={true}
         renderFooter={this.renderFooter}
+        isLoadingEarlier={true}
       />
     );
   }

@@ -140,17 +140,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   name: {
-    lineHeight: 14,
-    height: 16,
     fontSize: 14,
     fontWeight: 'bold',
     marginTop: 18,
     color: '#494b4c',
-
   },
   lastMessage: {
-    lineHeight: 12,
-    height: 14,
     fontSize: 12,
     marginTop: 6,
     fontWeight: 'normal',

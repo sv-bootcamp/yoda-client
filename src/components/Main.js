@@ -49,12 +49,14 @@ class Main extends Component {
 
   componentDidMount() {
     this.initSendBird((user, error)=> {
+
       if (user.nickname !== this.props.me.name ||
         user.profileUrl !== this.props.me.profile_picture) {
-
+        console.log(user);
         //Sendbird has an issue in updateCurrentUserInfo() API right after connect() API.
         setTimeout(() => {
           this.sb.updateCurrentUserInfo(this.props.me.name, this.props.me.profile_picture);
+          this.sb.setBackgroundState();
         }, 1000);
       }
 
@@ -107,14 +109,15 @@ class Main extends Component {
     });
   }
 
-  onAppStateChange(state) {
-    if (state === 'active') {
-      if (this.isConnected) {
-        this.connectSendBird();
+  onAppStateChange(currentAppState) {
+    if (currentAppState === 'active') {
+      console.log(this.currentTab);
+      if (this.currentTab === mainPageTitle.CHAT) {
+        this.sb.setForegroundState();
       }
-    } else {
-      SendBird().removeChannelHandler('Main');
-      this.sb.disconnect();
+    } else if (currentAppState === 'background') {
+      console.log('background');
+      this.sb.setBackgroundState();
     }
   }
 
@@ -146,7 +149,14 @@ class Main extends Component {
   actionFromNotification(notif) {
     Actions.main({ me: this.props.me });
     if (notif.notificationType === 'MESSAGE') {
-      this.changeMainPage(mainPageTitle.CHAT);
+      setTimeout(() => {
+          const opponent = JSON.parse(notif.extraData).opponent;
+          Actions.chatPage({
+            title: opponent.name,
+            me: { userId: this.props.me._id },
+            opponent: opponent,
+          });
+      },500);
     } else if (notif.notificationType === 'CONNECTION') {
       this.changeMainPage(
         mainPageTitle.MYCONNECTION, () => this.changeActivityPage(activityPageTitle.CONNECTED));
@@ -179,15 +189,16 @@ class Main extends Component {
           initialPage={0}
           page={this.state.currentMainPage}
           onChangeTab={(obj) => {
-            if (obj.i === mainPageTitle.HOME) {
+            this.currentTab = obj.i;
+            if (this.currentTab === mainPageTitle.HOME) {
               Actions.refresh({ title: 'Bridge Me', titleStyle: styles.mainTitle, });
-            } else if (obj.i === mainPageTitle.TOURNAMENT) {
+            } else if (this.currentTab === mainPageTitle.TOURNAMENT) {
               Actions.refresh({ title: 'Tournament', titleStyle: styles.title, });
-            } else if (obj.i === mainPageTitle.MYCONNECTION) {
+            } else if (this.currentTab === mainPageTitle.MYCONNECTION) {
               Actions.refresh({ title: 'My Connection', titleStyle: styles.title, });
-            } else if (obj.i === mainPageTitle.CHAT) {
+            } else if (this.currentTab === mainPageTitle.CHAT) {
               Actions.refresh({ title: 'Chat', titleStyle: styles.title, });
-            } else if (obj.i === mainPageTitle.MYPROFILE) {
+            } else if (this.currentTab === mainPageTitle.MYPROFILE) {
               Actions.refresh({ title: 'My Profile', titleStyle: styles.title, });
             }
           }}
