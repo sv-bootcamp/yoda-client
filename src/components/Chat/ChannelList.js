@@ -49,6 +49,7 @@ class ChannelList extends Component {
   componentWillUnmount() {
     AppState.removeEventListener('change');
   }
+
   initChannelList(callback) {
     this.connectSendBird((user, error) => {
       if (user) {
@@ -94,7 +95,9 @@ class ChannelList extends Component {
 
   onAppStateChange(state) {
     if (state === 'active') {
-      this.initChannelList();
+      if (this.isConnected) {
+        this.initChannelList();
+      }
     } else {
       this.sb.removeChannelHandler('ChannelList');
       this.sb.disconnect();
@@ -102,7 +105,8 @@ class ChannelList extends Component {
   }
 
   onConnectionStateChange(isConnected) {
-    if (isConnected) {
+    this.isConnected = isConnected;
+    if (this.isConnected) {
       this.initChannelList();
     } else {
       this.sb.removeChannelHandler('ChannelList');

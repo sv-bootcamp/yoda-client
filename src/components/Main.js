@@ -5,7 +5,6 @@ import {
   NetInfo,
   ScrollView,
   StyleSheet,
-  Text,
   Vibration,
   View,
 } from 'react-native';
@@ -52,7 +51,6 @@ class Main extends Component {
     console.log('main: componentDidMount');
 
     this.initSendBird((user, error)=> {
-      console.log(user);
       AppState.addEventListener('change', this.onAppStateChange.bind(this));
       NetInfo.isConnected.addEventListener('change', this.onConnectionStateChange.bind(this));
 
@@ -75,21 +73,23 @@ class Main extends Component {
   }
 
   initSendBird(callback) {
-    UserUtil.getSendBirdAppId((appId, error) => {
-      if (error) {
-        alert(error);
-        return;
+    UserUtil.getSendBirdAppId((sendBirdAppIdObject, error) => {
+      if (!error) {
+        this.sendBirdAppId = sendBirdAppIdObject.key;
+        this.connectSendBird(callback);
+      } else {
+        if (callback) {
+          callback(user, error);
+        }
       }
-
-      new SendBird({
-        appId: appId.key,
-      });
-      this.sb = SendBird();
-      this.connectSendBird(callback);
     });
   }
 
   connectSendBird(callback) {
+    new SendBird({
+      appId: this.sendBirdAppId,
+    });
+    this.sb = SendBird();
     this.sb.connect(this.props.me._id, (user, error) => {
       this.sb.removeChannelHandler('Main');
       this.ChannelHandler = new this.sb.ChannelHandler();
@@ -146,6 +146,7 @@ class Main extends Component {
 
       //this is a local notification
     }
+
     if (notif.opened_from_tray) {
       this.actionFromNotification(notif);
     }
@@ -154,14 +155,7 @@ class Main extends Component {
   actionFromNotification(notif) {
     Actions.main({ me: this.props.me });
     if (notif.notificationType === 'MESSAGE') {
-      this.changeMainPage(mainPageTitle.CHAT, () => {
-        //const opponent = JSON.parse(notif.extraData).opponent;
-        //Actions.chatPage({
-        //  title: opponent.name,
-        //  me: { userId: this.props.me._id },
-        //  opponent: opponent,
-        //});
-      });
+      this.changeMainPage(mainPageTitle.CHAT);
     } else if (notif.notificationType === 'CONNECTION') {
       this.changeMainPage(
         mainPageTitle.MYCONNECTION, () => this.changeActivityPage(activityPageTitle.CONNECTED));
@@ -194,7 +188,7 @@ class Main extends Component {
           initialPage={0}
           page={this.state.currentMainPage}
           onChangeTab={(obj) => {
-            if (obj.i === pageTitle.HOME) {
+            if (obj.i === mainPageTitle.HOME) {
               Actions.refresh({ title: 'Bridge Me' });
             } else if (obj.i === mainPageTitle.TOURNAMENT) {
               Actions.refresh({ title: 'Tournament' });
@@ -206,7 +200,6 @@ class Main extends Component {
               Actions.refresh({ title: 'My Profile' });
             }
           }}
-
           tabBarPosition='bottom'
           locked={true}
           scrollWithoutAnimation={true}

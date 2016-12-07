@@ -157,7 +157,6 @@ const styles = StyleSheet.create({
     color: '#a6aeae',
   },
   rightSection: {
-    backgroundColor:'black',
     width: 90,
     alignItems: 'flex-end',
     paddingRight: 15,

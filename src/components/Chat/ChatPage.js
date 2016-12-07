@@ -30,6 +30,7 @@ class ChatPage extends Component {
       isTyping: false,
     };
 
+    this.isConnected = false;
     this.me = this.props.me;
     this.opponent = this.props.opponent;
     this.lastTyping = null;
@@ -193,14 +194,15 @@ class ChatPage extends Component {
   onReadReceiptUpdated(channel) {
 
     //Todo : Implement mark as read feature.
-    console.log('ChannelHandler.onReadReceiptUpdated: ', channel);
   }
 
   onAppStateChange(state) {
     if (state === 'active') {
-      this.initChatPage(() => {
-        console.log('reinit by onAppStateChange');
-      });
+      if (this.isConnected) {
+        this.initChatPage(() => {
+          console.log('reinit by onAppStateChange');
+        });
+      }
     } else {
       this.sb.removeChannelHandler('ChatPage');
       this.sb.disconnect();
@@ -208,7 +210,8 @@ class ChatPage extends Component {
   }
 
   onConnectionStateChange(isConnected) {
-    if (isConnected) {
+    this.isConnected = isConnected;
+    if (this.isConnected) {
       this.initChatPage(() => {
         console.log('reinit by onConnectionStateChange');
       });
