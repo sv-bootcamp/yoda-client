@@ -282,13 +282,15 @@ class GeneralInfo extends Component {
       image,
     };
 
-    UserUtil.editGeneral(this.onUploadCallback.bind(this), fieldSet);
+    console.log(fieldSet);
+
+    //UserUtil.editGeneral(this.onUploadCallback.bind(this), fieldSet);
   }
 
   // Render progress bar, profile image and form.
   render() {
     const readyUploadImage = (imageResource) => {
-      this.state.imageResource = imageResource;
+      this.state.profile.imageResource = imageResource;
     };
 
     const Forms = this.getForms();
