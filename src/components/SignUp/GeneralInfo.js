@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   nextTxt: {
-    fontFamily: 'SFUIText-Bold',
+  	fontWeight: 'bold',
     backgroundColor: 'transparent',
     color: '#ffffff',
     fontSize: 16,
@@ -182,6 +182,7 @@ class GeneralInfo extends Component {
     if (profile.education[idx][parentProp] === undefined) {
       profile.education[idx][parentProp] = {};
     }
+
     profile.education[idx][parentProp][childProp] = text;
   }
 

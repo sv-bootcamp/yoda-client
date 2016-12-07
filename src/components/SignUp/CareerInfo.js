@@ -348,7 +348,7 @@ const styles = StyleSheet.create({
     color: '#a6aeae',
   },
   buttonText: {
-    fontFamily: 'SFUIText-Bold',
+    fontWeight: 'bold',
     backgroundColor: 'transparent',
     color: '#ffffff',
     fontSize: 16,
