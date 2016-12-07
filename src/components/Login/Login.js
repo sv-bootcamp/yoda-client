@@ -189,6 +189,8 @@ class Login extends Component {
       } else {
         this.setState({ loaded: true });
       }
+    } else {
+      this.setState({ loaded: true });
     }
 
   }

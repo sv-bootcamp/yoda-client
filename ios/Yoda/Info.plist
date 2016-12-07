@@ -69,6 +69,8 @@
 	<string></string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>SF-UI-Text-Light.otf</string>
+		<string>SF-UI-Text-Ultrathin.otf</string>
 		<string>ProductSans-Bold.ttf</string>
 		<string>opensans.ttf</string>
 		<string>Entypo.ttf</string>
