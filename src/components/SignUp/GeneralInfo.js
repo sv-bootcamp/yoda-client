@@ -170,19 +170,19 @@ class GeneralInfo extends Component {
     }
   }
 
-  onChangeEduInfo(propName1, propName2, idx, text) {
+  onChangeEduInfo(parentProp, childProp, idx, text) {
     const profile = this.state.profile;
-    if (propName1 === 'concentration') {
-      profile.education[idx][propName1] = [];
-      profile.education[idx][propName1][0] = {};
-      profile.education[idx][propName1][0][propName2] = text;
+    if (parentProp === 'concentration') {
+      profile.education[idx][parentProp] = [];
+      profile.education[idx][parentProp][0] = {};
+      profile.education[idx][parentProp][0][childProp] = text;
       return;
     }
 
-    if (profile.education[idx][propName1] === undefined) {
-      profile.education[idx][propName1] = {};
+    if (profile.education[idx][parentProp] === undefined) {
+      profile.education[idx][parentProp] = {};
     }
-    profile.education[idx][propName1][propName2] = text;
+    profile.education[idx][parentProp][childProp] = text;
   }
 
   onDeleteEdu(rowID) {
@@ -358,8 +358,8 @@ class GeneralInfo extends Component {
       eduSubject = edu.concentration[0].name;
     }
     const onDelete = deletedRowID => this.onDeleteEdu(deletedRowID);
-    const onChangeText = (propName1, propName2, idx, text) =>
-                        this.onChangeEduInfo(propName1, propName2, idx, text);
+    const onChangeText = (parentProp, childProp, idx, text) =>
+                        this.onChangeEduInfo(parentProp, childProp, idx, text);
 
     const props = {
       name: edu.school ? edu.school.name : '',
