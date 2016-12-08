@@ -23,9 +23,9 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		536289CD474847C7AB1910CF /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1ABC20715C144CF9A6B48614 /* Entypo.ttf */; };
 		59F5AF063B544543856B1BFB /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2C05E76B5AB4FAFAC60FF28 /* EvilIcons.ttf */; };
+		5D41B51F1DF9776000B1A51B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D41B51E1DF9776000B1A51B /* GoogleService-Info.plist */; };
 		5DAABD521DEEB6A700876278 /* splash_anim.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5DAABD511DEEB6A700876278 /* splash_anim.gif */; };
 		5DAABD581DEEF33400876278 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAABD571DEEF33400876278 /* SplashViewController.m */; };
-		5DD54E381DE3E6F0008DB293 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5DD54E371DE3E6F0008DB293 /* GoogleService-Info.plist */; };
 		5DE15D331DF56E3300B737B5 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DE15D321DF56E3300B737B5 /* FLAnimatedImage.framework */; };
 		5DE15D341DF56E3700B737B5 /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D8089A61DEBE77C00F112EE /* GoogleToolboxForMac.framework */; };
 		5DE15D361DF56F3300B737B5 /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA49EE051D6FFA110083C256 /* libRCTFBSDK.a */; };
@@ -285,6 +285,7 @@
 		2ACDABC882914D87849DC0D4 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		2F8DE426552C48B4AEB39EAD /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTFBSDK.xcodeproj; path = "../node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; };
 		44CE0229E8A64015805DF0C7 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
+		5D41B51E1DF9776000B1A51B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5D8089A61DEBE77C00F112EE /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleToolboxForMac.framework; path = "../../../../Library/Developer/Xcode/DerivedData/Bridgeme-fmndwppcwhgyykcnpvvuucjdipbo/Build/Products/Debug-iphoneos/GoogleToolboxForMac/GoogleToolboxForMac.framework"; sourceTree = "<group>"; };
 		5DAABD4D1DEEB3B700876278 /* FLAnimatedImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImage.h; sourceTree = "<group>"; };
 		5DAABD4E1DEEB3B700876278 /* FLAnimatedImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImage.m; sourceTree = "<group>"; };
@@ -293,7 +294,6 @@
 		5DAABD511DEEB6A700876278 /* splash_anim.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = splash_anim.gif; sourceTree = "<group>"; };
 		5DAABD561DEEF33400876278 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SplashViewController.h; path = Yoda/SplashViewController.h; sourceTree = "<group>"; };
 		5DAABD571DEEF33400876278 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SplashViewController.m; path = Yoda/SplashViewController.m; sourceTree = "<group>"; };
-		5DD54E371DE3E6F0008DB293 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5DD54E3D1DE3E8AB008DB293 /* yoda.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = yoda.entitlements; sourceTree = "<group>"; };
 		5DE15D321DF56E3300B737B5 /* FLAnimatedImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FLAnimatedImage.framework; path = "../../../../Library/Developer/Xcode/DerivedData/Bridgeme-fmndwppcwhgyykcnpvvuucjdipbo/Build/Products/Debug-iphoneos/FLAnimatedImage/FLAnimatedImage.framework"; sourceTree = "<group>"; };
 		602C1E7670574F32A8791127 /* libRNFIRMessaging.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFIRMessaging.a; sourceTree = "<group>"; };
@@ -328,7 +328,6 @@
 		E5CF261B66E64023B400D220 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
 		E78AFDDE4E8A7ECC3E30E00F /* Pods-Bridgeme.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bridgeme.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bridgeme/Pods-Bridgeme.debug.xcconfig"; sourceTree = "<group>"; };
 		E7C8590A558543589392A19C /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
-		E97CB5FE1DD98E6C00050F48 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -462,13 +461,12 @@
 		13B07FAE1A68108700A75B9A /* Bridgeme */ = {
 			isa = PBXGroup;
 			children = (
+				5D41B51E1DF9776000B1A51B /* GoogleService-Info.plist */,
 				5DD54E3D1DE3E8AB008DB293 /* yoda.entitlements */,
-				5DD54E371DE3E6F0008DB293 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				E97CB5FE1DD98E6C00050F48 /* GoogleService-Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AAB23E201D75476D00C97A58 /* LaunchScreen.xib */,
 				5DAABD561DEEF33400876278 /* SplashViewController.h */,
@@ -1066,7 +1064,7 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				D22304981DDEE0AE0098E0A8 /* ProductSans-Bold.ttf in Resources */,
 				DAB407959AAC40BC9D08F885 /* (null) in Resources */,
-				5DD54E381DE3E6F0008DB293 /* GoogleService-Info.plist in Resources */,
+				5D41B51F1DF9776000B1A51B /* GoogleService-Info.plist in Resources */,
 				536289CD474847C7AB1910CF /* Entypo.ttf in Resources */,
 				59F5AF063B544543856B1BFB /* EvilIcons.ttf in Resources */,
 				CDD9303A2BC74E789B291EB0 /* FontAwesome.ttf in Resources */,
