@@ -237,10 +237,10 @@ class UserProfile extends Component {
             <Text style={styles.aboutDetailTitle}>About</Text>
             <Text style={styles.aboutDetailContent}>{this.state.about}</Text>
           </View>
-          <TouchableHighlight onPress={this.toggleAbout.bind(this)}>
+          <TouchableOpacity onPress={this.toggleAbout.bind(this)}>
             <Image style={styles.cancelButton}
                    source={require('../../resources/cancle-icon.png')}/>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </Animated.View>
       );
     }

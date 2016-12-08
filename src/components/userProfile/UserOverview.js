@@ -82,7 +82,9 @@ class UserOverview extends Component {
         }}
         >
           <Text style={styles.sectionName}>About</Text>
-          <Text ellipsizeMode={'tail'} numberOfLines={2}>{this.state.about}</Text>
+          <Text style={{ marginRight: 45 }} ellipsizeMode={'tail'} numberOfLines={2}>
+            {this.state.about}
+          </Text>
           {this.state.needEllipsize ?
             (<TouchableOpacity onPress={this.props.toggleAbout}>
               <Text style={styles.expandText}>
@@ -220,7 +222,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'bold',
     color: '#a6aeae',
-    marginBottom: 10,
+    marginBottom: 23,
   },
   about: {
     fontFamily: 'SFUIText-Regular',
