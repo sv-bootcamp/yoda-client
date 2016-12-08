@@ -10,6 +10,7 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  TouchableOpacity,
 } from 'react-native';
 import Text from '../Shared/UniText';
 import UserUtil from '../../utils/UserUtil';
@@ -25,6 +26,7 @@ class UserOverview extends Component {
       personality: [],
       score: [],
       loaded: false,
+      needEllipsize: false,
     };
   }
 
@@ -69,13 +71,23 @@ class UserOverview extends Component {
 
   renderAbout() {
     return (
-      <View style={styles.sectionContainer}>
-        <Text style={styles.sectionName}>About</Text>
-        <Text ellipsizeMode={'tail'} numberOfLines={2}>{this.state.about}</Text>
-        <Text style={styles.expandText} onPress={this.props.toggleAbout}>
-          Read more
-        </Text>
-      </View>
+        <View style={styles.sectionContainer} onLayout={ event => {
+          const { height } = event.nativeEvent.layout;
+          const HEIGHT_OF_TWO_LINES = 54.5;
+          console.log(height);
+          if (height > HEIGHT_OF_TWO_LINES) {
+            this.setState({ needEllipsize: true });
+          }
+        }}
+        >
+          <Text ellipsizeMode={'tail'} numberOfLines={2}>{this.state.about}</Text>
+          {this.state.needEllipsize ?
+            (<TouchableOpacity onPress={this.props.toggleAbout}>
+              <Text style={styles.expandText}>
+                Read more
+              </Text>
+            </TouchableOpacity>) : null}
+        </View>
     );
   }
 
