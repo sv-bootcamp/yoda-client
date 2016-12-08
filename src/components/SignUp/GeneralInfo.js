@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   nextTxt: {
-  	fontWeight: 'bold',
+    fontWeight: 'bold',
     backgroundColor: 'transparent',
     color: '#ffffff',
     fontSize: 16,
