@@ -9,7 +9,7 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  TouchableHighlight,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
@@ -214,11 +214,11 @@ class UserProfile extends Component {
         <LinearGradient style={styles.connectBtnStyle} start={[0.9, 0.5]} end={[0.0, 0.5]}
           locations={[0, 0.75]}
           colors={['#07e4dd', '#44acff']}>
-          <TouchableHighlight>
-            <View>
+          <TouchableOpacity onPress={connect}>
+            <View style={styles.buttonContainer}>
               <Text style={styles.buttonText}>{connectBtnText}</Text>
             </View>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </LinearGradient>
       );
     }
@@ -359,6 +359,10 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
   },
+  buttonContainer: {
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+  },
   buttonText: {
     fontSize: 16,
     fontWeight: 'bold',
@@ -384,8 +388,8 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   tabBarText: {
+    fontFamily: 'SFUIText-Bold',
     fontSize: 12,
-    fontWeight: 'bold',
   },
   tabBarUnderline: {
     backgroundColor: '#44acff',

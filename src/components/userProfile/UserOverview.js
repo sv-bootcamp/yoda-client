@@ -36,6 +36,7 @@ class UserOverview extends Component {
     } else if (result) {
       this.setState({
         id: result._id,
+        about: result.about,
         loaded: true,
         about: result.about,
         expertise: result.expertise.slice()
@@ -80,6 +81,7 @@ class UserOverview extends Component {
           }
         }}
         >
+          <Text style={styles.sectionName}>About</Text>
           <Text ellipsizeMode={'tail'} numberOfLines={2}>{this.state.about}</Text>
           {this.state.needEllipsize ?
             (<TouchableOpacity onPress={this.props.toggleAbout}>
@@ -158,12 +160,18 @@ class UserOverview extends Component {
     return (
       <View style={styles.sectionContainer}>
         <Text style={styles.sectionName}>Personality</Text>
-        {
-          personalityArray.map((value, index) =>
-            (<View key={index} style={{ flexDirection: 'row' }}>
-              <Text style={[fontStyle[scoreArray[index]], styles.personality]}>{value}</Text>
-            </View>))
-        }
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+          {
+            personalityArray.map((value, index) =>
+              (
+                <Text
+                  key={index}
+                  style={[fontStyle[scoreArray[index]], styles.personality]}>
+                  {value}
+                </Text>
+              ))
+          }
+        </View>
       </View>
     );
   }
@@ -214,6 +222,11 @@ const styles = StyleSheet.create({
     color: '#a6aeae',
     marginBottom: 10,
   },
+  about: {
+    fontFamily: 'SFUIText-Regular',
+    fontSize: 16,
+    color: '#2e3031',
+  },
   tagRectangle: {
     backgroundColor: '#f0f0f2',
     borderRadius: 25,
@@ -234,6 +247,8 @@ const styles = StyleSheet.create({
   },
   personality: {
     marginBottom: 5,
+    marginRight: 5,
+    height: 30,
   },
   expandText: {
     color: '#a6aeae',
