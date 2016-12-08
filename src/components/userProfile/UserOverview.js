@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   Alert,
   ActivityIndicator,
+  Animated,
   Dimensions,
   Image,
   ListView,
@@ -19,7 +20,7 @@ class UserOverview extends Component {
 
     this.state = {
       id: '',
-      about: 'No data',
+      about: '',
       expertise: [],
       personality: [],
       score: [],
@@ -34,6 +35,7 @@ class UserOverview extends Component {
       this.setState({
         id: result._id,
         loaded: true,
+        about: result.about,
         expertise: result.expertise.slice()
           .map((value) => value.select)
           .sort((a, b) => a.length - b.length),
@@ -69,7 +71,10 @@ class UserOverview extends Component {
     return (
       <View style={styles.sectionContainer}>
         <Text style={styles.sectionName}>About</Text>
-        <Text>{this.state.about}</Text>
+        <Text ellipsizeMode={'tail'} numberOfLines={2}>{this.state.about}</Text>
+        <Text style={styles.expandText} onPress={this.props.toggleAbout}>
+          Read more
+        </Text>
       </View>
     );
   }
@@ -214,6 +219,11 @@ const styles = StyleSheet.create({
   },
   personality: {
     marginBottom: 5,
+  },
+  expandText: {
+    color: '#a6aeae',
+    fontSize: 10,
+    marginTop: 15,
   },
 });
 
