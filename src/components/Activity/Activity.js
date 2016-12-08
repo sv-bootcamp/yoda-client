@@ -6,12 +6,12 @@ import {
   Platform,
   RefreshControl,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import Connected from './Connected';
 import NewRequests from './NewRequests';
 import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view';
+import Text from '../Shared/UniText';
 
 class Activity extends Component {
   constructor(props) {

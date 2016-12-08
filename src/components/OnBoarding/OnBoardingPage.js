@@ -3,11 +3,11 @@ import {
   Dimensions,
   Image,
   StyleSheet,
-  Text,
   TouchableWithoutFeedback,
   View
 } from 'react-native';
 import Swiper from 'react-native-swiper';
+import Text from '../Shared/UniText';
 import { Actions } from 'react-native-router-flux';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -134,13 +134,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   buttonText: {
-    fontFamily: 'SFUIText-Bold',
     fontSize: 16,
+    fontWeight: 'bold',
     color: '#ffffff',
     alignSelf: 'center',
   },
   footerText: {
-    fontFamily: 'SFUIText-Regular',
     color: '#a6aeae',
     fontSize: 12,
     marginBottom: 30,

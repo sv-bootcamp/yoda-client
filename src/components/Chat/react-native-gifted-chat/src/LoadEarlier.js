@@ -3,10 +3,10 @@ import {
   ActivityIndicator,
   Platform,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
+import Text from '../../../Shared/UniText';
 
 export default class LoadEarlier extends React.Component {
   renderLoading() {
@@ -21,8 +21,8 @@ export default class LoadEarlier extends React.Component {
     return (
       <View>
         <Text style={[styles.text, this.props.textStyle, {
-            opacity: 0,
-          }, ]}>
+          opacity: 0,
+        }, ]}>
           {this.props.label}
         </Text>
         <ActivityIndicator

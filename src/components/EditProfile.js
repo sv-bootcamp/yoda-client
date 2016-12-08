@@ -4,9 +4,9 @@ import {
   View,
   StyleSheet,
   Platform,
-  Text,
 } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
+import Text from './Shared/UniText';
 
 class EditProfile extends Component {
   constructor(props) {
@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
     borderColor: '#efeff2',
   },
   menuText: {
-    fontFamily: 'SFUIText-Regular',
     color: '#2e3031',
     fontSize: 14,
     marginLeft: 30,

@@ -3,11 +3,11 @@ import {
   Image,
   Platform,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import Text from '../Shared/UniText';
 import UserUtil from '../../utils/UserUtil';
 import { Actions, Scene, }  from 'react-native-router-flux';
 
@@ -89,14 +89,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   infoText: {
-    fontFamily: 'SFUIText-regular',
     fontSize: 16,
     textAlign: 'center',
     color: '#2e3031',
     marginTop: 40,
   },
   buttonText: {
-    fontFamily: 'SFUIText-Bold',
+    fontWeight: 'bold',
     backgroundColor: 'transparent',
     color: '#ffffff',
     fontSize: 16,

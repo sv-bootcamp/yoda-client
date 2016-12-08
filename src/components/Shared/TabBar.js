@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import {
   Image,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
+import Text from '../Shared/UniText';
 
 class TabBar extends Component {
   constructor(props) {
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
     height: 45,
     flexDirection: 'row',
     paddingTop: 10,
+    backgroundColor: '#fbfbfb',
     borderWidth: 1,
     borderTopWidth: 1,
     borderLeftWidth: 0,

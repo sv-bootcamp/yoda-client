@@ -4,13 +4,13 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import CheckBox from '../../utils/CheckBox';
 import LinearGradient from 'react-native-linear-gradient';
 import Progress from '../Shared/Progress';
+import Text from '../Shared/UniText';
 import UserUtil from '../../utils/UserUtil';
 import { Actions, Scene, }  from 'react-native-router-flux';
 import { Options } from './SignUpMETA';
@@ -194,20 +194,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   titleText: {
-    fontFamily: 'SFUIText-regular',
     fontSize: 18,
     textAlign: 'center',
     color: '#2e3031',
   },
   subTitleText: {
-    fontFamily: 'SFUIText-regular',
     fontSize: 12,
     textAlign: 'center',
     color: '#2e3031',
     marginTop: 10,
   },
   buttonText: {
-    fontFamily: 'SFUIText-Bold',
+    fontWeight: 'bold',
     backgroundColor: 'transparent',
     color: '#ffffff',
     fontSize: 16,

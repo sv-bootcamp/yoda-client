@@ -9,13 +9,13 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   TouchableHighlight,
   View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import LinearGradient from 'react-native-linear-gradient';
 import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view';
+import Text from '../Shared/UniText';
 import UserCareer from './UserCareer';
 import UserOverview from './UserOverview';
 import UserUtil from '../../utils/UserUtil';
@@ -191,6 +191,7 @@ class UserProfile extends Component {
   renderUserProfile() {
     const connect = () => this.sendRequest();
     let connectButton;
+    let connectBtnText = '';
     const ConnectStatus = {
       DISCONNECTED: 0,
       PENDING: 1,
@@ -199,37 +200,27 @@ class UserProfile extends Component {
 
     if (this.state.statusAsMentee === ConnectStatus.CONNECTED
         || this.state.statusAsMentor === ConnectStatus.CONNECTED) {
-      connectButton = (
-          <LinearGradient style={styles.connectBtnStyle} start={[0.9, 0.5]} end={[0.0, 0.5]}
-              locations={[0, 0.75]}
-              colors={['#07e4dd', '#44acff']}>
-          <TouchableHighlight>
-            <Text style={styles.buttonText}>WAITING...</Text>
-          </TouchableHighlight>
-          </LinearGradient>
-        );
+      connectBtnText = 'WAITING...';
     } else if (this.state.statusAsMentee === ConnectStatus.DISCONNECTED
         && this.state.statusAsMentor === ConnectStatus.DISCONNECTED) {
-      connectButton = (
-          <LinearGradient style={styles.connectBtnStyle} start={[0.9, 0.5]} end={[0.0, 0.5]}
-              locations={[0, 0.75]}
-              colors={['#07e4dd', '#44acff']}>
-          <TouchableHighlight onPress={connect}>
-            <Text style={styles.buttonText}>CONNECT</Text>
-          </TouchableHighlight>
-          </LinearGradient>
-        );
+      connectBtnText = 'CONNECT';
     } else if (this.state.statusAsMentee === ConnectStatus.PENDING
-        || this.state.statusAsMentor === ConnectStatus.PENDING) {
+            || this.state.statusAsMentor === ConnectStatus.PENDING) {
+      connectBtnText = 'CONNECTED';
+    }
+
+    if (connectBtnText !== '') {
       connectButton = (
-          <LinearGradient style={styles.connectBtnStyle} start={[0.9, 0.5]} end={[0.0, 0.5]}
-              locations={[0, 0.75]}
-              colors={['#07e4dd', '#44acff']}>
+        <LinearGradient style={styles.connectBtnStyle} start={[0.9, 0.5]} end={[0.0, 0.5]}
+          locations={[0, 0.75]}
+          colors={['#07e4dd', '#44acff']}>
           <TouchableHighlight>
-            <Text style={styles.buttonText}>CONNECTED</Text>
+            <View>
+              <Text style={styles.buttonText}>{connectBtnText}</Text>
+            </View>
           </TouchableHighlight>
-          </LinearGradient>
-        );
+        </LinearGradient>
+      );
     }
 
     let about = null;
@@ -316,18 +307,16 @@ const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   name: {
-    fontFamily: 'SFUIText-Bold',
     fontSize: 22,
+    fontWeight: 'bold',
     color: '#ffffff',
   },
   positionText: {
-    fontFamily: 'SFUIText-Regular',
     fontSize: 14,
     marginTop: 30,
     color: '#ffffff',
   },
   currentLocationText: {
-    fontFamily: 'SFUIText-Regular',
     fontSize: 14,
     marginTop: 5,
     color: '#ffffff',
@@ -371,7 +360,6 @@ const styles = StyleSheet.create({
     right: 0,
   },
   buttonText: {
-    fontFamily: 'SFUIText-Bold',
     fontSize: 16,
     fontWeight: 'bold',
     color: '#ffffff',
@@ -397,7 +385,6 @@ const styles = StyleSheet.create({
   },
   tabBarText: {
     fontSize: 12,
-    fontFamily: 'SFUIText-Bold',
     fontWeight: 'bold',
   },
   tabBarUnderline: {

@@ -6,7 +6,6 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
-  Text,
   TextInput,
   TouchableWithoutFeedback,
   TouchableOpacity,
@@ -21,6 +20,7 @@ import {
 import Dropdown from 'react-native-dropdown-android';
 import LinearGradient from 'react-native-linear-gradient';
 import Progress from '../Shared/Progress';
+import Text from '../Shared/UniText';
 import UserUtil from '../../utils/UserUtil';
 import { Actions, Scene, }  from 'react-native-router-flux';
 import { CareerData } from './SignUpMETA';
@@ -334,23 +334,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   titleText: {
-    fontFamily: 'SFUIText-regular',
     fontSize: 18,
     color: '#2e3031',
   },
   subTitleText: {
-    fontFamily: 'SFUIText-regular',
     fontSize: 12,
     color: '#2e3031',
     marginTop: 10,
   },
   questionText: {
-    fontFamily: 'SFUIText-Bold',
     fontSize: 12,
+    fontWeight: 'bold',
     color: '#a6aeae',
   },
   buttonText: {
-    fontFamily: 'SFUIText-Bold',
+    fontWeight: 'bold',
     backgroundColor: 'transparent',
     color: '#ffffff',
     fontSize: 16,
