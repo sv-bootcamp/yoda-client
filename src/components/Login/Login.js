@@ -190,7 +190,6 @@ class Login extends Component {
         this.setState({ loaded: true });
       }
     }
-
   }
 
   alert(msg) {
