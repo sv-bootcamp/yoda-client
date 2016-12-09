@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   Alert,
+  Animated,
   ActivityIndicator,
   Dimensions,
   Image,
@@ -8,7 +9,7 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  TouchableHighlight,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
@@ -35,6 +36,10 @@ class UserProfile extends Component {
       loaded: false,
       evalLoaded: false,
       connectPressed: false,
+      isAboutDisplayed: false,
+      width: 0,
+      height: 0,
+      opacity: new Animated.Value(0),
     };
   }
 
@@ -107,6 +112,7 @@ class UserProfile extends Component {
         isRefreshing: false,
         statusAsMentee: statusAsMentee,
         statusAsMentor: statusAsMentor,
+        about: result.about,
       });
     } else if (result.msg !== undefined) {
       this.setState({ evalLoaded: true });
@@ -125,7 +131,7 @@ class UserProfile extends Component {
 
   // Receive props befofe completly changed
   componentWillReceiveProps(props) {
-    if (this.props.myProfile) {
+    if (props.myProfile) {
       UserUtil.getMyProfile(this.onReqestCallback.bind(this));
     } else {
       UserUtil.getOthersProfile(this.onReqestCallback.bind(this), this.props._id);
@@ -134,6 +140,40 @@ class UserProfile extends Component {
 
   sendRequest() {
     Actions.requestPage({ id: this.state.id });
+  }
+
+  toggleAbout() {
+    if (this.state.isAboutDisplayed) {
+      this.shrink();
+      Actions.refresh({ hideNavBar: false });
+      this.setState({ isAboutDisplayed: false, width: 0, height: 0 });
+    } else {
+      this.grow();
+      Actions.refresh({ hideNavBar: true });
+      this.setState({ isAboutDisplayed: true, width: WIDTH, height: HEIGHT });
+    }
+  }
+
+  grow() {
+    Animated.parallel([
+      Animated.timing(
+        this.state.opacity,
+        {
+          toValue: 1,
+        }
+      ).start(),
+    ]);
+  }
+
+  shrink() {
+    Animated.parallel([
+      Animated.timing(
+        this.state.opacity,
+        {
+          toValue: 0,
+        }
+      ).start(),
+    ]);
   }
 
   // Render loading page while fetching user profiles
@@ -174,12 +214,34 @@ class UserProfile extends Component {
         <LinearGradient style={styles.connectBtnStyle} start={[0.9, 0.5]} end={[0.0, 0.5]}
           locations={[0, 0.75]}
           colors={['#07e4dd', '#44acff']}>
-          <TouchableHighlight>
-            <View>
+          <TouchableOpacity onPress={connect}>
+            <View style={styles.buttonContainer}>
               <Text style={styles.buttonText}>{connectBtnText}</Text>
             </View>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </LinearGradient>
+      );
+    }
+
+    let about = null;
+
+    if (this.state.isAboutDisplayed) {
+      about = (
+        <Animated.View style={[styles.aboutDetail, {
+              width: this.state.width,
+              height: this.state.height,
+              opacity: this.state.opacity,
+            },
+            ]}>
+          <View style={styles.aboutDetailContainer}>
+            <Text style={styles.aboutDetailTitle}>About</Text>
+            <Text style={styles.aboutDetailContent}>{this.state.about}</Text>
+          </View>
+          <TouchableOpacity onPress={this.toggleAbout.bind(this)}>
+            <Image style={styles.cancelButton}
+                   source={require('../../resources/cancel-icon.png')}/>
+          </TouchableOpacity>
+        </Animated.View>
       );
     }
 
@@ -218,13 +280,15 @@ class UserProfile extends Component {
             tabBarUnderlineStyle={styles.tabBarUnderline}
             renderTabBar={() => <ScrollableTabBar/>}
           >
-            <UserOverview tabLabel='OVERVIEW' id={this.state.id}/>
+            <UserOverview tabLabel='OVERVIEW' id={this.state.id}
+                          toggleAbout={this.toggleAbout.bind(this)}/>
             <UserCareer tabLabel='CAREER' id={this.state.id}/>
           </ScrollableTabView>
         </ScrollView>
         <View style={styles.btn}>
           {connectButton}
         </View>
+        {about}
       </View>
     );
   }
@@ -295,6 +359,10 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
   },
+  buttonContainer: {
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+  },
   buttonText: {
     fontSize: 16,
     fontWeight: 'bold',
@@ -320,8 +388,8 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   tabBarText: {
+    fontFamily: 'SFUIText-Bold',
     fontSize: 12,
-    fontWeight: 'bold',
   },
   tabBarUnderline: {
     backgroundColor: '#44acff',
@@ -329,6 +397,34 @@ const styles = StyleSheet.create({
     height: 2,
     width: WIDTH / 12.5,
     marginLeft: WIDTH / 12,
+  },
+  aboutDetail: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    justifyContent: 'center',
+  },
+  aboutDetailContainer: {
+    backgroundColor: 'transparent',
+    flex: 1,
+    marginTop: 150,
+    marginLeft: 50,
+    marginRight: 50,
+  },
+  aboutDetailTitle: {
+    fontSize: 22,
+    fontWeight: '700',
+    color: 'white',
+  },
+  aboutDetailContent: {
+    color: 'white',
+    paddingTop: 10,
+    fontSize: 14,
+  },
+  cancelButton: {
+    alignSelf: 'center',
+    marginBottom: 70,
   },
 });
 
