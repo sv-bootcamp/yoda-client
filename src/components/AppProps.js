@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
   rightBtn: {
     fontSize: 16,
-    color: '#557bfc',
+    color: '#44acff',
   },
   leftBtn: {
     width: 25,

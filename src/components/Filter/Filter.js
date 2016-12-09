@@ -19,12 +19,12 @@ import {
 } from '../../utils/dropdown/index';
 import CheckBox from '../../utils/CheckBox';
 import Dropdown from 'react-native-dropdown-android';
+import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
-import Overview from './Overview';
 import Text from '../Shared/UniText';
 import UserUtil from '../../utils/UserUtil';
 import { Actions, Scene, }  from 'react-native-router-flux';
-import { CareerData, Options } from '../SignUp/SignUpMETA';
+import { CareerData, OptionsFilter } from '../SignUp/SignUpMETA';
 
 class Filter extends Component {
   constructor(props) {
@@ -42,7 +42,7 @@ class Filter extends Component {
       option: [],
       selectOP: '',
       clearFlag: false,
-      options: Options,
+      options: OptionsFilter,
       overviewChecked: [],
       needRefresh: true,
     };
@@ -82,6 +82,20 @@ class Filter extends Component {
       this.state.overviewChecked.push(false);
     }
 
+  }
+
+  resetData() {
+    for (i = 0; i < this.state.selected.length; i++) {
+      this.state.selected[i] = 'All';
+      this.state.checked[i] = true;
+    }
+
+    this.state.option[1] = this.state.careerData[0].list.slice();
+    for (i = 0; i < this.state.overviewChecked.length; i++) {
+      this.state.overviewChecked[i] = false;
+    }
+
+    this.forceUpdate();
   }
 
   componentDidMount() {
@@ -139,8 +153,11 @@ class Filter extends Component {
     let body = { career, expertise };
 
     console.log(body);
+    // Actions.pop();
+    // Actions.refresh({filter: body });
+    Actions.main({ me: this.props.me, filter: body });
 
-    UserUtil.setFilter(this.onUploadCallback.bind(this), body);
+    // UserUtil.setFilter(this.onUploadCallback.bind(this), body);
 
   }
 
@@ -149,7 +166,6 @@ class Filter extends Component {
       alert(error);
     } else if (result) {
       console.log(result);
-      Actions.pop();
     }
   }
 
@@ -172,10 +188,16 @@ class Filter extends Component {
     if (idx === 0) {
       for (i = 0; i < CareerData.role.length; i++) {
         if (CareerData.role[i].area === this.state.selected[0]) {
-          this.state.option[1] = CareerData.role[i].list;
+          this.state.option[1] = CareerData.role[i].list.slice();
+          this.state.option[1].unshift('All');
           this.state.clearFlag = true;
           break;
+        } else if (this.state.selected[0] === 'All') {
+          this.state.option[1] = this.state.careerData[0].list.slice();
+          this.state.option[1].unshift('All');
+          this.state.clearFlag = true;
         }
+
       }
     }
 
@@ -268,19 +290,27 @@ class Filter extends Component {
     return (
       <View style ={styles.container}>
         <ScrollView>
-          <View style={styles.careerBody}>
+          <View style={styles.reload}>
+            <TouchableOpacity onPress={this.resetData.bind(this)}>
+              <View style={styles.reload}>
+              <Icon name={'ios-refresh-outline'} color={'#44acff'} size={15} />
+              <Text style={styles.reloadText}>
+                {'Reset'}
+              </Text>
+            </View>
+          </TouchableOpacity>
+            </View>
+            <View style={styles.careerBody}>
             {this.getQuestionSet()}
           </View>
           <View style={styles.overviewBody}>
-            <View style={styles.overViewContainer}>
-              <View style={styles.header}>
-                <Text allowFontScaling={false} style={styles.subTitleText}>
-                  {'Expertise'}
-                </Text>
-              </View>
-              <View style ={styles.body}>
-                {this.getOverviewOptionSet()}
-              </View>
+            <View style={styles.header}>
+              <Text allowFontScaling={false} style={styles.subTitleText}>
+                {'Expertise'}
+              </Text>
+            </View>
+            <View style ={styles.body}>
+              {this.getOverviewOptionSet()}
             </View>
           </View>
         </ScrollView>
@@ -300,7 +330,6 @@ const styles = StyleSheet.create({
       },
     }),
     flex: 1,
-    paddingTop: 30,
   },
   careerBody: {
     flex: 2,
@@ -323,6 +352,19 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderWidth: 1,
     borderRadius: 2,
+  },
+  reload: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  reloadText: {
+    fontSize: 12,
+    color: '#44acff',
+    alignItems: 'center',
+    margin: 10,
+    marginLeft: 5,
   },
   btnContainer: {
     flex: 1,
@@ -417,9 +459,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderBottomColor: 'transparent',
   },
-  overViewContainer: {
-    flex: 4,
+  overviewBody: {
+    flex: 1,
     padding: 30,
+    paddingTop: 0,
   },
 });
 

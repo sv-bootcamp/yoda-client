@@ -128,6 +128,7 @@ export const CareerData = {
     'Other',
   ],
 };
+
 export const Options = [
     'Study abroad',
     'Career advice (e.g., interview, job search..) ',
@@ -136,6 +137,16 @@ export const Options = [
     'Career change',
     'Networking',
     'Soft skills (e.g., communication..)',
+];
+
+export const OptionsFilter = [
+    'Study abroad',
+    'Career advice',
+    'Portfolio & Resume',
+    'Startup',
+    'Career change',
+    'Networking',
+    'Soft skills',
 ];
 
 export const Personalites = [

@@ -184,7 +184,7 @@ class Login extends Component {
       if (profile.status === 201) {
         Actions.generalInfo({ me: profile });
       } else if (profile.personality.length === 0) {
-        Actions.main({ me: profile });
+        Actions.generalInfo({ me: profile });
       } else if (profile.status === 200) {
         Actions.main({ me: profile });
       } else {

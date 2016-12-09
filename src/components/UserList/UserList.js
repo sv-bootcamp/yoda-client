@@ -34,17 +34,19 @@ class UserList extends Component {
   }
 
   onServerCallback(result, error) {
+    console.log(result);
     if (error) {
       alert(error);
     } else if (result) {
+
       // Refresh dataSource
       this.setState({
         dataSource: new ListView.DataSource({
           rowHasChanged: (row1, row2) => row1 !== row2,
         }),
       });
-
-      result[result.length - 1].last = true;
+      if (result.length !== 0)
+        result[result.length - 1].last = true;
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(result.slice()),
         loaded: true,
@@ -53,8 +55,12 @@ class UserList extends Component {
     }
   }
 
-  componentDidMount() {
-    UserUtil.getMentorList(this.onServerCallback.bind(this));
+  componentWillReceiveProps(props) {
+    if (!props.filter) {
+      UserUtil.getMentorList(this.onServerCallback.bind(this));
+    } else {
+      UserUtil.setFilter(this.onServerCallback.bind(this), props.filter);
+    }
   }
 
   renderRow(rowData, sectionID, rowID) {

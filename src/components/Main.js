@@ -24,6 +24,7 @@ class Main extends Component {
 
   componentDidMount() {
     this.initSendBird();
+    Actions.refresh({ onRight: () => Actions.filter({ me: this.props.me }) });
   }
 
   initSendBird() {
@@ -92,7 +93,7 @@ class Main extends Component {
           scrollWithoutAnimation={true}
           renderTabBar={() => <TabBar />}
         >
-          <UserList tabLabel="ios-home" style={styles.tabView} />
+          <UserList tabLabel="ios-home" style={styles.tabView} filter={this.props.filter}/>
           <ScrollView tabLabel="md-shuffle" style={styles.tabView}>
             <View style={styles.card}>
               <Text>Tournament</Text>
