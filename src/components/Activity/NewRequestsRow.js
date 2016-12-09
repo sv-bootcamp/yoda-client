@@ -119,11 +119,13 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'column',
     backgroundColor: 'white',
+    height: 75,
   },
   photo: {
     height: 40,
     width: 40,
     margin: 15,
+    marginTop: 20,
     borderRadius: 20,
   },
   userInformation: {
@@ -148,9 +150,10 @@ const styles = StyleSheet.create({
     marginRight: 80,
   },
   fromNow: {
-    fontSize: 10,
+    fontSize: 12,
     color: '#a6aeae',
-    marginBottom: 17,
+    marginTop: 5,
+    marginBottom: 20,
   },
   expandText: {
     color: '#a6aeae',

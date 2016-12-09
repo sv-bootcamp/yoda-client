@@ -32,8 +32,10 @@ class Activity extends Component {
   render() {
     return (
       <ScrollableTabView
-        initialPage={0}
         style={styles.container}
+        initialPage={0}
+        page={this.state.currentActivityPage}
+        locked={true}
         tabBarTextStyle={styles.tabBarText}
         tabBarInactiveTextColor={'#a6aeae'}
         tabBarActiveTextColor={'#2e3031'}
@@ -83,8 +85,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#44acff',
     borderBottomColor: '#44acff',
     height: 2,
-    width: WIDTH / 12.5,
-    marginLeft: WIDTH / 8,
+    //width: WIDTH / 8,
+    //marginLeft: WIDTH / 8,
   },
 });
 
