@@ -31,9 +31,9 @@ class Activity extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.state = {
+    this.setState({
       currentActivityPage: nextProps.currentActivityPage,
-    };
+    });
   }
 
   render() {

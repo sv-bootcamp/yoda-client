@@ -64,7 +64,7 @@ class Main extends Component {
       NetInfo.isConnected.addEventListener('change', this.onConnectionStateChange.bind(this));
 
       this.notificationUnsubscribe = Fcm.on('notification', this.onNotificationReceived.bind(this));
-      Fcm.getInitialNotification().then(notif => {
+      Fcm.getInitialNotification().then((notif) => {
         if (notif) this.actionFromNotification(notif);
       });
     });
