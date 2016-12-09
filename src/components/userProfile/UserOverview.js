@@ -74,8 +74,7 @@ class UserOverview extends Component {
     return (
         <View style={styles.sectionContainer} onLayout={ event => {
           const { height } = event.nativeEvent.layout;
-          const HEIGHT_OF_TWO_LINES = 54.5;
-          console.log(height);
+          const HEIGHT_OF_TWO_LINES = 119;
           if (height > HEIGHT_OF_TWO_LINES) {
             this.setState({ needEllipsize: true });
           }
@@ -97,7 +96,7 @@ class UserOverview extends Component {
 
   renderMyExpertise() {
     const CHARACTER_WIDTH = 10;
-    const LINE_PADDING = 10;
+    const LINE_PADDING = 40;
     const originArray = this.state.expertise;
     const newArray = [[]];
     let lineSize = 0;
@@ -223,6 +222,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#a6aeae',
     marginBottom: 23,
+  },
+  about: {
+    fontFamily: 'SFUIText-Regular',
+    fontSize: 16,
+    color: '#2e3031',
   },
   about: {
     fontFamily: 'SFUIText-Regular',
