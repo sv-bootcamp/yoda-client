@@ -3,6 +3,7 @@ package com.yoda;
 import android.os.Bundle;
 import android.content.Intent;
 import com.facebook.react.ReactActivity;
+import com.evollu.react.fcm.FIRMessagingPackage;
 
 public class MainActivity extends ReactActivity {
 

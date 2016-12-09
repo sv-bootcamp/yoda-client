@@ -13,6 +13,7 @@ import {
   Vibration,
   View,
 } from 'react-native';
+import FCM from 'react-native-fcm';
 import Row from './Row';
 import SendBird from 'sendbird';
 import Text from '../Shared/UniText';
@@ -37,10 +38,8 @@ class ChannelList extends Component {
   componentDidMount() {
     NetInfo.isConnected.fetch().then(isConnected => {
       this.isConnected = isConnected;
-      console.log('First, is ' + (isConnected ? 'online' : 'offline'));
-
     });
-    //AppState.addEventListener('change', this.onAppStateChange.bind(this));
+
     NetInfo.isConnected.addEventListener('change', this.onConnectionStateChange.bind(this));
   }
 
@@ -94,19 +93,6 @@ class ChannelList extends Component {
     });
   }
 
-  onAppStateChange(state) {
-    console.log(state , this.isConnected);
-
-    if (state === 'active') {
-      if (this.isConnected) {
-        this.initChannelList();
-      }
-    } else if (state === 'background') {
-      this.sb.removeChannelHandler('ChannelList');
-      this.sb.disconnect();
-    }
-  }
-
   onConnectionStateChange(isConnected) {
     console.log(isConnected);
     this.isConnected = isConnected;
@@ -119,7 +105,10 @@ class ChannelList extends Component {
   }
 
   onChanneListMessageReceived(channel, userMessage) {
+    FCM.presentLocalNotification(userMessage);
+    console.log('onChanneListMessageReceived');
     this.refreshChannelList();
+    Vibration.vibrate();
   }
 
   renderRow(rowData) {

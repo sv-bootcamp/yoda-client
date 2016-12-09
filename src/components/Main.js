@@ -11,7 +11,8 @@ import {
 import { Actions } from 'react-native-router-flux';
 import Activity from './Activity/Activity';
 import ChannelList from './Chat/ChannelList';
-import FCM from 'react-native-fcm';
+import Fcm from 'react-native-fcm';
+import FcmUtil from '../utils/FcmUtil';
 import MyPage from './MyPage';
 import SendBird from 'sendbird';
 import ScrollableTabView  from 'react-native-scrollable-tab-view';
@@ -48,26 +49,26 @@ class Main extends Component {
   }
 
   componentDidMount() {
+    AppState.addEventListener('change', this.onAppStateChange.bind(this));
     this.initSendBird((user, error)=> {
 
       if (user.nickname !== this.props.me.name ||
         user.profileUrl !== this.props.me.profile_picture) {
-        console.log(user);
+
         //Sendbird has an issue in updateCurrentUserInfo() API right after connect() API.
         setTimeout(() => {
           this.sb.updateCurrentUserInfo(this.props.me.name, this.props.me.profile_picture);
-          this.sb.setBackgroundState();
         }, 1000);
       }
 
-      AppState.addEventListener('change', this.onAppStateChange.bind(this));
       NetInfo.isConnected.addEventListener('change', this.onConnectionStateChange.bind(this));
 
-      this.notificationUnsubscribe = FCM.on('notification', this.onNotificationReceived.bind(this));
-      FCM.getInitialNotification().then(notif => {
+      this.notificationUnsubscribe = Fcm.on('notification', this.onNotificationReceived.bind(this));
+      Fcm.getInitialNotification().then(notif => {
         if (notif) this.actionFromNotification(notif);
       });
     });
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -111,12 +112,8 @@ class Main extends Component {
 
   onAppStateChange(currentAppState) {
     if (currentAppState === 'active') {
-      console.log(this.currentTab);
-      if (this.currentTab === mainPageTitle.CHAT) {
-        this.sb.setForegroundState();
-      }
+      this.sb.setForegroundState();
     } else if (currentAppState === 'background') {
-      console.log('background');
       this.sb.setBackgroundState();
     }
   }
@@ -133,14 +130,10 @@ class Main extends Component {
 
   onMainMessageReceived(channel, userMessage) {
     Vibration.vibrate();
+    FcmUtil.presentLocalChatNotification(userMessage);
   }
 
   onNotificationReceived(notif) {
-    if (notif.local_notification) {
-
-      //this is a local notification
-    }
-
     if (notif.opened_from_tray) {
       this.actionFromNotification(notif);
     }
@@ -148,22 +141,24 @@ class Main extends Component {
 
   actionFromNotification(notif) {
     Actions.main({ me: this.props.me });
-    if (notif.notificationType === 'MESSAGE') {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (notif.notificationType === 'MESSAGE') {
+        this.changeMainPage(mainPageTitle.CHAT, () => {
           const opponent = JSON.parse(notif.extraData).opponent;
           Actions.chatPage({
             title: opponent.name,
             me: { userId: this.props.me._id },
             opponent: opponent,
           });
-      },500);
-    } else if (notif.notificationType === 'CONNECTION') {
-      this.changeMainPage(
-        mainPageTitle.MYCONNECTION, () => this.changeActivityPage(activityPageTitle.CONNECTED));
-    } else if (notif.notificationType === 'REQUEST') {
-      this.changeMainPage(
-        mainPageTitle.MYCONNECTION, () => this.changeActivityPage(activityPageTitle.NEWREQUESTS));
-    }
+        });
+      } else if (notif.notificationType === 'CONNECTION') {
+        this.changeMainPage(
+          mainPageTitle.MYCONNECTION, () => this.changeActivityPage(activityPageTitle.CONNECTED));
+      } else if (notif.notificationType === 'REQUEST') {
+        this.changeMainPage(
+          mainPageTitle.MYCONNECTION, () => this.changeActivityPage(activityPageTitle.NEWREQUESTS));
+      }
+    }, 500);
   }
 
   changeMainPage(pageTitle, callback) {

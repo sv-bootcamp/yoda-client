@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { GiftedChat }  from './react-native-gifted-chat';
+import FcmUtil from '../../utils/FcmUtil';
 import SendBird from 'sendbird';
 import Text from '../Shared/UniText';
 import UserUtil from '../../utils/UserUtil';
@@ -73,8 +74,6 @@ class ChatPage extends Component {
   }
 
   componentWillUnmount() {
-    console.log('componentWillUnmount');
-    //AppState.removeEventListener('change', this.onAppStateChange.bind(this));
     this.sb.removeChannelHandler('ChatPage');
   }
 
@@ -172,6 +171,7 @@ class ChatPage extends Component {
       channel.markAsRead();
     }else {
       Vibration.vibrate();
+      FcmUtil.presentLocalChatNotification(userMessage);
     }
   }
 
@@ -197,19 +197,6 @@ class ChatPage extends Component {
 
     //Todo : Implement mark as read feature.
   }
-
-  //onAppStateChange(state) {
-  //  console.log(state , this.isConnected);
-  //  if (state === 'active') {
-  //    if (this.isConnected) {
-  //      this.initChatPage(() => {
-  //      });
-  //    }
-  //  } else if (state === 'background') {
-  //    this.sb.removeChannelHandler('ChatPage');
-  //    this.sb.disconnect();
-  //  }
-  //}
 
   onConnectionStateChange(isConnected) {
     this.isConnected = isConnected;
