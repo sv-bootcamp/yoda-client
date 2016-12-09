@@ -98,7 +98,6 @@ class ConnectedRow extends Component {
           <Image style={styles.photo}
                  source={this.state.profileImage}/>
           <View style={styles.userInformation}>
-
             <Text style={styles.name}>{this.state.name}</Text>
             <Text ellipsizeMode={'tail'}
                   numberOfLines = {1}
