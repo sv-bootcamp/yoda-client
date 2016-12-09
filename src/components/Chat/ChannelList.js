@@ -94,7 +94,6 @@ class ChannelList extends Component {
   }
 
   onConnectionStateChange(isConnected) {
-    console.log(isConnected);
     this.isConnected = isConnected;
     if (this.isConnected) {
       this.initChannelList();
@@ -106,7 +105,6 @@ class ChannelList extends Component {
 
   onChanneListMessageReceived(channel, userMessage) {
     FCM.presentLocalNotification(userMessage);
-    console.log('onChanneListMessageReceived');
     this.refreshChannelList();
     Vibration.vibrate();
   }

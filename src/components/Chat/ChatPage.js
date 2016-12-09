@@ -49,10 +49,8 @@ class ChatPage extends Component {
     this.initChatPage(() => {
       NetInfo.isConnected.fetch().then(isConnected => {
         this.isConnected = isConnected;
-        console.log('First, is ' + (isConnected ? 'online' : 'offline'));
-
       });
-      //AppState.addEventListener('change', this.onAppStateChange.bind(this));
+
       NetInfo.isConnected.addEventListener('change', this.onConnectionStateChange.bind(this));
     });
   }
@@ -200,7 +198,6 @@ class ChatPage extends Component {
 
   onConnectionStateChange(isConnected) {
     this.isConnected = isConnected;
-    console.log(isConnected);
     if (this.isConnected) {
       this.initChatPage(() => {
       });
