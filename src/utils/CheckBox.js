@@ -20,7 +20,8 @@ class CheckBox extends Component {
 
   getIcon() {
     if (this.props.checked)
-      return (<Icon name={'md-checkmark'} color={'#44acff'} size={20} />);
+      return (<Icon name={'md-checkmark'} color={'#44acff'}
+        size={(this.props.iconSize) ? this.props.iconSize : 20} />);
     else
       return;
   }

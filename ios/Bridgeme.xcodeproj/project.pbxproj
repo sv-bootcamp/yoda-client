@@ -52,6 +52,7 @@
 		D260393C1DF7D9D0004DC6C9 /* SF-UI-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D26039371DF7D8E0004DC6C9 /* SF-UI-Text-Light.otf */; };
 		D260393D1DF7D9D0004DC6C9 /* SF-UI-Text-Ultrathin.otf in Resources */ = {isa = PBXBuildFile; fileRef = D26039381DF7D8E0004DC6C9 /* SF-UI-Text-Ultrathin.otf */; };
 		D260393E1DF7D9D5004DC6C9 /* opensans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA20BCD31DA4B63F00BFA62C /* opensans.ttf */; };
+		D2B734241DF94ED300D6C960 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2B734231DF94ED300D6C960 /* Ionicons.ttf */; };
 		DAB407959AAC40BC9D08F885 /* (null) in Resources */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
@@ -322,6 +323,7 @@
 		D26039371DF7D8E0004DC6C9 /* SF-UI-Text-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-Light.otf"; sourceTree = "<group>"; };
 		D26039381DF7D8E0004DC6C9 /* SF-UI-Text-Ultrathin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-Ultrathin.otf"; sourceTree = "<group>"; };
 		D2A53F281DF503C2000E6467 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		D2B734231DF94ED300D6C960 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
 		D2BCC21E1DD5E8BF00B27069 /* SF-UI-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-Bold.otf"; sourceTree = "<group>"; };
 		D2BCC21F1DD5E8BF00B27069 /* SF-UI-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-Regular.otf"; sourceTree = "<group>"; };
 		D2BCC2201DD5E8BF00B27069 /* SF-UI-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-Semibold.otf"; sourceTree = "<group>"; };
@@ -631,6 +633,7 @@
 				D2BCC2201DD5E8BF00B27069 /* SF-UI-Text-Semibold.otf */,
 				D26039371DF7D8E0004DC6C9 /* SF-UI-Text-Light.otf */,
 				D26039381DF7D8E0004DC6C9 /* SF-UI-Text-Ultrathin.otf */,
+				D2B734231DF94ED300D6C960 /* Ionicons.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1055,6 +1058,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2B734241DF94ED300D6C960 /* Ionicons.ttf in Resources */,
 				D260393E1DF7D9D5004DC6C9 /* opensans.ttf in Resources */,
 				D26039391DF7D9D0004DC6C9 /* SF-UI-Text-Bold.otf in Resources */,
 				D260393A1DF7D9D0004DC6C9 /* SF-UI-Text-Regular.otf in Resources */,
@@ -1120,7 +1124,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		B09E0ED32678EDB7B16DE7EE /* [CP] Copy Pods Resources */ = {

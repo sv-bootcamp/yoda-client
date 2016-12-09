@@ -157,6 +157,10 @@ class UserUtil {
     body.mentorMode = value.toString();
     apiUtil.requestPostWithToken(callback, 'API_SET_REQUEST_SETTING', body);
   }
+
+  setFilter(callback, body) {
+    apiUtil.requestPostWithToken(callback, 'API_MENTOR_FILTER', body);
+  }
 };
 
 const userUtil = new UserUtil();

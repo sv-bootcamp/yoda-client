@@ -9,7 +9,8 @@ export const ServerMeta = {
 };
 
 export const UrlMeta = {
-  HOST: 'http://ec2-52-78-121-221.ap-northeast-2.compute.amazonaws.com:80/',
+  HOST: 'http://192.168.0.22:80/',
+  //HOST: 'http://ec2-52-78-121-221.ap-northeast-2.compute.amazonaws.com:80/',
   API_ACTIVITY: 'match/activity/',
   API_ALL: 'users/all/',
   API_CHATTING_PUSH: 'match/push/',
@@ -28,7 +29,8 @@ export const UrlMeta = {
   API_LOCAL_SIGNIN: 'users/localSignIn/',
   API_LOGIN: 'users/signIn/',
   API_ME: 'users/me/',
-  API_MENTOR:  'users/mentorlist/',
+  API_MENTOR: 'users/mentorlist/',
+  API_MENTOR_FILTER: 'users/mentorlist/filter',
   API_MENTOR_RESP: 'match/response/',
   API_MENTOR_REQ: 'match/request/',
   API_TOKEN: 'users/accessToken/',

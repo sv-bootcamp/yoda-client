@@ -130,19 +130,19 @@ export const CareerData = {
 };
 export const Options = [
     'Study abroad',
-    'Get a new job (e.g., Interview, job search..) ',
+    'Career advice (e.g., interview, job search..) ',
     'Portfolio & Resume',
-    'Start up',
+    'Startup',
     'Career change',
     'Networking',
-    'Soft skills (e.g., Communication..)',
+    'Soft skills (e.g., communication..)',
 ];
 
 export const Personalites = [
-    ['Extroverts', 'Introverts'],
+    ['Extrovert', 'Introvert'],
     ['Rational', 'Intuitive'],
-    ['Feelers', 'Thinkers'],
-    ['Judgers', 'Perceivers'],
+    ['Feeler', 'Thinker'],
+    ['Judger', 'Perceiver'],
     ['Speaker', 'Listener'],
     ['Energetic', 'Quiet'],
     ['Unexacting', 'Perfectionist'],
