@@ -89,18 +89,7 @@ class App extends Component {
     if (Platform.OS === 'ios') {
       FCM.requestPermissions();
     }
-
-    //AppState.addEventListener('change', this.onAppStateChange.bind(this));
   }
-
-  //onAppStateChange(currentAppState) {
-  //  console.log(currentAppState);
-  //  if (currentAppState === 'active') {
-  //    SendBird().setForegroundState();
-  //  } else if (currentAppState === 'background') {
-  //    SendBird().setBackgroundState();
-  //  }
-  //}
 
   backAndroidHandler() {
     let scene = App.scene.sceneKey;
