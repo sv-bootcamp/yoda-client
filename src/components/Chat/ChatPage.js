@@ -167,7 +167,7 @@ class ChatPage extends Component {
     if (channel.url == this.state.channel.url) {
       this.appendSendBirdMessage(userMessage);
       channel.markAsRead();
-    }else {
+    } else {
       Vibration.vibrate();
       FcmUtil.presentLocalChatNotification(userMessage);
     }

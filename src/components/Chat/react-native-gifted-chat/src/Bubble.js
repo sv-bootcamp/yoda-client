@@ -142,9 +142,6 @@ export default class Bubble extends React.Component {
           styles[
           this.props.position].wrapper,
           this.props.wrapperStyle[this.props.position],
-
-          //this.handleBubbleToNext(),
-          //this.handleBubbleToPrevious(),
         ]}>
           <TouchableWithoutFeedback
             onLongPress={this.onLongPress}
