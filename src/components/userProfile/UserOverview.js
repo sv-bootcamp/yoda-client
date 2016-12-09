@@ -97,7 +97,7 @@ class UserOverview extends Component {
 
   renderMyExpertise() {
     const CHARACTER_WIDTH = 10;
-    const LINE_PADDING = 10;
+    const LINE_PADDING = 40;
     const originArray = this.state.expertise;
     const newArray = [[]];
     let lineSize = 0;
