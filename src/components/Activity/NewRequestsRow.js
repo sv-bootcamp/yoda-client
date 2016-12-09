@@ -119,7 +119,6 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'column',
     backgroundColor: 'white',
-    height: 75,
   },
   photo: {
     height: 40,
