@@ -26,8 +26,6 @@ export default class Send extends React.Component {
         >
           <Image style={[styles.sendButton, this.props.textStyle]}
                  source={require('../../../../resources/send-active.png')}/>
-          {/*<Text style={[styles.text, this.props.textStyle]}>Send</Text>*/}
-
         </TouchableOpacity>
       );
     }
