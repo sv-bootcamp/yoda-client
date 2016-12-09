@@ -140,7 +140,6 @@ const styles = StyleSheet.create({
     margin: 15,
     marginTop: 20,
     borderRadius: 20,
-
   },
   userInformation: {
     flex: 1,
