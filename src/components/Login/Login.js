@@ -140,6 +140,7 @@ class Login extends Component {
   }
 
   signInFB() {
+    this.setState({ loaded: false });
     UserUtil.signInWithFacebook(this.onLoginCallback.bind(this));
   }
 
