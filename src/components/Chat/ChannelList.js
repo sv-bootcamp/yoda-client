@@ -87,7 +87,7 @@ class ChannelList extends Component {
       this.sb.removeChannelHandler('ChannelList');
       this.sb.addChannelHandler('ChannelList', this.ChannelHandler);
 
-      if (callback) {
+      if (typeof callback === 'function') {
         callback(user, error);
       }
     });

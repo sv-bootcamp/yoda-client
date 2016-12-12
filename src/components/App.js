@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Dimensions, Platform } from 'react-native';
 import {
   Actions,
-  AppState,
   Router,
   Reducer,
   Scene,

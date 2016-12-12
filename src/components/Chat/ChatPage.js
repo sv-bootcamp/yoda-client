@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
 import {
   AppState,
-  AsyncStorage,
-  ListView,
   NetInfo,
-  Platform,
-  RefreshControl,
-  ScrollView,
   StyleSheet,
-  TextInput,
-  TouchableHighlight,
   Vibration,
   View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { GiftedChat }  from './react-native-gifted-chat';
+import { GiftedChat } from './react-native-gifted-chat';
 import FcmUtil from '../../utils/FcmUtil';
 import SendBird from 'sendbird';
 import Text from '../Shared/UniText';
@@ -255,9 +248,9 @@ class ChatPage extends Component {
           _id: this.me.userId,
         }}
         opponentInfo={this.state.opponentInfo}
-        loadEarlier={true}
         renderFooter={this.renderFooter}
-        isLoadingEarlier={true}
+        loadEarlier
+        isLoadingEarlier
       />
     );
   }
