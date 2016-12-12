@@ -74,7 +74,7 @@ class UserOverview extends Component {
     return (
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionName}>About</Text>
-          <View onLayout={ event => {
+          <View onLayout={ (event) => {
             const { height } = event.nativeEvent.layout;
             const HEIGHT_OF_TWO_LINES = 33;
 
