@@ -140,10 +140,12 @@ class Login extends Component {
   }
 
   signInFB() {
+    this.setState({ loaded: false });
     UserUtil.signInWithFacebook(this.onLoginCallback.bind(this));
   }
 
   signInLocal() {
+    this.setState({ loaded: false });
     let emailFilter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (emailFilter.test(this.state.email) === false) {
       this.alert('Please input your correct email.');

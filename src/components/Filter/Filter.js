@@ -44,6 +44,7 @@ class Filter extends Component {
       selectOP: '',
       clearFlag: false,
       options: OptionsFilter,
+      optionsNum: [],
       overviewChecked: [],
       needRefresh: true,
     };
@@ -77,6 +78,7 @@ class Filter extends Component {
 
     for (i = 0; i < this.state.options.length; i++) {
       this.state.overviewChecked.push(false);
+      this.state.optionsNum.push(i);
     }
 
   }
@@ -285,8 +287,11 @@ class Filter extends Component {
               iconStyle={styles.iconStyle}
               labelStyle={(idx !== this.state.options.length - 1) ?
               styles.labelStyle : styles.labelStyleLast }
-              checked={this.state.overviewChecked[idx]}
               label={this.state.options[idx]}
+              subLabelFontStyle={styles.subLabelFontStyle}
+              subLabel={(this.state.optionsNum[idx] !== 0) ?
+              this.state.optionsNum[idx] : ''}
+              checked={this.state.overviewChecked[idx]}
               optionIdx={idx}
               onUpdate={this.updateCheckBox.bind(this)}
             />
@@ -301,14 +306,14 @@ class Filter extends Component {
           <View style={styles.reload}>
             <TouchableOpacity onPress={this.resetData.bind(this)}>
               <View style={styles.reload}>
-              <Icon name={'ios-refresh-outline'} color={'#44acff'} size={15} />
-              <Text style={styles.reloadText}>
-                {'Reset'}
-              </Text>
-            </View>
-          </TouchableOpacity>
-            </View>
-            <View style={styles.careerBody}>
+                <Icon name={'ios-refresh-outline'} color={'#44acff'} size={15} />
+                <Text style={styles.reloadText}>
+                  {'Reset'}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.careerBody}>
             {this.getQuestionSet()}
           </View>
           <View style={styles.overviewBody}>
@@ -457,20 +462,22 @@ const styles = StyleSheet.create({
   },
   labelStyle: {
     height: 50,
-    justifyContent: 'center',
     borderBottomColor: '#efeff2',
     borderBottomWidth: 1,
     borderStyle: 'solid',
   },
   labelStyleLast: {
     height: 50,
-    justifyContent: 'center',
     borderBottomColor: 'transparent',
   },
   overviewBody: {
     flex: 1,
     padding: 30,
     paddingTop: 0,
+  },
+  subLabelFontStyle: {
+    color: '#a6aeae',
+    fontSize: 12,
   },
 });
 

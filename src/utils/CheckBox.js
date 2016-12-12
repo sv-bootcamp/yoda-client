@@ -28,8 +28,12 @@ class CheckBox extends Component {
 
   render() {
     let backColor = this.props.checked  ? '#fafafa' : '#ffffff';
-
-    const { iconStyle, labelStyle } = this.props;
+    const {
+      iconStyle,
+      labelStyle,
+      subLabel,
+      subLabelFontStyle,
+    } = this.props;
     return (
       <TouchableOpacity
         style={[styles.container, { backgroundColor: backColor }]}
@@ -40,8 +44,11 @@ class CheckBox extends Component {
             {this.getIcon()}
           </View>
           <View style={[styles.labelContainer, labelStyle]}>
-            <Text allowFontScaling={false} style={[styles.label]}>
+            <Text style={styles.label}>
               {this.props.label}
+            </Text>
+            <Text style={[styles.subLabel, subLabelFontStyle]}>
+              {this.props.subLabel}
             </Text>
           </View>
         </View>
@@ -77,12 +84,18 @@ var styles = StyleSheet.create({
   },
   labelContainer: {
     flex: 1,
-    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   label: {
     marginLeft: 10,
     fontSize: 14,
     color: '#2e3031',
+  },
+  subLabel: {
+    marginLeft: 8,
+    fontSize: 12,
+    color: '#a6aeae',
   },
 });
 
