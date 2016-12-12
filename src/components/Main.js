@@ -7,6 +7,7 @@ import {
   View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { dimensions } from './Shared/Dimensions';
 import Activity from './Activity/Activity';
 import ChannelList from './Chat/ChannelList';
 import MyPage from './MyPage';
@@ -118,7 +119,9 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(0,0,0,0.1)',
     margin: 5,
     height: 150,
-    padding: 15,
+    padding: dimensions.widthWeight * 15,
+    paddingVertical: dimensions.heightWeight * 15,
+    paddingHorizontal: dimensions.widthWeight * 15,
     shadowColor: '#ccc',
     shadowOffset: { width: 2, height: 2, },
     shadowOpacity: 0.5,

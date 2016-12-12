@@ -1,11 +1,13 @@
 import {
   Alert,
+  Platform,
   StyleSheet,
 } from 'react-native';
 import {
   ActionConst,
   Actions,
 } from 'react-native-router-flux';
+import { dimensions } from './Shared/Dimensions';
 import Activity from './Activity/Activity';
 import CareerInfo from './SignUp/CareerInfo';
 import ChannelList from './Chat/ChannelList';
@@ -30,21 +32,29 @@ import EditProfile from './EditProfile';
 
 const styles = StyleSheet.create({
   bar: {
+    ...Platform.select({
+      ios: {
+        height: dimensions.heightWeight * 64,
+      },
+      android: {
+        height: dimensions.heightWeight * 54,
+      },
+    }),
     backgroundColor: '#fbfbfb',
     borderBottomColor: '#d6dada',
   },
   mainTitle: {
     fontFamily: 'ProductSans-Bold',
-    fontSize: 17,
+    fontSize: dimensions.fontWeight * 17,
     color: '#2e3031',
   },
   rightBtn: {
-    fontSize: 16,
+    fontSize: dimensions.fontWeight * 16,
     color: '#557bfc',
   },
   leftBtn: {
-    width: 25,
-    height: 20,
+    width: dimensions.widthWeight * 25,
+    height: dimensions.heightWeight * 20,
   },
 });
 
@@ -149,7 +159,8 @@ const AppProps = {
       type: ActionConst.RESET,
       rightTitle: 'right',
       rightButtonTextStyle: { color: 'transparent' },
-      rightButtonIconStyle: { marginBottom: 13, marginRight: 6 },
+      rightButtonIconStyle:
+      { marginBottom: dimensions.heightWeight * 13, marginRight: dimensions.widthWeight * 6 },
       rightButtonImage: require('../resources/filter.png'),
       onRight: () => Alert.alert('Filtering service will come soon'),
     },

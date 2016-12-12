@@ -13,6 +13,7 @@ import NewRequests from './NewRequests';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import ScrollableTabBar from './ScrollableTabBar';
 import Text from '../Shared/UniText';
+import { dimensions } from '../Shared/Dimensions';
 
 class Activity extends Component {
   constructor(props) {
