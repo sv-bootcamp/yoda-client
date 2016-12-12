@@ -78,7 +78,6 @@ class ApiUtil extends Component {
     this.url = url;
     this.reqSet = reqSet;
     this.callback = callback;
-    console.log(this.url, this.reqSet);
     this.fetchData(callback);
   }
 
@@ -87,7 +86,6 @@ class ApiUtil extends Component {
     .then(this.getResponse.bind(this))
     .then((res) => callback(res, null))
     .catch((error) => {
-      console.log(error);
       if (JSON.stringify(error) !== '{}') callback(null, JSON.stringify(error));
       else callback(null, error);
     });

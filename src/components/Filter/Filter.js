@@ -36,6 +36,7 @@ class Filter extends Component {
         'Years of work experience',
         'Last Educational Background',
       ],
+      pressed: [],
       careerData: [],
       checked: [],
       selected: [],
@@ -67,14 +68,10 @@ class Filter extends Component {
     this.state.option[1] = this.state.careerData[0].list.slice();
 
     for (i = 0; i < this.state.option.length; i++) {
-      if (i !== 1) {
-        this.state.option[i].unshift('All');
-        this.state.selected.push(this.state.option[i][0]);
-      } else {
-        this.state.option[i].unshift('All');
-        this.state.selected.push(this.state.option[i][0]);
-      }
+      this.state.option[i].unshift('All');
+      this.state.selected.push(this.state.option[i][0]);
 
+      this.state.pressed.push(false);
       this.state.checked.push(true);
     }
 
@@ -82,20 +79,6 @@ class Filter extends Component {
       this.state.overviewChecked.push(false);
     }
 
-  }
-
-  resetData() {
-    for (i = 0; i < this.state.selected.length; i++) {
-      this.state.selected[i] = 'All';
-      this.state.checked[i] = true;
-    }
-
-    this.state.option[1] = this.state.careerData[0].list.slice();
-    for (i = 0; i < this.state.overviewChecked.length; i++) {
-      this.state.overviewChecked[i] = false;
-    }
-
-    this.forceUpdate();
   }
 
   componentDidMount() {
@@ -106,7 +89,14 @@ class Filter extends Component {
       }
     }
 
-    Actions.refresh({ rightTitle: 'Save', onRight: this.onSave.bind(this) });
+    Actions.refresh({
+      rightTitle: 'Save',
+      onRight: this.onSave.bind(this),
+      onBack: () => {
+        this.setState({ needRefresh: true });
+        Actions.pop();
+      },
+    });
   }
 
   componentWillReceiveProps(props) {
@@ -121,6 +111,20 @@ class Filter extends Component {
       });
       this.setState({ needRefresh: false });
     }
+  }
+
+  resetData() {
+    for (i = 0; i < this.state.selected.length; i++) {
+      this.state.selected[i] = 'All';
+      this.state.checked[i] = true;
+    }
+
+    this.state.option[1] = this.state.careerData[0].list.slice();
+    for (i = 0; i < this.state.overviewChecked.length; i++) {
+      this.state.overviewChecked[i] = false;
+    }
+
+    this.forceUpdate();
   }
 
   onSave() {
@@ -152,12 +156,7 @@ class Filter extends Component {
 
     let body = { career, expertise };
 
-    console.log(body);
-    // Actions.pop();
-    // Actions.refresh({filter: body });
     Actions.main({ me: this.props.me, filter: body });
-
-    // UserUtil.setFilter(this.onUploadCallback.bind(this), body);
 
   }
 
@@ -201,7 +200,14 @@ class Filter extends Component {
       }
     }
 
+    for (let i = 0; i < this.state.pressed.length; i++)
+      this.state.pressed[i] = false;
     this.forceUpdate();
+  }
+
+  onPress() {
+    for (let i = 0; i < this.state.pressed.length; i++)
+      this.state.pressed[i] = true;
   }
 
   getOptionSet(index) {
@@ -247,6 +253,8 @@ class Filter extends Component {
                     ref={'SELECT' + idx}
                     clear={clear}
                     activate={activate}
+                    pressed={this.state.pressed[idx]}
+                    onPress={this.onPress.bind(this)}
                     index={idx}
                     width={Dimensions.get('window').width - 60}
                     defaultValue={' '}

@@ -30,6 +30,7 @@ class CareerInfo extends Component {
     super(props);
     this.state = {
       questions: CareerData.questions,
+      pressed: [],
       checked: [],
       selected: [],
       option: [],
@@ -44,6 +45,7 @@ class CareerInfo extends Component {
     this.state.option[3] = CareerData.education_background;
 
     for (i = 0; i < this.state.option.length; i++) {
+      this.state.pressed.push(false);
       this.state.checked.push(false);
       this.state.selected.push('');
     }
@@ -115,7 +117,14 @@ class CareerInfo extends Component {
       }
     }
 
+    for (let i = 0; i < this.state.pressed.length; i++)
+      this.state.pressed[i] = false;
     this.forceUpdate();
+  }
+
+  onPress() {
+    for (let i = 0; i < this.state.pressed.length; i++)
+      this.state.pressed[i] = true;
   }
 
   getOptionSet(index) {
@@ -153,21 +162,23 @@ class CareerInfo extends Component {
               );
           } else {
             return (
-              <View key={idx} style={[styles.questionContainer, { zIndex: zIdx }]}>
-                <Text style={styles.questionText}>{this.state.questions[idx]}</Text>
-                <View style={[styles.dropdownContainer]}>
-                  <Select
-                    value={this.state.selected[idx]}
-                    ref={'SELECT' + idx}
-                    clear={clear}
-                    activate={activate}
-                    index={idx}
-                    width={Dimensions.get('window').width - 60}
-                    defaultValue={' '}
-                    optionListRef={this.getOptionList.bind(this)}
-                    onSelect={this.onSelect.bind(this)}>
-                    {this.getOptionSet(idx)}
-                  </Select>
+                <View key={idx} style={[styles.questionContainer, { zIndex: zIdx }]}>
+                  <Text style={styles.questionText}>{this.state.questions[idx]}</Text>
+                  <View style={[styles.dropdownContainer]}>
+                    <Select
+                      value={this.state.selected[idx]}
+                      ref={'SELECT' + idx}
+                      clear={clear}
+                      activate={activate}
+                      pressed={this.state.pressed[idx]}
+                      onPress={this.onPress.bind(this)}
+                      index={idx}
+                      width={Dimensions.get('window').width - 60}
+                      defaultValue={' '}
+                      optionListRef={this.getOptionList.bind(this)}
+                      onSelect={this.onSelect.bind(this)}>
+                      {this.getOptionSet(idx)}
+                    </Select>
                     <OptionList ref={'OPTION' + idx} index={idx}/>
                 </View>
               </View>

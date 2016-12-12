@@ -34,7 +34,6 @@ class UserList extends Component {
   }
 
   onServerCallback(result, error) {
-    console.log(result);
     if (error) {
       alert(error);
     } else if (result) {
