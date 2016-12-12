@@ -21,10 +21,10 @@ import WorkForm from './WorkForm';
 
 // List data for rendering each section.
 const fieldTitles = [
-  { name: 'Name',  },
+  { name: 'Name' },
   { name: 'Email', disabled: true },
-  { name: 'Location',  },
-  { name: 'About',  },
+  { name: 'Location' },
+  { name: 'About' },
   { name: 'Education', isArray: true },
   { name: 'Experience', isArray: true },
 ];
@@ -195,7 +195,7 @@ class GeneralInfo extends Component {
   // Regist general user info.
   regist() {
     const profile = this.state.profile;
-    if (profile.name.replace(/\s/g,'') === '') {
+    if (profile.name.replace(/\s/g, '') === '') {
       Alert.alert('Sign In', 'Please input your name.');
       return;
     }
