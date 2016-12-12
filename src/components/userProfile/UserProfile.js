@@ -139,7 +139,7 @@ class UserProfile extends Component {
   }
 
   sendRequest() {
-    Actions.requestPage({ id: this.state.id });
+    Actions.requestPage({ id: this.state.id, me: this.props.me });
   }
 
   toggleAbout() {
