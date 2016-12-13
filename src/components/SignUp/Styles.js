@@ -2,26 +2,27 @@ import {
   Dimensions,
   StyleSheet,
 } from 'react-native';
+import { dimensions } from '../Shared/Dimensions';
 
 const deviceWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   formEditView: {
     borderBottomWidth: 1,
     borderBottomColor: '#a6aeae',
-    paddingBottom: 15,
+    paddingBottom: dimensions.heightWeight * 15,
   },
   formEditBottomLine: {
     borderBottomColor: '#a6aeae',
     borderBottomWidth: 1,
   },
   formView: {
-    width: deviceWidth - 40,
+    width: deviceWidth - dimensions.widthWeight * 40,
     borderBottomWidth: 1,
     borderBottomColor: '#efeff2',
-    paddingBottom: 15,
+    paddingBottom: dimensions.heightWeight * 15,
   },
   deleteView: {
-    width: 77,
+    width: dimensions.widthWeight * 77,
     backgroundColor: '#fd5b52',
     alignItems: 'center',
     justifyContent: 'center',
@@ -30,33 +31,34 @@ const styles = StyleSheet.create({
     color: '#ffffff',
   },
   formNameContainer: {
-    width: deviceWidth - 40,
-    height: 16,
+    width: deviceWidth - dimensions.widthWeight * 40,
+    height: dimensions.heightWeight * 16,
   },
   formName: {
     color: '#2e3031',
-    fontSize: 16,
+    fontSize: dimensions.fontWeight * 16,
   },
   formEditName: {
     textAlign: 'left',
     textAlignVertical: 'center',
-    height: 40,
+    height: dimensions.heightWeight * 40,
   },
   formDate: {
     color: '#2e3031',
-    marginTop: 10,
-    fontSize: 12,
+    marginTop: dimensions.heightWeight * 10,
+    fontSize: dimensions.fontWeight * 12,
   },
   formEditYear: {
-    width: 100,
+    width: dimensions.widthWeight * 100,
   },
   doneWrapper: {
     alignItems: 'flex-end',
     backgroundColor: '#fbfbfb',
-    padding: 10,
+    paddingVertical: dimensions.heightWeight * 10,
+    paddingHorizontal: dimensions.widthWeight * 10,
   },
   doneText: {
-    fontSize: 16,
+    fontSize: dimensions.fontWeight * 16,
     color: '#44acff',
   },
   modalContainer: {
@@ -66,33 +68,33 @@ const styles = StyleSheet.create({
     backgroundColor: '#fbfbfb',
   },
   formEditDate: {
-    height: 30,
+    height: dimensions.heightWeight * 30,
     borderWidth: 0,
     alignItems: 'flex-start',
   },
   firstMargin: {
-    marginTop: 20,
+    marginTop: dimensions.heightWeight * 20,
   },
   sectionMargin: {
-    marginTop: 10.5,
+    marginTop: dimensions.heightWeight * 10.5,
   },
   flexR: {
     flexDirection: 'row',
   },
   editL: {
     flex: 1,
-    marginTop: 15,
+    marginTop: dimensions.heightWeight * 15,
     justifyContent: 'flex-start',
   },
   editR: {
-    width: 26,
-    marginTop: 15,
-    marginRight: 20,
+    width: dimensions.widthWeight * 26,
+    marginTop: dimensions.heightWeight * 15,
+    marginRight: dimensions.widthWeight * 20,
     justifyContent: 'flex-end',
   },
   editBtn: {
-    width: 16,
-    height: 16,
+    width: dimensions.widthWeight * 16,
+    height: dimensions.heightWeight * 16,
   },
 });
 

@@ -10,6 +10,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import { dimensions } from '../Shared/Dimensions';
 import styles from './Styles';
 
 const Item = Picker.Item;
@@ -86,7 +87,9 @@ class EduFormIOS extends Component {
             <View style={{ flex: 1, }}></View>
             <View style={styles.doneWrapper}>
               <TouchableOpacity onPress={setModalVisible}>
-                <Text style={{ fontSize: 16, color: '#44acff' }}>Done</Text>
+                <Text style={{ fontSize: dimensions.fontWeight * 16, color: '#44acff' }}>
+                  Done
+                </Text>
               </TouchableOpacity>
             </View>
             <View style={styles.modalContainer}>
@@ -96,7 +99,9 @@ class EduFormIOS extends Component {
                 onValueChange={onChangeStartYear}>
                 {PickerItems}
               </Picker>
-              <View style={{ marginRight: 10 }}><Text>{'-'}</Text></View>
+              <View style={{ marginRight: dimensions.widthWeight * 10 }}>
+                <Text>{'-'}</Text>
+              </View>
               <Picker
                 style={styles.formEditYear}
                 selectedValue={this.state.endYear}

@@ -15,6 +15,7 @@ import UserUtil from '../../utils/UserUtil';
 import Progress from '../Shared/Progress';
 import { Personalites } from './SignUpMETA';
 import { Actions, Scene, }  from 'react-native-router-flux';
+import { dimensions } from '../Shared/Dimensions';
 import Slider from 'react-native-slider';
 
 class Personality extends Component {
@@ -162,7 +163,12 @@ class Personality extends Component {
 
     if (!this.props.fromEdit)
       submitButton = (
-        <View style={{ flex: 1, marginTop: 50, marginBottom: 80 }}>
+        <View
+          style={{
+            flex: 1,
+            marginTop: dimensions.heightWeight * 50,
+            marginBottom: dimensions.heightWeight * 80,
+          }}>
           <TouchableOpacity onPress={this.sendRequest.bind(this)}>
             <LinearGradient
               start={[0.9, 0.5]} end={[0.0, 0.5]}
@@ -179,13 +185,18 @@ class Personality extends Component {
     return (
       <View style={styles.container}>
         {this.props.fromEdit ? null : (<Progress level={4} step={4} />)}
-        <ScrollView contentContainerStyle={{ marginTop: 50 }}>
+        <ScrollView contentContainerStyle={{ marginTop: dimensions.heightWeight * 50 }}>
           <View style={{ flex: 1 }}>
             <View style={styles.titleContainer}>
               <Text style={styles.title}>
                 {'Let’s figure out your\npersonality !'}
               </Text>
-              <Text style={{ color: '#2e3031', fontSize: 12, marginBottom: 51 }}>
+              <Text
+                style={{
+                  color: '#2e3031',
+                  fontSize: dimensions.fontWeight * 12,
+                  marginBottom: dimensions.heightWeight * 51,
+                }}>
                 Drag each point to express youself.
               </Text>
             </View>
@@ -206,8 +217,8 @@ const sliderStyle = StyleSheet.create({
     borderRadius: 2,
   },
   thumb: {
-    width: 20,
-    height: 20,
+    width: dimensions.fontWeight * 20,
+    height: dimensions.heightWeight * 20,
     borderRadius: 15,
     backgroundColor: 'white',
     borderColor: '#44acff',
@@ -220,10 +231,10 @@ const styles = StyleSheet.create({
     flex: 1,
     ...Platform.select({
       ios: {
-        marginTop: 64,
+        marginTop: dimensions.heightWeight * 64,
       },
       android: {
-        marginTop: 54,
+        marginTop: dimensions.heightWeight * 54,
       },
     }),
   },
@@ -233,11 +244,11 @@ const styles = StyleSheet.create({
   },
   slider: {
     flex: 1,
-    marginTop: 10,
-    marginBottom: 25,
+    marginTop: dimensions.heightWeight * 10,
+    marginBottom: dimensions.heightWeight * 25,
     backgroundColor: 'transparent',
-    marginLeft: 30,
-    marginRight: 30,
+    marginLeft: dimensions.widthWeight * 30,
+    marginRight: dimensions.widthWeight * 30,
   },
   body: {
     flex: 5,
@@ -248,18 +259,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   linearGradient: {
-    height: 45,
+    height: dimensions.heightWeight * 45,
     borderRadius: 50,
-    width: 230,
+    width: dimensions.widthWeight * 230,
     alignSelf: 'center',
     justifyContent: 'center',
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: dimensions.fontWeight * 16,
     fontWeight: 'bold',
     textAlign: 'center',
     justifyContent: 'center',
-    margin: 10,
+    marginTop: dimensions.heightWeight * 10,
+    marginBottom: dimensions.heightWeight * 10,
+    marginLeft: dimensions.widthWeight * 10,
+    marginRight: dimensions.widthWeight * 10,
     color: '#ffffff',
     backgroundColor: 'transparent',
   },
@@ -267,8 +281,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
-    marginLeft: 30,
-    marginRight: 30,
+    marginLeft: dimensions.widthWeight * 30,
+    marginRight: dimensions.widthWeight * 30,
   },
   titleContainer: {
     flex: 1,
@@ -277,9 +291,9 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#2e3031',
-    fontSize: 18,
+    fontSize: dimensions.fontWeight * 18,
     textAlign: 'center',
-    marginBottom: 10,
+    marginBottom: dimensions.heightWeight * 10,
   },
 });
 

@@ -7,6 +7,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import { dimensions } from '../Shared/Dimensions';
 import DatePicker from 'react-native-datepicker';
 import styles from './Styles';
 import Text from '../Shared/UniText';
@@ -44,28 +45,30 @@ class WorkForm extends Component {
       <View style={styles.formEditView}>
         <View>
           <TextInput style={[styles.formName, styles.formEditName]}
-                     defaultValue={this.state.position}
-                     underlineColorAndroid="#a6aeae"
-                     placeholder="Position" placeholderTextColor="#a6aeae"
-                     onChangeText={onChangePosition} />
+            defaultValue={this.state.position}
+            underlineColorAndroid="#a6aeae"
+            placeholder="Position" placeholderTextColor="#a6aeae"
+            onChangeText={onChangePosition} />
           <TextInput style={[styles.formName, styles.formEditName]}
-                     defaultValue={this.state.employer}
-                     underlineColorAndroid="#a6aeae"
-                     placeholder="Name" placeholderTextColor="#a6aeae"
-                     onChangeText={onChangeName} />
+            defaultValue={this.state.employer}
+            underlineColorAndroid="#a6aeae"
+            placeholder="Name" placeholderTextColor="#a6aeae"
+            onChangeText={onChangeName} />
         </View>
         <View style={styles.flexR}>
           <DatePicker
-            style={{ width: 100 }}
+            style={{ width: dimensions.widthWeight * 100 }}
             date={startDate}
             showIcon={false}
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
             customStyles={{ dateInput: styles.formEditDate, }}
             onDateChange={onStartDateChange} />
-          <View style={{ marginTop: 10, marginRight: 25 }}><Text>{' - '}</Text></View>
+          <View style={{ marginTop: dimensions. heightWeight * 10, marginRight: dimensions.widthWeight * 25 }}>
+            <Text>{' - '}</Text>
+          </View>
           <DatePicker
-            style={{ width: 100 }}
+            style={{ width: dimensions.widthWeight * 100 }}
             date={endDate}
             showIcon={false}
             confirmBtnText="Confirm"

@@ -9,6 +9,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import { dimensions } from '../Shared/Dimensions';
 import styles from './Styles';
 import Text from '../Shared/UniText';
 
@@ -47,19 +48,19 @@ class EduForm extends Component {
       <View style={styles.formEditView}>
         <View style={styles.formEditBottomLine}>
           <TextInput style={[styles.formName, styles.formEditName]}
-                     defaultValue={this.state.name}
-                     underlineColorAndroid="rgba(255, 255, 255, 0)"
-                     placeholder="Name"
-                     placeholderTextColor="#a6aeae"
-                     onChangeText={onChangeName} />
+            defaultValue={this.state.name}
+            underlineColorAndroid="rgba(255, 255, 255, 0)"
+            placeholder="Name"
+            placeholderTextColor="#a6aeae"
+            onChangeText={onChangeName} />
         </View>
         <View style={styles.formEditBottomLine}>
           <TextInput style={[styles.formName, styles.formEditName]}
-                     defaultValue={this.state.subject}
-                     underlineColorAndroid="rgba(255, 255, 255, 0)"
-                     placeholder="Subject"
-                     placeholderTextColor="#a6aeae"
-                     onChangeText={onChangeSubject} />
+            defaultValue={this.state.subject}
+            underlineColorAndroid="rgba(255, 255, 255, 0)"
+            placeholder="Subject"
+            placeholderTextColor="#a6aeae"
+            onChangeText={onChangeSubject} />
         </View>
         <View style={styles.flexR}>
           <Picker
@@ -68,7 +69,9 @@ class EduForm extends Component {
             onValueChange={onChangeStartYear}>
             {PickerItems}
           </Picker>
-          <View style={{ marginRight: 10 }}><Text>{'- '}</Text></View>
+          <View style={{ marginRight: dimensions.widthWeight * 10 }}>
+            <Text>{'- '}</Text>
+          </View>
           <Picker
             style={styles.formEditYear}
             selectedValue={this.state.endYear}
