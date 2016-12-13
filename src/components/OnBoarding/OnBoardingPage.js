@@ -9,6 +9,7 @@ import {
 import Swiper from 'react-native-swiper';
 import Text from '../Shared/UniText';
 import { Actions } from 'react-native-router-flux';
+import { dimensions } from '../Shared/Dimensions';
 import LinearGradient from 'react-native-linear-gradient';
 
 class OnBoardingPage extends Component {
@@ -107,7 +108,7 @@ class OnBoardingPage extends Component {
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 const IMAGE_HEIGHT = WINDOW_WIDTH * 1.36;
-const SWIPER_HEIGHT = IMAGE_HEIGHT + 40;
+const SWIPER_HEIGHT = IMAGE_HEIGHT + dimensions.heightWeight * 40;
 
 const styles = StyleSheet.create({
   onboardingView: {
@@ -125,24 +126,24 @@ const styles = StyleSheet.create({
   },
   getStartedBtnStyle: {
     justifyContent: 'center',
-    width: 270,
-    height: 45,
+    width: dimensions.widthWeight * 270,
+    height: dimensions.heightWeight * 45,
     borderRadius: 100,
-    marginBottom: 10,
+    marginBottom: dimensions.heightWeight * 10,
   },
   buttonContainer: {
     backgroundColor: 'transparent',
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: dimensions.fontWeight * 16,
     fontWeight: 'bold',
     color: '#ffffff',
     alignSelf: 'center',
   },
   footerText: {
     color: '#a6aeae',
-    fontSize: 12,
-    marginBottom: 30,
+    fontSize: dimensions.fontWeight * 12,
+    marginBottom: dimensions.heightWeight * 30,
   },
   logInText: {
     color: '#44acff',
