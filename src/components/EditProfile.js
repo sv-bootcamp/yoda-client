@@ -6,6 +6,7 @@ import {
   Platform,
 } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
+import { dimensions } from './Shared/Dimensions';
 import Text from './Shared/UniText';
 
 class EditProfile extends Component {
@@ -54,15 +55,15 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     ...Platform.select({
       ios: {
-        marginTop: 64,
+        marginTop: dimensions.heightWeight * 64,
       },
       android: {
-        marginTop: 54,
+        marginTop: dimensions.heightWeight * 54,
       },
     }),
   },
   menu: {
-    height: 45,
+    height: dimensions.heightWeight * 45,
     backgroundColor: 'white',
     justifyContent: 'center',
     borderBottomWidth: 1,
@@ -70,8 +71,8 @@ const styles = StyleSheet.create({
   },
   menuText: {
     color: '#2e3031',
-    fontSize: 14,
-    marginLeft: 30,
+    fontSize: dimensions.fontWeight * 14,
+    marginLeft: dimensions.widthWeight * 30,
   },
 });
 

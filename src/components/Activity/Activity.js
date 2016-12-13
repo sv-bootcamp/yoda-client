@@ -8,12 +8,12 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import { dimensions } from '../Shared/Dimensions';
 import Connected from './Connected';
 import NewRequests from './NewRequests';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import ScrollableTabBar from './ScrollableTabBar';
 import Text from '../Shared/UniText';
-import { dimensions } from '../Shared/Dimensions';
 
 class Activity extends Component {
   constructor(props) {
@@ -56,31 +56,32 @@ const styles = StyleSheet.create({
   container: {
     ...Platform.select({
       ios: {
-        marginTop: 64,
+        marginTop:  dimensions.heightWeight * 64,
       },
       android: {
-        marginTop: 54,
+        marginTop:  dimensions.heightWeight * 54,
       },
     }),
   },
   tabBarText: {
     fontFamily: 'SFUIText-Bold',
-    fontSize: 12,
+    fontSize: dimensions.fontWeight * 12,
   },
   section: {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    padding: 5,
+    paddingVertical: dimensions.heightWeight * 5,
+    paddingHorizontal: dimensions.widthWeight * 5,
   },
   text: {
     color: '#546979',
-    paddingHorizontal: 8,
-    fontSize: 12,
+    paddingHorizontal: dimensions.widthWeight * 8,
+    fontSize: dimensions.fontWeight * 12,
   },
   loadingText: {
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: dimensions.fontWeight * 20,
     color: 'black',
   },
   tabBarUnderline: {

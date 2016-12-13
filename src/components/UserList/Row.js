@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { dimensions } from '../Shared/Dimensions';
 import LinearGradient from 'react-native-linear-gradient';
 import Text from '../Shared/UniText';
 
@@ -96,8 +97,8 @@ class Row extends Component {
   }
 
   renderMyExpertise() {
-    const CHARACTER_WIDTH = 10;
-    const LINE_PADDING = 10;
+    const CHARACTER_WIDTH = dimensions.widthWeight * 10;
+    const LINE_PADDING = dimensions.widthWeight * 10;
     const originArray = this.state.expertise;
     const newArray = [[]];
     let lineSize = 0;
@@ -157,7 +158,8 @@ class Row extends Component {
     let viewStyle = [
       styles.rowView,
       {
-        marginRight: this.props.dataSource.last ? 36 : 15,
+        marginRight: this.props.dataSource.last ?
+        dimensions.widthWeight * 36 : dimensions.widthWeight * 15,
         elevation: 10,
       },
     ];
@@ -195,12 +197,12 @@ class Row extends Component {
   }
 }
 
-const CARD_PREVIEW_WIDTH = 10;
-const CARD_MARGIN = 15;
-const CARD_WIDTH = Dimensions.get('window').width - 72;
-const CARD_HEIGHT = Dimensions.get('window').height - 182;
-const HEIGHT = Dimensions.get('window').height;
-const WIDTH = Dimensions.get('window').width;
+const CARD_PREVIEW_WIDTH = dimensions.widthWeight * 10;
+const CARD_MARGIN = dimensions.widthWeight * 15;
+const CARD_WIDTH = Dimensions.get('window').width - dimensions.widthWeight * 72;
+const CARD_HEIGHT = Dimensions.get('window').height - dimensions.heightWeight * 182;
+const HEIGHT = dimensions.heightWeight * Dimensions.get('window').height;
+const WIDTH = dimensions.widthWeight * Dimensions.get('window').width;
 const styles = StyleSheet.create({
   rowView: {
     flex: 1,
@@ -211,7 +213,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     ...Platform.select({
       ios: {
-        height: CARD_HEIGHT + 10,
+        height: CARD_HEIGHT + dimensions.heightWeight * 10,
         shadowColor: '#000000',
         shadowOpacity: 0.3,
         shadowRadius: 8,
@@ -230,8 +232,8 @@ const styles = StyleSheet.create({
   bookmarkIcon: {
     position: 'absolute',
     zIndex: 1,
-    right: 20,
-    top: 20,
+    right: dimensions.widthWeight * 20,
+    top: dimensions.heightWeight * 20,
   },
   photo: {
     height: CARD_HEIGHT / 2.73,
@@ -245,59 +247,59 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   name: {
-    fontSize: 22,
+    fontSize: dimensions.fontWeight * 22,
     fontWeight: 'bold',
-    marginTop: 25,
+    marginTop: dimensions.heightWeight * 25,
     marginLeft: CARD_WIDTH * 0.082,
     color: '#2e3031',
   },
   job: {
-    fontSize: 14,
-    marginTop: 10,
+    fontSize: dimensions.fontWeight * 14,
+    marginTop: dimensions.heightWeight * 10,
     marginLeft: CARD_WIDTH * 0.072,
     marginRight: CARD_WIDTH * 0.082,
     color: '#2e3031',
   },
   location: {
-    fontSize: 14,
-    marginTop: 5,
+    fontSize: dimensions.fontWeight * 14,
+    marginTop: dimensions.heightWeight * 5,
     marginLeft: CARD_WIDTH * 0.072,
-    marginBottom: 10,
+    marginBottom: dimensions.heightWeight * 10,
     color: '#2e3031',
   },
   sectionContainer: {
-    marginTop: 20,
+    marginTop: dimensions.heightWeight * 20,
     marginLeft: CARD_WIDTH * 0.082,
-    paddingBottom: 20,
+    paddingBottom: dimensions.heightWeight * 20,
   },
   sectionName: {
-    fontSize: 10,
+    fontSize: dimensions.fontWeight * 10,
     fontWeight: 'bold',
     color: '#a6aeae',
-    marginBottom: 15,
+    marginBottom: dimensions.heightWeight * 15,
   },
   expertiseSeparator: {
     borderBottomWidth: 1,
     width: CARD_WIDTH * 0.55,
-    marginBottom: 10,
+    marginBottom: dimensions.heightWeight * 10,
     alignSelf: 'center',
     borderColor: '#d6dada',
   },
   tagRectangle: {
     backgroundColor: '#f0f0f2',
     borderRadius: 25,
-    height: 27,
-    paddingBottom: 6,
-    paddingTop: 6,
-    paddingLeft: 15,
-    paddingRight: 15,
-    marginRight: 10,
-    marginBottom: 10,
+    height: dimensions.heightWeight * 27,
+    paddingBottom: dimensions.heightWeight * 6,
+    paddingTop: dimensions.heightWeight * 6,
+    paddingLeft: dimensions.widthWeight * 15,
+    paddingRight: dimensions.widthWeight * 15,
+    marginRight: dimensions.widthWeight * 10,
+    marginBottom: dimensions.heightWeight * 10,
     justifyContent: 'center',
   },
   tagText: {
     color: '#2e3031',
-    fontSize: 12,
+    fontSize: dimensions.fontWeight * 12,
     backgroundColor: 'transparent',
     textAlign: 'center',
   },
@@ -317,7 +319,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     paddingTop: CARD_HEIGHT * 0.09 / 4,
-    fontSize: 16,
+    fontSize: dimensions.fontWeight * 16,
     fontWeight: 'bold',
     color: '#ffffff',
   },

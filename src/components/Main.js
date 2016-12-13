@@ -110,16 +110,19 @@ class Main extends Component {
 const styles = StyleSheet.create({
   tabView: {
     flex: 1,
-    padding: 10,
+    paddingVertical: dimensions.heightWeight * 10,
+    paddingHorizontal: dimensions.widthWeight * 10,
     backgroundColor: '#fafafa',
   },
   card: {
     borderWidth: 1,
     backgroundColor: '#fff',
     borderColor: 'rgba(0,0,0,0.1)',
-    margin: 5,
-    height: 150,
-    padding: dimensions.widthWeight * 15,
+    marginTop: dimensions.heightWeight * 5,
+    marginBottom: dimensions.heightWeight * 5,
+    marginLeft: dimensions.widthWeight * 5,
+    marginRight: dimensions.widthWeight * 5,
+    height: dimensions.heightWeight * 150,
     paddingVertical: dimensions.heightWeight * 15,
     paddingHorizontal: dimensions.widthWeight * 15,
     shadowColor: '#ccc',
@@ -129,11 +132,11 @@ const styles = StyleSheet.create({
   },
   mainTitle: {
     fontFamily: 'ProductSans-Bold',
-    fontSize: 17,
+    fontSize: dimensions.fontWeight * 17,
     color: '#2e3031',
   },
   title: {
-    fontSize: 16,
+    fontSize: dimensions.fontWeight * 16,
     color: '#2e3031',
   },
 });

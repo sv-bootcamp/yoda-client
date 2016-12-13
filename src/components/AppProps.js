@@ -48,9 +48,13 @@ const styles = StyleSheet.create({
     fontSize: dimensions.fontWeight * 17,
     color: '#2e3031',
   },
-  rightBtn: {
+  rightTxt: {
     fontSize: dimensions.fontWeight * 16,
     color: '#557bfc',
+  },
+  rightBtn: {
+    width: dimensions.widthWeight * 20,
+    height: dimensions.heightWeight * 18,
   },
   leftBtn: {
     width: dimensions.widthWeight * 25,
@@ -65,7 +69,8 @@ const cancelButton = require('../resources/icon-cancel.png');
 const AppProps = {
   rootProp: {
     key: 'root',
-    rightButtonTextStyle: styles.rightBtn,
+    rightButtonTextStyle: styles.rightTxt,
+    rigntButtonIconStyle: styles.rightBtn,
     navigationBarStyle: styles.bar,
     leftButtonIconStyle: styles.leftBtn,
   },
@@ -160,7 +165,12 @@ const AppProps = {
       rightTitle: 'right',
       rightButtonTextStyle: { color: 'transparent' },
       rightButtonIconStyle:
-      { marginBottom: dimensions.heightWeight * 13, marginRight: dimensions.widthWeight * 6 },
+      {
+        marginBottom: 64 * (1 - dimensions.heightWeight) + 13,
+        marginRight: dimensions.widthWeight * 6,
+        width: dimensions.widthWeight * 20,
+        height: dimensions.heightWeight * 18,
+      },
       rightButtonImage: require('../resources/filter.png'),
       onRight: () => Alert.alert('Filtering service will come soon'),
     },

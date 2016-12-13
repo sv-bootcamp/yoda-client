@@ -11,6 +11,7 @@ import {
   View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { dimensions } from '../Shared/Dimensions';
 import MatchUtil from '../../utils/MatchUtil';
 import ConnectedRow from './ConnectedRow';
 import Text from '../Shared/UniText';
