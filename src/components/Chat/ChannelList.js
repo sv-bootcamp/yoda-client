@@ -13,6 +13,7 @@ import {
   Vibration,
   View,
 } from 'react-native';
+import { dimensions } from '../Shared/Dimensions';
 import FCM from 'react-native-fcm';
 import Row from './Row';
 import SendBird from 'sendbird';
@@ -200,29 +201,30 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    marginTop: 250,
+    marginTop: dimensions.heightWeight * 250,
   },
   loadingViewheaderText: {
-    fontSize: 20,
+    fontSize: dimensions.fontWeight * 20,
     color: '#0e417a',
   },
   loadingViewActivityIndicator: {
-    marginTop: 30,
+    marginTop: dimensions.heightWeight * 30,
   },
   ViewContainer: {
     flex: 1,
     ...Platform.select({
       ios: {
-        marginTop: 64,
+        marginTop: dimensions.heightWeight * 64,
       },
       android: {
-        marginTop: 54,
+        marginTop: dimensions.heightWeight * 54,
       },
     }),
   },
   searchBarContainer: {
-    height: 50,
-    padding: 10,
+    height: dimensions.heightWeight * 50,
+    paddingVertical: dimensions.heightWeight * 10,
+    paddingHorizontal: dimensions.widthWeight * 10,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#efeff2',
@@ -230,31 +232,31 @@ const styles = StyleSheet.create({
   },
   searchBarInput: {
     flex: 1,
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingLeft: dimensions.widthWeight * 10,
+    paddingRight: dimensions.widthWeight * 10,
     paddingBottom: 0,
     paddingTop: 0,
-    fontSize: 12,
+    fontSize: dimensions.fontWeight * 12,
     borderRadius: 5,
     backgroundColor: '#ffffff',
     textDecorationLine: 'none',
   },
   header: {
-    height: 60,
+    height: dimensions.heightWeight * 60,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    paddingTop: 55,
+    paddingTop: dimensions.heightWeight * 55,
   },
   loadingText: {
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: dimensions.fontWeight * 20,
     color: 'black',
   },
   activityIndicator: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 200,
+    marginTop: dimensions.heightWeight * 200,
   },
 
   onboardingView: {
@@ -264,17 +266,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   onboardingImage: {
-    width: 210,
-    height: 210,
+    width: dimensions.widthWeight * 210,
+    height: dimensions.heightWeight * 210,
   },
   onboardingText1: {
-    marginTop: 62,
-    fontSize: 20,
+    marginTop: dimensions.heightWeight * 62,
+    fontSize: dimensions.fontWeight * 20,
     color: '#a6aeae',
   },
   onboardingText2: {
-    marginTop: 15,
-    fontSize: 14,
+    marginTop: dimensions.heightWeight * 15,
+    fontSize: dimensions.fontWeight * 14,
     color: '#a6aeae',
   },
 });

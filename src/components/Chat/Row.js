@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { dimensions } from '../Shared/Dimensions';
 import moment from 'moment/min/moment.min';
 import Text from '../Shared/UniText';
 
@@ -122,9 +123,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   photo: {
-    height: 40,
-    width: 40,
-    margin: 15,
+    height: dimensions.heightWeight * 40,
+    width: dimensions.widthWeight * 40,
+    marginTop: dimensions.heightWeight * 15,
+    marginBottom: dimensions.heightWeight * 15,
+    marginLeft: dimensions.widthWeight * 15,
+    marginRight: dimensions.widthWeight * 15,
     borderRadius: 20,
   },
   userInformation: {
@@ -140,45 +144,45 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   name: {
-    fontSize: 14,
+    fontSize: dimensions.fontWeight * 14,
     fontWeight: 'bold',
-    marginTop: 18,
+    marginTop: dimensions.heightWeight * 18,
     color: '#494b4c',
   },
   lastMessage: {
-    fontSize: 12,
-    marginTop: 8,
-    marginBottom: 18,
+    fontSize: dimensions.fontWeight * 12,
+    marginTop: dimensions.heightWeight * 8,
+    marginBottom: dimensions.heightWeight * 18,
     fontWeight: 'normal',
     color: '#a6aeae',
   },
   rightSection: {
-    width: 90,
+    width: dimensions.widthWeight * 90,
     alignItems: 'flex-end',
-    paddingRight: 15,
+    paddingRight: dimensions.widthWeight * 15,
   },
   rightTopSection: {
-    marginTop: 10,
+    marginTop: dimensions.heightWeight * 10,
     flexDirection: 'row',
   },
   lastTimestamp: {
-    fontSize: 10,
-    paddingRight: 10,
-    lineHeight: 10,
+    fontSize: dimensions.fontWeight * 10,
+    paddingRight: dimensions.widthtWeight * 10,
+    lineHeight: dimensions.heightWeight * 10,
     fontWeight: 'normal',
     color: '#a6aeae',
   },
   unreadCountContainer: {
-    width: 31,
-    height: 20,
-    marginTop: 17,
+    width: dimensions.widthWeight * 31,
+    height: dimensions.heightWeight * 20,
+    marginTop: dimensions.heightWeight * 17,
     borderRadius: 40,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fd5b52',
   },
   unreadCountText: {
-    fontSize: 12,
+    fontSize: dimensions.fontWeight * 12,
     color: '#ffffff',
     letterSpacing: -0.3,
     backgroundColor: 'transparent',

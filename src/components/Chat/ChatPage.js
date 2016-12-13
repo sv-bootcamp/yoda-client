@@ -7,6 +7,7 @@ import {
   View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { dimensions } from '../Shared/Dimensions';
 import { GiftedChat } from './react-native-gifted-chat';
 import FcmUtil from '../../utils/FcmUtil';
 import SendBird from 'sendbird';
@@ -258,16 +259,16 @@ class ChatPage extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    height: 100,
+    height: dimensions.heightWeight * 100,
   },
   footerContainer: {
-    marginTop: 5,
-    marginLeft: 10,
-    marginRight: 10,
-    marginBottom: 10,
+    marginTop: dimensions.heightWeight * 5,
+    marginLeft: dimensions.widthWeight * 10,
+    marginRight: dimensions.widthWeight * 10,
+    marginBottom: dimensions.heightWeight * 10,
   },
   footerText: {
-    fontSize: 14,
+    fontSize: dimensions.fontWeight * 14,
     color: '#aaa',
   },
 });
