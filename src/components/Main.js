@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   AsyncStorage,
+  Dimensions,
   Image,
   ScrollView,
   StyleSheet,
@@ -94,8 +95,9 @@ class Main extends Component {
         >
           <UserList tabLabel="ios-home" style={styles.tabView}  me={this.props.me} />
           <ScrollView tabLabel="md-shuffle" style={styles.tabView}>
-            <View style={styles.card}>
-              <Text>Tournament</Text>
+            <View style={styles.comingView}>
+              <Image source={require('../resources/tournament.png')} />
+              <Text style={styles.comingText}>Coming Soon!</Text>
             </View>
           </ScrollView>
           <Activity tabLabel="ios-people" style={styles.tabView}  me={this.props.me} />
@@ -106,6 +108,7 @@ class Main extends Component {
   }
 }
 
+const {height, width} = Dimensions.get('window');
 const styles = StyleSheet.create({
   tabView: {
     flex: 1,
@@ -123,6 +126,18 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 2, height: 2, },
     shadowOpacity: 0.5,
     shadowRadius: 3,
+  },
+  comingView: {
+    width: width,
+    height: height - 80,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  comingText: {
+    marginTop: 12,
+    fontFamily: 'SFUIText-Regular',
+    fontSize: 14,
+    color: '#a6aeae',
   },
   mainTitle: {
     fontFamily: 'ProductSans-Bold',
