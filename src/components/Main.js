@@ -91,9 +91,9 @@ class Main extends Component {
       >
         <UserList tabLabel="ios-home" style={styles.tabView} me={this.props.me} />
         <ScrollView tabLabel="md-shuffle" style={styles.tabView}>
-          <View style={styles.comingView}>
+          <View style={styles.comingSoonView}>
             <Image source={require('../resources/tournament.png')} />
-            <Text style={styles.comingText}>Coming Soon!</Text>
+            <Text style={styles.comingSoonText}>Coming Soon!</Text>
           </View>
         </ScrollView>
         <Activity tabLabel="ios-people" style={styles.tabView} me={this.props.me} />
@@ -123,13 +123,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 3,
   },
-  comingView: {
+  comingSoonView: {
     width,
     height: height - 80,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  comingText: {
+  comingSoonText: {
     marginTop: 12,
     fontFamily: 'SFUIText-Regular',
     fontSize: 14,
