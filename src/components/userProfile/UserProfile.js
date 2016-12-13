@@ -13,6 +13,7 @@ import {
   View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { dimensions } from '../Shared/Dimensions';
 import LinearGradient from 'react-native-linear-gradient';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import ScrollableTabBar from '../Activity/ScrollableTabBar';
@@ -292,12 +293,12 @@ class UserProfile extends Component {
             tabBarActiveTextColor={'#2e3031'}
             tabBarUnderlineStyle={styles.tabBarUnderline}
             renderTabBar={() => <ScrollableTabBar
-            leftOffset={38}
-            rightOffset={31}
-            />}
+              leftOffset={dimensions.widthWeight * 38}
+              rightOffset={dimensions.widthWeight * 31}
+                                />}
           >
             <UserOverview tabLabel='OVERVIEW' id={this.state.id}
-                          toggleAbout={this.toggleAbout.bind(this)}/>
+              toggleAbout={this.toggleAbout.bind(this)}/>
             <UserCareer tabLabel='CAREER' id={this.state.id}/>
           </ScrollableTabView>
         </ScrollView>
@@ -323,25 +324,25 @@ const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   name: {
-    fontSize: 22,
+    fontSize: dimensions.fontWeight * 22,
     fontWeight: 'bold',
     color: '#ffffff',
   },
   positionText: {
-    fontSize: 14,
-    marginTop: 10,
+    fontSize: dimensions.fontWeight * 14,
+    marginTop: dimensions.heightWeight * 10,
     color: '#ffffff',
   },
   currentLocationText: {
-    fontSize: 14,
-    marginTop: 5,
+    fontSize: dimensions.fontWeight * 14,
+    marginTop: dimensions.heightWeight * 5,
     color: '#ffffff',
   },
   bookmarkIcon: {
     position: 'absolute',
     zIndex: 1,
-    right: 25,
-    top: 32,
+    right: dimensions.widthWeight * 25,
+    top: dimensions.heightWeight * 32,
   },
   profileImage: {
     alignItems: 'stretch',
@@ -360,8 +361,8 @@ const styles = StyleSheet.create({
   },
   profileUserInfo: {
     position: 'absolute',
-    top: 155,
-    marginLeft: 45,
+    top: dimensions.heightWeight * 155,
+    marginLeft: dimensions.widthWeight * 45,
     zIndex: 100,
     backgroundColor: 'transparent',
   },
@@ -371,7 +372,7 @@ const styles = StyleSheet.create({
   },
   connectBtnStyle: {
     alignItems: 'stretch',
-    height: 45,
+    height: dimensions.heightWeight * 45,
     left: 0,
     right: 0,
   },
@@ -380,24 +381,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: dimensions.fontWeight * 16,
     fontWeight: 'bold',
     color: '#ffffff',
     alignSelf: 'center',
-    paddingTop: 10,
+    paddingTop: dimensions.heightWeight * 10,
   },
   activityIndicator: {
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
+    paddingVertical: dimensions.heightWeight * 20,
+    paddingHorizontal: dimensions.widthWeight * 20,
   },
   card: {
     borderWidth: 1,
     backgroundColor: '#fff',
     borderColor: 'rgba(0,0,0,0.1)',
-    margin: 5,
-    height: 150,
-    padding: 15,
+    marginTop: dimensions.heightWeight * 5,
+    marginBottom: dimensions.heightWeight * 5,
+    marginLeft: dimensions.widthWeight * 5,
+    marginRight: dimensions.widthWeight * 5,
+    height: dimensions.heightWeight * 150,
+    paddingVertical: dimensions.heightWeight * 15,
+    paddingHorizontal: dimensions.widthWeight * 15,
     shadowColor: '#ccc',
     shadowOffset: { width: 2, height: 2, },
     shadowOpacity: 0.5,
@@ -405,7 +411,7 @@ const styles = StyleSheet.create({
   },
   tabBarText: {
     fontFamily: 'SFUIText-Bold',
-    fontSize: 12,
+    fontSize: dimensions.fontWeight * 12,
   },
   tabBarUnderline: {
     backgroundColor: '#44acff',
@@ -424,23 +430,23 @@ const styles = StyleSheet.create({
   aboutDetailContainer: {
     backgroundColor: 'transparent',
     flex: 1,
-    marginTop: 150,
-    marginLeft: 50,
-    marginRight: 50,
+    marginTop: dimensions.heightWeight * 150,
+    marginLeft: dimensions.widthWeight * 50,
+    marginRight: dimensions.widthWeight * 50,
   },
   aboutDetailTitle: {
-    fontSize: 22,
+    fontSize: dimensions.fontWeight * 22,
     fontWeight: '700',
     color: 'white',
   },
   aboutDetailContent: {
     color: 'white',
-    paddingTop: 10,
-    fontSize: 14,
+    paddingTop: dimensions.heightWeight * 10,
+    fontSize: dimensions.fontWeight * 14,
   },
   cancelButton: {
     alignSelf: 'center',
-    marginBottom: 70,
+    marginBottom: dimensions.heightWeight * 70,
   },
 });
 

@@ -19,6 +19,7 @@ import Menu, {
   MenuOption,
   MenuTrigger
 } from 'react-native-menu';
+import { dimensions } from '../Shared/Dimensions';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import LinearGradient from 'react-native-linear-gradient';
 import MatchUtil from '../../utils/MatchUtil';
@@ -164,30 +165,31 @@ const styles = StyleSheet.create({
   content: {
     ...Platform.select({
       ios: {
-        marginTop: 64,
+        marginTop: dimensions.heightWeight * 64,
       },
       android: {
-        marginTop: 54,
+        marginTop: dimensions.heightWeight * 54,
       },
     }),
   },
   activityIndicator: {
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
+    paddingVertical: dimensions.heightWeight * 20,
+    paddingHorizontal: dimensions.widthWeight * 20,
   },
   title: {
     alignSelf: 'center',
-    fontSize: 18,
+    fontSize: dimensions.fontWeight * 18,
     color: '#2e3031',
     marginTop: HEIGHT / 15,
-    marginBottom: 50,
+    marginBottom: dimensions.heightWeight * 50,
   },
   subTitle: {
-    fontSize: 12,
+    fontSize: dimensions.fontWeight * 12,
     fontWeight: 'bold',
-    marginLeft: 36,
-    marginBottom: 10,
+    marginLeft: dimensions.widthWeight * 36,
+    marginBottom: dimensions.heightWeight * 10,
     color: '#a6aeae',
     backgroundColor: 'transparent',
   },
@@ -196,7 +198,7 @@ const styles = StyleSheet.create({
     zIndex: 100,
   },
   messageLength: {
-    fontSize: 10,
+    fontSize: dimensions.fontWeight * 10,
     marginLeft: WIDTH * 0.58,
     color: '#a6aeae',
     backgroundColor: 'transparent',
@@ -208,8 +210,9 @@ const styles = StyleSheet.create({
     borderColor: '#efeff2',
     borderRadius: 2,
     borderWidth: 1,
-    padding: 15,
-    marginBottom: 30,
+    paddingVertical: dimensions.heightWeight * 15,
+    paddingHorizontal: dimensions.widthWeight * 15,
+    marginBottom: dimensions.heightWeight * 30,
   },
   sendButton: {
     justifyContent: 'center',
@@ -223,21 +226,21 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: dimensions.fontWeight * 16,
     fontWeight: 'bold',
     color: '#ffffff',
     alignSelf: 'center',
   },
   dropdownContent: {
     zIndex: 101,
-    marginBottom: 30,
+    marginBottom: dimensions.heightWeight * 30,
     justifyContent: 'center',
     alignSelf: 'center',
     borderColor: '#efeff2',
   },
   dropdown: {
     width: WIDTH - (WIDTH / 6),
-    height: 40,
+    height: dimensions.heightWeight * 40,
     justifyContent: 'center',
     alignSelf: 'center',
     borderColor: '#efeff2',
@@ -248,8 +251,8 @@ const styles = StyleSheet.create({
     borderColor: '#efeff2',
     borderWidth: 2,
     width: WIDTH - (WIDTH / 6),
-    left: 30,
-    height: 200,
+    left: dimensions.widthWeight * 30,
+    height: dimensions.heightWeight * 200,
   },
 });
 
