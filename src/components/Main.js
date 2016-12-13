@@ -12,17 +12,13 @@ import Activity from './Activity/Activity';
 import ChannelList from './Chat/ChannelList';
 import MyPage from './MyPage';
 import SendBird from 'sendbird';
-import ScrollableTabView  from 'react-native-scrollable-tab-view';
+import ScrollableTabView from 'react-native-scrollable-tab-view';
 import TabBar from './Shared/TabBar';
 import Text from './Shared/UniText';
 import UserList from './UserList/UserList';
 import UserUtil from '../utils/UserUtil';
 
 class Main extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     this.initSendBird();
   }
@@ -54,9 +50,9 @@ class Main extends Component {
       SendBird().updateCurrentUserInfo(
         this.props.me.name,
         this.props.me.profile_picture,
-        function (response, error) {
-          if (error) {
-            alert(JSON.stringify(error));
+        function (response, errorForUpdate) {
+          if (errorForUpdate) {
+            alert(JSON.stringify(errorForUpdate));
           }
         }.bind(this));
     }.bind(this));
@@ -72,43 +68,43 @@ class Main extends Component {
     };
 
     return (
-        <ScrollableTabView
-          initialPage={0}
-          onChangeTab={(obj) => {
-            if (obj.i === pageTitle.HOME) {
-              Actions.refresh({ title: 'Bridge Me', titleStyle: styles.mainTitle, });
-            } else if (obj.i === pageTitle.TOURNAMENT) {
-              Actions.refresh({ title: 'Tournament', titleStyle: styles.title, });
-            } else if (obj.i === pageTitle.MYCONNECTION) {
-              Actions.refresh({ title: 'My Connection', titleStyle: styles.title, });
-            } else if (obj.i === pageTitle.CHAT) {
-              Actions.refresh({ title: 'Chat', titleStyle: styles.title, });
-            } else if (obj.i === pageTitle.MYPROFILE) {
-              Actions.refresh({ title: 'My Profile', titleStyle: styles.title, });
-            }
-          }}
+      <ScrollableTabView
+        initialPage={0}
+        onChangeTab={(obj) => {
+          if (obj.i === pageTitle.HOME) {
+            Actions.refresh({ title: 'Bridge Me', titleStyle: styles.mainTitle });
+          } else if (obj.i === pageTitle.TOURNAMENT) {
+            Actions.refresh({ title: 'Tournament', titleStyle: styles.title });
+          } else if (obj.i === pageTitle.MYCONNECTION) {
+            Actions.refresh({ title: 'My Connection', titleStyle: styles.title });
+          } else if (obj.i === pageTitle.CHAT) {
+            Actions.refresh({ title: 'Chat', titleStyle: styles.title });
+          } else if (obj.i === pageTitle.MYPROFILE) {
+            Actions.refresh({ title: 'My Profile', titleStyle: styles.title });
+          }
+        }}
 
-          tabBarPosition='bottom'
-          locked={true}
-          scrollWithoutAnimation={true}
-          renderTabBar={() => <TabBar />}
-        >
-          <UserList tabLabel="ios-home" style={styles.tabView}  me={this.props.me} />
-          <ScrollView tabLabel="md-shuffle" style={styles.tabView}>
-            <View style={styles.comingView}>
-              <Image source={require('../resources/tournament.png')} />
-              <Text style={styles.comingText}>Coming Soon!</Text>
-            </View>
-          </ScrollView>
-          <Activity tabLabel="ios-people" style={styles.tabView}  me={this.props.me} />
-          <ChannelList tabLabel="ios-chatbubbles" style={styles.tabView} me={this.props.me} />
-          <MyPage tabLabel="md-contact" me={this.props.me} />
+        tabBarPosition="bottom"
+        locked
+        scrollWithoutAnimation
+        renderTabBar={() => <TabBar />}
+      >
+        <UserList tabLabel="ios-home" style={styles.tabView} me={this.props.me} />
+        <ScrollView tabLabel="md-shuffle" style={styles.tabView}>
+          <View style={styles.comingView}>
+            <Image source={require('../resources/tournament.png')} />
+            <Text style={styles.comingText}>Coming Soon!</Text>
+          </View>
+        </ScrollView>
+        <Activity tabLabel="ios-people" style={styles.tabView} me={this.props.me} />
+        <ChannelList tabLabel="ios-chatbubbles" style={styles.tabView} me={this.props.me} />
+        <MyPage tabLabel="md-contact" me={this.props.me} />
       </ScrollableTabView>
     );
   }
 }
 
-const {height, width} = Dimensions.get('window');
+const { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   tabView: {
     flex: 1,
@@ -123,12 +119,12 @@ const styles = StyleSheet.create({
     height: 150,
     padding: 15,
     shadowColor: '#ccc',
-    shadowOffset: { width: 2, height: 2, },
+    shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.5,
     shadowRadius: 3,
   },
   comingView: {
-    width: width,
+    width,
     height: height - 80,
     alignItems: 'center',
     justifyContent: 'center',
