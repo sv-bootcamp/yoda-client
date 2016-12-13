@@ -28,6 +28,13 @@ class Activity extends Component {
   componentDidMount() {
     this.setState({
       isRefreshing: false,
+      currentActivityPage: this.props.currentActivityPage,
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      currentActivityPage: nextProps.currentActivityPage,
     });
   }
 
@@ -94,5 +101,9 @@ const styles = StyleSheet.create({
     marginLeft: WIDTH / 8,
   },
 });
+
+Activity.defaultProps = {
+  initialTab: -1,
+};
 
 module.exports = Activity;
