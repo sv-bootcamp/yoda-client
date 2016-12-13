@@ -7,6 +7,7 @@ import {
   Platform,
   Dimensions,
 } from 'react-native';
+import { dimensions } from '../components/Shared/Dimensions';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Text from '../components/Shared/UniText';
 
@@ -79,8 +80,8 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
   },
   label: {
-    marginLeft: 10,
-    fontSize: 14,
+    marginLeft: dimensions.widthWeight * 10,
+    fontSize: dimensions.fontWeight * 14,
     color: '#2e3031',
   },
 });

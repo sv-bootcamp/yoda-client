@@ -52,6 +52,7 @@
 		D260393C1DF7D9D0004DC6C9 /* SF-UI-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D26039371DF7D8E0004DC6C9 /* SF-UI-Text-Light.otf */; };
 		D260393D1DF7D9D0004DC6C9 /* SF-UI-Text-Ultrathin.otf in Resources */ = {isa = PBXBuildFile; fileRef = D26039381DF7D8E0004DC6C9 /* SF-UI-Text-Ultrathin.otf */; };
 		D260393E1DF7D9D5004DC6C9 /* opensans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA20BCD31DA4B63F00BFA62C /* opensans.ttf */; };
+		D299258F1DFFC0E70037DA13 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D299258E1DFFBFC10037DA13 /* Ionicons.ttf */; };
 		DAB407959AAC40BC9D08F885 /* (null) in Resources */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
@@ -321,6 +322,7 @@
 		D25C9D681DF17574007B800A /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		D26039371DF7D8E0004DC6C9 /* SF-UI-Text-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-Light.otf"; sourceTree = "<group>"; };
 		D26039381DF7D8E0004DC6C9 /* SF-UI-Text-Ultrathin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-Ultrathin.otf"; sourceTree = "<group>"; };
+		D299258E1DFFBFC10037DA13 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
 		D2A53F281DF503C2000E6467 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		D2BCC21E1DD5E8BF00B27069 /* SF-UI-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-Bold.otf"; sourceTree = "<group>"; };
 		D2BCC21F1DD5E8BF00B27069 /* SF-UI-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-Regular.otf"; sourceTree = "<group>"; };
@@ -624,6 +626,7 @@
 			isa = PBXGroup;
 			children = (
 				0AA5BF610B48C52DDC0EDEB7 /* Pods */,
+				D299258E1DFFBFC10037DA13 /* Ionicons.ttf */,
 				D22304871DDEE06A0098E0A8 /* ProductSans-Bold.ttf */,
 				AA20BCD31DA4B63F00BFA62C /* opensans.ttf */,
 				D2BCC21E1DD5E8BF00B27069 /* SF-UI-Text-Bold.otf */,
@@ -1073,6 +1076,7 @@
 				AECFEB9DCBE146209AFA448D /* MaterialIcons.ttf in Resources */,
 				82118A4896384BFDB51C9626 /* Octicons.ttf in Resources */,
 				0C054E404DC64AB6A42716A0 /* Zocial.ttf in Resources */,
+				D299258F1DFFC0E70037DA13 /* Ionicons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

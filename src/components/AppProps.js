@@ -48,6 +48,10 @@ const styles = StyleSheet.create({
     fontSize: dimensions.fontWeight * 17,
     color: '#2e3031',
   },
+  title: {
+    fontSize: dimensions.fontWeight * 17,
+    color: '#2e3031',
+  },
   rightTxt: {
     fontSize: dimensions.fontWeight * 16,
     color: '#557bfc',
@@ -69,6 +73,7 @@ const cancelButton = require('../resources/icon-cancel.png');
 const AppProps = {
   rootProp: {
     key: 'root',
+    titleStyle: styles.title,
     rightButtonTextStyle: styles.rightTxt,
     rigntButtonIconStyle: styles.rightBtn,
     navigationBarStyle: styles.bar,
