@@ -110,8 +110,6 @@ class Connected extends Component {
           dataSource={this.state.dataSource}
           renderRow={this.renderRow.bind(this)}
           enableEmptySections={true}
-          renderSeparator={(sectionId, rowId) =>
-            <View key={rowId} style={styles.separator}/>}
         />
       );
     }
