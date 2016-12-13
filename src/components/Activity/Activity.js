@@ -40,9 +40,10 @@ class Activity extends Component {
   render() {
     return (
       <ScrollableTabView
+        style={styles.container}
         initialPage={0}
         page={this.state.currentActivityPage}
-        style={styles.container}
+        locked={true}
         tabBarTextStyle={styles.tabBarText}
         tabBarInactiveTextColor={'#a6aeae'}
         tabBarActiveTextColor={'#2e3031'}

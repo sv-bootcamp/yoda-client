@@ -131,8 +131,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    borderBottomWidth: 0.5,
-    borderColor: '#e3e3e3',
+    borderBottomWidth: 1,
+    borderColor: '#f0f0f2',
   },
 
   leftSection: {
@@ -147,7 +147,8 @@ const styles = StyleSheet.create({
   },
   lastMessage: {
     fontSize: 12,
-    marginTop: 6,
+    marginTop: 8,
+    marginBottom: 18,
     fontWeight: 'normal',
     color: '#a6aeae',
   },
