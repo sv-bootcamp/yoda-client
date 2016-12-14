@@ -222,7 +222,6 @@ class Main extends Component {
   }
 }
 
-const { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   tabView: {
     flex: 1,
