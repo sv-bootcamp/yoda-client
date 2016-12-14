@@ -51,7 +51,6 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    Actions.refresh({ onRight: () => Actions.filter({ me: this.props.me }) });
     AppState.addEventListener('change', this.onAppStateChange.bind(this));
     this.initSendBird((user, error)=> {
 
@@ -70,6 +69,7 @@ class Main extends Component {
       Fcm.getInitialNotification().then((notif) => {
         if (notif) this.actionFromNotification(notif);
       });
+      Actions.refresh({ onRight: () => Actions.filter({ me: this.props.me }) });
     });
 
   }
@@ -198,12 +198,16 @@ class Main extends Component {
               } else if (this.currentTab === mainPageTitle.MYPROFILE) {
                 Actions.refresh({ title: 'My Profile', titleStyle: styles.title });
               }
-            }}
+            }
+            }
             tabBarPosition='bottom'
             locked
             scrollWithoutAnimation
             renderTabBar={() => <TabBar />}>
-            <UserList tabLabel="ios-home" style={styles.tabView} me={this.props.me} filter={this.props.filter} />
+            <UserList tabLabel="ios-home"
+              style={styles.tabView}
+              me={this.props.me}
+              filter={this.props.filter} />
             <View tabLabel="md-shuffle" style={styles.comingSoonView}>
               <Image source={require('../resources/tournament.png')} />
               <Text style={styles.comingSoonText}>Coming Soon!</Text>

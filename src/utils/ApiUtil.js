@@ -95,6 +95,7 @@ class ApiUtil extends Component {
     if (response.status === 200 || response.status === 201 || response.status === 401) {
       return response.json()
         .then((res) => {
+          console.log(res);
           if (!res) return res;
           res.status = response.status;
           if (res.status === 401)

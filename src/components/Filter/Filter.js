@@ -59,15 +59,9 @@ class Filter extends Component {
     this.state.option[2] = CareerData.years.slice();
     this.state.option[3] = CareerData.education_background.slice();
 
-    let allList = [];
-    for (i = 0; i < this.state.careerData.length; i++) {
-      for (j = 0; j < this.state.careerData[i].list.length; j++)
-        allList.push(this.state.careerData[i].list[j]);
-    }
-
     let all = {
       area: 'All',
-      list: allList,
+      list: [],
     };
 
     this.state.careerData.unshift(all);
@@ -76,16 +70,16 @@ class Filter extends Component {
     for (i = 0; i < this.state.option.length; i++) {
       this.state.option[i].unshift('All');
       this.state.selected.push(this.state.option[i][0]);
-
       this.state.pressed.push(false);
       this.state.checked.push(true);
     }
 
     for (i = 0; i < this.state.options.length; i++) {
       this.state.overviewChecked.push(false);
-      this.state.optionsNum.push(i);
+      this.state.optionsNum.push(0);
     }
 
+    this.getFilterCount();
   }
 
   componentDidMount() {
@@ -167,11 +161,15 @@ class Filter extends Component {
 
   }
 
-  onUploadCallback(result, error) {
+  onFilterCallback(result, error) {
     if (error) {
       alert(error);
     } else if (result) {
-      console.log(result);
+      for (let i = 0; i < result.length; i++) {
+        this.state.optionsNum[i] = result[i];
+      }
+
+      this.forceUpdate();
     }
   }
 
@@ -183,8 +181,8 @@ class Filter extends Component {
 
   onSelect(province, idx) {
     if (idx === 0 && province !== this.state.selected[idx]) {
-      this.state.checked[1] = false;
-      this.state.selected[1] = '';
+      this.state.checked[1] = true;
+      this.state.selected[1] = 'All';
     }
 
     this.state.selectOP = idx;
@@ -201,15 +199,32 @@ class Filter extends Component {
         } else if (this.state.selected[0] === 'All') {
           this.state.option[1] = this.state.careerData[0].list.slice();
           this.state.option[1].unshift('All');
-          this.state.clearFlag = true;
+          break;
         }
-
       }
     }
 
     for (let i = 0; i < this.state.pressed.length; i++)
       this.state.pressed[i] = false;
-    this.forceUpdate();
+
+    if (this.state.checked[1] === false) {
+      return;
+    }
+
+    this.getFilterCount();
+  }
+
+  getFilterCount() {
+    let body = {};
+    body.career = {
+      area: this.state.selected[0],
+      role: this.state.selected[1],
+      years: this.state.selected[2],
+      education_background: this.state.selected[3],
+    };
+
+    console.log(body);
+    UserUtil.getFilterCnt(this.onFilterCallback.bind(this), body);
   }
 
   onPress() {
@@ -226,13 +241,7 @@ class Filter extends Component {
   getQuestionSet() {
     return this.state.questions.map(
         (question, idx) => {
-          let clear = false;
           let zIdx = (this.state.selectOP === idx)  ? 200 : 100;
-          let activate = (this.state.selected[0] === '' && idx === 1) ? false : true;
-          if (this.state.clearFlag && idx === 1) {
-            this.state.clearFlag = false;
-            clear = true;
-          }
 
           if (Platform.OS === 'android') {
             return (
@@ -245,8 +254,8 @@ class Filter extends Component {
                     selected={this.state.option[idx].indexOf(this.state.selected[idx])}
                     onChange={(CareerData) => {
                       this.onSelect(CareerData.value, idx);
-                    }}/>
-
+                    }
+                    }/>
                 </View>
               </View>
               );
@@ -258,8 +267,7 @@ class Filter extends Component {
                   <Select
                     value={this.state.selected[idx]}
                     ref={'SELECT' + idx}
-                    clear={clear}
-                    activate={activate}
+                    activate={true}
                     pressed={this.state.pressed[idx]}
                     onPress={this.onPress.bind(this)}
                     index={idx}

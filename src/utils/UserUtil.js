@@ -77,11 +77,6 @@ class UserUtil {
     apiUtil.requestGetWithToken(callback, 'API_TOKEN');
   }
 
-  // Get user lists except me
-  getMentorList(callback) {
-    apiUtil.requestGetWithToken(callback, 'API_MENTOR');
-  }
-
   // Get my profile
   getMyProfile(callback) {
     apiUtil.requestGetWithToken(callback, 'API_ME');
@@ -160,8 +155,20 @@ class UserUtil {
     apiUtil.requestPostWithToken(callback, 'API_SET_REQUEST_SETTING', body);
   }
 
-  setFilter(callback, body) {
-    apiUtil.requestPostWithToken(callback, 'API_MENTOR_FILTER', body);
+  // Get user lists except me
+  getMentorList(callback, body = null) {
+    if (!body) {
+      body = {};
+      body.initial = true;
+    } else {
+      body.initial = false;
+    }
+
+    apiUtil.requestPostWithToken(callback, 'API_MENTOR', body);
+  }
+
+  getFilterCnt(callback, body) {
+    apiUtil.requestPostWithToken(callback, 'API_MENTOR_FILTER_COUNT', body);
   }
 };
 

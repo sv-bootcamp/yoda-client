@@ -25,6 +25,8 @@ class UserList extends Component {
       loaded: false,
       isRefreshing: false,
     };
+
+    UserUtil.getMentorList(this.onServerCallback.bind(this));
   }
 
   // Refresh data
@@ -59,11 +61,7 @@ class UserList extends Component {
   }
 
   componentWillReceiveProps(props) {
-    if (!props.filter) {
-      UserUtil.getMentorList(this.onServerCallback.bind(this));
-    } else {
-      UserUtil.setFilter(this.onServerCallback.bind(this), props.filter);
-    }
+    UserUtil.getMentorList(this.onServerCallback.bind(this), props.filter);
   }
 
   renderRow(rowData, sectionID, rowID) {
