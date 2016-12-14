@@ -90,12 +90,19 @@ class Personality extends Component {
     this.setState({ values: values });
 
     if (this.props.fromEdit)
-      Actions.refresh({ rightTitle: 'Save', onRight: this.sendRequest.bind(this) });
+      Actions.refresh({
+        rightButtonStyle: styles.rightButtonStyle,
+        rightButtonTextStyle: styles.rightTextStyle,
+        rightTitle: 'Save',
+        onRight: this.sendRequest.bind(this),
+      });
   }
 
   componentWillReceiveProps(props) {
     if (props.fromEdit && this.state.needRefresh) {
       Actions.refresh({
+        rightButtonStyle: styles.rightButtonStyle,
+        rightButtonTextStyle: styles.rightTextStyle,
         rightTitle: 'Save',
         onRight: this.sendRequest.bind(this),
         onBack: () => {
@@ -294,6 +301,15 @@ const styles = StyleSheet.create({
     fontSize: dimensions.fontWeight * 18,
     textAlign: 'center',
     marginBottom: dimensions.heightWeight * 10,
+  },
+  rightTextStyle: {
+    width: dimensions.widthWeight * 40,
+    fontSize: dimensions.fontWeight * 16,
+    marginRight: dimensions.widthWeight * 15,
+  },
+  rightButtonStyle: {
+    position: 'absolute',
+    width: dimensions.widthWeight * 55,
   },
 });
 

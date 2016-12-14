@@ -92,9 +92,9 @@ const styles = StyleSheet.create({
     marginRight: dimensions.widthWeight * 40,
   },
   profileImage: {
-    height: dimensions.heightWeight * 110,
-    width: dimensions.widthWeight * 110,
-    borderRadius: 55,
+    height: dimensions.fontWeight * 110,
+    width: dimensions.fontWeight * 110,
+    borderRadius: dimensions.fontWeight * 55,
   },
   overay: {
     height: dimensions.heightWeight * 110,

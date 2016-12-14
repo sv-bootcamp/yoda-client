@@ -62,13 +62,20 @@ class GeneralInfo extends Component {
     }
 
     if (this.props.fromEdit) {
-      Actions.refresh({ rightTitle: 'Save', onRight: this.regist.bind(this) });
+      Actions.refresh({
+        rightButtonStyle: styles.rightButtonStyle,
+        rightButtonTextStyle: styles.rightTextStyle,
+        rightTitle: 'Save',
+        onRight: this.regist.bind(this),
+      });
     }
   }
 
   componentWillReceiveProps(props) {
     if (props.fromEdit && this.state.needRefresh) {
       Actions.refresh({
+        rightButtonStyle: styles.rightButtonStyle,
+        rightButtonTextStyle: styles.rightTextStyle,
         rightTitle: 'Save',
         onRight: this.regist.bind(this),
         onBack: () => {
@@ -453,6 +460,15 @@ const styles = StyleSheet.create({
   },
   horiR: {
     justifyContent: 'flex-end',
+  },
+  rightTextStyle: {
+    width: dimensions.widthWeight * 40,
+    fontSize: dimensions.fontWeight * 16,
+    marginRight: dimensions.widthWeight * 15,
+  },
+  rightButtonStyle: {
+    position: 'absolute',
+    width: dimensions.widthWeight * 55,
   },
 });
 

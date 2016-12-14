@@ -6,6 +6,7 @@ import {
   View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { dimensions } from '../Shared/Dimensions';
 import MatchUtil from '../../utils/MatchUtil';
 import Swipeout from './Swipeout';
 import Text from '../Shared/UniText';
@@ -87,10 +88,12 @@ class NewRequestsRow extends Component {
           <View style={styles.row}>
             <View style={styles.userInformation}>
               <Image style={styles.photo}
-                     source={{ uri: this.props.dataSource.profile_picture }}/>
+                source={{ uri: this.props.dataSource.profile_picture }}/>
               <View style={styles.horizontalSpaceBetween}>
                 <View style={styles.userNameWithTime}>
-                  <Text ellipsizeMode={'tail'} numberOfLines = {1} style={styles.name}>{this.props.dataSource.name}</Text>
+                  <Text ellipsizeMode={'tail'} numberOfLines = {1} style={styles.name}>
+                    {this.props.dataSource.name}
+                  </Text>
                   <Text style={styles.fromNow}>
                     {moment(this.props.dataSource.request_date).fromNow()}
                   </Text>
