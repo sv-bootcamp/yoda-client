@@ -204,9 +204,9 @@ const styles = StyleSheet.create({
     marginLeft: dimensions.widthWeight * 15,
   },
   profileImage: {
-    width: dimensions.widthWeight * 100,
-    height: dimensions.heightWeight * 100,
-    borderRadius: 50,
+    width: dimensions.fontWeight * 100,
+    height: dimensions.fontWeight * 100,
+    borderRadius: dimensions.fontWeight * 50,
     borderWidth: dimensions.widthWeight * 3,
     borderColor: '#efeff2',
   },

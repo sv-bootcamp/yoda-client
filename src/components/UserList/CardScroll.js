@@ -36,8 +36,8 @@ export default class CardScroll extends Component {
     showPreview: true,
     previewImageSize: 80,
     renderScrollComponent: (props) => <ScrollView {...props}/>,
-    width: dimensions.widthWeight * Dimensions.get('window').width,
-    height: dimensions.heightWeight * Dimensions.get('window').height,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
     getImageSourceFromDataSource: (row) => row,
     inactiveCardScale: 0.9,
     inactiveCardOpacity: 1,
@@ -148,11 +148,11 @@ export default class CardScroll extends Component {
   }
 }
 
-const HEIGHT = dimensions.heightWeight * Dimensions.get('window').height;
+const HEIGHT = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: dimensions.widthWeight * 310,
-    paddingVertical: HEIGHT / dimensions.heightWeight * 10,
+    paddingHorizontal: dimensions.widthWeight * 10,
+    paddingVertical: HEIGHT / 10,
     flex: 1,
   },
   listView: {
@@ -166,12 +166,5 @@ const styles = StyleSheet.create({
         marginTop: dimensions.heightWeight * 84,
       },
     }),
-  },
-  previewListView: {
-    marginTop: 2,
-    paddingTop: 2,
-    borderTopWidth: 1,
-    borderColor: '#CCCCCC',
-    backgroundColor: '#FFFFFF',
   },
 });

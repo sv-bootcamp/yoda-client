@@ -88,7 +88,7 @@ export default class Row extends Component {
       <TouchableHighlight underlayColor='lightgray' onPress={this.goToChat}>
         <View style={styles.row}>
           <Image style={styles.photo}
-                 source={{ uri: this.state.opponent.profileUrl }}/>
+            source={{ uri: this.state.opponent.profileUrl }}/>
           <View style={styles.userInformation}>
             <View style={styles.leftSection}>
               <Text style={styles.name}>
@@ -123,13 +123,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   photo: {
-    height: dimensions.heightWeight * 40,
-    width: dimensions.widthWeight * 40,
+    height: dimensions.fontWeight * 40,
+    width: dimensions.fontWeight * 40,
     marginTop: dimensions.heightWeight * 15,
     marginBottom: dimensions.heightWeight * 15,
     marginLeft: dimensions.widthWeight * 15,
     marginRight: dimensions.widthWeight * 15,
-    borderRadius: 20,
+    borderRadius: dimensions.fontWeight * 20,
   },
   userInformation: {
     flex: 1,
@@ -164,10 +164,10 @@ const styles = StyleSheet.create({
   rightTopSection: {
     marginTop: dimensions.heightWeight * 10,
     flexDirection: 'row',
+    alignItems: 'center',
   },
   lastTimestamp: {
     fontSize: dimensions.fontWeight * 10,
-    paddingRight: dimensions.widthtWeight * 10,
     lineHeight: dimensions.heightWeight * 10,
     fontWeight: 'normal',
     color: '#a6aeae',
@@ -186,5 +186,11 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     letterSpacing: -0.3,
     backgroundColor: 'transparent',
+  },
+  onboardingImage: {
+    width: dimensions.widthWeight * 8,
+    height: dimensions.heightWeight * 13,
+    marginLeft: dimensions.widthWeight * 10,
+    resizeMode: 'contain',
   },
 });

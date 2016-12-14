@@ -10,6 +10,7 @@ const {
   Dimensions,
 } = ReactNative;
 const Button = require('./Button');
+import { dimensions } from '../Shared/Dimensions';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 
@@ -95,11 +96,11 @@ const ScrollableTabBar = React.createClass({
     newScrollX = newScrollX >= 0 ? newScrollX : 0;
 
     if (Platform.OS === 'android') {
-      this._scrollView.scrollTo({x: newScrollX, y: 0, animated: false, });
+      this._scrollView.scrollTo({ x: newScrollX, y: 0, animated: false, });
     } else {
       const rightBoundScroll = this._tabContainerMeasurements.width - (this._containerMeasurements.width);
       newScrollX = newScrollX > rightBoundScroll ? rightBoundScroll : newScrollX;
-      this._scrollView.scrollTo({x: newScrollX, y: 0, animated: false, });
+      this._scrollView.scrollTo({ x: newScrollX, y: 0, animated: false, });
     }
 
   },
@@ -120,6 +121,7 @@ const ScrollableTabBar = React.createClass({
       this.state._widthTabUnderline.setValue(30);
     } else {
       this.state._leftTabUnderline.setValue(lineLeft + this.props.rightOffset);
+
       // this.state._leftTabUnderline.setValue(lineLeft + 42);
       this.state._widthTabUnderline.setValue(30);
     }

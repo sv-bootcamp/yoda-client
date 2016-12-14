@@ -46,6 +46,7 @@ class Main extends Component {
     this.state = {
       currentMainPage: mainPageTitle.DEFAULT,
       currentActivityPage: activityPageTitle.DEFAULT,
+      isFilter: true,
     };
 
     this.isConnected = false;
@@ -235,7 +236,7 @@ const styles = StyleSheet.create({
   },
   card: {
     borderWidth: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff',
     borderColor: 'rgba(0,0,0,0.1)',
     marginTop: dimensions.heightWeight * 5,
     marginBottom: dimensions.heightWeight * 5,
@@ -256,9 +257,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   comingSoonText: {
-    marginTop: 12,
+    marginTop: dimensions.heightWeight * 12,
     fontFamily: 'SFUIText-Regular',
-    fontSize: 14,
+    fontSize:  dimensions.fontWeight * 14,
     color: '#a6aeae',
   },
   mainTitle: {

@@ -9,5 +9,8 @@ export const dimensions = {
   height: Dimensions.get('window').height,
   widthWeight: Dimensions.get('window').width / refDimensions.width,
   heightWeight: Dimensions.get('window').height / refDimensions.height,
-  fontWeight: Dimensions.get('window').width / refDimensions.width,
+  fontWeight: (Dimensions.get('window').width / refDimensions.width
+            < Dimensions.get('window').height / refDimensions.height)
+            ? Dimensions.get('window').width / refDimensions.width
+            : Dimensions.get('window').height / refDimensions.height,
 };

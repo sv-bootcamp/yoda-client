@@ -40,29 +40,90 @@ const styles = StyleSheet.create({
         height: dimensions.heightWeight * 54,
       },
     }),
+    padding: 0,
     backgroundColor: '#fbfbfb',
     borderBottomColor: '#d6dada',
   },
+  titleWrapperStyle: {
+    backgroundColor: 'transparent',
+    marginTop: 0,
+    ...Platform.select({
+      ios: {
+        top: dimensions.heightWeight * 33,
+      },
+      android: {
+        top: dimensions.heightWeight *  23,
+      },
+    }),
+    left: 0,
+    right: 0,
+  },
+  rightButtonStyle: {
+    ...Platform.select({
+      ios: {
+        top: dimensions.heightWeight * 33,
+      },
+      android: {
+        top: dimensions.heightWeight *  23,
+      },
+    }),
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    width: dimensions.widthWeight * 20,
+    height: dimensions.heightWeight * 18,
+    padding: 0,
+  },
+  leftButtonStyle: {
+    ...Platform.select({
+      ios: {
+        top: dimensions.heightWeight * 33,
+      },
+      android: {
+        top: dimensions.heightWeight *  23,
+      },
+    }),
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    width: dimensions.widthWeight * 25,
+    height: dimensions.heightWeight * 20,
+    marginLeft: dimensions.widthWeight * 10,
+    alignItems: 'center',
+    padding: 0,
+  },
   mainTitle: {
+    backgroundColor: 'transparent',
     fontFamily: 'ProductSans-Bold',
     fontSize: dimensions.fontWeight * 17,
     color: '#2e3031',
   },
   title: {
+    backgroundColor: 'transparent',
     fontSize: dimensions.fontWeight * 17,
     color: '#2e3031',
   },
   rightTxt: {
+    backgroundColor: 'transparent',
+    width: dimensions.widthWeight * 0,
+    height: dimensions.heightWeight * 0,
     fontSize: dimensions.fontWeight * 16,
     color: '#557bfc',
   },
   rightBtn: {
+    backgroundColor: 'transparent',
+    marginRight: dimensions.widthWeight * 16,
     width: dimensions.widthWeight * 20,
     height: dimensions.heightWeight * 18,
   },
   leftBtn: {
+    backgroundColor: 'transparent',
     width: dimensions.widthWeight * 25,
     height: dimensions.heightWeight * 20,
+    resizeMode: 'contain',
+  },
+  leftBtnCancel: {
+    backgroundColor: 'transparent',
+    width: dimensions.widthWeight * 13,
+    height: dimensions.heightWeight * 13,
   },
 });
 
@@ -74,6 +135,9 @@ const AppProps = {
   rootProp: {
     key: 'root',
     titleStyle: styles.title,
+    titleWrapperStyle: styles.titleWrapperStyle,
+    rightButtonStyle: styles.rightButtonStyle,
+    leftButtonStyle: styles.leftButtonStyle,
     rightButtonTextStyle: styles.rightTxt,
     rigntButtonIconStyle: styles.rightBtn,
     navigationBarStyle: styles.bar,
@@ -168,14 +232,7 @@ const AppProps = {
       titleStyle: styles.mainTitle,
       type: ActionConst.RESET,
       rightTitle: 'right',
-      rightButtonTextStyle: { color: 'transparent' },
-      rightButtonIconStyle:
-      {
-        marginBottom: 64 * (1 - dimensions.heightWeight) + 13,
-        marginRight: dimensions.widthWeight * 6,
-        width: dimensions.widthWeight * 20,
-        height: dimensions.heightWeight * 18,
-      },
+      rightButtonIconStyle: styles.rightBtn,
       rightButtonImage: require('../resources/filter.png'),
       onRight: () => Alert.alert('Filtering service will come soon'),
     },
@@ -205,6 +262,7 @@ const AppProps = {
       title: 'Request Connection',
       direction: 'vertical',
       backButtonImage: cancelButton,
+      leftButtonIconStyle: styles.leftBtnCancel,
     },
     {
       key: 'requestSent',
