@@ -462,12 +462,23 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   rightTextStyle: {
+    backgroundColor: 'transparent',
     width: dimensions.widthWeight * 40,
     fontSize: dimensions.fontWeight * 16,
     marginRight: dimensions.widthWeight * 15,
   },
   rightButtonStyle: {
-    position: 'absolute',
+    backgroundColor: 'transparent',
+    marginTop: 0,
+    paddingTop: 0,
+    ...Platform.select({
+      ios: {
+        top: dimensions.heightWeight * 33,
+      },
+      android: {
+        top: dimensions.heightWeight *  23,
+      },
+    }),
     width: dimensions.widthWeight * 55,
   },
 });

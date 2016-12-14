@@ -171,7 +171,7 @@ class Row extends Component {
       connectButton = (
         <View style={[styles.connectBtnStyle, { backgroundColor: '#a6aeae' }]}>
           <View style={styles.buttonContainer}>
-            <View style={{ paddingTop: 10, marginRight: 5, }}>
+            <View style={{ marginRight: 5, alignItems: 'center', }}>
               <Icon name="clock-o" size={15} color="white" />
             </View>
             <Text style={styles.buttonText}>WAITING</Text>

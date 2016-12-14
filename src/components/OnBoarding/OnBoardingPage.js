@@ -107,7 +107,7 @@ class OnBoardingPage extends Component {
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const WINDOW_HEIGHT = Dimensions.get('window').height;
-const IMAGE_HEIGHT = WINDOW_WIDTH * 1.36;
+const IMAGE_HEIGHT =  WINDOW_WIDTH * 1.36;
 const SWIPER_HEIGHT = IMAGE_HEIGHT + dimensions.heightWeight * 40;
 
 const styles = StyleSheet.create({
