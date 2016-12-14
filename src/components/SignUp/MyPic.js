@@ -10,8 +10,9 @@ import {
 import { dimensions } from '../Shared/Dimensions';
 import ImagePicker from 'react-native-image-picker';
 
+const deviceWidth = Dimensions.get('window').width;
 const options = {
-  maxWidth: Dimensions.get('window').width,
+  maxWidth: deviceWidth,
 };
 
 // Profile image Component
@@ -29,33 +30,13 @@ class MyPic extends Component {
 
   componentWillReceiveProps(props) {
     this.setState({
+      uri: this.state.uri || props.uri,
       isDefault: false,
-      uri: props.uri,
     });
   }
 
-  render() {
-    let showPicker = () => this.showPicker();
-    let source = this.state.source;
-    if (!this.state.isDefault && this.state.uri !== undefined) {
-      source = { uri: this.state.uri };
-    }
-
-    return (
-      <View style={styles.profileImageView}>
-        <Image style={styles.profileImage} source={source} />
-        <View style={styles.overay}>
-          <TouchableWithoutFeedback onPress={showPicker}>
-            <Image style={styles.editImage}
-                   source={require('../../resources/icon-edit-pic.png')} />
-          </TouchableWithoutFeedback>
-        </View>
-      </View>
-    );
-  }
-
   showPicker() {
-    ImagePicker.showImagePicker(options, (response)  => {
+    ImagePicker.showImagePicker(options, (response) => {
       if (response.didCancel) {
         alert('User cancelled image picker');
       } else if (response.error) {
@@ -63,12 +44,12 @@ class MyPic extends Component {
       } else if (response.customButton) {
         alert('User tapped custom button: ', response.customButton);
       } else {
-        let uri = (Platform.OS === 'ios') ?
+        const uri = (Platform.OS === 'ios') ?
                     response.uri.replace('file://', '') :
                     response.uri;
 
-        let source = {
-          uri: uri,
+        const source = {
+          uri,
           isStatic: true,
         };
 
@@ -76,15 +57,38 @@ class MyPic extends Component {
 
         this.setState({
           isDefault: true,
-          source: source,
+          source,
+          uri,
         });
       }
     });
   }
 
+  render() {
+    const showPicker = () => this.showPicker();
+
+    if (!this.state.uri) {
+      return null;
+    }
+
+    const myPic = { uri: this.state.uri };
+
+    return (
+      <View style={styles.profileImageView}>
+        <Image style={styles.profileImage} source={myPic} />
+        <View style={styles.overlay}>
+          <TouchableWithoutFeedback onPress={showPicker}>
+            <Image
+              style={styles.editImage}
+              source={require('../../resources/icon-edit-pic.png')}
+            />
+          </TouchableWithoutFeedback>
+        </View>
+      </View>
+    );
+  }
 }
 
-const deviceWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   profileImageView: {
     alignItems: 'center',
@@ -96,10 +100,10 @@ const styles = StyleSheet.create({
     width: dimensions.fontWeight * 110,
     borderRadius: dimensions.fontWeight * 55,
   },
-  overay: {
-    height: dimensions.heightWeight * 110,
-    width: dimensions.widthWeight * 110,
-    borderRadius: 55,
+  overlay: {
+    height: dimensions.fontWeight * 110,
+    width: dimensions.fontWeight * 110,
+    borderRadius: dimensions.fontWeight * 55,
     position: 'absolute',
     top: 0,
     left: (deviceWidth / 2) - dimensions.widthWeight * 95,
