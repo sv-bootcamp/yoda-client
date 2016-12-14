@@ -90,7 +90,7 @@ class NewRequestsRow extends Component {
                      source={{ uri: this.props.dataSource.profile_picture }}/>
               <View style={styles.horizontalSpaceBetween}>
                 <View style={styles.userNameWithTime}>
-                  <Text style={styles.name}>{this.props.dataSource.name}</Text>
+                  <Text ellipsizeMode={'tail'} numberOfLines = {1} style={styles.name}>{this.props.dataSource.name}</Text>
                   <Text style={styles.fromNow}>
                     {moment(this.props.dataSource.request_date).fromNow()}
                   </Text>
@@ -124,33 +124,36 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40,
     margin: 15,
+    marginTop: 20,
     borderRadius: 20,
   },
   userInformation: {
+    flex: 1,
     flexDirection: 'row',
   },
   userNameWithTime: {
-    width: 200,
+    flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'stretch',
     marginTop: 20,
+    paddingRight: 20,
   },
   horizontalSpaceBetween: {
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   name: {
-    width: 150,
     fontSize: 14,
     fontWeight: 'bold',
     color: '#2e3031',
-    marginRight: 80,
   },
   fromNow: {
-    fontSize: 10,
+    fontSize: 12,
     color: '#a6aeae',
-    marginBottom: 17,
+    marginTop: 5,
+    marginBottom: 20,
   },
   expandText: {
     color: '#a6aeae',

@@ -12,6 +12,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 import LinearGradient from 'react-native-linear-gradient';
 import Text from '../Shared/UniText';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class Row extends Component {
   constructor(props) {
@@ -58,7 +59,7 @@ class Row extends Component {
 
       if (education.school) {
         location = education.school.name;
-        if (education.concentration.length > 0) {
+        if (education.concentration.length > 0 && education.concentration[0].name !== '') {
           currentTask = education.concentration[0].name;
         } else {
           return location;
@@ -72,13 +73,10 @@ class Row extends Component {
   }
 
   getProfileImage() {
-    let image;
     if (this.props.dataSource.profile_picture) {
-      image = { uri: this.props.dataSource.profile_picture };
-      return image;
+      return { uri: this.props.dataSource.profile_picture };
     } else {
-      image = require('../../resources/pattern.png');
-      return image;
+      return require('../../resources/pattern.png');
     }
   }
 
@@ -150,11 +148,11 @@ class Row extends Component {
   }
 
   sendRequest() {
-    Actions.requestPage({ id: this.props.dataSource._id });
+    Actions.requestPage({ id: this.props.dataSource._id, me: this.props.dataSource.me });
   }
 
   render() {
-    let profileId = { _id: this.props.dataSource._id };
+    let profileId = { _id: this.props.dataSource._id, me: this.props.dataSource.me };
     const goToUserProfile = () => Actions.userProfile(profileId);
     const connect = () => this.sendRequest();
     let viewStyle = [
@@ -164,6 +162,35 @@ class Row extends Component {
         elevation: 10,
       },
     ];
+
+    let connectButton = null;
+
+    if (this.state.pending) {
+      connectButton = (
+        <View style={[styles.connectBtnStyle, { backgroundColor: '#a6aeae' }]}>
+          <View style={styles.buttonContainer}>
+            <View style={{ paddingTop: 10, marginRight: 5, }}>
+              <Icon name="clock-o" size={15} color="white" />
+            </View>
+            <Text style={styles.buttonText}>WAITING</Text>
+          </View>
+        </View>
+      );
+    } else {
+      connectButton = (
+        <LinearGradient style={styles.connectBtnStyle}
+          start={[0.9, 0.5]}
+          end={[0.0, 0.5]}
+          locations={[0, 0.75]}
+          colors={['#07e4dd', '#44acff']}>
+          <TouchableOpacity onPress={connect}>
+            <View style={styles.buttonContainer}>
+              <Text style={styles.buttonText}>CONNECT</Text>
+            </View>
+          </TouchableOpacity>
+        </LinearGradient>
+      );
+    }
 
     return (
         <TouchableWithoutFeedback onPress={goToUserProfile}>
@@ -179,19 +206,7 @@ class Row extends Component {
               {this.renderMyExpertise()}
             </View>
             <View style={styles.connectBtnContainer}>
-              <TouchableOpacity
-                onPress={this.state.pending ? null : connect}
-                disabled ={this.state.pending}>
-                <LinearGradient style={styles.connectBtnStyle} start={[0.9, 0.5]} end={[0.0, 0.5]}
-                  locations={[0, 0.75]}
-                  colors={['#07e4dd', '#44acff']}>
-                  <View style={styles.buttonContainer}>
-                    <Text style={styles.buttonText}>
-                      {this.state.pending ? 'WAITING' : 'CONNECT'}
-                    </Text>
-                  </View>
-                </LinearGradient>
-              </TouchableOpacity>
+              {connectButton}
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -316,6 +331,8 @@ const styles = StyleSheet.create({
     borderRadius: CARD_HEIGHT / 4.12,
   },
   buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
     backgroundColor: 'transparent',
     alignItems: 'center',
   },

@@ -68,7 +68,7 @@ class RequestPage extends Component {
     if (error) {
       alert(error);
     } else if (result) {
-      Actions.requestSent();
+      Actions.requestSent({ me: this.props.me });
     }
   }
 
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
   },
   messageLength: {
     fontSize: 10,
-    left: WIDTH / 2 + 50,
+    marginLeft: WIDTH * 0.58,
     color: '#a6aeae',
     backgroundColor: 'transparent',
   },

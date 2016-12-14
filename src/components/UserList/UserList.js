@@ -44,8 +44,12 @@ class UserList extends Component {
           rowHasChanged: (row1, row2) => row1 !== row2,
         }),
       });
-      if (result.length !== 0)
-        result[result.length - 1].last = true;
+      result[result.length - 1].last = true;
+      result.map((value) => {
+        value.me = this.props.me;
+        return value;
+      });
+
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(result.slice()),
         loaded: true,

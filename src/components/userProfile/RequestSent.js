@@ -25,7 +25,7 @@ class RequestSent extends Component {
 
     // This is temporary function.
     setTimeout(() => {
-      Actions.pop();
+      Actions.main({ me: this.props.me });
     }, 2000);
   }
 
@@ -34,7 +34,7 @@ class RequestSent extends Component {
       <ActivityIndicator
         animating={!this.state.loaded}
         style={[styles.activityIndicator]}
-        size='large'
+        size='small'
       />
     );
   }
