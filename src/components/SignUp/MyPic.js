@@ -9,8 +9,9 @@ import {
 } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
+const deviceWidth = Dimensions.get('window').width;
 const options = {
-  maxWidth: Dimensions.get('window').width,
+  maxWidth: deviceWidth,
 };
 
 // Profile image Component
@@ -27,10 +28,10 @@ class MyPic extends Component {
   }
 
   componentWillReceiveProps(props) {
-    if (!this.state.uri) {
-      this.state.uri = props.uri;
-    }
-    this.setState({ isDefault: false });
+    this.setState({
+      uri: this.state.uri || props.uri,
+      isDefault: false,
+    });
   }
 
   showPicker() {
@@ -87,7 +88,6 @@ class MyPic extends Component {
   }
 }
 
-const deviceWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   profileImageView: {
     alignItems: 'center',
