@@ -269,8 +269,8 @@ const AppProps = {
       component: RequestSent,
       title: 'Request Sent',
       hideBackImage: true,
+      direction: 'sent',
       backButtonImage: backButton,
-      type: ActionConst.REPLACE,
     },
     {
       key: 'activity',

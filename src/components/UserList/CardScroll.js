@@ -119,7 +119,6 @@ export default class CardScroll extends Component {
      {
         horizontal: true,
         pagingEnabled: false,
-        maximumZoomScale: 3.0,
         directionalLockEnabled: true,
         showsVerticalScrollIndicator: false,
         showsHorizontalScrollIndicator: false,
