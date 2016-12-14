@@ -24,7 +24,11 @@ import LinearGradient from 'react-native-linear-gradient';
 import Text from '../Shared/UniText';
 import UserUtil from '../../utils/UserUtil';
 import { Actions, Scene, }  from 'react-native-router-flux';
-import { CareerData, OptionsFilter } from '../SignUp/SignUpMETA';
+import {
+  CareerData,
+  Options,
+  OptionsFilter,
+} from '../SignUp/SignUpMETA';
 
 class Filter extends Component {
   constructor(props) {
@@ -44,6 +48,7 @@ class Filter extends Component {
       selectOP: '',
       clearFlag: false,
       options: OptionsFilter,
+      options_ref: Options,
       optionsNum: [],
       overviewChecked: [],
       needRefresh: true,
@@ -150,7 +155,7 @@ class Filter extends Component {
     for (i = 0; i < this.state.overviewChecked.length; i++) {
       if (this.state.overviewChecked[i]) {
         expertise.push({
-          select: this.state.options[i],
+          select: this.state.options_ref[i],
           index: i,
         });
       }

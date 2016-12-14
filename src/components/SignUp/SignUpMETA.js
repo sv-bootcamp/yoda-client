@@ -131,7 +131,7 @@ export const CareerData = {
 
 export const Options = [
     'Study abroad',
-    'Career advice (e.g., interview, job search..) ',
+    'Career advice (e.g., interview, job search..)',
     'Portfolio & Resume',
     'Startup',
     'Career change',

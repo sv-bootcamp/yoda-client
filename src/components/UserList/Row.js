@@ -179,18 +179,19 @@ class Row extends Component {
               {this.renderMyExpertise()}
             </View>
             <View style={styles.connectBtnContainer}>
-              <LinearGradient style={styles.connectBtnStyle} start={[0.9, 0.5]} end={[0.0, 0.5]}
-                locations={[0, 0.75]}
-                colors={['#07e4dd', '#44acff']}>
-                <TouchableOpacity onPress={this.state.pending ? null : connect}>
+              <TouchableOpacity
+                onPress={this.state.pending ? null : connect}
+                disabled ={this.state.pending}>
+                <LinearGradient style={styles.connectBtnStyle} start={[0.9, 0.5]} end={[0.0, 0.5]}
+                  locations={[0, 0.75]}
+                  colors={['#07e4dd', '#44acff']}>
                   <View style={styles.buttonContainer}>
                     <Text style={styles.buttonText}>
                       {this.state.pending ? 'WAITING' : 'CONNECT'}
                     </Text>
-
                   </View>
-                </TouchableOpacity>
-              </LinearGradient>
+                </LinearGradient>
+              </TouchableOpacity>
             </View>
           </View>
         </TouchableWithoutFeedback>
