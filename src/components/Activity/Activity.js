@@ -50,8 +50,8 @@ class Activity extends Component {
         tabBarActiveTextColor={'#2e3031'}
         tabBarUnderlineStyle={styles.tabBarUnderline}
         renderTabBar={() => <ScrollableTabBar
-        leftOffset={53}
-        rightOffset={42}
+          leftOffset={dimensions.widthWeight * 53}
+          rightOffset={dimensions.widthWeight * 42}
         />}>
         <NewRequests tabLabel='NEW REQUESTS'/>
         <Connected tabLabel='CONNECTED' me={this.props.me}/>

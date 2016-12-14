@@ -10,6 +10,7 @@ const {
   Dimensions,
 } = ReactNative;
 const Button = require('./Button');
+import { dimensions } from '../Shared/Dimensions';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 
@@ -34,7 +35,7 @@ const ScrollableTabBar = React.createClass({
 
   getDefaultProps() {
     return {
-      scrollOffset: 52,
+      scrollOffset: dimensions.widthWeight * 52,
       activeTextColor: 'navy',
       inactiveTextColor: 'black',
       backgroundColor: null,
@@ -244,14 +245,14 @@ module.exports = ScrollableTabBar;
 
 const styles = StyleSheet.create({
   tab: {
-    height: 49,
+    height: dimensions.heightWeight * 49,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: dimensions.widthWeight * 20,
+    paddingRight: dimensions.widthWeight * 20,
   },
   container: {
-    height: 50,
+    height: dimensions.heightWeight * 50,
     borderWidth: 1,
     borderTopWidth: 0,
     borderLeftWidth: 0,
