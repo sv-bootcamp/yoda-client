@@ -75,7 +75,7 @@ class MyPic extends Component {
     return (
       <View style={styles.profileImageView}>
         <Image style={styles.profileImage} source={myPic} />
-        <View style={styles.overay}>
+        <View style={styles.overlay}>
           <TouchableWithoutFeedback onPress={showPicker}>
             <Image
               style={styles.editImage}
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     width: 110,
     borderRadius: 55,
   },
-  overay: {
+  overlay: {
     height: 110,
     width: 110,
     borderRadius: 55,
