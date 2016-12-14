@@ -178,7 +178,9 @@ class Row extends Component {
       );
     } else {
       connectButton = (
-        <LinearGradient style={styles.connectBtnStyle} start={[0.9, 0.5]} end={[0.0, 0.5]}
+        <LinearGradient style={styles.connectBtnStyle}
+                        start={[0.9, 0.5]}
+                        end={[0.0, 0.5]}
                         locations={[0, 0.75]}
                         colors={['#07e4dd', '#44acff']}>
           <TouchableOpacity onPress={connect}>
