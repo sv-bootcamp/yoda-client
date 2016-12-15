@@ -121,11 +121,13 @@ class Filter extends Component {
     }
 
     this.state.option[1] = this.state.careerData[0].list.slice();
+
+    console.log(this.state.option[1] );
     for (i = 0; i < this.state.overviewChecked.length; i++) {
       this.state.overviewChecked[i] = false;
     }
 
-    this.forceUpdate();
+    this.getFilterCount();
   }
 
   onSave() {

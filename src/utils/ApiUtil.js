@@ -78,6 +78,7 @@ class ApiUtil extends Component {
     this.url = url;
     this.reqSet = reqSet;
     this.callback = callback;
+    console.log(url, reqSet);
     this.fetchData(callback);
   }
 
