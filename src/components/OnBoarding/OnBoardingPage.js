@@ -106,27 +106,37 @@ class OnBoardingPage extends Component {
           dot={this.renderDot()}
           activeDot={this.renderActiveDot()}>
           <View style={styles.imageContainer}>
-            <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+            <View style={{ flex: 1, justifyContent: 'center' }}>
               <Image style={styles.titleImg1}
                 source={require('../../resources/onboarding1_title.png')}/>
             </View>
-            <View style={{ flex: 3, justifyContent: 'flex-end' }}>
+            <View style={{ flex: 3, justifyContent: 'center' }}>
               <Image style={styles.image}
                 source={require('../../resources/onboarding1_img.png')}/>
             </View>
-            <View style={{ flex: 0.5, justifyContent: 'center' }}/>
+            <View style={{ flex: 0.3, justifyContent: 'center' }}/>
           </View>
           <View style={styles.imageContainer}>
-            <Image style={styles.titleImg2}
-              source={require('../../resources/onboarding2_title.png')}/>
-            <Image style={styles.image}
-              source={require('../../resources/onboarding2_img.png')}/>
+            <View style={{ flex: 1, justifyContent: 'center' }}>
+              <Image style={styles.titleImg1}
+                source={require('../../resources/onboarding2_title.png')}/>
+            </View>
+            <View style={{ flex: 3, justifyContent: 'center' }}>
+              <Image style={styles.image}
+                source={require('../../resources/onboarding2_img.png')}/>
+            </View>
+            <View style={{ flex: 0.3, justifyContent: 'center' }}/>
           </View>
           <View style={styles.imageContainer}>
-            <Image style={styles.titleImg3}
-              source={require('../../resources/onboarding3_title.png')}/>
-            <Image style={styles.image}
-              source={require('../../resources/onboarding3_img.png')}/>
+            <View style={{ flex: 1, justifyContent: 'center' }}>
+              <Image style={styles.titleImg1}
+                source={require('../../resources/onboarding3_title.png')}/>
+            </View>
+            <View style={{ flex: 3, justifyContent: 'center' }}>
+              <Image style={styles.image3}
+                source={require('../../resources/onboarding3_img.png')}/>
+            </View>
+            <View style={{ flex: 0.3, justifyContent: 'center' }}/>
           </View>
         </Swiper>
         {this.renderFooter()}
@@ -176,6 +186,10 @@ const styles = StyleSheet.create({
   },
   image: {
     width: WINDOW_WIDTH,
+    resizeMode: 'contain',
+  },
+  image3: {
+    width: dimensions.widthWeight * 311,
     resizeMode: 'contain',
   },
   footer: {
