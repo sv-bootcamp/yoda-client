@@ -170,7 +170,8 @@ class Login extends Component {
 
   onLoginCallback(result, error) {
     if (error) {
-      this.alert('Please check your account information and sign in again!');
+      this.alert('LoginCallback error');
+      this.setState({ loaded: true });
     } else if (result) {
       AsyncStorage.setItem(
         'token',

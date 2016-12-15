@@ -87,12 +87,13 @@ class ApiUtil extends Component {
     .then(this.getResponse.bind(this))
     .then((res) => callback(res, null))
     .catch((error) => {
-      if (JSON.stringify(error) !== '{}') callback(null, JSON.stringify(error));
-      else callback(null, error);
+      if (JSON.stringify(error) === '{}') callback(null, error);
+      else callback(null, JSON.stringify(error));
     });
   }
 
   getResponse(response) {
+    console.log(response);
     if (response.status === 200 || response.status === 201 || response.status === 401) {
       return response.json()
         .then((res) => {
