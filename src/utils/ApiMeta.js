@@ -10,9 +10,6 @@ export const ServerMeta = {
 
 export const UrlMeta = {
   HOST: 'http://ec2-52-78-121-221.ap-northeast-2.compute.amazonaws.com:80/',
-  HOST: 'http://192.168.0.53:5000/',
-  HOST: 'http://192.168.0.22:80/',
-  HOST: 'http://127.0.0.1:80/',
   API_ACTIVITY: 'match/activity/',
   API_ALL: 'users/all/',
   API_CHATTING_PUSH: 'match/push/',

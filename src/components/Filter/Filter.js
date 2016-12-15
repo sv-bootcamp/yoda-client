@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   Alert,
+  AsyncStorage,
   Dimensions,
   Image,
   Platform,
@@ -98,6 +99,33 @@ class Filter extends Component {
         Actions.pop();
       },
     });
+
+    AsyncStorage.getItem('filter', (error, result) => {
+      if (result) {
+        this.setData(JSON.parse(result));
+        return;
+      }
+    });
+  }
+
+  setData(filter) {
+    let career = filter.career;
+    this.state.option[1]
+    = this.state.careerData[this.state.option[0].indexOf(career.area)].list.slice();
+
+    this.state.selected[0] = career.area;
+    this.state.selected[1] = career.role;
+    this.state.selected[2] = career.years;
+    this.state.selected[3] = career.education_background;
+
+    let expertise = filter.expertise;
+    expertise.map(
+      (object, idx) => {
+        this.state.overviewChecked[object.index] = true;
+      }
+    );
+
+    this.getFilterCount();
   }
 
   componentWillReceiveProps(props) {
@@ -122,7 +150,6 @@ class Filter extends Component {
 
     this.state.option[1] = this.state.careerData[0].list.slice();
 
-    console.log(this.state.option[1] );
     for (i = 0; i < this.state.overviewChecked.length; i++) {
       this.state.overviewChecked[i] = false;
     }
@@ -159,7 +186,11 @@ class Filter extends Component {
 
     let body = { career, expertise };
 
-    Actions.main({ me: this.props.me, filter: body });
+    AsyncStorage.setItem(
+      'filter',
+      JSON.stringify(body),
+      () => Actions.main({ me: this.props.me, filter: body }),
+    );
 
   }
 
