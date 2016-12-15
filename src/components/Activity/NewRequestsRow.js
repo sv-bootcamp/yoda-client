@@ -38,7 +38,13 @@ class NewRequestsRow extends Component {
   }
 
   acceptRequest() {
-    MatchUtil.acceptRequest(this.onRequestCallback.bind(this), this.props.dataSource._id);
+    if (this.props.dataSource.close) {
+      MatchUtil.acceptRequest(this.onRequestCallback.bind(this), this.props.dataSource._id);
+    } else {
+
+      // Call this method with no parameter will close all swipe button
+      this.props.closeAllExceptCurrent();
+    }
   }
 
   rejectRequest() {
