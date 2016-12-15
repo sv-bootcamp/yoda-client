@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import {
   Dimensions,
   Image,
+  Platform,
   StyleSheet,
-  TouchableWithoutFeedback,
+  TouchableOpacity,
   View
 } from 'react-native';
 import Swiper from 'react-native-swiper';
@@ -32,17 +33,17 @@ class OnBoardingPage extends Component {
   renderFooter() {
     return (
       <View style={styles.footer}>
-        <LinearGradient style={styles.getStartedBtnStyle}
-          start={[0.9, 0.5]}
-          end={[0.0, 0.5]}
-          locations={[0, 0.75]}
-          colors={['#07e4dd', '#44acff']}>
-          <TouchableWithoutFeedback onPress={this.onPressGetStartedButton}>
+        <TouchableOpacity onPress={this.onPressGetStartedButton}>
+          <LinearGradient style={styles.getStartedBtnStyle}
+            start={[0.9, 0.5]}
+            end={[0.0, 0.5]}
+            locations={[0, 0.75]}
+            colors={['#07e4dd', '#44acff']}>
             <View style={styles.buttonContainer}>
               <Text style={styles.buttonText}>GET STARTED</Text>
             </View>
-          </TouchableWithoutFeedback>
-        </LinearGradient>
+          </LinearGradient>
+        </TouchableOpacity>
         <Text style={styles.footerText}>Do you have an account already?
           <Text style={styles.logInText} onPress={this.onPressLogInButton}>  Log in</Text>
         </Text>
@@ -85,17 +86,26 @@ class OnBoardingPage extends Component {
     return (
       <View style={styles.onboardingView}>
         <Swiper loop={false}
-          height={SWIPER_HEIGHT}
+          height={510}
           dot={this.renderDot()}
           activeDot={this.renderActiveDot()}>
-          <View>
-            <Image style={styles.image} source={require('../../resources/onboarding1.png')}/>
+          <View style={styles.imageContainer}>
+            <Image style={styles.titleImg1}
+              source={require('../../resources/onboarding1_title.png')}/>
+            <Image style={styles.image}
+              source={require('../../resources/onboarding1_img.png')}/>
           </View>
-          <View>
-            <Image style={styles.image} source={require('../../resources/onboarding2.png')}/>
+          <View style={styles.imageContainer}>
+            <Image style={styles.titleImg2}
+              source={require('../../resources/onboarding2_title.png')}/>
+            <Image style={styles.image}
+              source={require('../../resources/onboarding2_img.png')}/>
           </View>
-          <View>
-            <Image style={styles.image} source={require('../../resources/onboarding3.png')}/>
+          <View style={styles.imageContainer}>
+            <Image style={styles.titleImg3}
+              source={require('../../resources/onboarding3_title.png')}/>
+            <Image style={styles.image}
+              source={require('../../resources/onboarding3_img.png')}/>
           </View>
         </Swiper>
         {this.renderFooter()}
@@ -112,17 +122,45 @@ const SWIPER_HEIGHT = IMAGE_HEIGHT + dimensions.heightWeight * 40;
 
 const styles = StyleSheet.create({
   onboardingView: {
+    ...Platform.select({
+      ios: {
+        paddingTop: 55,
+      },
+      android: {
+        paddingTop: 45,
+      },
+    }),
+    flex: 1,
     flexDirection: 'column',
+  },
+  imageContainer: {
+    alignItems: 'center',
+  },
+  titleImg1: {
+    height: 60,
+    resizeMode: 'contain',
+    marginBottom: 55,
+  },
+  titleImg2: {
+    height: 60,
+    resizeMode: 'contain',
+    marginBottom: 68,
+  },
+  titleImg3: {
+    height: 60,
+    resizeMode: 'contain',
+    marginBottom: 52,
   },
   image: {
     width: WINDOW_WIDTH,
-    height: IMAGE_HEIGHT,
+    resizeMode: 'contain',
   },
   footer: {
+    flex: 1,
     flexDirection: 'column',
-    justifyContent: 'flex-end',
     alignItems: 'center',
-    height: WINDOW_HEIGHT - SWIPER_HEIGHT,
+    justifyContent: 'flex-end',
+    backgroundColor: 'transparent',
   },
   getStartedBtnStyle: {
     justifyContent: 'center',
@@ -142,7 +180,7 @@ const styles = StyleSheet.create({
   },
   footerText: {
     color: '#a6aeae',
-    fontSize: dimensions.fontWeight * 12,
+    fontSize: dimensions.fontWeight * 10,
     marginBottom: dimensions.heightWeight * 30,
   },
   logInText: {
