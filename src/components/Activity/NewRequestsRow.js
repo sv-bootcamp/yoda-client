@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Dimensions,
   Image,
   StyleSheet,
   TouchableOpacity,
@@ -115,6 +116,8 @@ class NewRequestsRow extends Component {
     );
   }
 }
+
+const WIDTH = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'column',
@@ -132,7 +135,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   userNameWithTime: {
-    flex: 1,
+    width: WIDTH - 180,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'stretch',
