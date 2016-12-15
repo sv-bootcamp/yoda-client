@@ -223,7 +223,6 @@ class Filter extends Component {
       education_background: this.state.selected[3],
     };
 
-    console.log(body);
     UserUtil.getFilterCnt(this.onFilterCallback.bind(this), body);
   }
 
