@@ -99,9 +99,6 @@ class NewRequests extends Component {
           <Image source={require('../../resources/chat_onboarding.png')}/>
           <View style={styles.titleContainer}>
             <Text style={styles.title}>Make a connection!</Text>
-            <Text style={{ color: '#a6aeae', fontSize: 14, }}>
-              You did not connect with anyone yet.
-            </Text>
           </View>
         </View>
       );
