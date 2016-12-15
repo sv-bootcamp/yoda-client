@@ -84,7 +84,13 @@ class NewRequestsRow extends Component {
 
     return (
       <View>
-        <Swipeout right={SwipeoutButtons} onPress={this.state.goToUserProfile}>
+        <Swipeout
+          right={SwipeoutButtons}
+          close={this.props.dataSource.close}
+          scroll={event => this.props.allowScroll(event)}
+          onPress={this.state.goToUserProfile}
+          onOpen={()=>this.props.closeAllExceptCurrent(this.props.dataSource._id)}
+        >
           <View style={styles.row}>
             <View style={styles.userInformation}>
               <Image style={styles.photo}

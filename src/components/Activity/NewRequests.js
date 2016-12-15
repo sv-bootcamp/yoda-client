@@ -16,11 +16,14 @@ class NewRequests extends Component {
     super(props);
 
     this.state = {
+
+      //  datasource rerendered when change is made (used to set swipeout to active)
       dataSource: new ListView.DataSource({
-        rowHasChanged: (r1, r2) => r1 !== r2,
+        rowHasChanged: (r1, r2) => true,
       }),
       loaded: false,
       isEmpty: false,
+      scrollEnabled: true,
     };
   }
 
@@ -30,6 +33,10 @@ class NewRequests extends Component {
 
   componentWillReceiveProps(props) {
     MatchUtil.getActivityList(this.onRequestCallback.bind(this));
+  }
+
+  allowScroll(scrollEnabled) {
+    this.setState({ scrollEnabled: scrollEnabled });
   }
 
   onRequestCallback(result, error) {
@@ -55,8 +62,12 @@ class NewRequests extends Component {
   }
 
   renderRow(rowData, sectionID, rowID) {
-    return <NewRequestsRow dataSource={rowData}
-      onSelect={this.onRequestCallback.bind(this)} id={rowID}/>;
+    return <NewRequestsRow
+      dataSource={rowData}
+      onSelect={this.onRequestCallback.bind(this)}
+      closeAllExceptCurrent={this.closeAllExceptCurrent.bind(this)}
+      allowScroll={this.allowScroll.bind(this)}
+      id={rowID}/>;
   }
 
   renderSeparator(sectionID, rowID) {
@@ -70,6 +81,15 @@ class NewRequests extends Component {
         }}
       />
     );
+  }
+
+  closeAllExceptCurrent(id) {
+    let temp = this.state.dataSource._dataBlob.s1.slice();
+    temp.map(value => value.close = id !== value._id);
+
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(temp),
+    });
   }
 
   render() {
@@ -88,6 +108,7 @@ class NewRequests extends Component {
     else {
       return (
         <ListView
+          scrollEnabled = {this.state.scrollEnabled}
           dataSource = {this.state.dataSource}
           renderRow  = {this.renderRow.bind(this)}
           renderSeparator={this.renderSeparator}
