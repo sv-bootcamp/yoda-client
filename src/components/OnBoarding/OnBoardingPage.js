@@ -16,6 +16,9 @@ import LinearGradient from 'react-native-linear-gradient';
 class OnBoardingPage extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      index: 0,
+    };
   }
 
   onPressLogInButton() {
@@ -31,23 +34,29 @@ class OnBoardingPage extends Component {
   }
 
   renderFooter() {
+    let btn = (this.state.index === 2) ? (
+      <TouchableOpacity
+        activated={false}
+        onPress={this.onPressGetStartedButton}>
+        <LinearGradient style={styles.getStartedBtnStyle}
+          start={[0.9, 0.5]}
+          end={[0.0, 0.5]}
+          locations={[0, 0.75]}
+          colors={['#07e4dd', '#44acff']}>
+          <View style={styles.buttonContainer}>
+            <Text style={styles.buttonText}>GET STARTED</Text>
+          </View>
+        </LinearGradient>
+      </TouchableOpacity>
+    ) : null;
     return (
       <View style={styles.footer}>
-        <TouchableOpacity onPress={this.onPressGetStartedButton}>
-          <LinearGradient style={styles.getStartedBtnStyle}
-            start={[0.9, 0.5]}
-            end={[0.0, 0.5]}
-            locations={[0, 0.75]}
-            colors={['#07e4dd', '#44acff']}>
-            <View style={styles.buttonContainer}>
-              <Text style={styles.buttonText}>GET STARTED</Text>
-            </View>
-          </LinearGradient>
-        </TouchableOpacity>
-        <Text style={styles.footerText}>Do you have an account already?
-          <Text style={styles.logInText} onPress={this.onPressLogInButton}>  Log in</Text>
-        </Text>
-
+        {btn}
+        <View>
+          <Text style={styles.footerText}>Do you have an account already?
+            <Text style={styles.logInText} onPress={this.onPressLogInButton}>  Log in</Text>
+          </Text>
+        </View>
       </View>
     );
   }
@@ -56,13 +65,12 @@ class OnBoardingPage extends Component {
     return (
       <View style={{
         backgroundColor: '#d6dada',
-        width: 7,
-        height: 7,
-        borderRadius: 4,
-        marginLeft: 6,
-        marginRight: 6,
-        marginTop: 3,
-        marginBottom: 3,
+        width: dimensions.fontWeight * 7,
+        height: dimensions.fontWeight * 7,
+        borderRadius: dimensions.fontWeight * 4,
+        marginLeft: dimensions.widthWeight * 6,
+        marginRight: dimensions.widthWeight * 6,
+        marginTop: dimensions.heightWeight * 3,
       }} />
     );
   }
@@ -71,29 +79,42 @@ class OnBoardingPage extends Component {
     return (
       <View style={{
         backgroundColor: '#a6aeae',
-        width: 7,
-        height: 7,
-        borderRadius: 4,
-        marginLeft: 6,
-        marginRight: 6,
-        marginTop: 3,
-        marginBottom: 3,
+        width: dimensions.fontWeight * 7,
+        height: dimensions.fontWeight * 7,
+        borderRadius: dimensions.fontWeight * 4,
+        marginLeft: dimensions.widthWeight * 6,
+        marginRight: dimensions.widthWeight * 6,
+        marginTop: dimensions.heightWeight * 3,
       }} />
     );
+  }
+
+  controlScroll(e, state) {
+    const idx = state.index;
+    this.setState({
+      index: idx,
+    });
   }
 
   render() {
     return (
       <View style={styles.onboardingView}>
         <Swiper loop={false}
-          height={510}
+          style={styles.swipeContainer}
+          height={SWIPER_HEIGHT}
+          onMomentumScrollEnd={this.controlScroll.bind(this)}
           dot={this.renderDot()}
           activeDot={this.renderActiveDot()}>
           <View style={styles.imageContainer}>
-            <Image style={styles.titleImg1}
-              source={require('../../resources/onboarding1_title.png')}/>
-            <Image style={styles.image}
-              source={require('../../resources/onboarding1_img.png')}/>
+            <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+              <Image style={styles.titleImg1}
+                source={require('../../resources/onboarding1_title.png')}/>
+            </View>
+            <View style={{ flex: 3, justifyContent: 'flex-end' }}>
+              <Image style={styles.image}
+                source={require('../../resources/onboarding1_img.png')}/>
+            </View>
+            <View style={{ flex: 0.5, justifyContent: 'center' }}/>
           </View>
           <View style={styles.imageContainer}>
             <Image style={styles.titleImg2}
@@ -118,49 +139,52 @@ class OnBoardingPage extends Component {
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 const IMAGE_HEIGHT =  WINDOW_WIDTH * 1.36;
-const SWIPER_HEIGHT = IMAGE_HEIGHT + dimensions.heightWeight * 40;
+const SWIPER_HEIGHT = WINDOW_HEIGHT - dimensions.heightWeight * 100;
 
 const styles = StyleSheet.create({
   onboardingView: {
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+  },
+  swipeContainer: {
     ...Platform.select({
       ios: {
-        paddingTop: 55,
-      },
-      android: {
-        paddingTop: 45,
+        paddingTop: 10,
       },
     }),
-    flex: 1,
-    flexDirection: 'column',
   },
   imageContainer: {
+    flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+    marginBottom: dimensions.heightWeight * 25,
   },
   titleImg1: {
-    height: 60,
+    height: dimensions.heightWeight * 60,
     resizeMode: 'contain',
-    marginBottom: 55,
   },
   titleImg2: {
-    height: 60,
+    height: dimensions.heightWeight * 60,
     resizeMode: 'contain',
-    marginBottom: 68,
+    marginBottom: dimensions.heightWeight * 68,
   },
   titleImg3: {
-    height: 60,
+    height: dimensions.heightWeight * 60,
     resizeMode: 'contain',
-    marginBottom: 52,
+    marginBottom: dimensions.heightWeight * 52,
   },
   image: {
     width: WINDOW_WIDTH,
     resizeMode: 'contain',
   },
   footer: {
-    flex: 1,
+    height: dimensions.heightWeight * 70,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'flex-end',
     backgroundColor: 'transparent',
+    marginBottom: dimensions.heightWeight * 30,
   },
   getStartedBtnStyle: {
     justifyContent: 'center',
@@ -179,9 +203,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   footerText: {
+    height: dimensions.heightWeight * 15,
     color: '#a6aeae',
     fontSize: dimensions.fontWeight * 10,
-    marginBottom: dimensions.heightWeight * 30,
   },
   logInText: {
     color: '#44acff',
