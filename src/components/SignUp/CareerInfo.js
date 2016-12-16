@@ -117,14 +117,17 @@ class CareerInfo extends Component {
       }
     }
 
-    for (let i = 0; i < this.state.pressed.length; i++)
+    for (let i = 0; i < this.state.pressed.length; i++) {
       this.state.pressed[i] = false;
+    }
+
     this.forceUpdate();
   }
 
   onPress() {
-    for (let i = 0; i < this.state.pressed.length; i++)
+    for (let i = 0; i < this.state.pressed.length; i++) {
       this.state.pressed[i] = true;
+    }
   }
 
   getOptionSet(index) {
@@ -162,24 +165,24 @@ class CareerInfo extends Component {
               );
           } else {
             return (
-                <View key={idx} style={[styles.questionContainer, { zIndex: zIdx }]}>
-                  <Text style={styles.questionText}>{this.state.questions[idx]}</Text>
-                  <View style={[styles.dropdownContainer]}>
-                    <Select
-                      value={this.state.selected[idx]}
-                      ref={'SELECT' + idx}
-                      clear={clear}
-                      activate={activate}
-                      pressed={this.state.pressed[idx]}
-                      onPress={this.onPress.bind(this)}
-                      index={idx}
-                      width={Dimensions.get('window').width - 60}
-                      defaultValue={' '}
-                      optionListRef={this.getOptionList.bind(this)}
-                      onSelect={this.onSelect.bind(this)}>
-                      {this.getOptionSet(idx)}
-                    </Select>
-                    <OptionList ref={'OPTION' + idx} index={idx}/>
+              <View key={idx} style={[styles.questionContainer, { zIndex: zIdx }]}>
+                <Text style={styles.questionText}>{this.state.questions[idx]}</Text>
+                <View style={[styles.dropdownContainer]}>
+                  <Select
+                    value={this.state.selected[idx]}
+                    ref={'SELECT' + idx}
+                    clear={clear}
+                    activate={activate}
+                    pressed={this.state.pressed[idx]}
+                    onPress={this.onPress.bind(this)}
+                    index={idx}
+                    width={Dimensions.get('window').width - 60}
+                    defaultValue={' '}
+                    optionListRef={this.getOptionList.bind(this)}
+                    onSelect={this.onSelect.bind(this)}>
+                    {this.getOptionSet(idx)}
+                  </Select>
+                  <OptionList ref={'OPTION' + idx} index={idx}/>
                 </View>
               </View>
             );
@@ -211,8 +214,9 @@ class CareerInfo extends Component {
       this.state.selected[2] = result[0].years;
       this.state.selected[3] = result[0].education_background;
 
-      for (i = 0; i < 4; i++)
+      for (i = 0; i < 4; i++) {
         this.state.checked[i] = true;
+      }
 
       this.forceUpdate();
     }

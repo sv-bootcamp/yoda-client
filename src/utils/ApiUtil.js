@@ -93,7 +93,6 @@ class ApiUtil extends Component {
   }
 
   getResponse(response) {
-    console.log(response);
     if (response.status === 200 || response.status === 201 || response.status === 401) {
       return response.json()
         .then((res) => {
