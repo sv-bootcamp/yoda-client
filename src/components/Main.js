@@ -182,45 +182,45 @@ class Main extends Component {
 
   render() {
     return (
-          <ScrollableTabView
-            initialPage={0}
-            page={this.state.currentMainPage}
-            onChangeTab={(obj) => {
-              this.currentTab = obj.i;
-              if (this.currentTab === mainPageTitle.HOME) {
-                Actions.refresh({ title: 'Bridge Me', titleStyle: styles.mainTitle });
-              } else if (this.currentTab === mainPageTitle.TOURNAMENT) {
-                Actions.refresh({ title: 'Tournament', titleStyle: styles.title });
-              } else if (this.currentTab === mainPageTitle.MYCONNECTION) {
-                Actions.refresh({ title: 'My Connection', titleStyle: styles.title });
-              } else if (this.currentTab === mainPageTitle.CHAT) {
-                Actions.refresh({ title: 'Chat', titleStyle: styles.title });
-              } else if (this.currentTab === mainPageTitle.MYPROFILE) {
-                Actions.refresh({ title: 'My Profile', titleStyle: styles.title });
-              }
-            }
-            }
-            tabBarPosition='bottom'
-            locked
-            scrollWithoutAnimation
-            renderTabBar={() => <TabBar />}>
-            <UserList tabLabel="ios-home"
-              style={styles.tabView}
-              me={this.props.me}
-              filter={this.props.filter} />
-            <View tabLabel="md-shuffle" style={styles.comingSoonView}>
-              <Image source={require('../resources/tournament.png')} />
-              <Text style={styles.comingSoonText}>Coming Soon!</Text>
-            </View>
-            <Activity
-              tabLabel="ios-people"
-              style={styles.tabView}
-              currentActivityPage={this.state.currentActivityPage}
-              me={this.props.me}
-            />
-            <ChannelList tabLabel="ios-chatbubbles" style={styles.tabView} me={this.props.me} />
-            <MyPage tabLabel="md-contact" me={this.props.me} />
-          </ScrollableTabView>
+      <ScrollableTabView
+        initialPage={0}
+        page={this.state.currentMainPage}
+        onChangeTab={(obj) => {
+          this.currentTab = obj.i;
+          if (this.currentTab === mainPageTitle.HOME) {
+            Actions.refresh({ title: 'Bridge Me', titleStyle: styles.mainTitle });
+          } else if (this.currentTab === mainPageTitle.TOURNAMENT) {
+            Actions.refresh({ title: 'Tournament', titleStyle: styles.title });
+          } else if (this.currentTab === mainPageTitle.MYCONNECTION) {
+            Actions.refresh({ title: 'My Connection', titleStyle: styles.title });
+          } else if (this.currentTab === mainPageTitle.CHAT) {
+            Actions.refresh({ title: 'Chat', titleStyle: styles.title });
+          } else if (this.currentTab === mainPageTitle.MYPROFILE) {
+            Actions.refresh({ title: 'My Profile', titleStyle: styles.title });
+          }
+        }
+        }
+        tabBarPosition='bottom'
+        locked
+        scrollWithoutAnimation
+        renderTabBar={() => <TabBar />}>
+        <UserList tabLabel="ios-home"
+          style={styles.tabView}
+          me={this.props.me}
+          filter={this.props.filter} />
+        <View tabLabel="md-shuffle" style={styles.comingSoonView}>
+          <Image source={require('../resources/tournament.png')} />
+          <Text style={styles.comingSoonText}>Coming Soon!</Text>
+        </View>
+        <Activity
+          tabLabel="ios-people"
+          style={styles.tabView}
+          currentActivityPage={this.state.currentActivityPage}
+          me={this.props.me}
+        />
+        <ChannelList tabLabel="ios-chatbubbles" style={styles.tabView} me={this.props.me} />
+        <MyPage tabLabel="md-contact" me={this.props.me} />
+      </ScrollableTabView>
     );
   }
 }
