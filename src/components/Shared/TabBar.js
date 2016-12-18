@@ -26,7 +26,6 @@ class TabBar extends Component {
     this.tabIconsBlue.push(require('../../resources/icon-chat_blue.png'));
     this.tabIconsBlue.push(require('../../resources/icon-profile_blue.png'));
 
-    console.log(dimensions);
   }
 
   render() {

@@ -28,7 +28,7 @@ class Login extends Component {
 
   componentDidMount() {
     AsyncStorage.getItem('firstFlag', (error, result) => {
-      if (false && result === 'on') {
+      if (result === 'on') {
         this.hasToken();
         return;
       }
