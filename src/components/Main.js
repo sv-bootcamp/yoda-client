@@ -67,8 +67,11 @@ class Main extends Component {
       NetInfo.isConnected.addEventListener('change', this.onConnectionStateChange.bind(this));
 
       this.notificationUnsubscribe = Fcm.on('notification', this.onNotificationReceived.bind(this));
-      Fcm.getInitialNotification().then((notif) => {
-        if (notif) this.actionFromNotification(notif);
+
+      InteractionManager.runAfterInteractions(() => {
+        Fcm.getInitialNotification().then((notif) => {
+          if (notif) this.actionFromNotification(notif, 'getInitialNotification');
+        });
       });
     });
 
@@ -137,24 +140,26 @@ class Main extends Component {
 
   onNotificationReceived(notif) {
     if (notif.opened_from_tray) {
-      this.actionFromNotification(notif);
+      this.actionFromNotification(notif, 'onNotificationReceived');
     }
   }
 
-  actionFromNotification(notif) {
+  actionFromNotification(notif, from) {
     Actions.popTo('main');
 
     InteractionManager.runAfterInteractions(() => {
         if (notif.notificationType === 'MESSAGE') {
           this.changeMainPage(mainPageTitle.CHAT, () => {
-            InteractionManager.runAfterInteractions(() => {
-              const opponent = JSON.parse(notif.extraData).opponent;
-              Actions.chatPage({
-                title: opponent.name,
-                me: { userId: this.props.me._id },
-                opponent,
+            if (from === 'onNotificationReceived') {
+              InteractionManager.runAfterInteractions(() => {
+                const opponent = JSON.parse(notif.extraData).opponent;
+                Actions.chatPage({
+                  title: opponent.name,
+                  me: { userId: this.props.me._id },
+                  opponent,
+                });
               });
-            });
+            }
           });
         } else if (notif.notificationType === 'CONNECTION') {
           this.changeMainPage(
