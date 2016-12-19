@@ -6,6 +6,7 @@ import {
   Dimensions,
   Image,
   ListView,
+  Platform,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -16,7 +17,6 @@ import { Actions } from 'react-native-router-flux';
 import { dimensions } from '../Shared/Dimensions';
 import LinearGradient from 'react-native-linear-gradient';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
-import ScrollableTabBar from '../Activity/ScrollableTabBar';
 import Text from '../Shared/UniText';
 import UserCareer from './UserCareer';
 import UserOverview from './UserOverview';
@@ -281,6 +281,7 @@ class UserProfile extends Component {
         flexDirection: 'column',
         flex: 1,
       }}>
+        <StatusBar barStyle='dark-content'/>
         <ScrollView>
           <StatusBar
             backgroundColor = "transparent"
@@ -305,12 +306,7 @@ class UserProfile extends Component {
             tabBarTextStyle={styles.tabBarText}
             tabBarInactiveTextColor={'#a6aeae'}
             tabBarActiveTextColor={'#2e3031'}
-            tabBarUnderlineStyle={styles.tabBarUnderline}
-            renderTabBar={() => <ScrollableTabBar
-              leftOffset={dimensions.widthWeight * 38}
-              rightOffset={dimensions.widthWeight * 31}
-                                />}
-          >
+            tabBarUnderlineStyle={styles.tabBarUnderline}>
             <UserOverview tabLabel='OVERVIEW' id={this.state.id}
               toggleAbout={this.toggleAbout.bind(this)}/>
             <UserCareer tabLabel='CAREER' id={this.state.id}/>
@@ -356,7 +352,14 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 1,
     right: dimensions.widthWeight * 25,
-    top: dimensions.heightWeight * 32,
+    ...Platform.select({
+      ios: {
+        top: dimensions.heightWeight * 32,
+      },
+      android: {
+        top: dimensions.heightWeight * 17,
+      },
+    }),
   },
   profileImage: {
     alignItems: 'stretch',
@@ -426,15 +429,19 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   tabBarText: {
+    marginTop: 10,
+    backgroundColor: 'transparent',
     fontFamily: 'SFUIText-Bold',
     fontSize: dimensions.fontWeight * 12,
+    fontWeight: 'bold',
   },
   tabBarUnderline: {
     backgroundColor: '#44acff',
     borderBottomColor: '#44acff',
     height: 2,
-    width: WIDTH / 12.5,
-    marginLeft: WIDTH / 12,
+    width: dimensions.widthWeight * 30,
+    marginLeft: dimensions.widthWeight * 78.75,
+    marginTop: 0,
   },
   aboutDetail: {
     position: 'absolute',

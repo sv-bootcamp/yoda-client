@@ -138,7 +138,7 @@ class MyPage extends Component {
             <Text style={styles.infoText}>
               {this.state.name}
             </Text>
-            <Text ellipsizeMode="tail" numberOfLines={1}>
+            <Text style={styles.currentStatusText} ellipsizeMode="tail" numberOfLines={1}>
               {this.state.currentStatus}
             </Text>
             <TouchableWithoutFeedback
@@ -232,10 +232,15 @@ const styles = StyleSheet.create({
   infoText: {
     color: '#2e3031',
     fontSize: dimensions.fontWeight * 18,
-    fontWeight: '500',
+    fontWeight: 'bold',
+  },
+  currentStatusText: {
+    color: '#2e3031',
+    fontSize: dimensions.fontWeight * 12,
   },
   linkText: {
     color: '#44acff',
+    fontSize: dimensions.fontWeight * 12,
   },
   receiveRequest: {
     flexDirection: 'row',

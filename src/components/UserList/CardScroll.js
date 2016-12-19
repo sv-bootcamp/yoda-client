@@ -155,14 +155,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   listView: {
+    backgroundColor: 'transparent',
     flex: 1,
     paddingLeft: dimensions.widthWeight * 36,
     ...Platform.select({
       ios: {
-        marginTop: dimensions.heightWeight * 94,
+        marginTop: dimensions.heightWeight * 74 + 20,
       },
       android: {
-        marginTop: dimensions.heightWeight * 84,
+        marginTop: dimensions.heightWeight * 74 ,
       },
     }),
   },

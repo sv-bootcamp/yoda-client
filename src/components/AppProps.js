@@ -34,25 +34,30 @@ const styles = StyleSheet.create({
   bar: {
     ...Platform.select({
       ios: {
-        height: dimensions.heightWeight * 64,
+        height: dimensions.heightWeight * 44 + 20,
       },
       android: {
-        height: dimensions.heightWeight * 64 - 10,
+        height: dimensions.heightWeight * 54,
       },
     }),
     padding: 0,
     backgroundColor: '#fbfbfb',
     borderBottomColor: '#d6dada',
+    borderBottomWidth: dimensions.heightWeight * 1,
   },
   titleWrapperStyle: {
-    backgroundColor: 'red',
+    flex: 1,
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
     marginTop: 0,
     ...Platform.select({
       ios: {
-        top: dimensions.heightWeight * 33,
+        top: 20,
+        height: dimensions.heightWeight * 44,
       },
       android: {
-        top: dimensions.heightWeight * 23 - 10,
+        height: dimensions.heightWeight * 54,
+        top: 0,
       },
     }),
     left: 0,
@@ -61,31 +66,32 @@ const styles = StyleSheet.create({
   rightButtonStyle: {
     ...Platform.select({
       ios: {
-        top: dimensions.heightWeight * 33,
+        top: 20,
+        height: dimensions.heightWeight * 44,
       },
       android: {
-        top: dimensions.heightWeight * 33 - 10,
+        height: dimensions.heightWeight * 54,
+        top: 0,
       },
     }),
     backgroundColor: 'transparent',
-    position: 'absolute',
-    width: dimensions.widthWeight * 20,
-    height: dimensions.heightWeight * 18,
     padding: 0,
+    marginTop: 0,
+    justifyContent: 'center',
   },
   leftButtonStyle: {
     ...Platform.select({
       ios: {
-        top: dimensions.heightWeight * 33,
+        top: 20,
+        height: dimensions.heightWeight * 44,
       },
       android: {
-        top: dimensions.heightWeight *  23,
+        height: dimensions.heightWeight * 54,
+        top: 0,
       },
     }),
     backgroundColor: 'transparent',
     position: 'absolute',
-    width: dimensions.widthWeight * 25,
-    height: dimensions.heightWeight * 20,
     marginLeft: dimensions.widthWeight * 10,
     alignItems: 'center',
     padding: 0,
@@ -114,6 +120,7 @@ const styles = StyleSheet.create({
     marginRight: dimensions.widthWeight * 16,
     width: dimensions.widthWeight * 20,
     height: dimensions.heightWeight * 18,
+    resizeMode: 'contain',
   },
   leftBtn: {
     backgroundColor: 'transparent',
@@ -261,7 +268,6 @@ const AppProps = {
       key: 'requestPage',
       component: RequestPage,
       title: 'Request Connection',
-      direction: 'vertical',
       backButtonImage: cancelButton,
       leftButtonIconStyle: styles.leftBtnCancel,
     },

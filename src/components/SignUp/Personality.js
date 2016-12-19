@@ -91,7 +91,6 @@ class Personality extends Component {
 
     if (this.props.fromEdit)
       Actions.refresh({
-        rightButtonStyle: styles.rightButtonStyle,
         rightButtonTextStyle: styles.rightTextStyle,
         rightTitle: 'Save',
         onRight: this.sendRequest.bind(this),
@@ -101,7 +100,6 @@ class Personality extends Component {
   componentWillReceiveProps(props) {
     if (props.fromEdit && this.state.needRefresh) {
       Actions.refresh({
-        rightButtonStyle: styles.rightButtonStyle,
         rightButtonTextStyle: styles.rightTextStyle,
         rightTitle: 'Save',
         onRight: this.sendRequest.bind(this),
@@ -143,8 +141,12 @@ class Personality extends Component {
     let slidersWithTitle = this.state.sliderTitle.map((currentValue, index) => (
         <View key={index} style ={{ flex: 1, backgroundColor: 'transparent' }} >
           <View style={styles.sliderTitle}>
-            <Text style={{ color: '#757b7c' }}>{currentValue[0]}</Text>
-            <Text style={{ color: '#757b7c' }}>{currentValue[1]}</Text>
+            <Text style={{ fontSize: dimensions.fontWeight * 12, color: '#757b7c' }}>
+              {currentValue[0]}
+            </Text>
+            <Text style={{ fontSize: dimensions.fontWeight * 12, color: '#757b7c' }}>
+              {currentValue[1]}
+            </Text>
           </View>
           <Slider
             style={styles.slider}
@@ -304,23 +306,9 @@ const styles = StyleSheet.create({
   },
   rightTextStyle: {
     backgroundColor: 'transparent',
-    width: dimensions.widthWeight * 40,
+    color: '#44acff',
     fontSize: dimensions.fontWeight * 16,
     marginRight: dimensions.widthWeight * 15,
-  },
-  rightButtonStyle: {
-    backgroundColor: 'transparent',
-    marginTop: 0,
-    paddingTop: 0,
-    ...Platform.select({
-      ios: {
-        top: dimensions.heightWeight * 33,
-      },
-      android: {
-        top: dimensions.heightWeight *  23,
-      },
-    }),
-    width: dimensions.widthWeight * 55,
   },
 });
 

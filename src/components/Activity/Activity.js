@@ -12,7 +12,6 @@ import { dimensions } from '../Shared/Dimensions';
 import Connected from './Connected';
 import NewRequests from './NewRequests';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
-import ScrollableTabBar from './ScrollableTabBar';
 import Text from '../Shared/UniText';
 
 class Activity extends Component {
@@ -48,11 +47,7 @@ class Activity extends Component {
         tabBarTextStyle={styles.tabBarText}
         tabBarInactiveTextColor={'#a6aeae'}
         tabBarActiveTextColor={'#2e3031'}
-        tabBarUnderlineStyle={styles.tabBarUnderline}
-        renderTabBar={() => <ScrollableTabBar
-          leftOffset={dimensions.widthWeight * 53}
-          rightOffset={dimensions.widthWeight * 42}
-        />}>
+        tabBarUnderlineStyle={styles.tabBarUnderline}>
         <NewRequests tabLabel='NEW REQUESTS'/>
         <Connected tabLabel='CONNECTED' me={this.props.me}/>
       </ScrollableTabView>
@@ -65,7 +60,7 @@ const styles = StyleSheet.create({
   container: {
     ...Platform.select({
       ios: {
-        marginTop:  dimensions.heightWeight * 64,
+        marginTop:  dimensions.heightWeight * 44 + 20,
       },
       android: {
         marginTop:  dimensions.heightWeight * 54,
@@ -73,10 +68,14 @@ const styles = StyleSheet.create({
     }),
   },
   tabBarText: {
+    marginTop: 10,
+    backgroundColor: 'transparent',
     fontFamily: 'SFUIText-Bold',
     fontSize: dimensions.fontWeight * 12,
+    fontWeight: 'bold',
   },
   section: {
+    backgroundColor: 'green',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'flex-start',
@@ -97,8 +96,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#44acff',
     borderBottomColor: '#44acff',
     height: 2,
-    width: WIDTH / 12.5,
-    marginLeft: WIDTH / 8,
+    width: dimensions.widthWeight * 30,
+    marginLeft: dimensions.widthWeight * 78.75,
+    marginTop: 0,
   },
 });
 

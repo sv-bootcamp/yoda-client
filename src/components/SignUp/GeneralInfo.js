@@ -63,7 +63,6 @@ class GeneralInfo extends Component {
 
     if (this.props.fromEdit) {
       Actions.refresh({
-        rightButtonStyle: styles.rightButtonStyle,
         rightButtonTextStyle: styles.rightTextStyle,
         rightTitle: 'Save',
         onRight: this.regist.bind(this),
@@ -74,7 +73,6 @@ class GeneralInfo extends Component {
   componentWillReceiveProps(props) {
     if (props.fromEdit && this.state.needRefresh) {
       Actions.refresh({
-        rightButtonStyle: styles.rightButtonStyle,
         rightButtonTextStyle: styles.rightTextStyle,
         rightTitle: 'Save',
         onRight: this.regist.bind(this),
@@ -463,23 +461,9 @@ const styles = StyleSheet.create({
   },
   rightTextStyle: {
     backgroundColor: 'transparent',
-    width: dimensions.widthWeight * 40,
+    color: '#44acff',
     fontSize: dimensions.fontWeight * 16,
     marginRight: dimensions.widthWeight * 15,
-  },
-  rightButtonStyle: {
-    backgroundColor: 'transparent',
-    marginTop: 0,
-    paddingTop: 0,
-    ...Platform.select({
-      ios: {
-        top: dimensions.heightWeight * 33,
-      },
-      android: {
-        top: dimensions.heightWeight *  23,
-      },
-    }),
-    width: dimensions.widthWeight * 55,
   },
 });
 

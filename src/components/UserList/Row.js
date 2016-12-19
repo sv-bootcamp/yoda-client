@@ -131,7 +131,7 @@ class Row extends Component {
           <Text style={styles.sectionName}>MY EXPERTISE{'\t'}</Text>
           <View style={styles.expertiseSeparator}/>
         </View>
-          {
+        {
             newArray.map((value, index) =>
               (<View key={index} style={{ flexDirection: 'row' }}>
                 {
@@ -218,21 +218,21 @@ class Row extends Component {
 
 const CARD_PREVIEW_WIDTH = dimensions.widthWeight * 10;
 const CARD_MARGIN = dimensions.widthWeight * 15;
-const CARD_WIDTH = Dimensions.get('window').width - dimensions.widthWeight * 72;
-const CARD_HEIGHT = Dimensions.get('window').height - dimensions.heightWeight * 182;
+const CARD_WIDTH = dimensions.widthWeight * 303;
+const CARD_HEIGHT = dimensions.heightWeight * 498;
 const HEIGHT = dimensions.heightWeight * Dimensions.get('window').height;
 const WIDTH = dimensions.widthWeight * Dimensions.get('window').width;
 const styles = StyleSheet.create({
   rowView: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#fff',
     width: CARD_WIDTH,
     marginRight: CARD_MARGIN,
     justifyContent: 'center',
     borderRadius: 4,
     ...Platform.select({
       ios: {
-        height: CARD_HEIGHT + dimensions.heightWeight * 10,
+        height: CARD_HEIGHT,
         shadowColor: '#000000',
         shadowOpacity: 0.3,
         shadowRadius: 8,
@@ -255,8 +255,8 @@ const styles = StyleSheet.create({
     top: dimensions.heightWeight * 20,
   },
   photo: {
-    height: CARD_HEIGHT / 2.73,
-    width: CARD_WIDTH,
+    height: dimensions.heightWeight * 182,
+    width: dimensions.widthWeight * 303,
     borderRadius: 2,
   },
   userInformation: {
@@ -269,26 +269,26 @@ const styles = StyleSheet.create({
     fontSize: dimensions.fontWeight * 22,
     fontWeight: 'bold',
     marginTop: dimensions.heightWeight * 25,
-    marginLeft: CARD_WIDTH * 0.082,
+    marginLeft: dimensions.widthWeight * 25,
     color: '#2e3031',
   },
   job: {
     fontSize: dimensions.fontWeight * 14,
     marginTop: dimensions.heightWeight * 10,
-    marginLeft: CARD_WIDTH * 0.072,
+    marginLeft: dimensions.widthWeight * 25,
     marginRight: CARD_WIDTH * 0.082,
     color: '#2e3031',
   },
   location: {
     fontSize: dimensions.fontWeight * 14,
     marginTop: dimensions.heightWeight * 5,
-    marginLeft: CARD_WIDTH * 0.072,
+    marginLeft: dimensions.widthWeight * 25,
     marginBottom: dimensions.heightWeight * 10,
     color: '#2e3031',
   },
   sectionContainer: {
     marginTop: dimensions.heightWeight * 20,
-    marginLeft: CARD_WIDTH * 0.082,
+    marginLeft: dimensions.widthWeight * 25,
     paddingBottom: dimensions.heightWeight * 20,
   },
   sectionName: {
@@ -299,14 +299,14 @@ const styles = StyleSheet.create({
   },
   expertiseSeparator: {
     borderBottomWidth: 1,
-    width: CARD_WIDTH * 0.55,
+    width: dimensions.widthWeight * 167,
     marginBottom: dimensions.heightWeight * 10,
     alignSelf: 'center',
     borderColor: '#d6dada',
   },
   tagRectangle: {
     backgroundColor: '#f0f0f2',
-    borderRadius: 25,
+    borderRadius: dimensions.fontWeight * 25,
     height: dimensions.heightWeight * 27,
     paddingBottom: dimensions.heightWeight * 6,
     paddingTop: dimensions.heightWeight * 6,
@@ -323,14 +323,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   connectBtnContainer: {
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
   connectBtnStyle: {
-    width: CARD_WIDTH / 1.78,
-    height: CARD_HEIGHT * 0.09,
-    marginBottom: CARD_HEIGHT / 20,
-    borderRadius: CARD_HEIGHT / 4.12,
+    width: dimensions.heightWeight * 170,
+    height: dimensions.widthWeight * 45,
+    marginBottom: dimensions.heightWeight * 25,
+    borderRadius: dimensions.fontWeight * 121,
     justifyContent: 'center',
   },
   buttonContainer: {
