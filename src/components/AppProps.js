@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         height: dimensions.heightWeight * 64,
       },
       android: {
-        height: dimensions.heightWeight * 54,
+        height: dimensions.heightWeight * 64 - 10,
       },
     }),
     padding: 0,
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         top: dimensions.heightWeight * 33,
       },
       android: {
-        top: dimensions.heightWeight *  23,
+        top: dimensions.heightWeight * 33 - 10,
       },
     }),
     left: 0,
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
         top: dimensions.heightWeight * 33,
       },
       android: {
-        top: dimensions.heightWeight *  23,
+        top: dimensions.heightWeight * 33 - 10,
       },
     }),
     backgroundColor: 'transparent',
@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
   },
   title: {
     backgroundColor: 'transparent',
+    fontFamily: 'SFUIText-Regular',
     fontSize: dimensions.fontWeight * 17,
     color: '#2e3031',
   },

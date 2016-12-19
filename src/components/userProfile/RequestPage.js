@@ -239,14 +239,14 @@ const styles = StyleSheet.create({
   },
   dropdownContent: {
     zIndex: 101,
-    backgroundColor: 'red',
+    backgroundColor: 'transparent',
     marginBottom: dimensions.heightWeight * 30,
     justifyContent: 'center',
     alignSelf: 'center',
     borderColor: '#efeff2',
   },
   dropdown: {
-    backgroundColor: 'blue',
+    backgroundColor: 'transparent',
     width: WIDTH - (WIDTH / 6),
     height: dimensions.heightWeight * 40,
     justifyContent: 'center',

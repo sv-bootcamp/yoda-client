@@ -168,7 +168,6 @@ const styles = StyleSheet.create({
   },
   lastTimestamp: {
     fontSize: dimensions.fontWeight * 10,
-    lineHeight: dimensions.heightWeight * 10,
     fontWeight: 'normal',
     color: '#a6aeae',
   },

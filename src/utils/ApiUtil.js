@@ -75,6 +75,7 @@ class ApiUtil extends Component {
       reqSet.headers.access_token = jwt;
     }
 
+    console.log(url, reqSet);
     this.url = url;
     this.reqSet = reqSet;
     this.callback = callback;
