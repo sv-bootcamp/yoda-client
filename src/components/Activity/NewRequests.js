@@ -84,14 +84,14 @@ class NewRequests extends Component {
   }
 
   closeAllExceptCurrent(id) {
-    const temp = this.state.dataSource._dataBlob.s1.slice();
-    temp.map((value) => {
+    const newRows = this.state.dataSource._dataBlob.s1.slice();
+    newRows.map((value) => {
       value.close = id !== value._id;
       return value;
     });
 
     this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(temp),
+      dataSource: this.state.dataSource.cloneWithRows(newRows),
     });
   }
 
