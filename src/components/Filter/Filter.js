@@ -23,7 +23,7 @@ import Dropdown from 'react-native-dropdown-android';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 import Text from '../Shared/UniText';
-import UserUtil from '../../utils/UserUtil';
+import MatchUtil from '../../utils/MatchUtil';
 import { Actions, Scene, }  from 'react-native-router-flux';
 import {
   CareerData,
@@ -256,7 +256,7 @@ class Filter extends Component {
       education_background: this.state.selected[3],
     };
 
-    UserUtil.getFilterCnt(this.onFilterCallback.bind(this), body);
+    MatchUtil.getFilterCnt(this.onFilterCallback.bind(this), body);
   }
 
   onPress() {

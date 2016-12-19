@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   ActivityIndicator,
+  AsyncStorage,
   ListView,
   Platform,
   RefreshControl,
@@ -11,7 +12,7 @@ import Row from './Row';
 import { Actions } from 'react-native-router-flux';
 import CardScroll from './CardScroll';
 import Text from '../Shared/UniText';
-import UserUtil from '../../utils/UserUtil';
+import MatchUtil from '../../utils/MatchUtil';
 
 class UserList extends Component {
   constructor(props) {
@@ -26,13 +27,26 @@ class UserList extends Component {
       isRefreshing: false,
     };
 
-    UserUtil.getMentorList(this.onServerCallback.bind(this));
+    AsyncStorage.getItem('filter', (error, result) => {
+      if (result) {
+        MatchUtil.getMentorList(this.onServerCallback.bind(this), JSON.parse(result));
+      } else {
+        MatchUtil.getMentorList(this.onServerCallback.bind(this));
+      }
+    });
   }
 
   // Refresh data
   onRefresh() {
     this.setState({ isRefreshing: true });
-    UserUtil.getMentorList(this.onServerCallback.bind(this));
+
+    AsyncStorage.getItem('filter', (error, result) => {
+      if (result) {
+        MatchUtil.getMentorList(this.onServerCallback.bind(this), JSON.parse(result));
+      } else {
+        MatchUtil.getMentorList(this.onServerCallback.bind(this));
+      }
+    });
   }
 
   onServerCallback(result, error) {
@@ -61,7 +75,17 @@ class UserList extends Component {
   }
 
   componentWillReceiveProps(props) {
-    UserUtil.getMentorList(this.onServerCallback.bind(this), props.filter);
+    if (props.filter) {
+      MatchUtil.getMentorList(this.onServerCallback.bind(this), props.filter);
+    } else {
+      AsyncStorage.getItem('filter', (error, result) => {
+        if (result) {
+          MatchUtil.getMentorList(this.onServerCallback.bind(this), JSON.parse(result));
+        } else {
+          MatchUtil.getMentorList(this.onServerCallback.bind(this));
+        }
+      });
+    }
   }
 
   renderRow(rowData, sectionID, rowID) {
