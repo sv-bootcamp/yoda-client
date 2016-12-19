@@ -132,7 +132,6 @@ class Main extends Component {
   }
 
   onMainMessageReceived(channel, userMessage) {
-    Vibration.vibrate();
     FcmUtil.presentLocalChatNotification(userMessage);
   }
 
