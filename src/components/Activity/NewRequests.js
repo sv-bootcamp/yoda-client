@@ -36,7 +36,7 @@ class NewRequests extends Component {
   }
 
   allowScroll(scrollEnabled) {
-    this.setState({ scrollEnabled: scrollEnabled });
+    this.setState({ scrollEnabled });
   }
 
   onRequestCallback(result, error) {
@@ -62,12 +62,12 @@ class NewRequests extends Component {
   }
 
   renderRow(rowData, sectionID, rowID) {
-    return <NewRequestsRow
+    return (<NewRequestsRow
       dataSource={rowData}
       onSelect={this.onRequestCallback.bind(this)}
       closeAllExceptCurrent={this.closeAllExceptCurrent.bind(this)}
       allowScroll={this.allowScroll.bind(this)}
-      id={rowID}/>;
+      id={rowID} />);
   }
 
   renderSeparator(sectionID, rowID) {
@@ -84,8 +84,11 @@ class NewRequests extends Component {
   }
 
   closeAllExceptCurrent(id) {
-    let temp = this.state.dataSource._dataBlob.s1.slice();
-    temp.map(value => value.close = id !== value._id);
+    const temp = this.state.dataSource._dataBlob.s1.slice();
+    temp.map((value) => {
+      value.close = id !== value._id;
+      return value;
+    });
 
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(temp),
@@ -93,21 +96,21 @@ class NewRequests extends Component {
   }
 
   render() {
-    if (this.state.isEmpty)
+    if (this.state.isEmpty) {
       return (
         <View style={styles.container}>
-          <Image source={require('../../resources/chat_onboarding.png')}/>
+          <Image source={require('../../resources/chat_onboarding.png')} />
           <View style={styles.titleContainer}>
             <Text style={styles.title}>Make a connection!</Text>
           </View>
         </View>
       );
-    else {
+    } else {
       return (
         <ListView
-          scrollEnabled = {this.state.scrollEnabled}
-          dataSource = {this.state.dataSource}
-          renderRow  = {this.renderRow.bind(this)}
+          scrollEnabled={this.state.scrollEnabled}
+          dataSource={this.state.dataSource}
+          renderRow={this.renderRow.bind(this)}
           renderSeparator={this.renderSeparator}
           enableEmptySections={true}
         />
