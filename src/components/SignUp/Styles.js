@@ -8,7 +8,8 @@ const styles = StyleSheet.create({
   formEditView: {
     borderBottomWidth: 1,
     borderBottomColor: '#a6aeae',
-    paddingBottom: 15,
+    padding: 15,
+    backgroundColor: '#ffffff',
   },
   formEditBottomLine: {
     borderBottomColor: '#a6aeae',
@@ -49,6 +50,7 @@ const styles = StyleSheet.create({
   },
   formEditYear: {
     width: 100,
+    //alignItems: 'center',
   },
   doneWrapper: {
     alignItems: 'flex-end',
@@ -64,6 +66,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fbfbfb',
+  },
+  modalPadding: {
+    flex: 1,
+    backgroundColor: 'black',
+    opacity: 0.5,
+  },
+  modalCancel: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   formEditDate: {
     height: 30,

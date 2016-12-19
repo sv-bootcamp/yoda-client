@@ -12,7 +12,6 @@ import { Actions } from 'react-native-router-flux';
 import LinearGradient from 'react-native-linear-gradient';
 import EditForm from './EditForm';
 import EduForm from './EduForm';
-import EduFormIOS from './EduFormIOS';
 import MyPic from './MyPic';
 import Progress from '../Shared/Progress';
 import Text from '../Shared/UniText';
@@ -98,7 +97,7 @@ class GeneralInfo extends Component {
 
   onUploadCallback(result, error) {
     if (error) {
-      Alert.alert('Sign In', error);
+      Alert.alert('Profile', error);
     } else if (result) {
       if (this.props.fromEdit) {
         Actions.pop();
@@ -133,11 +132,16 @@ class GeneralInfo extends Component {
   }
 
   onChangeExpInfo(propName1, propName2, idx, text) {
-    if (propName2 == null) {
+    if (propName2 === null) {
       this.state.profile.experience[idx][propName1] = text;
-    } else {
-      this.state.profile.experience[idx][propName1][propName2] = text;
+      return;
     }
+
+    if (!this.state.profile.experience[idx][propName1]) {
+      this.state.profile.experience[idx][propName1] = {};
+    }
+
+    this.state.profile.experience[idx][propName1][propName2] = text;
   }
 
   onDeleteWork(rowID) {
@@ -196,13 +200,13 @@ class GeneralInfo extends Component {
   regist() {
     const profile = this.state.profile;
     if (profile.name.replace(/\s/g, '') === '') {
-      Alert.alert('Sign In', 'Please input your name.');
+      Alert.alert('Profile', 'Please input your name.');
       return;
     }
 
     const emailFilter = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
     if (emailFilter.test(profile.email) === false) {
-      Alert.alert('Sign In', 'Please input your correct email.');
+      Alert.alert('Profile', 'Please input your correct email.');
       return;
     }
 
@@ -272,10 +276,7 @@ class GeneralInfo extends Component {
     const employer = experience.employer === undefined ? '' : experience.employer.name;
     const position = experience.position === undefined ? '' : experience.position.name;
     const start = experience.start_date === undefined ? '' : experience.start_date;
-    let end = '';
-    if (experience.end_date !== undefined) {
-      end = experience.end_date === '0000-00' ? 'present' : experience.end_date;
-    }
+    const end = experience.end_date === '0000-00' ? '' : experience.end_date;
 
     const onDelete = deletedRowID => this.onDeleteWork(deletedRowID);
     const onChangeText = (propName1, propName2, idx, text) =>
@@ -306,19 +307,13 @@ class GeneralInfo extends Component {
 
     const props = {
       name: edu.school ? edu.school.name : '',
-      startYear: edu.startYear ? edu.startYear.name : '1980',
-      endYear: edu.year ? edu.year.name : '1980',
+      start: edu.start_year ? edu.start_year.name : '1980',
+      end: edu.year ? edu.year.name : '1980',
       subject: eduSubject,
       id: rowID,
       onDelete,
       onChangeText,
     };
-
-    if (Platform.OS === 'ios') {
-      return (
-        <EduFormIOS {...props} />
-      );
-    }
 
     return (
       <EduForm {...props} />
