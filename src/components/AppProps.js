@@ -45,14 +45,14 @@ const styles = StyleSheet.create({
     borderBottomColor: '#d6dada',
   },
   titleWrapperStyle: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'red',
     marginTop: 0,
     ...Platform.select({
       ios: {
         top: dimensions.heightWeight * 33,
       },
       android: {
-        top: dimensions.heightWeight * 33 - 10,
+        top: dimensions.heightWeight * 23 - 10,
       },
     }),
     left: 0,
