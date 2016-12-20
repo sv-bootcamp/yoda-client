@@ -89,7 +89,7 @@ class OnBoardingPage extends Component {
     );
   }
 
-  controlScroll(e, state) {
+  controlScroll(event, state) {
     const idx = state.index;
     this.setState({
       index: idx,
