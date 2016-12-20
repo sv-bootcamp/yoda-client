@@ -120,7 +120,11 @@ class GeneralInfo extends Component {
       profile.education[idx][parentProp] = {};
     }
 
-    profile.education[idx][parentProp][childProp] = text;
+    if (childProp) {
+      profile.education[idx][parentProp][childProp] = text;
+    } else {
+      profile.education[idx][parentProp] = text;
+    }
   }
 
   onDeleteEdu(rowID) {
@@ -161,6 +165,8 @@ class GeneralInfo extends Component {
         school: { name: '' },
         type: '',
         year: { name: '' },
+        start_date: '',
+        end_date: '',
         concentration: [{ name: '' }],
       });
 
@@ -273,25 +279,21 @@ class GeneralInfo extends Component {
   }
 
   getDefaultWork(experience, sectionID, rowID) {
-    const employer = experience.employer === undefined ? '' : experience.employer.name;
-    const position = experience.position === undefined ? '' : experience.position.name;
-    const start = experience.start_date === undefined ? '' : experience.start_date;
-    const end = experience.end_date === '0000-00' ? '' : experience.end_date;
-
     const onDelete = deletedRowID => this.onDeleteWork(deletedRowID);
     const onChangeText = (propName1, propName2, idx, text) =>
                           this.onChangeExpInfo(propName1, propName2, idx, text);
 
+    const props = {
+      employer: experience.employer ? experience.employer.name : '',
+      position: experience.position ? experience.position.name : '',
+      start: experience.start_date,
+      end: experience.end_date,
+      onDelete,
+      onChangeText
+    };
+
     return (
-      <WorkForm
-        employer={employer}
-        position={position}
-        start={start}
-        end={end}
-        id={rowID}
-        onDelete={onDelete}
-        onChangeText={onChangeText}
-      />
+      <WorkForm {...props} />
     );
   }
 
@@ -307,8 +309,8 @@ class GeneralInfo extends Component {
 
     const props = {
       name: edu.school ? edu.school.name : '',
-      start: edu.start_year ? edu.start_year.name : '1980',
-      end: edu.year ? edu.year.name : '1980',
+      start: edu.start_date,
+      end: edu.end_date || edu.year.name,
       subject: eduSubject,
       id: rowID,
       onDelete,
