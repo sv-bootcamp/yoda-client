@@ -21,6 +21,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; settings = {ATTRIBUTES = (Required, ); }; };
+		1671CA0AFD4B4C091C4F0B53 /* Pods_Bridgeme.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39A664417DEB5612A5E9F5B /* Pods_Bridgeme.framework */; };
 		536289CD474847C7AB1910CF /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1ABC20715C144CF9A6B48614 /* Entypo.ttf */; };
 		59F5AF063B544543856B1BFB /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2C05E76B5AB4FAFAC60FF28 /* EvilIcons.ttf */; };
 		5DA1E7231E02B38D00D946A3 /* Pods_Bridgeme.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DA1E7221E02B38D00D946A3 /* Pods_Bridgeme.framework */; };
@@ -309,6 +310,7 @@
 		AA49EE121D6FFBD20083C256 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		AA49EE161D6FFEB90083C256 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		AAB23E211D75476D00C97A58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Yoda/Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		B39A664417DEB5612A5E9F5B /* Pods_Bridgeme.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bridgeme.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA618E5CA3F34A9D8CD1096F /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 		C2C05E76B5AB4FAFAC60FF28 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		D22304871DDEE06A0098E0A8 /* ProductSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProductSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 				9DF5E4EBE0F04B119F92935E /* libBVLinearGradient.a in Frameworks */,
 				0E5F52AED9EA40F283EDE0AE /* libRNVectorIcons.a in Frameworks */,
 				71AE297F13FF46D2A3FE3A26 /* libRNFIRMessaging.a in Frameworks */,
+				1671CA0AFD4B4C091C4F0B53 /* Pods_Bridgeme.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,6 +598,7 @@
 				AA49EE101D6FFBD20083C256 /* FBSDKCoreKit.framework */,
 				AA49EE111D6FFBD20083C256 /* FBSDKLoginKit.framework */,
 				AA49EE121D6FFBD20083C256 /* FBSDKShareKit.framework */,
+				B39A664417DEB5612A5E9F5B /* Pods_Bridgeme.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
