@@ -10,7 +10,6 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
@@ -56,7 +55,7 @@ class RequestPage extends Component {
       <ActivityIndicator
         animating={!this.state.loaded}
         style={[styles.activityIndicator]}
-        size='small'
+        size="small"
       />
     );
   }
@@ -78,79 +77,72 @@ class RequestPage extends Component {
     const send = () => this.sendMessage();
 
     return (
-              <MenuContext ref="MenuContext">
-                <KeyboardAwareScrollView
-                  extraHeight={HEIGHT / 4}
-                  contentContainerStyle={styles.content}>
-
-                  <Text style={styles.title}>What would you like to ask first?</Text>
-                  <Text style={styles.subTitle}>Subjects</Text>
-                  <View style={styles.dropdownContent}>
-                    <Menu style={styles.dropdown}
-                      onSelect={(value) => {
-                        this.setState({ selection: value });
-                      }
-                      }>
-                      <MenuTrigger>
-                        <Text>{this.state.selection}</Text>
-                      </MenuTrigger>
-                      <MenuOptions
-                        optionsContainerStyle={styles.dropdownOptions}
-                        renderOptionsContainer={(options) =>
-                          <ScrollView>{options}</ScrollView>}>
-                        <MenuOption value='Study abroad'>
-                          <Text>Study abroad</Text>
-                        </MenuOption>
-                        <MenuOption value='Career advice'>
-                          <Text>Career advice</Text>
-                        </MenuOption>
-                        <MenuOption value='Portfolio & resume'>
-                          <Text>Portfolio & resume</Text>
-                        </MenuOption>
-                        <MenuOption value='Start up'>
-                          <Text>Startup</Text>
-                        </MenuOption>
-                        <MenuOption value='Career change'>
-                          <Text>Career change</Text>
-                        </MenuOption>
-                        <MenuOption value='Networking'>
-                          <Text>Networking</Text>
-                        </MenuOption>
-                        <MenuOption value='Soft skills'>
-                          <Text>Soft skills</Text>
-                        </MenuOption>
-                      </MenuOptions>
-                    </Menu>
-                  </View>
-                  <View style={styles.messageContainer}>
-                    <Text style={styles.subTitle}>Message</Text>
-                    <Text style={styles.messageLength}>{this.state.messageLength} / 140 </Text>
-                  </View>
-                  <TextInput
-                    multiline={true}
-                    style={styles.multiline}
-                    placeholder='Enter message'
-                    maxLength={140}
-                    underlineColorAndroid='transparent'
-                    textAlignVertical='top'
-                    onChangeText={this.onChangeMessage.bind(this)}/>
-                  <TouchableOpacity onPress={send}>
-                    <LinearGradient style={styles.sendButton} start={[0.9, 0.5]} end={[0.0, 0.5]}
-                      locations={[0, 0.75]}
-                      colors={['#07e4dd', '#44acff']}>
-                      <View style={styles.buttonContainer}>
-                        <Text style={styles.buttonText}>SEND</Text>
-                      </View>
-                    </LinearGradient>
-                  </TouchableOpacity>
-                  <StatusBar
-                    backgroundColor = 'transparent'
-                    barStyle = 'default'
-                    networkActivityIndicatorVisible={false}
-                  />
-                </KeyboardAwareScrollView>
-              </MenuContext>
-
+      <MenuContext lazyRender={200} ref="MenuContext">
+        <KeyboardAwareScrollView
+          extraHeight={HEIGHT / 2.5}
+          contentContainerStyle={styles.content}>
+          <Text style={styles.title}>What would you like to ask first?</Text>
+          <Text style={styles.subTitle}>Subject</Text>
+          <View style={styles.dropdownContent}>
+            <Menu onSelect={(value) => this.setState({ selection: value })}>
+              <MenuTrigger style={styles.dropdown}>
+                <Text style={styles.dropdownText}>{this.state.selection}</Text>
+              </MenuTrigger>
+              <MenuOptions optionsContainerStyle={styles.dropdownOptions}
+                renderOptionsContainer={(options) =>
+                  <ScrollView>{options}</ScrollView>}>
+                <MenuOption value="Study abroad">
+                  <Text>Study abroad</Text>
+                </MenuOption>
+                <MenuOption value="Get a new job">
+                  <Text>Get a new job</Text>
+                </MenuOption>
+                <MenuOption value="Portfolio & resume">
+                  <Text>Portfolio & resume</Text>
+                </MenuOption>
+                <MenuOption value="Start up">
+                  <Text>Start up</Text>
+                </MenuOption>
+                <MenuOption value="Career change">
+                  <Text>Career change</Text>
+                </MenuOption>
+                <MenuOption value="Networking">
+                  <Text>Networking</Text>
+                </MenuOption>
+                <MenuOption value="Soft skills">
+                  <Text>Soft skills</Text>
+                </MenuOption>
+              </MenuOptions>
+            </Menu>
+          </View>
+          <View style={styles.messageContainer}>
+            <Text style={styles.subTitle}>Message</Text>
+            <Text style={styles.messageLength}>{this.state.messageLength} / 140 </Text>
+          </View>
+          <TextInput
+            multiline={true}
+            style={styles.multiline}
+            placeholder="Enter message"
+            maxLength={140}
+            underlineColorAndroid="transparent"
+            textAlignVertical="top"
+            onChangeText={this.onChangeMessage.bind(this)}/>
+          <TouchableOpacity onPress={send}>
+            <LinearGradient style={styles.sendButton} start={[0.9, 0.5]} end={[0.0, 0.5]}
+              locations={[0, 0.75]}
+              colors={['#07e4dd', '#44acff']}>
+              <View style={styles.buttonContainer}>
+                <Text style={styles.buttonText}>SEND</Text>
+              </View>
+            </LinearGradient>
+          </TouchableOpacity>
+          <StatusBar
+            backgroundColor = "transparent"
+            barStyle = "default"
+            networkActivityIndicatorVisible={false}
+          />
+        </KeyboardAwareScrollView>
+      </MenuContext>
     );
   }
 
@@ -225,7 +217,7 @@ const styles = StyleSheet.create({
     width: WIDTH * 0.613,
     height: HEIGHT * 0.067,
     borderRadius: WIDTH * 0.267,
-    marginTop: HEIGHT / 6,
+    marginTop: HEIGHT / 8,
   },
   buttonContainer: {
     backgroundColor: 'transparent',
@@ -260,6 +252,11 @@ const styles = StyleSheet.create({
     width: WIDTH - (WIDTH / 6),
     left: dimensions.widthWeight * 30,
     height: dimensions.heightWeight * 200,
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+  dropdownText: {
+    marginLeft: WIDTH * 0.053,
   },
 });
 
