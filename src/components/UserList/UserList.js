@@ -74,6 +74,16 @@ class UserList extends Component {
     }
   }
 
+  componentDidMount() {
+    AsyncStorage.getItem('filter', (error, result) => {
+      if (result) {
+        MatchUtil.getMentorList(this.onServerCallback.bind(this), JSON.parse(result));
+      } else {
+        MatchUtil.getMentorList(this.onServerCallback.bind(this));
+      }
+    });
+  }
+
   componentWillReceiveProps(props) {
     if (props.filter) {
       MatchUtil.getMentorList(this.onServerCallback.bind(this), props.filter);
