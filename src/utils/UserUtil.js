@@ -13,7 +13,6 @@ class UserUtil {
 
   // Sign In with Facebook.
   signInWithFacebook(callback) {
-    console.log('signInWithFacebook');
     LoginManager.logOut();
     LoginManager.logInWithReadPermissions(
       ['public_profile', 'email', 'user_education_history', 'user_work_history'])

@@ -89,7 +89,6 @@ class RequestPage extends Component {
                     <Menu style={styles.dropdown}
                       onSelect={(value) => {
                         this.setState({ selection: value });
-                        console.log(value, 'clicked');
                       }
                       }>
                       <MenuTrigger>
