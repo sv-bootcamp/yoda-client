@@ -29,6 +29,10 @@ class WorkForm extends Component {
   }
 
   getYearMonth(data) {
+    if (!data) {
+      return { year: '0000', month: '00' };
+    }
+
     let result = {
       year: '',
       month: '',

@@ -52,7 +52,13 @@ class App extends Component {
   }
 
   backAndroidHandler() {
+    if (!App.scene) {
+      Actions.pop();
+      return true;
+    }
+
     let scene = App.scene.sceneKey;
+
     if (scene === 'onBoarding' ||
         scene === 'evalPageMain' ||
         scene === 'main' ||
