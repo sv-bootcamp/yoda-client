@@ -84,6 +84,10 @@ export default class Row extends Component {
   }
 
   render() {
+    if (!this.opponent) {
+      return null;
+    }
+
     return (
       <TouchableHighlight underlayColor='lightgray' onPress={this.goToChat}>
         <View style={styles.row}>
@@ -119,7 +123,7 @@ export default class Row extends Component {
 
 const styles = StyleSheet.create({
   row: {
-    flex: 1,
+    height: 75,
     flexDirection: 'row',
   },
   photo: {
