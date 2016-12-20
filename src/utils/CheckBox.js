@@ -19,11 +19,12 @@ class CheckBox extends Component {
   }
 
   getIcon() {
-    if (this.props.checked)
+    if (this.props.checked) {
       return (<Icon name={'md-checkmark'} color={'#44acff'}
         size={(this.props.iconSize) ? this.props.iconSize : 20} />);
-    else
+    } else {
       return;
+    }
   }
 
   render() {
