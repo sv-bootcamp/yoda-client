@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     paddingLeft: dimensions.widthWeight * 36,
     ...Platform.select({
       ios: {
-        marginTop: dimensions.heightWeight * 74 + 20,
+        marginTop: dimensions.heightWeight * 74 + 20 - 45 * (1 - dimensions.heightWeight),
       },
       android: {
         marginTop: dimensions.heightWeight * 74 ,
