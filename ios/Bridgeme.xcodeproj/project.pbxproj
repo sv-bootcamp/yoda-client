@@ -24,7 +24,6 @@
 		536289CD474847C7AB1910CF /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1ABC20715C144CF9A6B48614 /* Entypo.ttf */; };
 		538C5404E50B4672BCFCD0D1 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D774EB2447BE4D33907F4792 /* Foundation.ttf */; };
 		59F5AF063B544543856B1BFB /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2C05E76B5AB4FAFAC60FF28 /* EvilIcons.ttf */; };
-		5D0CB1F31E0A1B8D003F0429 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26195E54F9CB4F2593F25889 /* Ionicons.ttf */; };
 		5DA1E7231E02B38D00D946A3 /* Pods_Bridgeme.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DA1E7221E02B38D00D946A3 /* Pods_Bridgeme.framework */; };
 		5DAABD521DEEB6A700876278 /* splash_anim.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5DAABD511DEEB6A700876278 /* splash_anim.gif */; };
 		5DAABD581DEEF33400876278 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAABD571DEEF33400876278 /* SplashViewController.m */; };
@@ -53,6 +52,7 @@
 		D260393C1DF7D9D0004DC6C9 /* SF-UI-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D26039371DF7D8E0004DC6C9 /* SF-UI-Text-Light.otf */; };
 		D260393D1DF7D9D0004DC6C9 /* SF-UI-Text-Ultrathin.otf in Resources */ = {isa = PBXBuildFile; fileRef = D26039381DF7D8E0004DC6C9 /* SF-UI-Text-Ultrathin.otf */; };
 		D260393E1DF7D9D5004DC6C9 /* opensans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA20BCD31DA4B63F00BFA62C /* opensans.ttf */; };
+		DAB407959AAC40BC9D08F885 /* (null) in Resources */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1043,7 +1043,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5D0CB1F31E0A1B8D003F0429 /* Ionicons.ttf in Resources */,
 				D260393E1DF7D9D5004DC6C9 /* opensans.ttf in Resources */,
 				D26039391DF7D9D0004DC6C9 /* SF-UI-Text-Bold.otf in Resources */,
 				D260393A1DF7D9D0004DC6C9 /* SF-UI-Text-Regular.otf in Resources */,
@@ -1054,6 +1053,7 @@
 				5DAABD521DEEB6A700876278 /* splash_anim.gif in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				D22304981DDEE0AE0098E0A8 /* ProductSans-Bold.ttf in Resources */,
+				DAB407959AAC40BC9D08F885 /* (null) in Resources */,
 				5DD54E381DE3E6F0008DB293 /* GoogleService-Info.plist in Resources */,
 				536289CD474847C7AB1910CF /* Entypo.ttf in Resources */,
 				59F5AF063B544543856B1BFB /* EvilIcons.ttf in Resources */,
