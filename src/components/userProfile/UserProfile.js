@@ -281,7 +281,6 @@ class UserProfile extends Component {
         flexDirection: 'column',
         flex: 1,
       }}>
-        <StatusBar barStyle='dark-content'/>
         <ScrollView>
           <StatusBar
             backgroundColor = "transparent"

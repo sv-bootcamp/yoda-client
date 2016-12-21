@@ -93,6 +93,7 @@ class Filter extends Component {
     }
 
     Actions.refresh({
+      rightButtonTextStyle: styles.rightTextStyle,
       rightTitle: 'Save',
       onRight: this.onSave.bind(this),
       onBack: () => {
@@ -132,6 +133,7 @@ class Filter extends Component {
   componentWillReceiveProps(props) {
     if (this.state.needRefresh) {
       Actions.refresh({
+        rightButtonTextStyle: styles.rightTextStyle,
         rightTitle: 'Save',
         onRight: this.onSave.bind(this),
         onBack: () => {
@@ -520,6 +522,12 @@ const styles = StyleSheet.create({
   subLabelFontStyle: {
     color: '#a6aeae',
     fontSize: dimensions.fontWeight * 12,
+  },
+  rightTextStyle: {
+    backgroundColor: 'transparent',
+    color: '#44acff',
+    fontSize: dimensions.fontWeight * 16,
+    marginRight: dimensions.widthWeight * 15,
   },
 });
 
