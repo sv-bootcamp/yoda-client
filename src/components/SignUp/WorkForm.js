@@ -3,17 +3,15 @@ import {
   Alert,
   Image,
   Modal,
-  Picker,
   ScrollView,
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import ModalPicker from 'react-native-modal-picker'
 import styles from './Styles';
 import Text from '../Shared/UniText';
-
-const Item = Picker.Item;
 
 class WorkForm extends Component {
   constructor(props) {
@@ -58,14 +56,16 @@ class WorkForm extends Component {
     this.props.onChangeText('employer', 'name', this.props.id, text);
   }
 
-  onChangeStartYear(year) {
+  onChangeStartYear(data) {
+    const year = data.label;
     const date = year + '-' + this.state.startDate.month;
     this.props.onChangeText('start_date', '', this.props.id, year);
     this.state.startDate.year = year;
     this.setState({});
   }
 
-  onChangeStartMonth(month) {
+  onChangeStartMonth(data) {
+    const month = data.label;
     const monthStr = month.length === 1 ? '0' + month : month;
     const date = this.state.startDate.year + '-' + monthStr;
     this.props.onChangeText('start_date', '', this.props.id, date);
@@ -73,14 +73,16 @@ class WorkForm extends Component {
     this.setState({});
   }
 
-  onChangeEndYear(year) {
+  onChangeEndYear(data) {
+    const year = data.label;
     const date = year + '-' + this.state.endDate.month;
     this.props.onChangeText('end_date', '', this.props.id, year);
     this.state.endDate.year = year;
     this.setState({});
   }
 
-  onChangeEndMonth(month) {
+  onChangeEndMonth(data) {
+    const month = data.label;
     const monthStr = month.length === 1 ? '0' + month : month;
     const date = this.state.endDate.year + '-' + monthStr;
     this.props.onChangeText('end_date', '', this.props.id, date);
@@ -90,27 +92,22 @@ class WorkForm extends Component {
 
   // Get picker items(year for education)
   getPickerYearItems() {
-    const yearList = [];
+    const yearItemList = [];
     const now = new Date();
     for (let i = 1950; i <= now.getFullYear(); i += 1) {
-      yearList.push(i + '');
+      yearItemList.push({ key: i, label: i + '' });
     }
 
-    yearList.reverse();
-    return yearList.map(
-      (year, idx) => <Item key={idx} label={year} value={year} style={styles.formDate} />
-    );
+    return yearItemList.reverse();
   }
 
   getPickerMonthItems() {
-    const monthList = [];
+    const monthItemList = [];
     for (let i = 1; i <= 12; i += 1) {
-      monthList.push(i + '');
+      monthItemList.push({ key: i, label: i + '' });
     }
 
-    return monthList.map(
-      (month, idx) => <Item key={idx} label={month} value={month} style={styles.formDate} />
-    );
+    return monthItemList;
   }
 
   toggleEdit() {
@@ -120,8 +117,8 @@ class WorkForm extends Component {
   }
 
   renderEdit() {
-    const PickerYearItems = this.getPickerYearItems();
-    const PickerMonthItems = this.getPickerMonthItems();
+    const pickerYearItems = this.getPickerYearItems();
+    const pickerMonthItems = this.getPickerMonthItems();
     const onChangePosition = text => this.onChangePosition(text);
     const onChangeName = text => this.onChangeName(text);
     const onChangeStartYear = year => this.onChangeStartYear(year);
@@ -158,38 +155,66 @@ class WorkForm extends Component {
                 placeholderTextColor="#ddd"
                 onChangeText={onChangeName}
               />
+            </View><View style={{ marginTop: 10, marginBottom: 10 }}>
+              <Text style={{ fontSize: 16 }}>From</Text>
             </View>
             <View style={styles.flexR}>
-              <Picker
+              <ModalPicker
+                data={pickerYearItems}
                 style={styles.formEditYear}
-                selectedValue={this.state.startDate.year}
-                onValueChange={onChangeStartYear}
+                onChange={onChangeStartYear}
               >
-                {PickerYearItems}
-              </Picker>
-              <Picker
+                <TextInput
+                  style={styles.formEditPlaceholder}
+                  editable={false}
+                  placeholder="Year"
+                  value={this.state.startDate.year} />
+              </ModalPicker>
+              <View style={styles.formEditMid}>
+                <Text>/</Text>
+              </View>
+              <ModalPicker
+                data={pickerMonthItems}
                 style={styles.formEditYear}
-                selectedValue={this.state.startDate.month.replace('0', '')}
-                onValueChange={onChangeStartMonth}
+                onChange={onChangeStartMonth}
               >
-                {PickerMonthItems}
-              </Picker>
+                <TextInput
+                  style={styles.formEditPlaceholder}
+                  editable={false}
+                  placeholder="Month"
+                  value={this.state.startDate.month.replace('0', '')} />
+              </ModalPicker>
+            </View>
+            <View style={{ marginTop: 10, marginBottom: 10 }}>
+              <Text style={{ fontSize: 16 }}>To</Text>
             </View>
             <View style={styles.flexR}>
-              <Picker
+              <ModalPicker
+                data={pickerYearItems}
                 style={styles.formEditYear}
-                selectedValue={this.state.endDate.year}
-                onValueChange={onChangeEndYear}
+                onChange={onChangeEndYear}
               >
-                {PickerYearItems}
-              </Picker>
-              <Picker
+                <TextInput
+                  style={styles.formEditPlaceholder}
+                  editable={false}
+                  placeholder="Year"
+                  value={this.state.endDate.year} />
+              </ModalPicker>
+              <View style={styles.formEditMid}>
+                <Text>/</Text>
+              </View>
+              <ModalPicker
+                data={pickerMonthItems}
                 style={styles.formEditYear}
-                selectedValue={this.state.endDate.month.replace('0', '')}
-                onValueChange={onChangeEndMonth}
+                initValue={this.state.endDate.month.replace('0', '')}
+                onChange={onChangeEndMonth}
               >
-                {PickerMonthItems}
-              </Picker>
+                <TextInput
+                  style={styles.formEditPlaceholder}
+                  editable={false}
+                  placeholder="Month"
+                  value={this.state.endDate.month.replace('0', '')} />
+              </ModalPicker>
             </View>
             <View style={[styles.flexR, { marginTop: 15, justifyContent: 'flex-end' }]}>
               <TouchableOpacity onPress={toggleEdit}>
@@ -207,6 +232,17 @@ class WorkForm extends Component {
   }
 
   renderView() {
+    const startYear = this.state.startDate.year === '0000' ? '' : this.state.startDate.year;
+    const startMonth = this.state.startDate.month === '00' ? '' : this.state.startDate.month;
+    const startMid = (startYear && startMonth) ? '-' : '';
+    const startDate = startYear + startMid + startMonth;
+
+    const endYear = this.state.endDate.year === '0000' ? '' : this.state.endDate.year;
+    const endMonth = this.state.endDate.month === '00' ? '' : this.state.endDate.month;
+    const endMid = (endYear && endMonth) ? '-' : '';
+    let endDate = endYear + endMid + endMonth;
+    endDate = endDate || 'present';
+
     return (
       <ScrollView
         style={styles.flexR}
@@ -241,13 +277,13 @@ class WorkForm extends Component {
           </View>
           <View style={styles.flexR}>
             <Text style={styles.formDate}>
-              {this.state.startDate.year + '-' + this.state.startDate.month}
+              {startDate}
             </Text>
             <View>
               <Text style={styles.formDate}>{' ~ '}</Text>
             </View>
             <Text style={styles.formDate}>
-              {this.state.endDate.year + '-' + this.state.endDate.month}
+              {endDate}
             </Text>
           </View>
         </View>

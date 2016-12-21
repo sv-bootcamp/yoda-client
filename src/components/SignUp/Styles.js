@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#a6aeae',
     paddingTop: 50,
-    paddingBottom: 50,
+    paddingBottom: 35,
     paddingLeft: 15,
     paddingRight: 15,
     marginRight: 15,
@@ -61,8 +61,18 @@ const styles = StyleSheet.create({
     width: deviceWidth - 70,
   },
   formEditYear: {
-    width: (deviceWidth - 70) / 2,
-    //alignItems: 'center',
+    flex: 1,
+  },
+  formEditMid: {
+    width: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  formEditPlaceholder: {
+    borderWidth:1,
+    borderColor:'#ddd',
+    padding:10,
+    height:30,
   },
   doneWrapper: {
     alignItems: 'flex-end',
@@ -78,16 +88,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, .5)',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  modalPadding: {
-    flex: 1,
-    backgroundColor: 'black',
-    opacity: 0.5,
-  },
-  modalCancel: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   formEditDate: {
     height: 30,

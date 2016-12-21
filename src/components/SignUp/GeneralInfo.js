@@ -310,7 +310,7 @@ class GeneralInfo extends Component {
     const props = {
       name: edu.school ? edu.school.name : '',
       start: edu.start_date,
-      end: edu.end_date || edu.year.name,
+      end: edu.end_date || (edu.year ? edu.year.name : ''),
       subject: eduSubject,
       id: rowID,
       onDelete,
