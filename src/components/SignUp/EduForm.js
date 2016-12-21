@@ -56,6 +56,7 @@ class EduForm extends Component {
     this.props.onChangeText('concentration', 'name', this.props.id, text);
   }
 
+  // TODO: This function is necessary for editing degree later.
   onChangeDegree() {
 
   }
@@ -64,8 +65,12 @@ class EduForm extends Component {
     const year = data.label;
     const date = year + '-' + this.state.startDate.month;
     this.props.onChangeText('start_date', '', this.props.id, year);
-    this.state.startDate.year = year;
-    this.setState({});
+    this.setState({
+      startDate: {
+        year,
+        month: this.state.startDate.month,
+      }
+    });
   }
 
   onChangeStartMonth(data) {
@@ -74,15 +79,24 @@ class EduForm extends Component {
     const date = this.state.startDate.year + '-' + monthStr;
     this.props.onChangeText('start_date', '', this.props.id, date);
     this.state.startDate.month = monthStr;
-    this.setState({});
+    this.setState({
+      startDate: {
+        year: this.state.startDate.year,
+        month,
+      }
+    });
   }
 
   onChangeEndYear(data) {
     const year = data.label;
     const date = year + '-' + this.state.endDate.month;
     this.props.onChangeText('end_date', '', this.props.id, year);
-    this.state.endDate.year = year;
-    this.setState({});
+    this.setState({
+      endDate: {
+        year,
+        month: this.state.endDate.month,
+      }
+    });
   }
 
   onChangeEndMonth(data) {
@@ -91,7 +105,12 @@ class EduForm extends Component {
     const date = this.state.endDate.year + '-' + monthStr;
     this.props.onChangeText('end_date', '', this.props.id, date);
     this.state.endDate.month = monthStr;
-    this.setState({});
+    this.setState({
+      endDate: {
+        year: this.state.endDate.year,
+        month,
+      }
+    });
   }
 
   // Get picker items(year for education)
