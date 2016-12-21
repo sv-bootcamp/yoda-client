@@ -158,7 +158,7 @@ class WorkForm extends Component {
               <TextInput
                 style={[styles.formName, styles.formEditName]}
                 defaultValue={this.state.position}
-                underlineColorAndroid="rgba(255, 255, 255, 0)"
+                underlineColorAndroid="transparent"
                 placeholder="Position"
                 placeholderTextColor="#ddd"
                 onChangeText={onChangePosition}
@@ -168,7 +168,7 @@ class WorkForm extends Component {
               <TextInput
                 style={[styles.formName, styles.formEditName]}
                 defaultValue={this.state.employer}
-                underlineColorAndroid="rgba(255, 255, 255, 0)"
+                underlineColorAndroid="transparent"
                 placeholder="Company name"
                 placeholderTextColor="#ddd"
                 onChangeText={onChangeName}

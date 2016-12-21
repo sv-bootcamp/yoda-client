@@ -162,7 +162,7 @@ class EduForm extends Component {
               <TextInput
                 style={[styles.formName, styles.formEditName]}
                 defaultValue={this.state.name}
-                underlineColorAndroid="rgba(255, 255, 255, 0)"
+                underlineColorAndroid="transparent"
                 placeholder="School"
                 placeholderTextColor="#ddd"
                 onChangeText={onChangeName}
@@ -172,7 +172,7 @@ class EduForm extends Component {
               <TextInput
                 style={[styles.formName, styles.formEditName]}
                 defaultValue={this.state.subject}
-                underlineColorAndroid="rgba(255, 255, 255, 0)"
+                underlineColorAndroid="transparent"
                 placeholder="Subject"
                 placeholderTextColor="#ddd"
                 onChangeText={onChangeSubject}

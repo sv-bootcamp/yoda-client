@@ -116,7 +116,7 @@ class GeneralInfo extends Component {
       return;
     }
 
-    if (profile.education[idx][parentProp] === undefined) {
+    if (!profile.education[idx][parentProp]) {
       profile.education[idx][parentProp] = {};
     }
 
@@ -135,17 +135,18 @@ class GeneralInfo extends Component {
     });
   }
 
-  onChangeExpInfo(propName1, propName2, idx, text) {
-    if (propName2 === null) {
-      this.state.profile.experience[idx][propName1] = text;
-      return;
+  onChangeExpInfo(parentProp, childProp, idx, text) {
+    const profile = this.state.profile;
+
+    if (!profile.experience[idx][parentProp]) {
+      profile.experience[idx][parentProp] = {};
     }
 
-    if (!this.state.profile.experience[idx][propName1]) {
-      this.state.profile.experience[idx][propName1] = {};
+    if (childProp) {
+      profile.experience[idx][parentProp][childProp] = text;
+    } else {
+      profile.experience[idx][parentProp] = text;
     }
-
-    this.state.profile.experience[idx][propName1][propName2] = text;
   }
 
   onDeleteWork(rowID) {
@@ -288,6 +289,7 @@ class GeneralInfo extends Component {
       position: experience.position ? experience.position.name : '',
       start: experience.start_date,
       end: experience.end_date,
+      id: rowID,
       onDelete,
       onChangeText
     };
