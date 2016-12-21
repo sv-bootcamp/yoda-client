@@ -158,8 +158,6 @@ class Filter extends Component {
   }
 
   onSave() {
-    this.state.needRefresh = true;
-
     for (i = 0; i < this.state.checked.length; i++) {
       if (!this.state.checked[i]) {
         Alert.alert('System', 'Please select all');
@@ -202,6 +200,8 @@ class Filter extends Component {
       Alert.alert('No result', 'Please adjust filter condition.');
       return;
     }
+
+    this.state.needRefresh = true;
 
     let body = { career, expertise };
 
