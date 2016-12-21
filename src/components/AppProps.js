@@ -14,6 +14,7 @@ import ChannelList from './Chat/ChannelList';
 import ChatPage from './Chat/ChatPage';
 import Completed from './SignUp/Completed';
 import ExpertInfo from './SignUp/ExpertInfo';
+import Filter from './Filter/Filter';
 import OnBoarding from './OnBoarding/OnBoardingPage';
 import InputEmailAddr from './Login/InputEmailAddr';
 import InputSecretCode from './Login/InputSecretCode';
@@ -133,6 +134,12 @@ const styles = StyleSheet.create({
     width: dimensions.widthWeight * 13,
     height: dimensions.heightWeight * 13,
   },
+  leftBtnCancel: {
+    marginTop: 5,
+    marginLeft: 5,
+    width: 13,
+    height: 13,
+  },
 });
 
 const leftButtonGrey = require('../resources/icon-arrow-left-grey.png');
@@ -212,7 +219,7 @@ const AppProps = {
       key: 'expertInfo',
       component: ExpertInfo,
       hideNavBar: false,
-      title: 'I am expertised in',
+      title: 'My expertise',
       hideBackImage: false,
       backButtonImage: leftButtonGrey,
     },
@@ -242,7 +249,7 @@ const AppProps = {
       rightTitle: 'right',
       rightButtonIconStyle: styles.rightBtn,
       rightButtonImage: require('../resources/filter.png'),
-      onRight: () => Alert.alert('Filtering service will come soon'),
+      onRight: () => Actions.filter(),
     },
     {
       key: 'userList',
@@ -263,6 +270,13 @@ const AppProps = {
         backgroundColor: 'transparent',
         borderBottomColor: 'transparent',
       },
+    },
+    {
+      key: 'filter',
+      component: Filter,
+      title: 'Filter',
+      backButtonImage: cancelButton,
+      leftButtonIconStyle: styles.leftBtnCancel,
     },
     {
       key: 'requestPage',

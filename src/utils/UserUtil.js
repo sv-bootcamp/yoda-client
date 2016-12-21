@@ -77,11 +77,6 @@ class UserUtil {
     apiUtil.requestGetWithToken(callback, 'API_TOKEN');
   }
 
-  // Get user lists except me
-  getMentorList(callback) {
-    apiUtil.requestGetWithToken(callback, 'API_MENTOR');
-  }
-
   // Get my profile
   getMyProfile(callback) {
     apiUtil.requestGetWithToken(callback, 'API_ME');
@@ -159,6 +154,7 @@ class UserUtil {
     body.mentorMode = value.toString();
     apiUtil.requestPostWithToken(callback, 'API_SET_REQUEST_SETTING', body);
   }
+
 };
 
 const userUtil = new UserUtil();

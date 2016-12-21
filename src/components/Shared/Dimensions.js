@@ -4,13 +4,14 @@ export const refDimensions = {
   width: 375,
   height: 667,
 };
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
+
 export const dimensions = {
-  width: Dimensions.get('window').width,
-  height: Dimensions.get('window').height,
-  widthWeight: Dimensions.get('window').width / refDimensions.width,
-  heightWeight: Dimensions.get('window').height / refDimensions.height,
-  fontWeight: (Dimensions.get('window').width / refDimensions.width
-            < Dimensions.get('window').height / refDimensions.height)
-            ? Dimensions.get('window').width / refDimensions.width
-            : Dimensions.get('window').height / refDimensions.height,
+  width: WIDTH,
+  height: HEIGHT,
+  widthWeight: WIDTH / refDimensions.width,
+  heightWeight: HEIGHT / refDimensions.height,
+  fontWeight: (WIDTH / refDimensions.width < HEIGHT / refDimensions.height) ?
+            WIDTH / refDimensions.width : HEIGHT / refDimensions.height,
 };
