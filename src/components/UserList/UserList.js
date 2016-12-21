@@ -85,17 +85,13 @@ class UserList extends Component {
   }
 
   componentWillReceiveProps(props) {
-    if (props.filter) {
-      MatchUtil.getMentorList(this.onServerCallback.bind(this), props.filter);
-    } else {
-      AsyncStorage.getItem('filter', (error, result) => {
-        if (result) {
-          MatchUtil.getMentorList(this.onServerCallback.bind(this), JSON.parse(result));
-        } else {
-          MatchUtil.getMentorList(this.onServerCallback.bind(this));
-        }
-      });
-    }
+    AsyncStorage.getItem('filter', (error, result) => {
+      if (result) {
+        MatchUtil.getMentorList(this.onServerCallback.bind(this), JSON.parse(result));
+      } else {
+        MatchUtil.getMentorList(this.onServerCallback.bind(this));
+      }
+    });
   }
 
   renderRow(rowData, sectionID, rowID) {

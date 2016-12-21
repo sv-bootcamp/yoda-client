@@ -158,7 +158,7 @@ class Filter extends Component {
   }
 
   onSave() {
-    this.setState({ needRefresh: true });
+    this.state.needRefresh = true;
 
     for (i = 0; i < this.state.checked.length; i++) {
       if (!this.state.checked[i]) {
@@ -184,12 +184,34 @@ class Filter extends Component {
       }
     }
 
+    let cardNum = 0;
+
+    if (expertise.length === 0) {
+      for (i = 0; i < this.state.optionsNum.length; i++) {
+        cardNum += this.state.optionsNum[i];
+      }
+    } else {
+      for (i = 0; i < this.state.optionsNum.length; i++) {
+        if (this.state.overviewChecked[i]) {
+          cardNum += this.state.optionsNum[i];
+        }
+      }
+    }
+
+    if (cardNum === 0) {
+      Alert.alert('No result', 'Please adjust filter condition.');
+      return;
+    }
+
     let body = { career, expertise };
 
     AsyncStorage.setItem(
       'filter',
       JSON.stringify(body),
-      () => Actions.main({ me: this.props.me, filter: body }),
+      () => {
+        Actions.pop();
+        setTimeout(() => Actions.refresh(), 20);
+      },
     );
 
   }

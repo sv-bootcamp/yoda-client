@@ -73,7 +73,6 @@ class Main extends Component {
           if (notif) this.actionFromNotification(notif, 'getInitialNotification');
         });
       });
-      Actions.refresh({ onRight: () => Actions.filter({ me: this.props.me }) });
     });
 
   }
@@ -214,8 +213,7 @@ class Main extends Component {
         renderTabBar={() => <TabBar />}>
         <UserList tabLabel="ios-home"
           style={styles.tabView}
-          me={this.props.me}
-          filter={this.props.filter} />
+          me={this.props.me}/>
         <View tabLabel="md-shuffle" style={styles.comingSoonView}>
           <Image source={require('../resources/tournament.png')} />
           <Text style={styles.comingSoonText}>Coming Soon!</Text>
