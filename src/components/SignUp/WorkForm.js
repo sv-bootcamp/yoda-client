@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 import { dimensions } from '../Shared/Dimensions';
-import ModalPicker from 'react-native-modal-picker'
+import ModalPicker from 'react-native-modal-picker';
 import styles from './Styles';
 import Text from '../Shared/UniText';
 
