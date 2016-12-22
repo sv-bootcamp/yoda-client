@@ -4,6 +4,7 @@ import {
   AsyncStorage,
   Dimensions,
   Image,
+  InteractionManager,
   NetInfo,
   ScrollView,
   StyleSheet,
@@ -46,7 +47,6 @@ class Main extends Component {
     this.state = {
       currentMainPage: mainPageTitle.DEFAULT,
       currentActivityPage: activityPageTitle.DEFAULT,
-      isFilter: true,
     };
 
     this.isConnected = false;
@@ -68,8 +68,11 @@ class Main extends Component {
       NetInfo.isConnected.addEventListener('change', this.onConnectionStateChange.bind(this));
 
       this.notificationUnsubscribe = Fcm.on('notification', this.onNotificationReceived.bind(this));
-      Fcm.getInitialNotification().then((notif) => {
-        if (notif) this.actionFromNotification(notif);
+
+      InteractionManager.runAfterInteractions(() => {
+        Fcm.getInitialNotification().then((notif) => {
+          if (notif) this.actionFromNotification(notif, 'getInitialNotification');
+        });
       });
     });
 
@@ -133,36 +136,41 @@ class Main extends Component {
   }
 
   onMainMessageReceived(channel, userMessage) {
-    Vibration.vibrate();
     FcmUtil.presentLocalChatNotification(userMessage);
   }
 
   onNotificationReceived(notif) {
     if (notif.opened_from_tray) {
-      this.actionFromNotification(notif);
+      this.actionFromNotification(notif, 'onNotificationReceived');
     }
   }
 
-  actionFromNotification(notif) {
-    Actions.main({ me: this.props.me });
-    setTimeout(() => {
-      if (notif.notificationType === 'MESSAGE') {
-        this.changeMainPage(mainPageTitle.CHAT, () => {
-          const opponent = JSON.parse(notif.extraData).opponent;
-          Actions.chatPage({
-            title: opponent.name,
-            me: { userId: this.props.me._id },
-            opponent,
+  actionFromNotification(notif, from) {
+    Actions.popTo('main');
+
+    InteractionManager.runAfterInteractions(() => {
+        if (notif.notificationType === 'MESSAGE') {
+          this.changeMainPage(mainPageTitle.CHAT, () => {
+            if (from === 'onNotificationReceived') {
+              InteractionManager.runAfterInteractions(() => {
+                const opponent = JSON.parse(notif.extraData).opponent;
+                Actions.chatPage({
+                  title: opponent.name,
+                  me: { userId: this.props.me._id },
+                  opponent,
+                });
+              });
+            }
           });
-        });
-      } else if (notif.notificationType === 'CONNECTION') {
-        this.changeMainPage(
-          mainPageTitle.MYCONNECTION, () => this.changeActivityPage(activityPageTitle.CONNECTED));
-      } else if (notif.notificationType === 'REQUEST') {
-        this.changeMainPage(
-          mainPageTitle.MYCONNECTION, () => this.changeActivityPage(activityPageTitle.NEWREQUESTS));
-      }
-    }, 500);
+        } else if (notif.notificationType === 'CONNECTION') {
+          this.changeMainPage(
+            mainPageTitle.MYCONNECTION, () => this.changeActivityPage(activityPageTitle.CONNECTED));
+        } else if (notif.notificationType === 'REQUEST') {
+          this.changeMainPage(
+            mainPageTitle.MYCONNECTION,
+            () => this.changeActivityPage(activityPageTitle.NEWREQUESTS));
+        }
+      });
   }
 
   changeMainPage(pageTitle, callback) {
@@ -189,19 +197,25 @@ class Main extends Component {
         onChangeTab={(obj) => {
           this.currentTab = obj.i;
           if (this.currentTab === mainPageTitle.HOME) {
-            Actions.refresh({ title: 'Bridge Me', titleStyle: styles.mainTitle });
+            Actions.refresh({ title: 'Bridge Me', titleStyle: styles.mainTitle,
+              rightButtonImage: require('../resources/filter.png'),
+              onRight: () => Actions.filter(),
+            });
           } else if (this.currentTab === mainPageTitle.TOURNAMENT) {
-            Actions.refresh({ title: 'Tournament', titleStyle: styles.title });
+            Actions.refresh({ title: 'Tournament', titleStyle: styles.title,
+              rightButtonImage: '', });
           } else if (this.currentTab === mainPageTitle.MYCONNECTION) {
-            Actions.refresh({ title: 'My Connection', titleStyle: styles.title });
+            Actions.refresh({ title: 'My Connection', titleStyle: styles.title,
+              rightButtonImage: '', });
           } else if (this.currentTab === mainPageTitle.CHAT) {
-            Actions.refresh({ title: 'Chat', titleStyle: styles.title });
+            Actions.refresh({ title: 'Chat', titleStyle: styles.title,
+              rightButtonImage: '', });
           } else if (this.currentTab === mainPageTitle.MYPROFILE) {
-            Actions.refresh({ title: 'My Profile', titleStyle: styles.title });
+            Actions.refresh({ title: 'My Profile', titleStyle: styles.title,
+              rightButtonImage: '', });
           }
         }
         }
-      
         tabBarPosition='bottom'
         locked
         scrollWithoutAnimation

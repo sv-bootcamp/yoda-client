@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
   },
   rightBtn: {
     backgroundColor: 'transparent',
-    marginRight: dimensions.widthWeight * 16,
+    marginRight: dimensions.widthWeight * 6,
     width: dimensions.widthWeight * 20,
     height: dimensions.heightWeight * 18,
     resizeMode: 'contain',
@@ -277,6 +277,7 @@ const AppProps = {
       title: 'Filter',
       backButtonImage: cancelButton,
       leftButtonIconStyle: styles.leftBtnCancel,
+      direction: 'diagonal',
     },
     {
       key: 'requestPage',
