@@ -10,10 +10,6 @@ import { Actions, ActionConst } from 'react-native-router-flux';
 import Text from './Shared/UniText';
 
 class EditProfile extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const fromEditProps = {
       me: this.props.me,
@@ -29,29 +25,37 @@ class EditProfile extends Component {
 
     return (
       <View style={[styles.container]}>
-        <TouchableOpacity style={styles.menu}
-          onPress={() => Actions.generalInfo(fromEditProps)}>
+        <TouchableOpacity
+          style={styles.menu}
+          onPress={() => Actions.generalInfo(fromEditProps)}
+        >
           <Text style={styles.menuText}>General information</Text>
           <View style={styles.menuIcon}>
             <Image source={menuIcon} />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.menu}
-          onPress={() => Actions.careerInfo(fromEditProps)}>
+        <TouchableOpacity
+          style={styles.menu}
+          onPress={() => Actions.careerInfo(fromEditProps)}
+        >
           <Text style={styles.menuText}>Career background</Text>
           <View style={styles.menuIcon}>
             <Image source={menuIcon} />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.menu}
-          onPress={() => Actions.expertInfo(fromEditProps)}>
+        <TouchableOpacity
+          style={styles.menu}
+          onPress={() => Actions.expertInfo(fromEditProps)}
+        >
           <Text style={styles.menuText}>My expertise</Text>
           <View style={styles.menuIcon}>
             <Image source={menuIcon} />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.menu}
-          onPress={() => Actions.personality(fromEditProps)}>
+        <TouchableOpacity
+          style={styles.menu}
+          onPress={() => Actions.personality(fromEditProps)}
+        >
           <Text style={styles.menuText}>My personality</Text>
           <View style={styles.menuIcon}>
             <Image source={menuIcon} />
@@ -93,7 +97,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-end',
     marginRight: 30,
-  }
+  },
 });
 
 module.exports = EditProfile;
