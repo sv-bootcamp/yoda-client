@@ -99,14 +99,12 @@ const styles = StyleSheet.create({
     fontSize: dimensions.fontWeight * 20,
     color: 'black',
   },
-  tabBarUnderline: {
+  tabBarUnderline: { 
     backgroundColor: '#44acff',
     borderBottomColor: '#44acff',
-    height: 2,
-    width: dimensions.widthWeight * 30,
-    marginLeft: dimensions.widthWeight * 78.75,
-    marginTop: 0,
-  },
+    height: 2, 
+    width: WIDTH / 12.5, 
+    marginLeft: WIDTH / 8, },
 });
 
 Activity.defaultProps = {

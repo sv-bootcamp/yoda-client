@@ -446,9 +446,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#44acff',
     borderBottomColor: '#44acff',
     height: 2,
-    width: dimensions.widthWeight * 30,
-    marginLeft: dimensions.widthWeight * 78.75,
-    marginTop: 0,
+    width: WIDTH / 12.5,
+    marginLeft: WIDTH / 12,
   },
   aboutDetail: {
     position: 'absolute',
