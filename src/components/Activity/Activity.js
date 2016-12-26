@@ -8,6 +8,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import { dimensions } from '../Shared/Dimensions';
 import Connected from './Connected';
 import NewRequests from './NewRequests';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
@@ -49,10 +50,10 @@ class Activity extends Component {
         tabBarActiveTextColor={'#2e3031'}
         tabBarUnderlineStyle={styles.tabBarUnderline}
         renderTabBar={() => <DefaultTabBar
-        style={{ marginLeft: 50, marginRight: 50 }}
-        containerWidth={WIDTH - 100}
-        leftOffset={5}
-        rightOffset={45}
+        style={{ marginLeft: dimensions.widthWeight * 50, marginRight: dimensions.widthWeight * 50 }}
+        containerWidth={WIDTH - dimensions.widthWeight * 100}
+        leftOffset={dimensions.widthWeight * 5}
+        rightOffset={dimensions.widthWeight * 45}
       />}>
         <NewRequests tabLabel='NEW REQUESTS'/>
         <Connected tabLabel='CONNECTED' me={this.props.me}/>
@@ -66,39 +67,45 @@ const styles = StyleSheet.create({
   container: {
     ...Platform.select({
       ios: {
-        marginTop: 64,
+        marginTop:  dimensions.heightWeight * 44 + 20,
       },
       android: {
-        marginTop: 54,
+        marginTop:  dimensions.heightWeight * 54,
       },
     }),
   },
   tabBarText: {
+    marginTop: 10,
+    backgroundColor: 'transparent',
     fontFamily: 'SFUIText-Bold',
-    fontSize: 12,
+    fontSize: dimensions.fontWeight * 12,
+    fontWeight: 'bold',
   },
   section: {
+    backgroundColor: 'green',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    padding: 5,
+    paddingVertical: dimensions.heightWeight * 5,
+    paddingHorizontal: dimensions.widthWeight * 5,
   },
   text: {
     color: '#546979',
-    paddingHorizontal: 8,
-    fontSize: 12,
+    paddingHorizontal: dimensions.widthWeight * 8,
+    fontSize: dimensions.fontWeight * 12,
   },
   loadingText: {
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: dimensions.fontWeight * 20,
     color: 'black',
   },
   tabBarUnderline: {
     backgroundColor: '#44acff',
     borderBottomColor: '#44acff',
     height: 2,
-    width: WIDTH / 12.5,
-    marginLeft: WIDTH / 8,
+    width: dimensions.widthWeight * 30,
+    marginLeft: dimensions.widthWeight * 78.75,
+    marginTop: 0,
   },
 });
 
