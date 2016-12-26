@@ -15,7 +15,6 @@ import {
 import { Actions } from 'react-native-router-flux';
 import LinearGradient from 'react-native-linear-gradient';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
-import ScrollableTabBar from '../Activity/ScrollableTabBar';
 import DefaultTabBar from'../Activity/DefaultTabBar';
 import Text from '../Shared/UniText';
 import UserCareer from './UserCareer';
