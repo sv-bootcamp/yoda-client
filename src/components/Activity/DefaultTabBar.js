@@ -35,9 +35,6 @@ const DefaultTabBar = React.createClass({
     };
   },
 
-  renderTabOption(name, page) {
-  },
-
   renderTab(name, page, isTabActive, onPressHandler) {
     const { activeTextColor, inactiveTextColor, textStyle, } = this.props;
     const textColor = isTabActive ? activeTextColor : inactiveTextColor;
