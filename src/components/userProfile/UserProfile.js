@@ -16,6 +16,7 @@ import { Actions } from 'react-native-router-flux';
 import LinearGradient from 'react-native-linear-gradient';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import ScrollableTabBar from '../Activity/ScrollableTabBar';
+import DefaultTabBar from'../Activity/DefaultTabBar';
 import Text from '../Shared/UniText';
 import UserCareer from './UserCareer';
 import UserOverview from './UserOverview';
@@ -305,9 +306,11 @@ class UserProfile extends Component {
             tabBarInactiveTextColor={'#a6aeae'}
             tabBarActiveTextColor={'#2e3031'}
             tabBarUnderlineStyle={styles.tabBarUnderline}
-            renderTabBar={() => <ScrollableTabBar
-            leftOffset={38}
-            rightOffset={31}
+            renderTabBar={() => <DefaultTabBar
+            style={{ marginLeft: 50, marginRight: 50 }}
+            containerWidth={WIDTH - 100}
+            leftOffset={22}
+            rightOffset={28}
             />}
           >
             <UserOverview tabLabel='OVERVIEW' id={this.state.id}

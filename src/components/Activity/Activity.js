@@ -11,7 +11,7 @@ import {
 import Connected from './Connected';
 import NewRequests from './NewRequests';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
-import ScrollableTabBar from './ScrollableTabBar';
+import DefaultTabBar from './DefaultTabBar';
 import Text from '../Shared/UniText';
 
 class Activity extends Component {
@@ -48,10 +48,12 @@ class Activity extends Component {
         tabBarInactiveTextColor={'#a6aeae'}
         tabBarActiveTextColor={'#2e3031'}
         tabBarUnderlineStyle={styles.tabBarUnderline}
-        renderTabBar={() => <ScrollableTabBar
-        leftOffset={53}
-        rightOffset={42}
-        />}>
+        renderTabBar={() => <DefaultTabBar
+        style={{ marginLeft: 50, marginRight: 50 }}
+        containerWidth={WIDTH - 100}
+        leftOffset={5}
+        rightOffset={45}
+      />}>
         <NewRequests tabLabel='NEW REQUESTS'/>
         <Connected tabLabel='CONNECTED' me={this.props.me}/>
       </ScrollableTabView>
