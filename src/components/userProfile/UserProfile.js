@@ -307,13 +307,18 @@ class UserProfile extends Component {
             tabBarInactiveTextColor={'#a6aeae'}
             tabBarActiveTextColor={'#2e3031'}
             tabBarUnderlineStyle={styles.tabBarUnderline}
-            renderTabBar={() => <DefaultTabBar
-            style={{ marginLeft: dimensions.widthWeight * 50, marginRight: dimensions.widthWeight * 50 }}
-            containerWidth={WIDTH - dimensions.widthWeight * 100}
-            leftOffset={dimensions.widthWeight * 22}
-            rightOffset={dimensions.widthWeight * 28}
-            />}
-          >
+            renderTabBar={() => (
+              <DefaultTabBar
+                style={
+                  {
+                    marginLeft: dimensions.widthWeight * 50,
+                    marginRight: dimensions.widthWeight * 50,
+                  }
+                }
+                containerWidth={WIDTH - dimensions.widthWeight * 100}
+                leftOffset={dimensions.widthWeight * 22}
+                rightOffset={dimensions.widthWeight * 28}
+                />)}>
             <UserOverview tabLabel='OVERVIEW' id={this.state.id}
               toggleAbout={this.toggleAbout.bind(this)}/>
             <UserCareer tabLabel='CAREER' id={this.state.id}/>

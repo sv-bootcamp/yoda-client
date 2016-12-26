@@ -81,12 +81,17 @@ const DefaultTabBar = React.createClass({
     };
 
     const left = this.props.scrollValue.interpolate({
-      inputRange: [0, 1, ], outputRange: [this.props.leftOffset,  (containerWidth / 2) - this.props.rightOffset, ],
+      inputRange: [0, 1, ],
+      outputRange: [this.props.leftOffset,  (containerWidth / 2) - this.props.rightOffset, ],
     });
 
     return (
       <View>
-        <View style={[styles.tabs, {backgroundColor: this.props.backgroundColor, }, this.props.style, ]}>
+        <View style={[
+          styles.tabs,
+          { backgroundColor: this.props.backgroundColor, },
+          this.props.style,
+          ]}>
           {this.props.tabs.map((name, page) => {
             const isTabActive = this.props.activeTab === page;
             const renderTab = this.props.renderTab || this.renderTab;
