@@ -202,17 +202,33 @@ class Main extends Component {
               onRight: () => Actions.filter(),
             });
           } else if (this.currentTab === mainPageTitle.TOURNAMENT) {
-            Actions.refresh({ title: 'Tournament', titleStyle: styles.title,
-              rightButtonImage: '', });
+            Actions.refresh({
+              title: 'Tournament',
+              titleStyle: styles.title,
+              rightButtonImage: null,
+              onRight: () => {},
+            });
           } else if (this.currentTab === mainPageTitle.MYCONNECTION) {
-            Actions.refresh({ title: 'My Connection', titleStyle: styles.title,
-              rightButtonImage: '', });
+            Actions.refresh({
+              title: 'My Connection',
+              titleStyle: styles.title,
+              rightButtonImage: null,
+              onRight: () => {},
+            });
           } else if (this.currentTab === mainPageTitle.CHAT) {
-            Actions.refresh({ title: 'Chat', titleStyle: styles.title,
-              rightButtonImage: '', });
+            Actions.refresh({
+              title: 'Chat',
+              titleStyle: styles.title,
+              rightButtonImage: null,
+              onRight: () => {},
+            });
           } else if (this.currentTab === mainPageTitle.MYPROFILE) {
-            Actions.refresh({ title: 'My Profile', titleStyle: styles.title,
-              rightButtonImage: '', });
+            Actions.refresh({
+              title: 'My Profile',
+              titleStyle: styles.title,
+              rightButtonImage: null,
+              onRight: () => {},
+            });
           }
         }
         }
@@ -224,7 +240,7 @@ class Main extends Component {
           style={styles.tabView}
           me={this.props.me}/>
         <View tabLabel="md-shuffle" style={styles.comingSoonView}>
-          <Image source={require('../resources/tournament.png')} />
+          <Image source={require('../resources/tournament.png')}/>
           <Text style={styles.comingSoonText}>Coming Soon!</Text>
         </View>
         <Activity
@@ -233,8 +249,8 @@ class Main extends Component {
           currentActivityPage={this.state.currentActivityPage}
           me={this.props.me}
         />
-        <ChannelList tabLabel="ios-chatbubbles" style={styles.tabView} me={this.props.me} />
-        <MyPage tabLabel="md-contact" me={this.props.me} />
+        <ChannelList tabLabel="ios-chatbubbles" style={styles.tabView} me={this.props.me}/>
+        <MyPage tabLabel="md-contact" me={this.props.me}/>
       </ScrollableTabView>
     );
   }

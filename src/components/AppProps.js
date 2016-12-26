@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
   },
   rightBtn: {
     backgroundColor: 'transparent',
-    marginRight: dimensions.widthWeight * 6,
+    marginRight: dimensions.widthWeight * 16,
     width: dimensions.widthWeight * 20,
     height: dimensions.heightWeight * 18,
     resizeMode: 'contain',
