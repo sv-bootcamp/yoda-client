@@ -17,7 +17,7 @@ import { Actions } from 'react-native-router-flux';
 import { dimensions } from '../Shared/Dimensions';
 import LinearGradient from 'react-native-linear-gradient';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
-import DefaultTabBar from'../Activity/DefaultTabBar';
+import DefaultTabBar from '../Activity/DefaultTabBar';
 import Text from '../Shared/UniText';
 import UserCareer from './UserCareer';
 import UserOverview from './UserOverview';
@@ -315,13 +315,14 @@ class UserProfile extends Component {
                     marginRight: dimensions.widthWeight * 50,
                   }
                 }
-                containerWidth={WIDTH - dimensions.widthWeight * 100}
+                containerWidth={WIDTH - (dimensions.widthWeight * 100)}
                 leftOffset={dimensions.widthWeight * 22}
                 rightOffset={dimensions.widthWeight * 28}
                 />)}>
-            <UserOverview tabLabel='OVERVIEW' id={this.state.id}
+            <UserOverview
+              tabLabel="OVERVIEW" id={this.state.id}
               toggleAbout={this.toggleAbout.bind(this)}/>
-            <UserCareer tabLabel='CAREER' id={this.state.id}/>
+            <UserCareer tabLabel="CAREER" id={this.state.id}/>
           </ScrollableTabView>
         </ScrollView>
         <View style={styles.btn}>
