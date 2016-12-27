@@ -476,7 +476,8 @@ const styles = StyleSheet.create({
   },
   subTitleText: {
     fontSize: dimensions.fontWeight * 12,
-    color: '#2e3031',
+    fontWeight: 'bold',
+    color: '#a6aeae',
     marginTop: dimensions.heightWeight * 10,
   },
   questionText: {
