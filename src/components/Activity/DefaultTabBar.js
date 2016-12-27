@@ -94,14 +94,11 @@ DefaultTabBar.propTypes = {
   underlineStyle: View.propTypes.style,
 };
 
-DefaultTabBar.getDefaultProps() {
-
-  return {
-    activeTextColor: 'navy',
-    inactiveTextColor: 'black',
-    backgroundColor: null,
-  };
-}
+DefaultTabBar.defaultProps = {
+  activeTextColor: 'navy',
+  inactiveTextColor: 'black',
+  backgroundColor: null,
+};
 
 const WIDTH = Dimensions.get('window').width;
 const styles = StyleSheet.create({
