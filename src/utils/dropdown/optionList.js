@@ -95,7 +95,7 @@ class OptionList extends Component {
         <Overlay
           pageX={pageX}
           pageY={pageY}
-          show={show}
+          show={show && this.props.overlayEnable}
           onPress={ this.onOverlayPress.bind(this) }/>
         <Items
           items={items}

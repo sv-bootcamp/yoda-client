@@ -194,7 +194,10 @@ class CareerInfo extends Component {
                     onSelect={this.onSelect.bind(this)}>
                     {this.getOptionSet(idx)}
                   </Select>
-                  <OptionList ref={'OPTION' + idx} index={idx}/>
+                  <OptionList
+                    ref={'OPTION' + idx}
+                    overlayEnable={!this.props.fromEdit}
+                    index={idx}/>
                 </View>
               </View>
             );

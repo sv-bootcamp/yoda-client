@@ -338,7 +338,10 @@ class Filter extends Component {
                     onSelect={this.onSelect.bind(this)}>
                     {this.getOptionSet(idx)}
                   </Select>
-                    <OptionList ref={'OPTION' + idx} index={idx}/>
+                  <OptionList
+                    ref={'OPTION' + idx}
+                    overlayEnable={false}
+                    index={idx}/>
                 </View>
               </View>
             );
