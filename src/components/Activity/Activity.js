@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
 import {
-  ActivityIndicator,
   Dimensions,
-  ListView,
   Platform,
-  RefreshControl,
   StyleSheet,
-  View,
 } from 'react-native';
+import ScrollableTabView from 'react-native-scrollable-tab-view';
 import { dimensions } from '../Shared/Dimensions';
 import Connected from './Connected';
 import NewRequests from './NewRequests';
-import ScrollableTabView from 'react-native-scrollable-tab-view';
 import DefaultTabBar from './DefaultTabBar';
-import Text from '../Shared/UniText';
 
 class Activity extends Component {
   constructor(props) {
@@ -50,13 +45,16 @@ class Activity extends Component {
         tabBarActiveTextColor={'#2e3031'}
         tabBarUnderlineStyle={styles.tabBarUnderline}
         renderTabBar={() => <DefaultTabBar
-        style={{ marginLeft: dimensions.widthWeight * 50, marginRight: dimensions.widthWeight * 50 }}
-        containerWidth={WIDTH - dimensions.widthWeight * 100}
+        style={{
+          marginLeft: dimensions.widthWeight * 50,
+          marginRight: dimensions.widthWeight * 50,
+        }}
+        containerWidth={WIDTH - (dimensions.widthWeight * 100)}
         leftOffset={dimensions.widthWeight * 5}
         rightOffset={dimensions.widthWeight * 45}
-      />}>
-        <NewRequests tabLabel='NEW REQUESTS'/>
-        <Connected tabLabel='CONNECTED' me={this.props.me}/>
+        />}>
+        <NewRequests tabLabel="NEW REQUESTS" />
+        <Connected tabLabel='CONNECTED' me={this.props.me} />
       </ScrollableTabView>
     );
   }
