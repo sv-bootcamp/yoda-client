@@ -4,7 +4,7 @@ import {
   Dimensions,
   StyleSheet,
   View,
- } from 'react-native';
+} from 'react-native';
 import Button from './Button';
 import Text from '../Shared/UniText';
 
@@ -18,24 +18,24 @@ class DefaultTabBar extends Component {
   }
 
   renderTab(name, page, isTabActive, onPressHandler) {
-    const { activeTextColor, inactiveTextColor, textStyle, } = DefaultTabBar.defaultProps;
+    const { activeTextColor, inactiveTextColor, textStyle } = DefaultTabBar.defaultProps;
     const textColor = isTabActive ? activeTextColor : inactiveTextColor;
     const fontWeight = isTabActive ? 'bold' : 'bold';
 
-    return <Button
-      style={{ flex: 1, }}
+    return (<Button
+      style={{ flex: 1 }}
       key={name}
       accessible={true}
       accessibilityLabel={name}
-      accessibilityTraits='button'
+      accessibilityTraits="button"
       onPress={() => onPressHandler(page)}
     >
       <View style={[styles.tab]}>
-        <Text style={[{ color: textColor, fontWeight, }, textStyle]}>
+        <Text style={[{ color: textColor, fontWeight }, textStyle]}>
           {name}
         </Text>
       </View>
-    </Button>;
+    </Button>);
   }
 
   render() {
@@ -61,14 +61,15 @@ class DefaultTabBar extends Component {
 
     const left = this.props.scrollValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [this.props.leftOffset,  (containerWidth / 2) - this.props.rightOffset],
+      outputRange: [this.props.leftOffset, (containerWidth / 2) - this.props.rightOffset],
     });
 
     return (
       <View>
-        <View style={[
+        <View
+          style={[
           styles.tabs,
-          { backgroundColor: this.props.backgroundColor, },
+          { backgroundColor: this.props.backgroundColor },
           this.props.style,
           ]}>
           {this.props.tabs.map((name, page) => {
