@@ -65,10 +65,10 @@ const styles = StyleSheet.create({
   container: {
     ...Platform.select({
       ios: {
-        marginTop: (dimensions.heightWeight * 44) + 20,
+        marginTop:  (dimensions.heightWeight * 44) + 20,
       },
       android: {
-        marginTop: dimensions.heightWeight * 54,
+        marginTop:  dimensions.heightWeight * 54,
       },
     }),
   },
