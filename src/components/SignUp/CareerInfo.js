@@ -244,14 +244,12 @@ class CareerInfo extends Component {
       }
     }
 
-    let career = [
-    {
+    let career = {
       area: this.state.selected[0],
       role: this.state.selected[1],
       years: this.state.selected[2],
       education_background: this.state.selected[3],
-    },
-    ];
+    };
 
     let body = { career };
     UserUtil.editCareer(this.onUploadCallback.bind(this), body);
