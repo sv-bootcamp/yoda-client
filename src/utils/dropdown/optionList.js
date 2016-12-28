@@ -36,10 +36,10 @@ class OptionList extends Component {
   }
 
   show(items, selected, positionX, positionY, width, height, onSelect) {
-    let h = (items.length > 3) ? height * 3 + height / 4 : height * (items.length);
+    let heightOptionList = (items.length > 3) ? height * 3 + height / 4 : height * (items.length);
 
     positionX = positionX - this.state.pageX;
-    positionY = (positionY + h < window.height) ? 0 : -h - height;
+    positionY = (positionY + heightOptionList < window.height) ? 0 : -heightOptionList - height;
 
     this.setState({
       ...this.state,

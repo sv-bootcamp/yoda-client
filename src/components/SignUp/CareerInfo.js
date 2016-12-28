@@ -125,7 +125,6 @@ class CareerInfo extends Component {
 
     for (let i = 0; i < this.state.pressed.length; i++) {
       this.state.pressed[i] = false;
-
     }
 
     this.forceUpdate();
