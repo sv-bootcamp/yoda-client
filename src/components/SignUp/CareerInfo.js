@@ -131,8 +131,10 @@ class CareerInfo extends Component {
   }
 
   onPress() {
-    for (let i = 0; i < this.state.pressed.length; i++) {
-      this.state.pressed[i] = true;
+    if (this.props.fromEdit) {
+      for (let i = 0; i < this.state.pressed.length; i++) {
+        this.state.pressed[i] = true;
+      }
     }
   }
 
@@ -191,7 +193,10 @@ class CareerInfo extends Component {
                     onSelect={this.onSelect.bind(this)}>
                     {this.getOptionSet(idx)}
                   </Select>
-                  <OptionList ref={'OPTION' + idx} index={idx}/>
+                  <OptionList
+                    ref={'OPTION' + idx}
+                    overlayEnable={!this.props.fromEdit}
+                    index={idx}/>
                 </View>
               </View>
             );
@@ -309,7 +314,7 @@ const styles = StyleSheet.create({
     flex: 1,
     ...Platform.select({
       ios: {
-        marginTop: dimensions.heightWeight * 44 + 20,
+        marginTop: (dimensions.heightWeight * 44) + 20,
       },
       android: {
         marginTop: dimensions.heightWeight * 54,
