@@ -55,17 +55,19 @@ export default class CardScroll extends Component {
     - Math.floor(event.contentOffset.x / interval);
     let moveTo;
     if (rate <= 0.25 || rate >= 0.75) {
-      moveTo = (Math.round(event.contentOffset.x / interval)) * interval;
+      moveTo = (Math.round(event.contentOffset.x / interval));
     } else {
       moveTo = (event.contentOffset.x - this.state.scrollBegin >= 0) ?
-      (Math.ceil(event.contentOffset.x / interval)) * interval :
-      (Math.floor(event.contentOffset.x / interval)) * interval;
+      (Math.ceil(event.contentOffset.x / interval)) :
+      (Math.floor(event.contentOffset.x / interval));
     }
 
-    if (moveTo > this.props.dataSource._cachedRowCount - 1) moveTo -= 1;
+    if (moveTo > this.props.dataSource._cachedRowCount - 1) {
+      moveTo -= 1;
+    }
 
     this.resetListView.scrollTo({
-      x: moveTo,
+      x: moveTo * interval,
       y: 0,
       animated: true,
     });
