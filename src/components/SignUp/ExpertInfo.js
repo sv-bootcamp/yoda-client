@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     paddingBottom: dimensions.heightWeight * 50,
   },
   body: {
-    height: 370,
+    height: dimensions.heightWeight * 370,
     borderTopColor: '#efeff2',
     borderTopWidth: 1,
     borderStyle: 'solid',
