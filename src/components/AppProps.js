@@ -1,5 +1,4 @@
 import {
-  Alert,
   Platform,
   StyleSheet,
 } from 'react-native';
@@ -13,6 +12,7 @@ import CareerInfo from './SignUp/CareerInfo';
 import ChannelList from './Chat/ChannelList';
 import ChatPage from './Chat/ChatPage';
 import Completed from './SignUp/Completed';
+import EditProfile from './EditProfile';
 import ExpertInfo from './SignUp/ExpertInfo';
 import Filter from './Filter/Filter';
 import OnBoarding from './OnBoarding/OnBoardingPage';
@@ -29,7 +29,6 @@ import UserProfile from './userProfile/UserProfile';
 import RequestPage from './userProfile/RequestPage';
 import RequestSent from './userProfile/RequestSent';
 import SignUp from './Login/SignUp';
-import EditProfile from './EditProfile';
 
 const styles = StyleSheet.create({
   bar: {
@@ -133,17 +132,13 @@ const styles = StyleSheet.create({
     width: dimensions.widthWeight * 13,
     height: dimensions.heightWeight * 13,
   },
-  leftBtnCancel: {
-    marginTop: 5,
-    marginLeft: 5,
-    width: 13,
-    height: 13,
-  },
 });
 
 const leftButtonGrey = require('../resources/icon-arrow-left-grey.png');
+const leftButtonWhite = require('../resources/icon-arrow-left-white.png');
 const backButton = require('../resources/icon-arrow-left-white.png');
 const cancelButton = require('../resources/icon-cancel.png');
+const filterButton = require('../resources/filter.png');
 
 const AppProps = {
   rootProp: {
@@ -247,7 +242,7 @@ const AppProps = {
       type: ActionConst.RESET,
       rightTitle: 'right',
       rightButtonIconStyle: styles.rightBtn,
-      rightButtonImage: require('../resources/filter.png'),
+      rightButtonImage: filterButton,
       onRight: () => Actions.filter(),
     },
     {
@@ -264,7 +259,7 @@ const AppProps = {
       hideBackImage: false,
       direction: 'fade',
       duration: 500,
-      backButtonImage: require('../resources/icon-arrow-left-white.png'),
+      backButtonImage: leftButtonWhite,
       navigationBarStyle: {
         backgroundColor: 'transparent',
         borderBottomColor: 'transparent',
@@ -317,6 +312,7 @@ const AppProps = {
       component: EditProfile,
       title: 'Edit profile',
       backButtonImage: leftButtonGrey,
+      type: ActionConst.PUSH,
       onBack: () => {
         Actions.pop();
 
