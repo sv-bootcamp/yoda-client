@@ -19,6 +19,7 @@ class NewRequestsRow extends Component {
     this.state = {
       goToUserProfile: () => Actions.userProfile({ _id: this.props.dataSource._id }),
       expanded: false,
+      isSwipeOpened: false,
     };
   }
 
@@ -39,17 +40,21 @@ class NewRequestsRow extends Component {
   }
 
   acceptRequest() {
-    if (this.props.dataSource.close) {
-      MatchUtil.acceptRequest(this.onRequestCallback.bind(this), this.props.dataSource._id);
-    } else {
+    if (this.state.isSwipeOpened) {
 
       // Call this method with no parameter will close all swipe button
       this.props.closeAllExceptCurrent();
+    } else {
+      MatchUtil.acceptRequest(this.onRequestCallback.bind(this), this.props.dataSource._id);
     }
   }
 
   rejectRequest() {
     MatchUtil.rejectRequest(this.onRequestCallback.bind(this), this.props.dataSource._id);
+  }
+
+  onSwipeFinish(isOpen) {
+    this.setState({ isSwipeOpened: isOpen });
   }
 
   render() {
@@ -97,6 +102,7 @@ class NewRequestsRow extends Component {
           scroll={event => this.props.allowScroll(event)}
           onPress={this.state.goToUserProfile}
           onOpen={() => this.props.closeAllExceptCurrent(this.props.dataSource._id)}
+          onSwipeFinish={this.onSwipeFinish.bind(this)}
         >
           <View style={styles.row}>
             <View style={styles.userInformation}>
