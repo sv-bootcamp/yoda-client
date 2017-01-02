@@ -10,7 +10,6 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import { dimensions } from '../Shared/Dimensions';
 import CareerRow from './CareerRow';
 import Text from '../Shared/UniText';
@@ -63,7 +62,7 @@ class UserCareer extends Component {
 
   // Receive props befofe completly changed
   componentWillReceiveProps(props) {
-    UserUtil.getOthersProfile(this.onRequestCallback.bind(this), this.props.id);
+    UserUtil.getOthersProfile(this.onRequestCallback.bind(this), props.id);
   }
 
   // Render loading page while fetching user profiles
@@ -139,18 +138,18 @@ const styles = StyleSheet.create({
   educationSection: {
     flexDirection: 'column',
     justifyContent: 'center',
-    marginBottom: dimensions.heightWeight * 20,
+    marginBottom: dimensions.heightWeight * 10,
   },
   experienceSection: {
     flexDirection: 'column',
     justifyContent: 'center',
     marginTop: dimensions.heightWeight * 20,
-    marginBottom: dimensions.heightWeight * 20,
+    marginBottom: dimensions.heightWeight * 10,
   },
   sectionName: {
     fontSize: dimensions.fontWeight * 12,
     fontWeight: 'bold',
-    marginBottom: dimensions.heightWeight * 20,
+    marginBottom: dimensions.heightWeight * 10,
     color: '#a6aeae',
   },
 });
