@@ -1,4 +1,5 @@
 import {
+  Alert,
   Platform,
   StyleSheet,
 } from 'react-native';
@@ -121,6 +122,13 @@ const styles = StyleSheet.create({
     height: dimensions.heightWeight * 18,
     resizeMode: 'contain',
   },
+  rightBtnBookmark: {
+    backgroundColor: 'transparent',
+    marginRight: dimensions.widthWeight * 25,
+    width: dimensions.widthWeight * 23,
+    height: dimensions.heightWeight * 21,
+    resizeMode: 'contain',
+  },
   leftBtn: {
     backgroundColor: 'transparent',
     width: dimensions.widthWeight * 25,
@@ -139,6 +147,7 @@ const leftButtonWhite = require('../resources/icon-arrow-left-white.png');
 const backButton = require('../resources/icon-arrow-left-white.png');
 const cancelButton = require('../resources/icon-cancel.png');
 const filterButton = require('../resources/filter.png');
+const bookmarkButton = require('../resources/icon-bookmark.png');
 
 const AppProps = {
   rootProp: {
@@ -260,6 +269,10 @@ const AppProps = {
       direction: 'fade',
       duration: 500,
       backButtonImage: leftButtonWhite,
+      rightTitle: 'right',
+      rightButtonImage: bookmarkButton,
+      rightButtonIconStyle: styles.rightBtnBookmark,
+      onRight: () => Alert.alert('bookmark'),
       navigationBarStyle: {
         backgroundColor: 'transparent',
         borderBottomColor: 'transparent',
@@ -299,7 +312,7 @@ const AppProps = {
       onBack: () => {
         Actions.pop();
 
-        //Delay 20ms to refresh previous scene when current scene is completely popped.
+        // Delay 20ms to refresh previous scene when current scene is completely popped.
         setTimeout(() => Actions.refresh(), 20);
       },
     },
@@ -316,7 +329,7 @@ const AppProps = {
       onBack: () => {
         Actions.pop();
 
-        //Delay 20ms to refresh previous scene when current scene is completely popped.
+        // Delay 20ms to refresh previous scene when current scene is completely popped.
         setTimeout(() => Actions.refresh(), 20);
       },
     },
