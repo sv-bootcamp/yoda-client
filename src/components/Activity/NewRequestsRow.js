@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
+  PanResponder,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { dimensions } from '../Shared/Dimensions';
@@ -119,11 +120,11 @@ class NewRequestsRow extends Component {
                     {moment(this.props.dataSource.request_date).fromNow()}
                   </Text>
                 </View>
-                <TouchableOpacity
+                <TouchableOpacityStopPropagation
                   style={styles.acceptButton}
                   onPress={this.acceptRequest.bind(this)}>
                   <Text style={styles.acceptButtonText}>ACCEPT</Text>
-                </TouchableOpacity>
+                </TouchableOpacityStopPropagation>
               </View>
             </View>
             <View>
@@ -137,6 +138,15 @@ class NewRequestsRow extends Component {
         </Swipeout>
       </View>
     );
+  }
+}
+
+class TouchableOpacityStopPropagation extends TouchableOpacity {
+  componentWillMount () {
+    this._panResponder = PanResponder.create({
+      onPanResponderTerminationRequest: () => false,
+      onStartShouldSetPanResponderCapture: () => true,
+    });
   }
 }
 
