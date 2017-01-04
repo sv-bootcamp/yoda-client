@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
   PanResponder,
+  ActivityIndicator,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { dimensions } from '../Shared/Dimensions';
@@ -21,6 +22,7 @@ class NewRequestsRow extends Component {
       goToUserProfile: () => Actions.userProfile({ _id: this.props.dataSource._id }),
       expanded: false,
       isSwipeOpened: false,
+      requestPending: false,
     };
   }
 
@@ -38,15 +40,17 @@ class NewRequestsRow extends Component {
     } else if (result) {
       MatchUtil.getActivityList(this.onGetActivityCallback.bind(this));
     }
+
+    this.setState({ requestPending: false });
   }
 
   acceptRequest() {
     if (this.state.isSwipeOpened) {
-
       // Call this method with no parameter will close all swipe button
       this.props.closeAllExceptCurrent();
     } else {
       MatchUtil.acceptRequest(this.onRequestCallback.bind(this), this.props.dataSource._id);
+      this.setState({ requestPending: true });
     }
   }
 
@@ -123,7 +127,13 @@ class NewRequestsRow extends Component {
                 <TouchableOpacityStopPropagation
                   style={styles.acceptButton}
                   onPress={this.acceptRequest.bind(this)}>
-                  <Text style={styles.acceptButtonText}>ACCEPT</Text>
+                  {this.state.requestPending
+                    ? (<ActivityIndicator
+                      animating={true}
+                      style={[styles.activityIndicator]}
+                      size='small'
+                    />)
+                    : (<Text style={styles.acceptButtonText}>ACCEPT</Text>)}
                 </TouchableOpacityStopPropagation>
               </View>
             </View>
