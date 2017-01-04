@@ -125,7 +125,9 @@ class NewRequestsRow extends Component {
                   </Text>
                 </View>
                 <TouchableOpacityStopPropagation
-                  style={styles.acceptButton}
+                  style={[styles.acceptButton,
+                   { borderWidth: this.state.requestPending ? 0 : 1 },
+                   ]}
                   onPress={this.acceptRequest.bind(this)}>
                   {this.state.requestPending
                     ? (<ActivityIndicator
