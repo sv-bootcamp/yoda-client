@@ -268,15 +268,15 @@ const AppProps = {
       hideBackImage: false,
       direction: 'fade',
       duration: 500,
-      backButtonImage: leftButtonWhite,
-      rightTitle: 'right',
-      rightButtonImage: bookmarkButton,
-      rightButtonIconStyle: styles.rightBtnBookmark,
-      onRight: () => Alert.alert('bookmark'),
-      navigationBarStyle: {
-        backgroundColor: 'transparent',
-        borderBottomColor: 'transparent',
-      },
+      hideNavBar: true,
+      //backButtonImage: leftButtonWhite,
+      //rightButtonImage: bookmarkButton,
+      //rightButtonIconStyle: styles.rightBtnBookmark,
+      //onRight: () => Alert.alert('bookmark'),
+      // navigationBarStyle: {
+      //   backgroundColor: 'transparent',
+      //   borderBottomColor: 'transparent',
+      // },
     },
     {
       key: 'filter',
@@ -285,6 +285,7 @@ const AppProps = {
       backButtonImage: cancelButton,
       leftButtonIconStyle: styles.leftBtnCancel,
       direction: 'diagonal',
+      hideNavBar: false,
     },
     {
       key: 'requestPage',

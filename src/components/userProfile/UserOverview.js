@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { dimensions } from '../Shared/Dimensions';
+import CloudTag from './CloudTag';
 import Text from '../Shared/UniText';
 import UserUtil from '../../utils/UserUtil';
 
@@ -25,7 +26,7 @@ class UserOverview extends Component {
       about: '',
       expertise: [],
       personality: [],
-      score: [],
+      //score: [],
       loaded: false,
       needEllipsize: false,
     };
@@ -43,10 +44,11 @@ class UserOverview extends Component {
         expertise: result.expertise.slice()
           .map((value) => value.select)
           .sort((a, b) => a.length - b.length),
-        personality: result.personality.slice()
-          .map((value) => value.option),
-        score: result.personality.slice()
-          .map((value) => value.score),
+        personality: result.personality,
+        // personality: result.personality.slice()
+        //   .map((value) => value.option),
+        // score: result.personality.slice()
+        //   .map((value) => value.score),
         about: result.about,
       });
     }
@@ -150,38 +152,50 @@ class UserOverview extends Component {
   }
 
   renderPersonality() {
-    const personalityArray = this.state.personality;
-    const scoreArray = this.state.score;
+    // const personalityArray = this.state.personality;
+    // const scoreArray = this.state.score;
+    //
+    // const fontStyle = [
+    //   {
+    //     color: '#cdd2d2',
+    //     fontSize: dimensions.fontWeight * 12,
+    //   },
+    //   {
+    //     color: '#757b7c',
+    //     fontSize: dimensions.fontWeight * 16,
+    //   },
+    //   {
+    //     color: '#2e3031',
+    //     fontSize: dimensions.fontWeight * 20,
+    //   },
+    // ];
+    // return (
+    //   <View style={styles.sectionContainer}>
+    //     <Text style={styles.sectionName}>Personality</Text>
+    //     <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+    //       {
+    //         personalityArray.map((value, index) =>
+    //           (
+    //             <Text
+    //               key={index}
+    //               style={[fontStyle[scoreArray[index]], styles.personality]}>
+    //               {value}
+    //             </Text>
+    //           ))
+    //       }
+    //     </View>
+    //   </View>
+    // );
 
-    const fontStyle = [
-      {
-        color: '#cdd2d2',
-        fontSize: dimensions.fontWeight * 12,
-      },
-      {
-        color: '#757b7c',
-        fontSize: dimensions.fontWeight * 16,
-      },
-      {
-        color: '#2e3031',
-        fontSize: dimensions.fontWeight * 20,
-      },
-    ];
+    let tagList = [];
+    this.state.personality.map((item) => {
+      tagList.push({ title: item.option, point: item.score });
+    });
+
     return (
       <View style={styles.sectionContainer}>
         <Text style={styles.sectionName}>Personality</Text>
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-          {
-            personalityArray.map((value, index) =>
-              (
-                <Text
-                  key={index}
-                  style={[fontStyle[scoreArray[index]], styles.personality]}>
-                  {value}
-                </Text>
-              ))
-          }
-        </View>
+        <CloudTag tagList={tagList} width={250} />
       </View>
     );
   }

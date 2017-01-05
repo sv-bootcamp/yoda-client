@@ -5,7 +5,6 @@ import {
   ActivityIndicator,
   Dimensions,
   Image,
-  ListView,
   Platform,
   ScrollView,
   StatusBar,
@@ -23,6 +22,17 @@ import UserCareer from './UserCareer';
 import UserOverview from './UserOverview';
 import UserUtil from '../../utils/UserUtil';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+import PatternBackground from '../../resources/pattern.png';
+import CancelIcon from '../../resources/cancel-icon.png';
+import BookmarkWhite from '../../resources/icon-bookmark.png';
+import BookmarkGrey from '../../resources/icon-bookmark-grey.png';
+import ArrowLeftWhite from '../../resources/icon-arrow-left-white.png';
+import ArrowLeftGrey from '../../resources/icon-arrow-left-grey.png';
+
+// Get device size
+const HEIGHT = Dimensions.get('window').height;
+const WIDTH = Dimensions.get('window').width;
 
 class UserProfile extends Component {
   constructor(props) {
@@ -45,12 +55,11 @@ class UserProfile extends Component {
       opacity: new Animated.Value(0),
       activeNavigationBar: false,
     };
-
   }
 
   onReqestCallback(result, error) {
     if (error) {
-      alert(error);
+      Alert.alert('UserProfile', error);
     } else if (result) {
       this.onRequestSuccess(result);
     }
@@ -76,24 +85,22 @@ class UserProfile extends Component {
         currentLocation: this.getCurrentLocation(result),
         loaded: true,
         isRefreshing: false,
-        statusAsMentee: statusAsMentee,
-        statusAsMentor: statusAsMentor,
+        statusAsMentee,
+        statusAsMentor,
         about: result.about,
       });
     }
   }
 
   getProfileImage(status) {
-    let image;
     if (status.profile_picture) {
-      image = {
+      const image = {
         uri: status.profile_picture_large ? status.profile_picture_large : status.profile_picture,
       };
       return image;
-    } else {
-      image = require('../../resources/pattern.png');
-      return image;
     }
+
+    return PatternBackground;
   }
 
   getCurrentStatus(status) {
@@ -109,9 +116,9 @@ class UserProfile extends Component {
       }
 
       return currentTask + ' at ' + location;
-    }  else if (status.education.length > 0) {
-      let lastIndex = status.education.length - 1;
-      let education = status.education[lastIndex];
+    } else if (status.education.length > 0) {
+      const lastIndex = status.education.length - 1;
+      const education = status.education[lastIndex];
 
       if (education.school) {
         location = education.school.name;
@@ -141,7 +148,6 @@ class UserProfile extends Component {
   componentDidMount() {
     if (this.props.myProfile) {
       UserUtil.getMyProfile(this.onReqestCallback.bind(this));
-      this.renderNavigationBar();
     } else {
       UserUtil.getOthersProfile(this.onReqestCallback.bind(this), this.props._id);
     }
@@ -176,9 +182,7 @@ class UserProfile extends Component {
     Animated.parallel([
       Animated.timing(
         this.state.opacity,
-        {
-          toValue: 1,
-        }
+        { toValue: 1 },
       ).start(),
     ]);
   }
@@ -187,11 +191,25 @@ class UserProfile extends Component {
     Animated.parallel([
       Animated.timing(
         this.state.opacity,
-        {
-          toValue: 0,
-        }
+        { toValue: 0 },
       ).start(),
     ]);
+  }
+
+  handleScroll(event) {
+    const scrollMaxY = event.nativeEvent.contentSize.height -
+                       event.nativeEvent.layoutMeasurement.height;
+    let opacity = event.nativeEvent.contentOffset.y / scrollMaxY;
+    if (event.nativeEvent.contentOffset.y < 25) {
+      opacity = 0;
+    } else if (event.nativeEvent.contentOffset.y > scrollMaxY - 25) {
+      opacity = 1;
+    }
+    const customNavVarStyle = [
+      styles.customNavBar,
+      { opacity },
+    ];
+    this.navBar.setNativeProps({ style: customNavVarStyle });
   }
 
   // Render loading page while fetching user profiles
@@ -200,48 +218,9 @@ class UserProfile extends Component {
       <ActivityIndicator
         animating={!this.state.loaded}
         style={[styles.activityIndicator]}
-        size='small'
+        size="small"
       />
     );
-  }
-
-  handleScroll(event) {
-    if (this.state.activeNavigationBar
-      != (event.nativeEvent.contentOffset.y > (HEIGHT * 0.4) - 40)) {
-      this.state.activeNavigationBar = event.nativeEvent.contentOffset.y > (HEIGHT * 0.4) - 40;
-      this.renderNavigationBar();
-    }
-  }
-
-  renderNavigationBar() {
-    if (this.props.myProfile) {
-      Actions.refresh({
-        title: (this.state.activeNavigationBar && this.state.name) ? this.state.name : '',
-        backButtonImage: (this.state.activeNavigationBar) ?
-        require('../../resources/icon-arrow-left-grey.png') :
-        require('../../resources/icon-arrow-left-white.png'),
-        navigationBarStyle: {
-          backgroundColor: (this.state.activeNavigationBar) ? '#fbfbfb' : 'transparent',
-          borderBottomColor: (this.state.activeNavigationBar) ? '#d6dada' : 'transparent',
-        },
-        rightButtonImage: null,
-        onRight: () => {},
-      });
-    } else {
-      Actions.refresh({
-        title: (this.state.activeNavigationBar && this.state.name) ? this.state.name : '',
-        backButtonImage: (this.state.activeNavigationBar) ?
-        require('../../resources/icon-arrow-left-grey.png') :
-        require('../../resources/icon-arrow-left-white.png'),
-        rightButtonImage: (this.state.activeNavigationBar) ?
-        require('../../resources/icon-bookmark-grey.png') :
-        require('../../resources/icon-bookmark.png'),
-        navigationBarStyle: {
-          backgroundColor: (this.state.activeNavigationBar) ? '#fbfbfb' : 'transparent',
-          borderBottomColor: (this.state.activeNavigationBar) ? '#d6dada' : 'transparent',
-        },
-      });
-    }
   }
 
   // Render User profile
@@ -268,9 +247,13 @@ class UserProfile extends Component {
 
     if (connectBtnText !== '') {
       connectButton = (
-        <LinearGradient style={styles.connectBtnStyle} start={[0.9, 0.5]} end={[0.0, 0.5]}
+        <LinearGradient
+          style={styles.connectBtnStyle}
+          start={[0.9, 0.5]}
+          end={[0.0, 0.5]}
           locations={[0, 0.75]}
-          colors={['#07e4dd', '#44acff']}>
+          colors={['#07e4dd', '#44acff']}
+        >
           <TouchableOpacity onPress={connect}>
             <View style={styles.buttonContainer}>
               <Text style={styles.buttonText}>{connectBtnText}</Text>
@@ -283,12 +266,12 @@ class UserProfile extends Component {
     if (connectBtnText === 'WAITING') {
       connectButton = (
         <View style={[styles.connectBtnStyle, { backgroundColor: '#a6aeae' }]}>
-            <View style={styles.buttonContainer}>
-              <View style={{ paddingTop: 10, marginRight: 5, }}>
-                <Icon name="clock-o" size={15} color="white" />
-              </View>
-              <Text style={styles.buttonText}>{connectBtnText}</Text>
+          <View style={styles.buttonContainer}>
+            <View style={{ paddingTop: 10, marginRight: 5 }}>
+              <Icon name="clock-o" size={15} color="white" />
             </View>
+            <Text style={styles.buttonText}>{connectBtnText}</Text>
+          </View>
         </View>
       );
     }
@@ -297,22 +280,27 @@ class UserProfile extends Component {
 
     if (this.state.isAboutDisplayed) {
       about = (
-        <Animated.View style={[styles.aboutDetail, {
-          width: this.state.width,
-          height: this.state.height,
-          opacity: this.state.opacity,
-        },
-        ]}>
+        <Animated.View
+          style={[styles.aboutDetail, {
+            width: this.state.width,
+            height: this.state.height,
+            opacity: this.state.opacity,
+          },
+          ]}
+        >
           <TouchableOpacity
             onPress={this.toggleAbout.bind(this)}
-            style={{ flex: 1 }}>
+            style={{ flex: 1 }}
+          >
             <View style={styles.aboutDetailContainer}>
               <Text style={styles.aboutDetailTitle}>About</Text>
               <Text style={styles.aboutDetailContent}>{this.state.about}</Text>
             </View>
             <TouchableOpacity onPress={this.toggleAbout.bind(this)}>
-              <Image style={styles.cancelButton}
-                     source={require('../../resources/cancel-icon.png')}/>
+              <Image
+                style={styles.cancelButton}
+                source={CancelIcon}
+              />
             </TouchableOpacity>
           </TouchableOpacity>
         </Animated.View>
@@ -320,26 +308,102 @@ class UserProfile extends Component {
     }
 
     return (
-      <View style={{
-        justifyContent: 'space-between',
-        flexDirection: 'column',
-        flex: 1,
-      }}>
+      <View
+        style={{
+          justifyContent: 'space-between',
+          flexDirection: 'column',
+          flex: 1,
+        }}
+      >
+        <View
+          style={[
+            styles.customNavBar,
+            {
+              backgroundColor: 'transparent',
+              borderBottomColor: 'transparent',
+            },
+          ]}
+        >
+          <View style={{ alignItems: 'flex-start' }}>
+            <Image
+              style={styles.customNavBarLeft}
+              source={ArrowLeftWhite}
+            />
+          </View>
+          <View style={{ flex: 1, alignItems: 'center' }}>
+            <Text
+              style={{
+                fontSize: 17,
+                fontWeight: 'bold',
+                color: '#fff',
+                marginBottom: dimensions.widthWeight * 12.2,
+              }}
+            >
+              {this.state.name}
+            </Text>
+          </View>
+          <View style={{ alignItems: 'flex-end' }}>
+            <Image
+              style={styles.customNavBarRight}
+              source={BookmarkWhite}
+            />
+          </View>
+        </View>
+        <View
+          ref={(component) => { this.navBar = component; }}
+          style={[styles.customNavBar, { opacity: 0 }]}
+        >
+          <TouchableOpacity onPress={() => Actions.pop()}>
+            <View style={{ alignItems: 'flex-start' }}>
+              <Image
+                style={styles.customNavBarLeft}
+                source={ArrowLeftGrey}
+              />
+            </View>
+          </TouchableOpacity>
+          <View style={{ flex: 1, alignItems: 'center' }}>
+            <Text
+              style={{
+                fontSize: 17,
+                fontWeight: 'bold',
+                color: '#a6aeae',
+                marginBottom: dimensions.widthWeight * 12.2,
+              }}
+            >
+              {this.state.name}
+            </Text>
+          </View>
+          <TouchableOpacity onPress={() => Alert.alert('UserProfile', 'Bookmark')}>
+            <View style={{ alignItems: 'flex-end' }}>
+              <Image
+                style={styles.customNavBarRight}
+                source={BookmarkGrey}
+              />
+            </View>
+          </TouchableOpacity>
+        </View>
         <ScrollView
+          bounces={false}
           scrollEventThrottle={16}
-          onScroll={this.handleScroll.bind(this)}>
+          onScroll={this.handleScroll.bind(this)}
+        >
           <StatusBar
-            backgroundColor = {(this.state.activeNavigationBar) ? 'black' : 'transparent'}
-            barStyle = {(this.state.activeNavigationBar) ? 'dark-content' : 'light-content'}
+            backgroundColor={(this.state.activeNavigationBar) ? 'black' : 'transparent'}
+            barStyle={(this.state.activeNavigationBar) ? 'dark-content' : 'light-content'}
             networkActivityIndicatorVisible={false}
           />
-          <LinearGradient style={styles.profileImgGradient} start={[0.0, 0.25]} end={[0.5, 1.0]}
-            colors={['#546979', '#08233a']}>
-            <Image style={styles.profileImage}
-              source={this.state.profileImage} />
+          <LinearGradient
+            style={styles.profileImgGradient}
+            start={[0.0, 0.25]}
+            end={[0.5, 1.0]}
+            colors={['#546979', '#08233a']}
+          >
+            <Image
+              style={styles.profileImage}
+              source={this.state.profileImage}
+            />
           </LinearGradient>
-          <Image style={styles.bookmarkIcon}
-            source={null}/>
+          <Image style={styles.bookmarkIcon} source={null} />
           <View style={styles.profileUserInfo}>
             <Text style={styles.name}>{this.state.name}</Text>
             <Text style={styles.positionText}>{this.state.currentStatus}</Text>
@@ -354,20 +418,21 @@ class UserProfile extends Component {
             tabBarUnderlineStyle={styles.tabBarUnderline}
             renderTabBar={() => (
               <DefaultTabBar
-                style={
-                  {
-                    marginLeft: dimensions.widthWeight * 50,
-                    marginRight: dimensions.widthWeight * 50,
-                  }
-                }
+                style={{
+                  marginLeft: dimensions.widthWeight * 50,
+                  marginRight: dimensions.widthWeight * 50,
+                }}
                 containerWidth={WIDTH - (dimensions.widthWeight * 100)}
                 leftOffset={dimensions.widthWeight * 22}
                 rightOffset={dimensions.widthWeight * 28}
-                />)}>
+              />
+            )}
+          >
             <UserOverview
               tabLabel="OVERVIEW" id={this.state.id}
-              toggleAbout={this.toggleAbout.bind(this)}/>
-            <UserCareer tabLabel="CAREER" id={this.state.id}/>
+              toggleAbout={this.toggleAbout.bind(this)}
+            />
+            <UserCareer tabLabel="CAREER" id={this.state.id} />
           </ScrollableTabView>
         </ScrollView>
         <View style={styles.btn}>
@@ -387,10 +452,40 @@ class UserProfile extends Component {
   }
 }
 
-// Get device size
-const HEIGHT = Dimensions.get('window').height;
-const WIDTH = Dimensions.get('window').width;
 const styles = StyleSheet.create({
+  customNavBar: {
+    backgroundColor: '#fbfbfb',
+    paddingTop: 0,
+    top: 0,
+    ...Platform.select({
+      ios: {
+        height: dimensions.heightWeight * 64,
+      },
+      android: {
+        height: dimensions.heightWeight * 54,
+      },
+    }),
+    right: 0,
+    left: 0,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#d6dada',
+    position: 'absolute',
+    zIndex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
+  customNavBarLeft: {
+    width: dimensions.widthWeight * 25,
+    height: dimensions.heightWeight * 19.8,
+    marginLeft: dimensions.widthWeight * 10,
+    marginBottom: dimensions.widthWeight * 12.2,
+  },
+  customNavBarRight: {
+    width: dimensions.widthWeight * 23,
+    height: dimensions.heightWeight * 21,
+    marginRight: dimensions.widthWeight * 10,
+    marginBottom: dimensions.widthWeight * 12.2,
+  },
   name: {
     fontSize: dimensions.fontWeight * 22,
     fontWeight: 'bold',
@@ -482,7 +577,7 @@ const styles = StyleSheet.create({
     paddingVertical: dimensions.heightWeight * 15,
     paddingHorizontal: dimensions.widthWeight * 15,
     shadowColor: '#ccc',
-    shadowOffset: { width: 2, height: 2, },
+    shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.5,
     shadowRadius: 3,
   },
