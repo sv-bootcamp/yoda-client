@@ -148,7 +148,6 @@ const leftButtonWhite = require('../resources/icon-arrow-left-white.png');
 const backButton = require('../resources/icon-arrow-left-white.png');
 const cancelButton = require('../resources/icon-cancel.png');
 const filterButton = require('../resources/filter.png');
-const bookmarkButton = require('../resources/icon-bookmark.png');
 
 const AppProps = {
   rootProp: {
@@ -277,14 +276,6 @@ const AppProps = {
       direction: 'fade',
       duration: 500,
       hideNavBar: true,
-      //backButtonImage: leftButtonWhite,
-      //rightButtonImage: bookmarkButton,
-      //rightButtonIconStyle: styles.rightBtnBookmark,
-      //onRight: () => Alert.alert('bookmark'),
-      // navigationBarStyle: {
-      //   backgroundColor: 'transparent',
-      //   borderBottomColor: 'transparent',
-      // },
     },
     {
       key: 'filter',
