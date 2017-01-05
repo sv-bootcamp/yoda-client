@@ -27,6 +27,7 @@ import PatternBackground from '../../resources/pattern.png';
 import CancelIcon from '../../resources/cancel-icon.png';
 import BookmarkWhite from '../../resources/icon-bookmark.png';
 import BookmarkGrey from '../../resources/icon-bookmark-grey.png';
+import BookmarkFill from '../../resources/icon-bookmark-fill.png';
 import ArrowLeftWhite from '../../resources/icon-arrow-left-white.png';
 import ArrowLeftGrey from '../../resources/icon-arrow-left-grey.png';
 
@@ -37,7 +38,6 @@ const WIDTH = Dimensions.get('window').width;
 class UserProfile extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       id: '',
       profileImage: '../../resources/pattern.png',
@@ -47,57 +47,21 @@ class UserProfile extends Component {
       statusAsMentee: '',
       statusAsMentor: '',
       loaded: false,
-      evalLoaded: false,
-      connectPressed: false,
       isAboutDisplayed: false,
       width: 0,
       height: 0,
       opacity: new Animated.Value(0),
       activeNavigationBar: false,
+      bookmarked: false,
     };
-  }
-
-  onReqestCallback(result, error) {
-    if (error) {
-      Alert.alert('UserProfile', error);
-    } else if (result) {
-      this.onRequestSuccess(result);
-    }
-  }
-
-  onRequestSuccess(result) {
-
-    // Check result code: profile Request/mentor request
-    if (result._id) {
-      let statusAsMentee = this.state.statusAsMentee;
-      let statusAsMentor = this.state.statusAsMentor;
-
-      if (result.relation !== undefined) {
-        statusAsMentee = result.relation.asMentee;
-        statusAsMentor = result.relation.asMentor;
-      }
-
-      this.setState({
-        id: result._id,
-        profileImage: this.getProfileImage(result),
-        name: result.name,
-        currentStatus: this.getCurrentStatus(result),
-        currentLocation: this.getCurrentLocation(result),
-        loaded: true,
-        isRefreshing: false,
-        statusAsMentee,
-        statusAsMentor,
-        about: result.about,
-      });
-    }
   }
 
   getProfileImage(status) {
     if (status.profile_picture) {
-      const image = {
+      const Image = {
         uri: status.profile_picture_large ? status.profile_picture_large : status.profile_picture,
       };
-      return image;
+      return Image;
     }
 
     return PatternBackground;
@@ -145,25 +109,47 @@ class UserProfile extends Component {
     return location;
   }
 
+  onRequestSuccess(result) {
+    // Check result code: profile Request/mentor request
+    if (result._id) {
+      let statusAsMentee = this.state.statusAsMentee;
+      let statusAsMentor = this.state.statusAsMentor;
+
+      if (result.relation !== undefined) {
+        statusAsMentee = result.relation.asMentee;
+        statusAsMentor = result.relation.asMentor;
+      }
+
+      this.setState({
+        id: result._id,
+        profileImage: this.getProfileImage(result),
+        name: result.name,
+        currentStatus: this.getCurrentStatus(result),
+        currentLocation: this.getCurrentLocation(result),
+        loaded: true,
+        isRefreshing: false,
+        statusAsMentee,
+        statusAsMentor,
+        about: result.about,
+        bookmarked: result.bookmarked,
+      });
+    }
+  }
+
+  onReqestCallback(result, error) {
+    if (error) {
+      Alert.alert('UserProfile', error);
+    } else if (result) {
+      this.onRequestSuccess(result);
+    }
+  }
+
   componentDidMount() {
     if (this.props.myProfile) {
       UserUtil.getMyProfile(this.onReqestCallback.bind(this));
     } else {
       UserUtil.getOthersProfile(this.onReqestCallback.bind(this), this.props._id);
     }
-  }
-
-  // Receive props befofe completly changed
-  componentWillReceiveProps(props) {
-    if (props.myProfile) {
-      UserUtil.getMyProfile(this.onReqestCallback.bind(this));
-    } else {
-      UserUtil.getOthersProfile(this.onReqestCallback.bind(this), this.props._id);
-    }
-  }
-
-  sendRequest() {
-    Actions.requestPage({ id: this.state.id, me: this.props.me });
   }
 
   toggleAbout() {
@@ -196,37 +182,25 @@ class UserProfile extends Component {
     ]);
   }
 
-  handleScroll(event) {
-    const scrollMaxY = event.nativeEvent.contentSize.height -
-                       event.nativeEvent.layoutMeasurement.height;
-    let opacity = event.nativeEvent.contentOffset.y / scrollMaxY;
-    if (event.nativeEvent.contentOffset.y < 25) {
-      opacity = 0;
-    } else if (event.nativeEvent.contentOffset.y > scrollMaxY - 25) {
-      opacity = 1;
+  onRequestCallbackWithUpdate(result, error) {
+    if (error) {
+      Alert.alert('Error on Bookmark', error);
+    } else if (result) {
+      this.setState({});
     }
-    const customNavVarStyle = [
-      styles.customNavBar,
-      { opacity },
-    ];
-    this.navBar.setNativeProps({ style: customNavVarStyle });
   }
 
-  // Render loading page while fetching user profiles
-  renderLoadingView() {
-    return (
-      <ActivityIndicator
-        animating={!this.state.loaded}
-        style={[styles.activityIndicator]}
-        size="small"
-      />
-    );
+  setBookmark() {
+    if (this.state.bookmarked) {
+      UserUtil.bookmarkOff(this.onRequestCallbackWithUpdate.bind(this), this.state.id);
+      this.state.bookmarked = false;
+    } else {
+      UserUtil.bookmarkOn(this.onRequestCallbackWithUpdate.bind(this), this.state.id)
+      this.state.bookmarked = true;
+    }
   }
 
-  // Render User profile
-  renderUserProfile() {
-    const connect = () => this.sendRequest();
-    let connectButton;
+  getConnectButtonText() {
     let connectBtnText = '';
     const ConnectStatus = {
       DISCONNECTED: 0,
@@ -245,8 +219,20 @@ class UserProfile extends Component {
       connectBtnText = 'CONNECTED';
     }
 
+    return connectBtnText;
+  }
+
+  sendRequest() {
+    Actions.requestPage({ id: this.state.id, me: this.props.me });
+  }
+
+  getConnectButton() {
+    const connect = () => this.sendRequest();
+    const connectBtnText = this.getConnectButtonText();
+    let ConnectButton = null;
+
     if (connectBtnText !== '') {
-      connectButton = (
+      ConnectButton = (
         <LinearGradient
           style={styles.connectBtnStyle}
           start={[0.9, 0.5]}
@@ -264,7 +250,7 @@ class UserProfile extends Component {
     }
 
     if (connectBtnText === 'WAITING') {
-      connectButton = (
+      ConnectButton = (
         <View style={[styles.connectBtnStyle, { backgroundColor: '#a6aeae' }]}>
           <View style={styles.buttonContainer}>
             <View style={{ paddingTop: 10, marginRight: 5 }}>
@@ -276,10 +262,12 @@ class UserProfile extends Component {
       );
     }
 
-    let about = null;
+    return ConnectButton;
+  }
 
+  getAbout() {
     if (this.state.isAboutDisplayed) {
-      about = (
+      return (
         <Animated.View
           style={[styles.aboutDetail, {
             width: this.state.width,
@@ -307,6 +295,30 @@ class UserProfile extends Component {
       );
     }
 
+    return null;
+  }
+
+  handleScroll(event) {
+    const scrollMaxY = event.nativeEvent.contentSize.height -
+                       event.nativeEvent.layoutMeasurement.height;
+    let opacity = event.nativeEvent.contentOffset.y / scrollMaxY;
+    if (event.nativeEvent.contentOffset.y < 25) {
+      opacity = 0;
+    } else if (event.nativeEvent.contentOffset.y > scrollMaxY - 25) {
+      opacity = 1;
+    }
+    const customNavVarStyle = [
+      styles.customNavBar,
+      { opacity },
+    ];
+    this.navBar.setNativeProps({ style: customNavVarStyle });
+  }
+
+  // Render User profile
+  renderUserProfile() {
+    const ConnectButton = this.getConnectButton();
+    const About = this.getAbout();
+
     return (
       <View
         style={{
@@ -324,29 +336,21 @@ class UserProfile extends Component {
             },
           ]}
         >
-          <View style={{ alignItems: 'flex-start' }}>
+          <View style={{ flex: 1,  alignItems: 'flex-start' }}>
             <Image
               style={styles.customNavBarLeft}
               source={ArrowLeftWhite}
             />
           </View>
-          <View style={{ flex: 1, alignItems: 'center' }}>
-            <Text
-              style={{
-                fontSize: 17,
-                fontWeight: 'bold',
-                color: '#fff',
-                marginBottom: dimensions.widthWeight * 12.2,
-              }}
-            >
-              {this.state.name}
-            </Text>
-          </View>
-          <View style={{ alignItems: 'flex-end' }}>
-            <Image
-              style={styles.customNavBarRight}
-              source={BookmarkWhite}
-            />
+          <View style={{ flex: 1, alignItems: 'flex-end' }}>
+          {
+            this.props.myProfile ? null : (
+              <Image
+                style={styles.customNavBarRight}
+                source={this.state.bookmarked ? BookmarkFill : BookmarkWhite}
+              />
+            )
+          }
           </View>
         </View>
         <View
@@ -373,12 +377,16 @@ class UserProfile extends Component {
               {this.state.name}
             </Text>
           </View>
-          <TouchableOpacity onPress={() => Alert.alert('UserProfile', 'Bookmark')}>
+          <TouchableOpacity onPress={() => this.setBookmark()}>
             <View style={{ alignItems: 'flex-end' }}>
-              <Image
-                style={styles.customNavBarRight}
-                source={BookmarkGrey}
-              />
+            {
+              this.props.myProfile ? null : (
+                <Image
+                  style={styles.customNavBarRight}
+                  source={this.state.bookmarked ? BookmarkFill : BookmarkGrey}
+                />
+              )
+            }
             </View>
           </TouchableOpacity>
         </View>
@@ -405,7 +413,10 @@ class UserProfile extends Component {
           </LinearGradient>
           <Image style={styles.bookmarkIcon} source={null} />
           <View style={styles.profileUserInfo}>
-            <Text style={styles.name}>{this.state.name}</Text>
+            <Text
+              style={styles.name}
+              numberOfLines={1}
+              ellipsizeMode={'tail'}>{this.state.name}</Text>
             <Text style={styles.positionText}>{this.state.currentStatus}</Text>
             <Text style={styles.currentLocationText}>{this.state.currentLocation}</Text>
           </View>
@@ -436,10 +447,21 @@ class UserProfile extends Component {
           </ScrollableTabView>
         </ScrollView>
         <View style={styles.btn}>
-          {connectButton}
+          {ConnectButton}
         </View>
-        {about}
+        {About}
       </View>
+    );
+  }
+
+  // Render loading page while fetching user profiles
+  renderLoadingView() {
+    return (
+      <ActivityIndicator
+        animating={!this.state.loaded}
+        style={[styles.activityIndicator]}
+        size="small"
+      />
     );
   }
 
@@ -447,7 +469,6 @@ class UserProfile extends Component {
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
-
     return this.renderUserProfile();
   }
 }
