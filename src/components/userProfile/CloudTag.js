@@ -6,6 +6,30 @@ import {
 } from 'react-native';
 
 export default class CloudTag extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.TagCloud = this.orderData().map((item, key) => {
+      const tagContainerStyle = {
+        paddingLeft: this.getRandomPadding(item.point),
+        paddingTop: this.getRandomPadding(item.point) / 2,
+        paddingRight: this.getRandomPadding(item.point),
+        paddingBottom: this.getRandomPadding(item.point) / 2,
+      };
+
+      const tagStyle = {
+        fontSize: 12 + (item.point * 3),
+      };
+
+      return (
+        <View key={key} style={tagContainerStyle}>
+          <Text style={tagStyle}>{item.title}</Text>
+        </View>
+      );
+    });
+  }
+
   orderData() {
     let result = [];
     let tagList = this.props.tagList;
@@ -39,25 +63,6 @@ export default class CloudTag extends Component {
   }
 
   render() {
-    const TagCloud = this.orderData().map((item, key) => {
-      const tagContainerStyle = {
-        paddingLeft: this.getRandomPadding(item.point),
-        paddingTop: this.getRandomPadding(item.point) / 2,
-        paddingRight: this.getRandomPadding(item.point),
-        paddingBottom: this.getRandomPadding(item.point) / 2,
-      };
-
-      const tagStyle = {
-        fontSize: 12 + (item.point * 3),
-      };
-
-      return (
-        <View key={key} style={tagContainerStyle}>
-          <Text style={tagStyle}>{item.title}</Text>
-        </View>
-      );
-    });
-
     let cloudTagStyle = [styles.cloudTagContainer];
     if (this.props.width) {
       cloudTagStyle.push({ width: this.props.width });
@@ -66,7 +71,7 @@ export default class CloudTag extends Component {
     return (
       <View style={styles.container}>
         <View style={cloudTagStyle}>
-          {TagCloud}
+          {this.TagCloud}
         </View>
       </View>
     );

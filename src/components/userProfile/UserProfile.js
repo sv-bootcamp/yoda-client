@@ -22,7 +22,6 @@ import UserCareer from './UserCareer';
 import UserOverview from './UserOverview';
 import UserUtil from '../../utils/UserUtil';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
 import PatternBackground from '../../resources/pattern.png';
 import CancelIcon from '../../resources/cancel-icon.png';
 import BookmarkWhite from '../../resources/icon-bookmark.png';
