@@ -7,12 +7,31 @@ import {
 
 export default class CloudTag extends Component {
   orderData() {
+    let result = [];
     let tagList = this.props.tagList;
     tagList.sort((a, b) => {
       if (a.point === b.point) return 0;
       else return a.point > b.point ? -1 : 1;
     });
-    return tagList;
+
+    const maxPoint = tagList[0].point;
+    let flag = true;
+    tagList.map((item, key) => {
+      if (maxPoint === item.point) {
+        result.push(item);
+        return;
+      }
+
+      if (flag) {
+        result.unshift(item);
+        flag = false;
+      } else {
+        result.push(item);
+        flag = true;
+      }
+    });
+
+    return result;
   }
 
   getRandomPadding(point) {
@@ -23,9 +42,9 @@ export default class CloudTag extends Component {
     const TagCloud = this.orderData().map((item, key) => {
       const tagContainerStyle = {
         paddingLeft: this.getRandomPadding(item.point),
-        paddingTop: this.getRandomPadding(item.point),
+        paddingTop: this.getRandomPadding(item.point) / 2,
         paddingRight: this.getRandomPadding(item.point),
-        paddingBottom: this.getRandomPadding(item.point),
+        paddingBottom: this.getRandomPadding(item.point) / 2,
       };
 
       const tagStyle = {
