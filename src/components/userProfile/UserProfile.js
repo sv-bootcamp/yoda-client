@@ -38,6 +38,7 @@ const WIDTH = Dimensions.get('window').width;
 class UserProfile extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       id: '',
       profileImage: '../../resources/pattern.png',
@@ -127,7 +128,6 @@ class UserProfile extends Component {
         currentStatus: this.getCurrentStatus(result),
         currentLocation: this.getCurrentLocation(result),
         loaded: true,
-        isRefreshing: false,
         statusAsMentee,
         statusAsMentor,
         about: result.about,
@@ -186,17 +186,15 @@ class UserProfile extends Component {
     if (error) {
       Alert.alert('Error on Bookmark', error);
     } else if (result) {
-      this.setState({});
+      this.setState({ bookmarked: !this.state.bookmarked });
     }
   }
 
   setBookmark() {
     if (this.state.bookmarked) {
       UserUtil.bookmarkOff(this.onRequestCallbackWithUpdate.bind(this), this.state.id);
-      this.state.bookmarked = false;
     } else {
-      UserUtil.bookmarkOn(this.onRequestCallbackWithUpdate.bind(this), this.state.id)
-      this.state.bookmarked = true;
+      UserUtil.bookmarkOn(this.onRequestCallbackWithUpdate.bind(this), this.state.id);
     }
   }
 
@@ -357,7 +355,12 @@ class UserProfile extends Component {
           ref={(component) => { this.navBar = component; }}
           style={[styles.customNavBar, { opacity: 0 }]}
         >
-          <TouchableOpacity onPress={() => Actions.pop()}>
+          <TouchableOpacity
+            onPress={() => {
+              Actions.pop();
+              setTimeout(() => Actions.refresh(), 20);
+            }}
+          >
             <View style={{ alignItems: 'flex-start' }}>
               <Image
                 style={styles.customNavBarLeft}

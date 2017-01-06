@@ -272,7 +272,6 @@ const AppProps = {
     {
       key: 'userProfile',
       component: UserProfile,
-      hideBackImage: false,
       direction: 'fade',
       duration: 500,
       hideNavBar: true,
