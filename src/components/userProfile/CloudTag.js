@@ -39,19 +39,19 @@ export default class CloudTag extends Component {
     });
 
     const maxPoint = tagList[0].point;
-    let flag = true;
+    let switchFlag = true;
     tagList.map((item, key) => {
       if (maxPoint === item.point) {
         result.push(item);
         return;
       }
 
-      if (flag) {
+      if (switchFlag) {
         result.unshift(item);
-        flag = false;
+        switchFlag = false;
       } else {
         result.push(item);
-        flag = true;
+        switchFlag = true;
       }
     });
 
