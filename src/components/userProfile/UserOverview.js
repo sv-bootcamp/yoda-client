@@ -86,7 +86,10 @@ class UserOverview extends Component {
           }}
           >
             <Text
-              style={{ marginRight: dimensions.widthWeight * 45 }}
+              style={{
+                marginRight: dimensions.widthWeight * 45,
+                fontSize: dimensions.fontWeight * 14,
+              }}
               ellipsizeMode={'tail'}
               numberOfLines={2}>
               {this.state.about}
