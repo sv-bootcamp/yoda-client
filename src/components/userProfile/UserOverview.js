@@ -91,26 +91,15 @@ class UserOverview extends Component {
           }}
         >
           <Text
-            style={{ marginRight: dimensions.widthWeight * 45 }}
+            style={{
+              marginRight: dimensions.widthWeight * 45,
+              fontSize: dimensions.fontWeight * 14,
+            }}
             ellipsizeMode={'tail'}
             numberOfLines={2}
           >
-            <Text
-              style={{
-                marginRight: dimensions.widthWeight * 45,
-                fontSize: dimensions.fontWeight * 14,
-              }}
-              ellipsizeMode={'tail'}
-              numberOfLines={2}>
-              {this.state.about}
-            </Text>
-          </View>
-          {this.state.needEllipsize ?
-            (<TouchableOpacity onPress={this.props.toggleAbout}>
-              <Text style={styles.expandText}>
-                Read more
-              </Text>
-            </TouchableOpacity>) : null}
+            {this.state.about}
+          </Text>
         </View>
         { ReadMore }
       </View>
