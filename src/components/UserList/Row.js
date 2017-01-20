@@ -218,11 +218,15 @@ class Row extends Component {
 
     if (this.state.bookmarked) {
       bookmarkImage = (
-        <Image style={styles.bookmarkIcon} source={require('../../resources/icon-bookmark-fill.png')}/>
+        <Image
+          style={styles.bookmarkIcon}
+          source={require('../../resources/icon-bookmark-fill.png')} />
       );
     } else {
       bookmarkImage = (
-        <Image style={styles.bookmarkIcon} source={require('../../resources/icon-bookmark.png')}/>
+        <Image
+          style={styles.bookmarkIcon}
+          source={require('../../resources/icon-bookmark.png')} />
       );
     }
 
@@ -250,13 +254,15 @@ class Row extends Component {
           <View style={styles.connectBtnContainer}>
             {connectButton}
           </View>
-          <View style={{
-            width: CARD_WIDTH,
-            height: 10,
-            position: 'absolute',
-            top: dimensions.widthWeight * 182,
-            backgroundColor: 'white',
-          }}/>
+          <View
+            style={{
+              width: CARD_WIDTH,
+              height: 10,
+              position: 'absolute',
+              top: dimensions.widthWeight * 182,
+              backgroundColor: 'white',
+            }}
+          />
         </View>
       </TouchableWithoutFeedback>
     );
