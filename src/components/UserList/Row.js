@@ -149,7 +149,7 @@ class Row extends Component {
       </View>
     );
   }
-  
+
   onRequestCallback(result, error) {
     if (error) {
       Alert.alert('Error on Bookmark', error);
@@ -162,7 +162,7 @@ class Row extends Component {
   sendRequest() {
     Actions.requestPage({ id: this.props.dataSource._id, me: this.props.dataSource.me });
   }
-  
+
   setBookmark() {
     if (this.state.bookmarked) {
       UserUtil.bookmarkOff(this.onRequestCallback.bind(this), this.props.dataSource._id);
@@ -213,9 +213,9 @@ class Row extends Component {
         </TouchableOpacity>
       );
     }
-    
+
     let bookmarkImage = null;
-    
+
     if (this.state.bookmarked) {
       bookmarkImage = (
         <Image style={styles.bookmarkIcon} source={require('../../resources/icon-bookmark-fill.png')}/>
@@ -250,6 +250,13 @@ class Row extends Component {
           <View style={styles.connectBtnContainer}>
             {connectButton}
           </View>
+          <View style={{
+            width: CARD_WIDTH,
+            height: 10,
+            position: 'absolute',
+            top: dimensions.widthWeight * 182,
+            backgroundColor: 'white',
+          }}/>
         </View>
       </TouchableWithoutFeedback>
     );
@@ -266,7 +273,7 @@ const styles = StyleSheet.create({
     width: CARD_WIDTH,
     marginRight: CARD_MARGIN,
     justifyContent: 'center',
-    borderRadius: 4,
+    borderRadius: 5,
     ...Platform.select({
       ios: {
         height: CARD_HEIGHT,
@@ -292,9 +299,9 @@ const styles = StyleSheet.create({
     top: dimensions.heightWeight * 20,
   },
   photo: {
-    height: dimensions.heightWeight * 182,
+    height: dimensions.heightWeight * 187,
     width: dimensions.widthWeight * 303,
-    borderRadius: 2,
+    borderRadius: 5,
   },
   userInformation: {
     flex: 1,
@@ -305,7 +312,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: dimensions.fontWeight * 22,
     fontWeight: 'bold',
-    marginTop: dimensions.heightWeight * 25,
+    marginTop: dimensions.heightWeight * 20,
     marginLeft: dimensions.widthWeight * 25,
     color: '#2e3031',
   },
